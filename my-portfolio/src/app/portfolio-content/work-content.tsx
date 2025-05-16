@@ -1,26 +1,33 @@
+
+import madleen_img from '@/assets/madleen-project.png';
+import fenzacci_v_1 from '@/assets/fenzacci.jpeg';
+import fenz from '@/assets/fenz.jpeg';
+
+
 export const projectsInfo = [
   {
-    title: "E-Commerce Platform",
-    description: "Full-featured online store with payment integration, inventory management, and admin dashboard built with Django and React.",
-    tags: ["Django", "React", "Stripe", "PostgreSQL"],
-    image: "/images/ecommerce.jpg",
+    title: "Modern E-Commerce Stack with Django, React",
+    description: "A modern, full-featured e-commerce platform built with a Django REST API backend and a dynamic React/Redux frontend. Includes advanced functionality such as product  management , user authentication, admin dashboard, email notifications, and third-party payment gateway integration for secure transactions.",
+    tags: ["Django", "Django REST Framework", "React", "Redux"],
+    image:fenzacci_v_1,
     demoUrl: "#",
-    codeUrl: "#"
+    // codeUrl: "#"  
   },
   {
-    title: "AI Content Generator",
-    description: "SaaS platform leveraging OpenAI API to create marketing content with custom templates and branding.",
-    tags: ["Next.js", "FastAPI", "OpenAI", "Tailwind"],
-    image: "/images/ai-generator.jpg",
+    title: "Advanced E-Commerce Platform",
+    description: "A fully customized e-commerce platform built with Django and Django REST Framework, featuring dynamic product filtering (by color, size), user authentication, shopping cart, wishlist, order management, payment integration and email notifications. Includes an admin panel for complete backend control and is deployed on a DigitalOcean server.",
+    tags: ["Django", "Django REST Framework", "HTML", "CSS"],
+    image:fenz, 
     demoUrl: "#",
-    codeUrl: "#"
+    // codeUrl: "#"
   },
   {
-    title: "Portfolio Builder",
-    description: "Interactive tool that helps developers create and customize their portfolio websites with minimal coding.",
-    tags: ["React", "Node.js", "Framer Motion", "Firebase"],
-    image: "/images/portfolio-builder.jpg", 
+    title: "E-Commerce Store",
+    description: "A fully functional e-commerce website built by converting a custom PSD design into a responsive frontend using HTML and CSS, and integrating it with a Django backend for product management, cart functionality, and user authentication.",
+    tags: ["Django", "HTML", "CSS", "PSD to HTML"],
+    image: madleen_img,
     demoUrl: "#",
-    codeUrl: "#"
+    // codeUrl: "#"
   }
+
 ];

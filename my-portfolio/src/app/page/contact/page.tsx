@@ -1,11 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import BasicLayout from '@/components/BasicLayout';
 import { FormEvent } from 'react';
-import { contactInfo } from '@/app/portfolio-content/contact-content';
-import { formFields } from '@/app/portfolio-content/contact-content';
+import { contactInfo,formFields } from '@/app/portfolio-content/contact-content';
 
 
 

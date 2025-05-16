@@ -4,8 +4,13 @@ const myServices = [
     icon: "💻", // Add emoji/icons
     subheading: "From concept to deployment",
     content:
-      "I craft blazing-fast web applications with React.js frontends and Django backends. Your users will enjoy buttery-smooth interfaces powered by robust APIs and optimized databases.",
-    highlights: ["React.js/Django stack", "API development", "Database design", "Progressive Web Apps"]
+      "I developed fast, modern websites from start to finish. I handle everything—powerful backends, smooth frontends, and cloud hosting—while making sure your site loads quickly, ranks well on Google, and looks great on any device",
+    highlights: [
+      "Python (Django REST/FastAPI) + (React/Next.js)",
+      "Payment Gateway & Third-Party API Integration",
+      "Cloud Deployment & Database Optimization",
+      "SEO-Optimized High-Performance "
+    ]
   },
   {
     title: "Design-to-Code Conversion",
@@ -13,15 +18,24 @@ const myServices = [
     subheading: "Pixel-perfect implementation",
     content:
       "Your Figma/PSD designs transformed into responsive, accessible websites with 100% design fidelity. I obsess over spacing, typography, and micro-interactions.",
-    highlights: ["Figma/PSD/XD", "Mobile-first CSS", "Animation integration", "Cross-browser tested"]
+    highlights: [
+      "Figma/XD/PSD to React",
+      "Mobile-First Tailwind/CSS",
+      "Advanced Animations",
+      "Cross-Browser Perfect"
+    ]
   },
   {
-    title: "API & Automation",
+    title: "Python API & System Integration",
     icon: "⚙️",
-    subheading: "Make your tools work together",
-    content:
-      "Custom API integrations that connect your CRM, ERP, or marketing tools. Automated workflows that eliminate repetitive tasks and reduce human error.",
-    highlights: ["REST/GraphQL", "Webhooks", "Zapier alternatives", "Custom middleware"]
+    subheading: "Seamless Backend Engineering",
+    content: "Custom API solutions using Django REST Framework and FastAPI to connect business systems (CRM, ERP, e-commerce) with secure third-party integrations and automated workflows.",
+    highlights: [
+      "Django REST & FastAPI",
+      "Payment/Shipping APIs",
+      "AWS Serverless Automation",
+      "Real-time Webhooks"
+    ]
   },
   {
     title: "AI Integration",

@@ -24,7 +24,7 @@ export default function Resume() {
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] }},
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
     exit: { opacity: 0, y: -10 }
   };
 
@@ -42,11 +42,11 @@ export default function Resume() {
           className="space-y-8"
         >
           <div className=" backdrop-blur-sm p-6 rounded-2xl border border-gray-100 shadow-sm">
-        <h2 className="text-3xl font-bold text-gray-900">
-          <span className="text-emerald-600 group-hover:text-emerald-800 transition-colors duration-300">
-            {section.title}
-          </span>
-        </h2>
+            <h2 className="text-3xl font-bold text-gray-900">
+              <span className="text-emerald-600 group-hover:text-emerald-800 transition-colors duration-300">
+                {section.title}
+              </span>
+            </h2>
             <p className="text-gray-600 mt-2 max-w-3xl leading-relaxed">
               {section.summary}
             </p>
