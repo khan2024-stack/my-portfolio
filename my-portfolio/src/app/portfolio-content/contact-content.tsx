@@ -28,6 +28,6 @@ export  const contactInfo = [
 
 export const formFields = [
   { id: 'name', type: 'text', label: 'Name', placeholder: 'Your name' },
-  { id: 'email', type: 'email', label: 'Email', placeholder: 'your.email@example.com' },
-  { id: 'subject', type: 'text', label: 'Subject', placeholder: "What's this about?" },
+  { id: 'email', type: 'email', label: 'Email', placeholder: 'Your email' },
+  { id: 'message', type: 'textarea', label: 'Message', placeholder: 'Your message here...' },
 ];

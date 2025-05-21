@@ -2,17 +2,60 @@
 
 import { motion } from 'framer-motion';
 import BasicLayout from '@/components/BasicLayout';
-import { FormEvent } from 'react';
-import { contactInfo,formFields } from '@/app/portfolio-content/contact-content';
+import { FormEvent, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
+import { contactInfo, formFields } from '@/app/portfolio-content/contact-content';
 
+emailjs.init('M5qXOrar-RdGHXDzY');
 
 export default function Contact() {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add form submission logic here
+  interface ContactForm {
+    name?: string;
+    email?:string;
+    message?: string;
+  }
+
+  const [contactForm, setContactForm] = useState<ContactForm>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (e: any) => {
+    const { id, value } = e.target;
+    setContactForm((prevContactFormData) => ({
+      ...prevContactFormData,
+      [id]: value,
+    }));
+    console.log('form data :', JSON.stringify(contactForm, null, 2));
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const templateParams = {
+      name: contactForm.name,
+      email: contactForm.email,
+      message: contactForm.message,
+    };
+
+    emailjs.send('service_ic0bzb5', 'template_9h4ofh3', templateParams)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setIsSubmitting(false);
+        alert('Message sent successfully!');
+        setContactForm({
+          name: '',
+          email:'',
+          message: '',
+        });
+      }, (err) => {
+        console.log('FAILED...', err);
+        setIsSubmitting(false);
+        alert('Failed to send message. Please try again!');
+      });
+  };
+
+  
   return (
     <BasicLayout>
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -42,37 +85,37 @@ export default function Contact() {
               <h2 className="text-2xl font-semibold text-gray-800">Send us a message</h2>
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                {formFields.map(({ id, type, label, placeholder }) => (
-                  <div key={id}>
-                    <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
-                      {label}
+                {formFields.map((field) => (
+                  <div key={field.id}>
+                    <label htmlFor={field.id} className="block text-sm font-medium text-gray-700 mb-1">
+                      {field.label}
                     </label>
-                    <input
-                      type={type}
-                      id={id}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-500"
-                      placeholder={placeholder}
-                    />
+                    {field.type === 'textarea' ? (
+                      <textarea
+                        id={field.id}
+                        onChange={handleInputChange}
+                        rows={4}
+                        className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-500"
+                        placeholder={field.placeholder}
+                      />
+                    ) : (
+                      <input
+                        type={field.type}
+                        id={field.id}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-500"
+                        placeholder={field.placeholder}
+                      />
+                    )}
                   </div>
                 ))}
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1 ">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-500"
-                    placeholder="Your message here..."
-                  />
-                </div>
-
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium rounded-lg hover:shadow-lg transition-all hover:scale-105"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </motion.div>
