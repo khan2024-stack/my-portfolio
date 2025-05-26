@@ -1,73 +1,84 @@
 import myServices from "@/app/portfolio-content/services-content";
 import BasicLayout from "@/components/BasicLayout";
+import {
+  heading,
+  paragraph,
+  card,
+  services,
+  layout,
+} from "@/lib/styles";
 
 export default function Services() {
   return (
     <BasicLayout>
-      <div className="max-w-7xl mx-auto py-8">
-        <div className="text-center mb-6 sm:mb-16">
-          <span className="inline-block bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-600 px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4 tracking-wider shadow-sm">
-            ✨ Premium Services
-          </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-800 to-emerald-600"
-            style={{
-              color: '#065f46', // emerald-800 as fallback
-              WebkitTextFillColor: 'transparent', // Ensures gradient works on Webkit browsers
-              backgroundImage: 'linear-gradient(to right, #1f2937, #059669)', // from-gray-800 to-emerald-600 in hex
-            }}>
+      <div className={`${layout.container.default} ${layout.spacing.py.lg}`}>
+        {/* Section Header */}
+        <div
+          className={`${layout.flex.col} ${layout.flex.center} text-center m-4`}
+        >
+          <h1 className={`${heading.sectionWithGradient}`}>
             Digital Solutions
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
-            Where innovative technology meets exceptional user experiences
+          <p
+            className={`${paragraph.base} m-3`}
+          >
+            Where innovative technology meets exceptional
+             user experiences
           </p>
         </div>
 
-        {/* Service Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Service Cards Grid */}
+        <div className={`${layout.grid.threeCol} ${layout.spacing.px.lg}`}>
           {myServices.map((service, index) => (
             <div
               key={index}
-              className="group relative bg-white rounded-none lg:rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 hover:border-emerald-200 overflow-hidden"
+              className={`${card.base} ${services.card} group relative`}
             >
-              {/* Top Glow Accent */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* Accent Line on Hover */}
+              <div className={services.accentLine} />
 
-              <div className="p-6 sm:p-7">
-                {/* Icon and Title */}
-                <div className="flex items-center mb-3">
-                  <div className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 text-emerald-600 mr-4 group-hover:rotate-6 transition-transform duration-300 shadow-inner">
+              <div className={`${card.contentWrapper} p-6 sm:p-7`}>
+                {/* Icon + Title */}
+                <div
+                  className={`${layout.flex.row} ${layout.flex.alignCenter} ${layout.spacing.mb.sm}`}
+                >
+                  <div className={services.iconContainer}>
                     <span className="text-xl sm:text-2xl">{service.icon}</span>
                   </div>
-                  <h2 className="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors">
+                  <h2 className={`${card.title} group-hover:text-emerald-700`}>
                     {service.title}
                   </h2>
                 </div>
 
-                <h3 className="text-xs sm:text-sm font-semibold text-emerald-500 mb-3 tracking-wide">
+                {/* Subheading */}
+                <h3 className="text-xs sm:text-sm font-semibold text-emerald-500 mb-3 uppercase tracking-wide">
                   {service.subheading}
                 </h3>
 
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  {service.content}
-                </p>
-                
-                <div className="space-y-2">
+                {/* Description */}
+                <p className={`${card.description} mb-4`}>{service.content}</p>
+
+                {/* Highlights */}
+                <ul className={`space-y-2 ${layout.spacing.mb.md}`}>
                   {service.highlights.map((highlight, i) => (
-                    <div key={i} className="flex items-start text-sm text-gray-700">
-                      <div className="w-2.5 h-2.5 mt-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+                    <li
+                      key={i}
+                      className={`${layout.flex.row} ${layout.flex.alignStart} text-sm text-gray-700`}
+                    >
+                      <div className="w-2.5 h-2.5 mt-1.5 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse" />
                       <span className="ml-3">{highlight}</span>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
-              <div className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-100/30 to-teal-100/30 blur-sm"></div>
+              {/* Background Glow Effect */}
+              <div className={services.cardHoverGlow}>
+                <div className={services.cardBlurGlow}></div>
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </BasicLayout>
   );

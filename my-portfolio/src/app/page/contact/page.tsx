@@ -42,7 +42,6 @@ export default function Contact() {
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
         setIsSubmitting(false);
-        alert('Message sent successfully!');
         setContactForm({
           name: '',
           email:'',

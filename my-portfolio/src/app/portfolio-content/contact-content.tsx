@@ -1,28 +1,20 @@
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 
-
-
 export  const contactInfo = [
   {
     icon: <FiPhone className="w-5 h-5" />,
     title: 'Phone',
-    value: '+1 (555) 123-4567',
+    value: '+971 547610315',
   },
   {
     icon: <FiMail className="w-5 h-5" />,
     title: 'Email',
-    value: 'contact@example.com',
+    value: 'sajjadk546@gmail.com',
   },
   {
     icon: <FiMapPin className="w-5 h-5" />,
     title: 'Address',
-    value: (
-      <>
-        123 Tech Street<br />
-        San Francisco, CA 94107<br />
-        United States
-      </>
-    ),
+    value: " Baghbanan road phandu chock , khattak pul ,peshawar",
   },
 ];
 
