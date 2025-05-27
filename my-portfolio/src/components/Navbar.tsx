@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 // Import styles from global style library
 import { navLink, socialLink, layout } from '@/lib/styles';

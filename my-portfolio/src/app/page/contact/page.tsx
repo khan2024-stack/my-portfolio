@@ -19,13 +19,12 @@ export default function Contact() {
   const [contactForm, setContactForm] = useState<ContactForm>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setContactForm((prevContactFormData) => ({
       ...prevContactFormData,
       [id]: value,
     }));
-    console.log('form data :', JSON.stringify(contactForm, null, 2));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -42,6 +41,7 @@ export default function Contact() {
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
         setIsSubmitting(false);
+        alert('Message sent successfully!');
         setContactForm({
           name: '',
           email:'',

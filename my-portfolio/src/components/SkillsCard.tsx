@@ -1,7 +1,9 @@
 // SkillsCard.tsx
 import { motion } from 'framer-motion';
 
-const SkillsCard = ({ group }: any) => (
+import type { SkillGroup } from '@/types/resume.types';
+
+const SkillsCard = ({ group }: { group: SkillGroup }) => (
   <motion.div
     whileHover={{ y: -3 }}
     className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"

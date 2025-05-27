@@ -2,7 +2,13 @@
 import { FiCheckCircle } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
-const ExperienceCard = ({ exp }: any) => (
+import type { Experience } from '@/types/resume.types';
+
+interface ExperienceCardProps {
+  exp: Experience;
+}
+
+const ExperienceCard = ({ exp }: ExperienceCardProps) => (
   <motion.div
     whileHover={{ y: -3 }}
     className="group bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border-t-[3px] border-emerald-400"
