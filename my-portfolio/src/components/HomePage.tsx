@@ -73,13 +73,13 @@ function IntroSection() {
         <h2 className={heading.section}>Full Stack Engineer</h2>
 
         {/* Primary Heading */}
-        <h1 className={heading.primary}>Hello I'm</h1>
+        <h1 className={heading.primary}>{`Hello I'm`}</h1>
 
         {/* Name Highlight */}
         <h1 className={heading.name}>Muhammad Sajjad</h1>
 
         {/* Bio Paragraph */}
-        <p className={`${paragraph.base} text-justify `}>
+        <p className={`${paragraph.base} text-justify`}>
           Building Scalable, High-Performance Web Applications 7+ years of
           expertise in end-to-end development, from backend architecture
           (Python, Django, FastAPI) to modern frontends (React.js, Next.js).
@@ -87,7 +87,6 @@ function IntroSection() {
           SEO-optimized websites—delivering secure, fast, and user-centric
           solutions.
         </p>
-
         {/* Action Bar */}
         <ActionBar />
       </div>

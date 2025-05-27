@@ -19,8 +19,9 @@ export default function Work() {
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
             My Recent Projects
           </h1>
+
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Here are some of the most recent and impactful projects I've built.
+            {`Here are some of the most recent and impactful projects I've built.`}
           </p>
         </motion.div>
 
