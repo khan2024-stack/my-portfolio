@@ -7,13 +7,13 @@ type IconMapType = {
 };
 
 const iconMap: IconMapType = {
-  'Name': <FiUser className="text-emerald-500" />,
-  'Phone Number': <FiPhone className="text-emerald-500" />,
-  'WhatsApp': <FiMessageSquare className="text-emerald-500" />,
-  'Nationality': <FiGlobe className="text-emerald-500" />,
-  'Email': <FiMail className="text-emerald-500" />,
-  'Freelance': <FiCheckCircle className="text-emerald-500" />,
-  'Languages Known': <FiGlobe className="text-emerald-500" />
+  'Name': <FiUser className="text-gray-500" />,
+  'Phone Number': <FiPhone className="text-gray-500" />,
+  'WhatsApp': <FiMessageSquare className="text-gray-500" />,
+  'Nationality': <FiGlobe className="text-gray-500" />,
+  'Email': <FiMail className="text-gray-500" />,
+  'Freelance': <FiCheckCircle className="text-gray-500" />,
+  'Languages Known': <FiGlobe className="text-gray-500" />
 };
 
 interface AboutItem {
@@ -36,7 +36,7 @@ const AboutCard: React.FC<AboutCardProps> = ({ items }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -5 }}
-      className="group bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-emerald-500"
+      className="group bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-gray-500"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Column */}
@@ -50,8 +50,8 @@ const AboutCard: React.FC<AboutCardProps> = ({ items }) => {
               className="flex items-start"
             >
               <div className="flex-shrink-0 mt-1 mr-4">
-                <div className="w-10 h-10 flex items-center justify-center bg-emerald-50 rounded-full">
-                  {iconMap[item.label] || <FiUser className="text-emerald-500" />}
+                <div className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full">
+                  {iconMap[item.label] || <FiUser className="text-gray-500" />}
                 </div>
               </div>
               <div className="flex-1">
@@ -75,8 +75,8 @@ const AboutCard: React.FC<AboutCardProps> = ({ items }) => {
               className="flex items-start"
             >
               <div className="flex-shrink-0 mt-1 mr-4">
-                <div className="w-10 h-10 flex items-center justify-center bg-emerald-50 rounded-full">
-                  {iconMap[item.label] || <FiUser className="text-emerald-500" />}
+                <div className="w-10 h-10 flex items-center justify-center bg-gray-50 rounded-full">
+                  {iconMap[item.label] || <FiUser className="text-gray-500" />}
                 </div>
               </div>
               <div className="flex-1">

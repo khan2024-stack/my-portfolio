@@ -1,25 +1,37 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import BasicLayout from '@/components/BasicLayout';
-import { FormEvent, useState } from 'react';
-import emailjs from '@emailjs/browser';
+import { motion } from "framer-motion";
+import BasicLayout from "@/components/BasicLayout";
+import { FormEvent, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { toast } from "react-hot-toast";
+import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 
-import { contactInfo, formFields } from '@/app/portfolio-content/contact-content';
+import {
+  contactInfo,
+  formFields,
+} from "@/app/portfolio-content/contact-content";
 
-emailjs.init('M5qXOrar-RdGHXDzY');
+emailjs.init("M5qXOrar-RdGHXDzY");
 
 export default function Contact() {
   interface ContactForm {
-    name?: string;
-    email?:string;
-    message?: string;
+    name: string;
+    email: string;
+    message: string;
   }
 
-  const [contactForm, setContactForm] = useState<ContactForm>({});
+  const [contactForm, setContactForm] = useState<ContactForm>({
+    name: '',
+    email: '',
+    message: '',
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = e.target;
     setContactForm((prevContactFormData) => ({
       ...prevContactFormData,
@@ -37,27 +49,31 @@ export default function Contact() {
       message: contactForm.message,
     };
 
-    emailjs.send('service_ic0bzb5', 'template_9h4ofh3', templateParams)
-      .then((response) => {
-        console.log('SUCCESS!', response.status, response.text);
+    emailjs.send("service_ic0bzb5", "template_9h4ofh3", templateParams).then(
+      (response) => {
         setIsSubmitting(false);
-        alert('Message sent successfully!');
-        setContactForm({
-          name: '',
-          email:'',
-          message: '',
+
+        toast.success("Message sent Successfully", {
+          icon: <FiCheckCircle className="text-emerald-500" />,
         });
-      }, (err) => {
-        console.log('FAILED...', err);
+        setContactForm({
+          name: "",
+          email: "",
+          message: "",
+        });
+      },
+      (err) => {
         setIsSubmitting(false);
-        alert('Failed to send message. Please try again!');
-      });
+        toast.error("Failed to send message. Please try again.", {
+          icon: <FiXCircle className="text-red-500" />,
+        });
+      }
+    );
   };
 
-  
   return (
     <BasicLayout>
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 pt-18">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,7 +88,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Content Wrapper */}
-        <div className="bg-gray-50 rounded-2xl shadow-sm p-8">
+        <div className="bg-gray-50 rounded-2xl shadow-sm p-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left - Contact Form */}
             <motion.div
@@ -81,17 +97,23 @@ export default function Contact() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="space-y-6"
             >
-              <h2 className="text-2xl font-semibold text-gray-800">Send us a message</h2>
+              <h2 className="text-2xl font-semibold text-gray-800">
+                Send us a message
+              </h2>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {formFields.map((field) => (
                   <div key={field.id}>
-                    <label htmlFor={field.id} className="block text-sm font-medium text-gray-700 mb-1">
+                    <label
+                      htmlFor={field.id}
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
                       {field.label}
                     </label>
-                    {field.type === 'textarea' ? (
+                    {field.type === "textarea" ? (
                       <textarea
                         id={field.id}
+                        value={contactForm[field.id as keyof ContactForm] || ""}
                         onChange={handleInputChange}
                         rows={4}
                         className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-500"
@@ -101,6 +123,7 @@ export default function Contact() {
                       <input
                         type={field.type}
                         id={field.id}
+                        value={contactForm[field.id as keyof ContactForm] || ""}
                         onChange={handleInputChange}
                         className="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-500"
                         placeholder={field.placeholder}
@@ -108,13 +131,12 @@ export default function Contact() {
                     )}
                   </div>
                 ))}
-
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium rounded-lg hover:shadow-lg transition-all hover:scale-105"
+                  className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:shadow-lg transition-all hover:scale-105"
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </motion.div>
@@ -126,7 +148,9 @@ export default function Contact() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="space-y-8"
             >
-              <h2 className="text-2xl font-semibold text-gray-800">Contact Information</h2>
+              <h2 className="text-2xl font-semibold text-gray-800">
+                Contact Information
+              </h2>
 
               <div className="space-y-6">
                 {contactInfo.map((item, index) => (
@@ -135,7 +159,9 @@ export default function Contact() {
                       {item.icon}
                     </div>
                     <div>
-                      <h3 className="text-lg font-medium text-gray-800">{item.title}</h3>
+                      <h3 className="text-lg font-medium text-gray-800">
+                        {item.title}
+                      </h3>
                       <p className="text-gray-600">{item.value}</p>
                     </div>
                   </div>

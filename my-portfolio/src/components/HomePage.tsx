@@ -35,16 +35,15 @@ export const socialLinks = [
     icon: <FaFacebook />,
   },
 ];
+
 function ActionBar() {
   return (
     <div className={actionBar.container}>
       {/* Download CV Button */}
-      <a href="/cv.pdf" download className={button.downloadCV}>
-        <div className="flex items-center justify-between w-full">
+      <a href="/cv.pdf" download className={`${button.downloadCV}`}>
           <span className="flex-1 text-center">Download CV</span>
           <div className="ml-4">
             <AiOutlineDownload className="group-hover:translate-y-0.5 transition-transform duration-300" />
-          </div>
         </div>
       </a>
 
@@ -77,9 +76,10 @@ function IntroSection() {
 
         {/* Name Highlight */}
         <h1 className={heading.name}>Muhammad Sajjad</h1>
+        
 
         {/* Bio Paragraph */}
-        <p className={`${paragraph.base} text-justify`}>
+        <p className={`${paragraph.base} text-justify `}>
           Building Scalable, High-Performance Web Applications 7+ years of
           expertise in end-to-end development, from backend architecture
           (Python, Django, FastAPI) to modern frontends (React.js, Next.js).
@@ -123,7 +123,7 @@ function ImageSection() {
 export default function HomePage() {
   return (
     <BasicLayout>
-      <div className="flex flex-col-reverse lg:flex-row pt-4 mb-4 px-16">
+      <div className="flex flex-col-reverse lg:flex-row pt-4 mb-8 px-2 md:px-16">
         <IntroSection />
         <ImageSection />
       </div>

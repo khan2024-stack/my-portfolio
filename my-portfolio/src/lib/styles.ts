@@ -20,9 +20,9 @@ export const card = {
   
   export const navLink = `
     relative inline-block px-3 py-2 text-sm font-bold text-gray-700 transition-colors
-    duration-300 hover:text-emerald-600
+    duration-300 hover:text-gray-800
     after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px]
-    after:w-0 after:bg-emerald-500 after:transition-all after:duration-300
+    after:w-0 after:bg-gray-500 after:transition-all after:duration-300
     hover:after:w-full hover:after:left-0
   `;
   
@@ -30,18 +30,53 @@ export const card = {
   
   export const button = {
     primary: "px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium rounded-lg hover:shadow-lg transition-all hover:scale-105",
-    downloadCV: "flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group text-sm",
+    downloadCV: `
+    /* FORCE DISPLAY (mobile fix) */
+    !inline-flex !visible !opacity-100
+    
+    /* LAYOUT */
+    items-center justify-center
+    gap-2
+    w-full xs:w-auto
+    min-w-[160px]
+    max-w-[180px]
+    mx-auto sm:mx-0
+    
+    /* YOUR GRADIENT COLORS */
+    bg-black from-emerald-500 to-teal-600
+    text-white
+    
+    /* SIZING */
+    px-6 py-3.5
+    rounded-full
+    
+    /* TEXT */
+    text-sm sm:text-[0.95rem]
+    font-medium
+    whitespace-nowrap
+    
+    /* EFFECTS */
+    shadow-md
+    hover:shadow-lg
+    transform
+    transition-all
+    duration-200
+    hover:scale-[1.03]
+    active:scale-[0.98]
+    
+    border-2 border-transparent
+  `,
   };
   
   export const heading = {
-    primary: "text-4xl md:text-4.5xl lg:text-5xl xl:text-5xl font-bold tracking-wide md:mb-2 text-gray-800",
-    name: "text-3xl sm:text-2xl md:text-3xl lg:text-3.5xl xl:text-4xl 2xl:text-5xl font-extrabold text-emerald-600 mb-4 tracking-wide drop-shadow",
+    primary: "text-4xl md:text-4.5xl lg:text-5xl xl:text-5xl font-bold tracking-wide  text-gray-800",
+    name: "text-3xl sm:text-2xl md:text-3xl lg:text-3.5xl xl:text-4xl 2xl:text-5xl font-extrabold text-gray-800 mb-4 tracking-wide drop-shadow",
     section: "text-2xl font-semibold text-gray-800",
-    sectionWithGradient: "text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-700 to-emerald-600",
+    sectionWithGradient: "text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight bg-clip-text text-black from-gray-900 via-gray-700 to-emerald-600",
   };
   
   export const paragraph = {
-    base: " text-xl  bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-700  to-emerald-600",
+    base: "text-xl text-gray-700", // Simple visible version
     resumeSummary: "text-gray-600 mt-2 max-w-3xl leading-relaxed",
   };
   
@@ -134,7 +169,7 @@ export const card = {
   
   export const basicLayout = {
     main: "md:min-h-screen flex flex-col bg-gray-300 lg:flex-row w-full max-w-full px-2 py-2 sm:px-2 2xl:px-[12%] bg-gray-50",
-    childrenWrapper: "flex-1 flex items-center justify-center bg-white",
+    childrenWrapper: "flex-1 w-full flex items-center justify-center bg-white [&>*]:max-w-full",
   };
   
   // ✨ New Layout Styles Here!

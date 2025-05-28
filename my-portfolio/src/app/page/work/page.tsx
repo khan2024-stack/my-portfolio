@@ -26,7 +26,7 @@ export default function Work() {
         </motion.div>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
           {projectsInfo.map((project, index) => (
             <motion.div
               key={index}
@@ -37,8 +37,7 @@ export default function Work() {
               className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg border border-gray-200 flex flex-col h-full transition-all duration-300"
             >
               {/* Image Container with Video Overlay */}
-              {/* Image Container with Clickable Video Icon */}
-              <div className="relative h-52 overflow-hidden bg-gray-50 group">
+              <div className="relative h-52  overflow-hidden bg-gray-50 group">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -81,7 +80,7 @@ export default function Work() {
                   {project.tags.map((tag, i) => (
                     <span
                       key={i}
-                      className="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors"
+                      className="inline-flex items-center px-3 py-1 text-xs font-medium font-semibold  rounded-full bg-gray-100 text-gray-700 hover:bg-emerald-100 transition-colors"
                     >
                       {tag}
                     </span>

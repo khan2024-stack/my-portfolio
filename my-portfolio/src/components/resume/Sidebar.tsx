@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection, isAn
     className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-100"
   >
     <h2 className="text-2xl font-bold text-gray-900 mb-3">
-      <span className="text-emerald-600 group-hover:text-emerald-800 transition-colors duration-300">
+      <span className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
         {resumeContent.whyHireMe.title}
       </span>
     </h2>
@@ -35,8 +35,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection, isAn
           onClick={() => !isAnimating && setActiveSection(key)}
           className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
             activeSection === key
-              ? 'bg-emerald-500 text-white shadow-sm'
-              : 'bg-white text-gray-700 border border-gray-200 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-200'
+              ? 'bg-gray-500 text-white shadow-sm'
+              : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:text-gray-700 hover:border-gray-200'
           }`}
         >
           <span className="truncate">{resumeContent.sections[key].title}</span>

@@ -6,7 +6,7 @@ import resumeContent from '@/app/portfolio-content/resume-content';
 import { AnimatePresence, motion } from 'framer-motion';
 import ExperienceCard from '@/components/resume/ExperienceCard';
 import EducationCard from '@/components/resume/EducationCard';
-import SkillsCard from '@/components/SkillsCard';
+import SkillsCard from '@/components/resume/SkillsCard';
 import AboutCard from '@/components/resume/AboutCard';
 import Sidebar from '@/components/resume/Sidebar';
 
@@ -50,7 +50,7 @@ export default function Resume() {
         >
           <div className="backdrop-blur-sm p-6 rounded-2xl border border-gray-100 shadow-sm">
             <h2 className="text-3xl font-bold text-gray-900">
-              <span className="text-emerald-600 group-hover:text-emerald-800 transition-colors duration-300">
+              <span className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
                 {section.title}
               </span>
             </h2>

@@ -44,7 +44,7 @@ function Logo() {
   return (
     <motion.div {...fadeInLeft} className="text-2xl font-bold tracking-wide">
       <Link href="/" className="group flex items-center">
-        <span className="text-emerald-600 group-hover:text-emerald-800 transition-colors duration-300">
+        <span className="text-gray-800 group-hover:text-gray-700 transition-colors duration-300">
           Sajjad
         </span>
       </Link>
