@@ -39,36 +39,34 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     const templateParams = {
       name: contactForm.name,
       email: contactForm.email,
       message: contactForm.message,
     };
-
-    emailjs.send("service_ic0bzb5", "template_9h4ofh3", templateParams).then(
-      (response) => {
-        setIsSubmitting(false);
-
-        toast.success("Message sent Successfully", {
-          icon: <FiCheckCircle className="text-emerald-500" />,
-        });
-        setContactForm({
-          name: "",
-          email: "",
-          message: "",
-        });
-      },
-      (err) => {
-        setIsSubmitting(false);
-        toast.error("Failed to send message. Please try again.", {
-          icon: <FiXCircle className="text-red-500" />,
-        });
-      }
-    );
+  
+    try {
+      const response = await emailjs.send("service_ic0bzb5", "template_9h4ofh3", templateParams);
+      console.log("Success:", response); // <-- used
+  
+      toast.success("Message sent Successfully", {
+        icon: <FiCheckCircle className="text-gray-500" />,
+      });
+  
+      setContactForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Error:", err); // <-- used
+  
+      toast.error("Failed to send message. Please try again.", {
+        icon: <FiXCircle className="text-red-500" />,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
