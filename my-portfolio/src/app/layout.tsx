@@ -5,7 +5,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { Toaster } from 'react-hot-toast'; 
 
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/nevbar/Navbar";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Welcome! Sajjad Portfolio",
+  title: " Muhammad Sajjad | Senior Full-Stack Engineer",
   description: "Building Scalable, High-Performance Web Applications 7+ years of expertise in end-to-end development, from backend architecture (Python, Django, FastAPI) to modern frontends (React.js, Next.js). Specialized in transforming Figma/PSD designs into responsive, SEO-optimized websites—delivering secure, fast, and user-centric solutions.",
 };
 

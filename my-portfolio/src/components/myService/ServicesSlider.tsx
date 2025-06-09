@@ -2,8 +2,8 @@
 
 import { useRef, useState } from "react";
 import { Service } from "@/types/services";
-import { ServiceCard } from "./ServiceCard";
-import { card, services} from "@/lib/styles"; // Added correct imports
+import { Cards } from "./Cards"; 
+import { cardStyle } from "./cards-style"; 
 
 export const ServicesSlider = ({ services: servicesData }: { services: Service[] }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -27,7 +27,7 @@ export const ServicesSlider = ({ services: servicesData }: { services: Service[]
   };
 
   return (
-    <div className="lg:hidden relative bg-gray-50 p-4 rounded-2xl mx-1 shadow-sm overflow-hidden">
+    <div className="lg:hidden relative bg-gray-50 md:p-4 rounded-2xl mx-1 shadow-sm overflow-hidden">
       {/* Edge Gradients */}
       {!atStart && (
         <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white via-white to-transparent z-10 pointer-events-none" />
@@ -40,7 +40,7 @@ export const ServicesSlider = ({ services: servicesData }: { services: Service[]
       {!atStart && (
         <button
           onClick={scrollLeft}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/80 backdrop-blur-md p-2 rounded-full shadow-lg hover:bg-white transition"
+          className="absolute left-1 top-1/2 -translate-y-1/2 z-20 bg-white/80 backdrop-blur-md p-2 rounded-full shadow-lg hover:bg-white transition"
           aria-label="Scroll left"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,7 +51,7 @@ export const ServicesSlider = ({ services: servicesData }: { services: Service[]
       {!atEnd && (
         <button
           onClick={scrollRight}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/80 backdrop-blur-md p-2 rounded-full shadow-lg hover:bg-white transition"
+          className="absolute right-1 top-1/2 -translate-y-1/2 z-20 bg-white/80 backdrop-blur-md p-2 rounded-full shadow-lg hover:bg-white transition"
           aria-label="Scroll right"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,15 +64,15 @@ export const ServicesSlider = ({ services: servicesData }: { services: Service[]
       <div
         ref={sliderRef}
         onScroll={handleScroll}
-        className="overflow-x-auto scrollbar-hide pb-4 px-1 -mx-1 "
+        className="overflow-x-auto scrollbar-hide pb-4 px-1 -mx-1"
       >
-        <div className="flex space-x-3 min-w-max  pr-2">
-          {servicesData.map((service,index) => (
+        <div className="flex space-x-3 min-w-max pr-1">
+          {servicesData.map((service, index) => (
             <div
               key={index}
-              className={`${card.base} ${services.card} group relative w-70 sm:w-80 flex-shrink-0 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}
+              className={`${cardStyle.cardMainWrapper} w-74 sm:w-80 flex-shrink-0`} // Using your card styles
             >
-              <ServiceCard service={service} />
+              <Cards service={service} />
             </div>
           ))}
         </div>

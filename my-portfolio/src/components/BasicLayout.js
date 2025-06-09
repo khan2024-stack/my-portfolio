@@ -1,4 +1,5 @@
-import { basicLayout } from "@/lib/styles";
+
+import { basicLayout } from "@/lib/central-styles";
 
 export default function BasicLayout({ children }) {
   return (

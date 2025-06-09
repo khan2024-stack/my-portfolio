@@ -1,13 +1,12 @@
-'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+'use client';
+import { useState, useCallback} from 'react';
 import Link from 'next/link';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import { motion, AnimatePresence } from 'framer-motion';
-// Import styles from global style library
-import { navLink, socialLink, layout } from '@/lib/styles';
+import { header } from './header-style';
 
-import { socialLinks } from './HomePage';
+import { socialLinks } from '@/app/portfolio-content/home-content';
 
 const NAV_ITEMS = [
   { name: 'Home', path: '/' },
@@ -27,7 +26,7 @@ interface NavLinkProps {
 
 function NavLink({ name, path, onClick }: NavLinkProps) {
   return (
-    <Link href={path} className={navLink} onClick={onClick}>
+    <Link href={path} className={header.navLink} onClick={onClick}>
       <span className="relative z-10">{name}</span>
     </Link>
   );
@@ -35,18 +34,10 @@ function NavLink({ name, path, onClick }: NavLinkProps) {
 
 // Logo with animation
 function Logo() {
-  const fadeInLeft = {
-    initial: { opacity: 0, x: -20 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.5 },
-  };
-
   return (
-    <motion.div {...fadeInLeft} className="text-2xl font-bold tracking-wide">
-      <Link href="/" className="group flex items-center">
-        <span className="text-gray-800 group-hover:text-gray-700 transition-colors duration-300">
-          Sajjad
-        </span>
+    <motion.div {...header.animations.logo} className={header.logo.container}>
+      <Link href="/">
+        <span className={header.logo.text}>Sajjad</span>
       </Link>
     </motion.div>
   );
@@ -54,14 +45,8 @@ function Logo() {
 
 // Desktop Navigation
 function DesktopNav() {
-  const fadeIn = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    transition: { delay: 0.2, duration: 0.5 },
-  };
-
   return (
-    <motion.nav {...fadeIn} className="hidden sm:flex space-x-4">
+    <motion.nav {...header.animations.desktopNav} className={header.nav.desktop.container}>
       {NAV_ITEMS.map((item) => (
         <NavLink key={item.name} {...item} />
       ))}
@@ -80,7 +65,7 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/30 backdrop-blur-lg z-40"
+            className={header.mobileMenu.overlay}
             onClick={onClose}
           />
 
@@ -89,36 +74,35 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 flex flex-col"
+            transition={header.animations.slideIn.transition}
+            className={header.mobileMenu.blurOverlay}
           >
-            <div className={`flex justify-between items-center ${layout.spacing.px.md} ${layout.spacing.py.sm} bg-white border-b border-gray-100`}>
-              <Logo />
+            <div className={header.mobileMenu.header}>
               <button
                 onClick={onClose}
-                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                className={header.nav.mobile.button}
                 aria-label="Close menu"
               >
-                <HiX className="text-2xl text-gray-700" />
+                <HiX className={header.nav.mobile.icon} />
               </button>
             </div>
 
-            <nav className={`flex flex-col p-4 bg-white flex-grow ${layout.wrapper.section}`}>
+            <nav className={header.mobileMenu.nav}>
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.name}
                   href={item.path}
                   onClick={onClose}
-                  className="px-4 py-4 text-lg font-medium text-gray-800 hover:bg-gray-50 rounded-lg transition-colors"
+                  className={header.mobileMenu.navItem}
                 >
                   {item.name}
                 </Link>
               ))}
             </nav>
 
-            <div className={`${layout.spacing.px.md} ${layout.spacing.py.md} bg-gray-50 border-t border-gray-100`}>
-              <p className="text-sm font-medium text-gray-600 mb-4">Connect with me:</p>
-              <Social className={socialLink} />
+            <div className={header.mobileMenu.footer}>
+              <p className={header.mobileMenu.footerText}>Connect with me:</p>
+              <Social />
             </div>
           </motion.div>
 
@@ -136,10 +120,9 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   );
 }
 
-// Social Icons Component
 function Social({ className = '' }: { className?: string }) {
   return (
-    <div className={`flex items-center space-x-6 ${className}`}>
+    <div className={`${header.social.container} ${className} `}>
       {socialLinks.map((social, index) => (
         <a
           key={index}
@@ -147,7 +130,7 @@ function Social({ className = '' }: { className?: string }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Follow me on ${social.icon.type.displayName || 'Social Media'}`}
-          className="text-gray-600 hover:text-emerald-600 transition-colors"
+          className={header.social.link}
         >
           {social.icon}
         </a>
@@ -159,50 +142,38 @@ function Social({ className = '' }: { className?: string }) {
 // Main Navbar Component
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
-    <header
-      className={`absolute top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-sm py-2' : 'bg-white/95 backdrop-blur-sm py-4'
-      } ${layout.wrapper.section}`}
-    >
-      <div className="2xl:px-[10%] px-6 w-full flex items-center justify-between h-12 ">
+     <header className={header.base}>
+   <div className={header.container}>
         {/* Left: Logo */}
-        <div className="flex-1">
+        <div className={header.logo.container}>
           <Logo />
         </div>
 
         {/* Center: Desktop Nav */}
-        <div className="hidden sm:flex flex-1 justify-center">
+        <div className={header.nav.desktop.container}>
           <DesktopNav />
         </div>
+
 
         {/* Right: Social Icons (Desktop) */}
         <div className="hidden sm:flex flex-1 justify-end">
           <Social className="text-gray-700" />
         </div>
-
+        
         {/* Hamburger Menu (Mobile) */}
-        <div className="sm:hidden">
+        <div className={header.nav.mobile.container}>
           <button
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className={header.nav.mobile.button}
             onClick={toggleMenu}
             aria-label="Open menu"
           >
-            <HiMenuAlt3 className="text-2xl text-gray-600" />
+            <HiMenuAlt3 className={header.nav.mobile.icon} />
           </button>
         </div>
       </div>
