@@ -94,18 +94,18 @@ export const homepage = {
         ].join(" "),
         imageContainer: [
             layout.flex.center,
-            "w-60 h-60 md:w-100 md:h-100",
+            "w-66 h-66 md:w-100 md:h-100",
             colors.primary.border, // border-emerald-800
             "border-4",
-            "rounded-full md:rounded-sm",
+            "rounded-sm",
             "overflow-hidden",
         ].join(" "),
         glow: [
-            "absolute rounded-full blur-3xl opacity-30 z-0 animate-pulse w-60 h-60 2xl:w-[36rem] 2xl:h-[36rem]",
+            "absolute blur-3xl opacity-30 z-0 animate-pulse w-66 h-66 2xl:w-[36rem] 2xl:h-[36rem]",
             "bg-emerald-200", // optional: centralize if reused
         ].join(" "),
         imageCard: [
-            "relative w-full rounded-sm md:h-[25rem] h-[15rem] max-w-lg",
+            "relative w-full  md:h-[25rem] h-[18rem] max-w-lg",
             layout.flex.center,
         ].join(" "),
     },
