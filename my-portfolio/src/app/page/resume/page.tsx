@@ -1,6 +1,6 @@
 // Resume.tsx
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BasicLayout from "@/components/BasicLayout";
 import resumeContent from "@/app/portfolio-content/resume-content";
