@@ -151,7 +151,7 @@ export const utilities = {
 
 export const basicLayout = {
   main: "md:min-h-screen flex flex-col bg-gray-100 lg:flex-row w-full max-w-full px-2 py-2 sm:px-2 2xl:px-[15%]  ",
-  childrenWrapper: "flex-1 w-full flex items-center justify-center bg-white [&>*]:max-w-full",
+  childrenWrapper: "flex-1 w-full text-gray-900 flex items-center justify-center bg-white [&>*]:max-w-full",
 };
 
 

@@ -36,7 +36,7 @@ export const homepage = {
             layout.flex.col,
             layout.flex.end,
             spacing.py.md,
-            "pl-0 md:pl-20 w-full text-center",
+            "pl-0 md:p-8 w-full text-center",
         ].join(" "),
         h4: [
             typography.heading[4],

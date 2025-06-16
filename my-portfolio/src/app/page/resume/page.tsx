@@ -9,6 +9,7 @@ import EducationCard from '@/components/resume/EducationCard';
 import SkillsCard from '@/components/resume/SkillsCard';
 import AboutCard from '@/components/resume/AboutCard';
 import Sidebar from '@/components/resume/Sidebar';
+import PageHeader from '@/components/pagesHeader/PageHeader';
 
 import type {
   Experience,
@@ -49,6 +50,7 @@ export default function Resume() {
           className="space-y-8"
         >
           <div className="backdrop-blur-sm p-6 rounded-2xl border border-gray-100 shadow-sm">
+            <PageHeader page="myResume"/>
             <h2 className="text-3xl font-bold text-gray-900">
               <span className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
                 {section.title}

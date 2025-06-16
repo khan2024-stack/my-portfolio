@@ -14,4 +14,9 @@ export const pageHeaders = {
     description:
       "Have questions or want to work together? Get in touch!",
   },
+  myResume:{
+    title:"My Professional Journey",
+    description:
+    "Over 7 years, I have successfully developed and launched web applications that combine quality, performance, and timely delivery.",
+  },
 };

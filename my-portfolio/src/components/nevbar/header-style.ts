@@ -27,7 +27,7 @@ export const header = {
 
 // Base header styles (updated)
   base: [
-    "absolute md:relative top-0 w-full z-50 backdrop-blur-sm bg-white/90",
+    "absolute md:relative top-0 w-full z-50 backdrop-blur-sm bg-white/90 text-gray-900 ",
     utilities.transition.base
   ].join(" "),
 

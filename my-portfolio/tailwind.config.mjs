@@ -8,18 +8,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: '#ffffff',   // white background
+        foreground: '#000000',   // black text
       },
       screens: {
-      xs: '320px',
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
+        xs: '320px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
       },
     },
   },
-  
+  darkMode: 'media', // or 'class' if you want manual dark mode toggle
   plugins: [],
 };
