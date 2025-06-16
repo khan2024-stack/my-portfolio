@@ -21,8 +21,8 @@ import type {
 } from '@/types/resume.types';
 
 // Styles
-import PageHeader from '@/components/pagesHeader/PageHeader';
-import { resumeStyle } from '@/components/resume/resumeStyle';
+import { resumeStyle } from './resumeStyle';
+import PageHeader from '../pagesHeader/PageHeader';
 
 type SectionKey = keyof typeof resumeContent.sections;
 

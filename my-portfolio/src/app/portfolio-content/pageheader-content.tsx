@@ -17,6 +17,6 @@ export const pageHeaders = {
   myResume:{
     title:"My Professional Journey",
     description:
-    "Over 7 years, I have successfully developed and launched web applications that combine quality, performance, and timely delivery.",
+    "Proven full-stack developer with 7+ years of experience delivering high-quality web applications on time and on budget.",
   },
 };

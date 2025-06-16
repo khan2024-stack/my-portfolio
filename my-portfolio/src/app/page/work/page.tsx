@@ -28,7 +28,7 @@ export default function Work() {
             items={projectsInfo}
             renderItem={(project, index) => <WorkCard key={index} project={project} />}
             itemWidth={320}
-                    fullWidthOnMobile={true}
+            fullWidthOnMobile={true}
           />
         </div>
       </div>
