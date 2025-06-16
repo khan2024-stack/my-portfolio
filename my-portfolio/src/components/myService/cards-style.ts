@@ -1,5 +1,4 @@
-import { layout, typography, colors, utilities } from "@/lib/central-styles";
-import { color } from "framer-motion";
+import { layout, typography, colors } from "@/lib/central-styles";
 
 export const cardStyle = {
   cardMainWrapper: [

@@ -32,13 +32,7 @@ const navItems: { key: SectionKey; label: string }[] = [
 
 export default function Resume() {
   const [activeSection, setActiveSection] = useState<SectionKey>("experience");
-  const [isAnimating, setIsAnimating] = useState(false);
 
-  useEffect(() => {
-    setIsAnimating(true);
-    const timer = setTimeout(() => setIsAnimating(false), 400);
-    return () => clearTimeout(timer);
-  }, [activeSection]);
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
