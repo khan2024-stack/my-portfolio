@@ -1,7 +1,6 @@
 // ExperienceCard.tsx
 import { FiCheckCircle } from 'react-icons/fi';
 import { motion } from 'framer-motion';
-
 import type { Experience } from '@/types/resume.types';
 
 interface ExperienceCardProps {
@@ -10,21 +9,26 @@ interface ExperienceCardProps {
 
 const ExperienceCard = ({ exp }: ExperienceCardProps) => (
   <motion.div
-    whileHover={{ y: -3 }}
-    className="group bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border-t-[3px] border-gray-400"
+    whileHover={{ y: -4, scale: 1.02 }}
+    transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+    className="group relative bg-white/70 backdrop-blur-lg p-6 md:p-8 rounded-2xl border border-gray-200 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.12)] transition-all"
   >
-    <div className="flex justify-between items-start">
-      <div>
-        <h3 className="text-xl font-semibold text-gray-800">{exp.position}</h3>
-        <p className="text-gray-600 font-medium mt-1">
-          {exp.company} • {exp.location} • {exp.duration}
-        </p>
-      </div>
+    {/* Gradient Top Border */}
+    <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-t-2xl" />
+
+    {/* Header Section */}
+    <div className="mb-4">
+      <h3 className="text-2xl font-semibold text-gray-900 tracking-tight">{exp.position}</h3>
+      <p className="text-sm md:text-base text-gray-600 font-medium mt-1">
+        <span className="text-gray-800">{exp.company}</span> • {exp.location} • {exp.duration}
+      </p>
     </div>
-    <ul className="mt-4 space-y-3 text-gray-700">
+
+    {/* Achievements */}
+    <ul className="space-y-3 text-gray-700 text-sm md:text-base">
       {exp.achievements.map((ach: string, j: number) => (
         <li key={j} className="flex items-start">
-          <FiCheckCircle className="flex-shrink-0 text-gray-500 mt-0.5 mr-3" />
+          <FiCheckCircle className="mt-1 text-blue-500 flex-shrink-0 mr-3" />
           <span>{ach}</span>
         </li>
       ))}

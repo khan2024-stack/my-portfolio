@@ -88,21 +88,16 @@ export default function Resume() {
         {/* Page Header */}
         <PageHeader page="myResume" />
 
-        {/* Horizontal Navigation */}
         <nav className={resumeStyle.horizentalNevbar}>
-          <div className="flex items-center justify-center w-full ml-8 md:ml-0 md:max-w-4xl ">
+          <div className="flex gap-2 min-w-max flex-nowrap">
             {navItems.map(({ key, label }) => (
-              <React.Fragment key={key}>
-                <button
-                  onClick={() => setActiveSection(key)}
-                  className={resumeStyle.navButton(activeSection === key)}
-                >
-                  {label}
-                </button>
-                {key !== navItems[navItems.length - 1].key && (
-                  <span className="text-gray-300 mx-1">|</span>
-                )}
-              </React.Fragment>
+              <button
+                key={key}
+                onClick={() => setActiveSection(key)}
+                className={resumeStyle.navButton(activeSection === key)}
+              >
+                {label}
+              </button>
             ))}
           </div>
         </nav>
