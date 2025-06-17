@@ -10,7 +10,7 @@ import {
 export const header = {
   // Custom NavLink style – moved from central-style
   navLink: `
-    relative inline-block px-3 py-2 text-sm font-medium
+    relative inline-block px-3 py-2 text-sm font-bold
     after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px]
     after:w-0 after:bg-gray-500 after:transition-all after:duration-300
     hover:after:w-full hover:after:left-0
@@ -33,7 +33,7 @@ export const header = {
 
   // Container for inner content
   container: [
-    "2xl:px-[10%]",
+    "2xl:px-[15%]",
     spacing.px.md,
     "flex items-center justify-between",
     "h-18 sticky"
