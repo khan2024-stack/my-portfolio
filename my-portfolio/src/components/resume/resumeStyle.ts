@@ -1,5 +1,5 @@
 // resumeStyle.ts
-import { layout, colors, spacing } from "@/lib/central-styles";
+import { layout, spacing } from "@/lib/central-styles";
 
 export const resumeStyle = {
   resumeMainWrapper: [
