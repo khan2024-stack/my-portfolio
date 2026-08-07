@@ -1,26 +1,858 @@
 @import "tailwindcss";
 
+/* ══════════════════════════════════════════════════════════════════════
+   MUHAMMAD SAJJAD — DESIGN SYSTEM
+   Every colour, font, radius and spacing value lives in :root below.
+   Change it here and it changes everywhere on the site.
+   ══════════════════════════════════════════════════════════════════════ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Surfaces ── */
+  --bg:        #F7F6F3;   /* page ground              */
+  --card:      #FFFFFF;   /* cards and panels         */
+  --soft:      #F1F0EC;   /* inset panels, image beds */
+  --dark:      #17171A;   /* contact block            */
+  --dark-2:    #1E1E21;   /* contact form side        */
+  --soft-2:    #ECEBE6;   /* inset panels on hover    */
+
+  /* ── Ink and hairlines on dark ──
+     The contact block used to be dark and these carried it. It is light
+     now, so the only dark surface left is the toast in layout.tsx,
+     which reads --dark, --on-dark and --line-dark. Measured on --dark:
+     --on-dark 14.9:1. The other two are kept for the next dark surface
+     rather than deleted and reinvented later. ── */
+  --on-dark:   #E6E4DF;   /* values, field text, toast text */
+  --on-dark-2: #A9A7A1;   /* body copy on dark        */
+  --on-dark-3: #87857F;   /* labels on dark           */
+  --line-dark: #2C2C2F;   /* hairlines on dark        */
+
+  /* ── Ink ── */
+  --ink:       #17171A;   /* headings, primary text   */
+  --ink-2:     #5E5D58;   /* body copy                */
+  /* #94928C measured only 2.9:1 on paper. This tier carries every 9–13px
+     label on the page — eyebrows, stack lines, image captions — which is
+     exactly the type that can least afford a weak grey. */
+  --ink-3:     #706E68;   /* labels, metadata         */
+  --line:      #E6E4DE;   /* borders                  */
+  --line-2:    #F0EEE9;   /* inner hairlines          */
+
+  /* ── Accent — one colour, used sparingly ── */
+  --accent:      #D8380D;
+  --accent-soft: #FBEDE8;
+
+  /* ── Type — three roles.
+        System faces first so Windows renders the intended design, with
+        the next/font families behind them for every other platform.
+
+        Each var() carries a fallback on purpose. A var() that resolves
+        to nothing makes the WHOLE custom property invalid at computed
+        value time, so the font stack silently collapses and everything
+        falls back to Tailwind's ui-sans-serif. ── */
+  --display: 'Bahnschrift', var(--nf-display, 'Arial Narrow'), Helvetica, Arial, sans-serif;
+  --font:    'Segoe UI Variable Text', 'Segoe UI', var(--nf-body, system-ui), -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  --mono:    'Cascadia Code', var(--nf-mono, 'SF Mono'), Consolas, ui-monospace, monospace;
+
+  /* ── Ink, accent and ground as raw channels ──
+     So a shadow or a tint can be built from the same colour the rest of
+     the page uses. Every translucent ink and accent value in this file
+     used to be a literal, which meant changing --accent left five glows
+     and six shadows behind on the old colour. ── */
+  --ink-rgb:    23, 23, 26;
+  --accent-rgb: 216, 56, 13;
+  --bg-rgb:     247, 246, 243;
+  --white:      #fff;
+
+  /* ── One card hover, used by every card on the page ──
+     This was six hand-tuned variants: four offset/blur triples, three
+     alphas, five transition sets and two lift distances, all doing the
+     same job of raising a white card off the paper. ── */
+  --lift:        -3px;
+  --shadow-card: 0 18px 40px -24px rgba(var(--ink-rgb), .28);
+  --t-card:      border-color .26s, box-shadow .3s var(--ease), transform .3s var(--ease);
+
+  /* ── Geometry & rhythm ──
+     Three radii, each with a job: cards, controls, pills. The file had
+     3/4/5/6/8px scattered with no token for anything but the largest. */
+  --r:      8px;   /* cards and panels        */
+  --r-sm:   6px;   /* buttons, inputs         */
+  --r-xs:   4px;   /* chips and small pills   */
+  --pad:    clamp(20px, 4vw, 64px);
+  --max:    1180px;
+  --gap:    clamp(16px, 1.8vw, 26px);
+  --band:   clamp(56px, 6vw, 104px);
+  --ease:   cubic-bezier(.22, .68, 0, 1.02);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ══════════════════════════════════════════════════════════════════════
+   BASE
+   ══════════════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+/* scroll-padding keeps anchor landings clear of the sticky 66px
+   masthead — without it a section heading arrives underneath it. */
+html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15.5px;
+  line-height: 1.68;
+  letter-spacing: -.008em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--pad); position: relative; }
+
+/* ── Display face — tracking tightens as size grows ── */
+h1, h2 { font-family: var(--display); font-stretch: 87.5%; font-weight: 700; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(3rem, 6.6vw, 4.75rem); letter-spacing: -.032em; line-height: .98; }
+h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); letter-spacing: -.026em; line-height: 1.02; }
+h3 { font-family: var(--font); font-size: 1.0625rem; font-weight: 700; letter-spacing: -.022em; line-height: 1.24; text-wrap: balance; margin: 0; }
+
+/* Every title sits on the display face — the same voice as the section
+   heading above it, so the page never switches typeface halfway down a
+   card. The base h3 above is now only a fallback.
+   The resume year used to sit in here too. On the rail it is stacked
+   directly above the role rather than beside it, so it drops to a mono
+   label and the role carries the card on its own. */
+.card h3, .step h3, .tl h3, .svc h3, .tst__name {
+  font-family: var(--display); font-stretch: 87.5%; font-weight: 700;
+  font-size: 1.25rem; letter-spacing: -.026em; line-height: 1.14;
+}
+p  { color: var(--ink-2); text-wrap: pretty; margin: 0; }
+
+/* ── Mono carries every label ──
+   One size and one tracking for all of them. The page previously ran
+   .5875/.625rem and .12/.14/.15/.16em tracking across labels doing the
+   same job — steps too small to read as intentional, so they read as
+   drift. Section eyebrows are set apart by the accent square in
+   .tagline, not by being a different size. */
+.eyebrow {
+  font-family: var(--mono); font-size: .5875rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
+  font-variant-numeric: tabular-nums; margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   MOTION
+   ══════════════════════════════════════════════════════════════════════ */
+@keyframes up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.in  { opacity: 0; animation: up .7s var(--ease) forwards; }
+.d1  { animation-delay: .04s; }
+.d2  { animation-delay: .12s; }
+.d3  { animation-delay: .20s; }
+
+.rv     { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: var(--d, 0ms); }
+.rv.on  { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .in { opacity: 1; animation: none; }
+  .rv { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   BUTTONS & LINKS
+   ══════════════════════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: .875rem; font-weight: 600;
+  padding: 12px 24px; border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  transition: background .22s, color .22s, border-color .22s, transform .22s var(--ease), box-shadow .26s;
+}
+/* Accent at rest, not on hover. The primary action was near-black and
+   only turned red once you were already pointing at it — the one place
+   on the page that most needs to be found was the last to use the brand
+   colour. The contact block used to override this class to accent,
+   which meant the same button was two different colours depending on
+   where it sat. White on --accent measures 4.68:1 at this size. */
+.btn--fill { background: var(--accent); border-color: var(--accent); color: var(--white); }
+.btn--fill:hover { background: var(--ink); border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(var(--ink-rgb), .45); }
+.btn--ghost { border-color: var(--line); color: var(--ink-2); background: var(--card); }
+.btn--ghost:hover { border-color: var(--ink-3); color: var(--ink); transform: translateY(-2px); box-shadow: 0 10px 24px -14px rgba(var(--ink-rgb), .35); }
+.arw { display: inline-block; transition: transform .26s var(--ease); }
+.btn:hover .arw { transform: translateX(3px); }
+
+.link { display: inline-flex; align-items: center; gap: 8px; font-size: .8125rem; font-weight: 600; color: var(--accent); transition: gap .22s var(--ease); }
+.link:hover { gap: 12px; }
+/* Fills the card foot: label hard left, arrow hard right. The gap grows
+   on the inline version; here the row is already full width, so the
+   arrow travels instead. */
+.link--wide { width: 100%; justify-content: space-between; gap: 12px; }
+.link--wide .arw { transition: transform .26s var(--ease); }
+.card:hover .link--wide .arw { transform: translateX(4px); }
+/* Accent is reserved for things you can act on — an unavailable state
+   must not borrow it, or the colour stops meaning anything. */
+.link--muted { color: var(--ink-3); font-weight: 600; }
+.link--muted:hover { gap: 8px; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   READING PROGRESS
+   ══════════════════════════════════════════════════════════════════════ */
+.progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--accent); z-index: 100; transition: width .1s linear; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════════════════════════════════ */
+.top {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(var(--bg-rgb), .9);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.top__in { max-width: var(--max); margin-inline: auto; padding-inline: var(--pad); height: 66px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+
+.logo { justify-self: start; font-family: var(--display); font-stretch: 87.5%; font-size: 1.375rem; font-weight: 700; letter-spacing: -.03em; }
+.logo--sm { font-size: 1.0625rem; }
+.logo i { font-style: normal; color: var(--accent); }
+
+.menu { justify-self: center; display: flex; }
+.menu a { position: relative; font-size: .875rem; font-weight: 500; color: var(--ink-2); padding: 8px 15px; transition: color .2s; }
+.menu a::after { content: ''; position: absolute; left: 15px; right: 15px; bottom: 0; height: 2px; border-radius: 1px; background: var(--accent); transform: scaleX(0); transition: transform .26s var(--ease); }
+.menu a:hover { color: var(--ink); }
+.menu a:hover::after, .menu a[aria-current]::after { transform: scaleX(1); }
+.menu a[aria-current] { color: var(--ink); font-weight: 600; }
+.top .btn { justify-self: end; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════════════════════════════════ */
+.hero { position: relative; padding-block: clamp(48px, 6vw, 88px) var(--band); }
+.hero::before {
+  content: ''; position: absolute; z-index: -1;
+  top: -120px; right: -8%; width: 640px; height: 640px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), .07), transparent 62%);
+  pointer-events: none;
+}
+.hero__grid { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero__role { font-family: var(--display); font-stretch: 87.5%; font-size: clamp(1.25rem, 1.9vw, 1.5rem); font-weight: 700; letter-spacing: -.022em; color: var(--accent); margin-top: 12px; }
+.hero .lead { font-size: 1.0625rem; line-height: 1.75; max-width: 44ch; margin-top: 18px; }
+.hero__acts { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+/* Portrait with an offset outline behind it */
+.photo { position: relative; }
+.photo::after { content: ''; position: absolute; inset: 0; translate: 14px 14px; z-index: 0; border: 1px solid var(--accent); opacity: .36; border-radius: var(--r); transition: translate .4s var(--ease); }
+.photo:hover::after { translate: 9px 9px; }
+.photo__in { position: relative; z-index: 1; aspect-ratio: 4/5; background: var(--soft); border: 1px solid var(--line); border-radius: var(--r); display: grid; place-items: center; overflow: hidden; }
+.photo__in img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   STATS
+   ══════════════════════════════════════════════════════════════════════ */
+.stats { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--gap); grid-auto-rows: 1fr; margin-top: clamp(36px, 4vw, 56px); }
+/* Same card language as Services: a solid accent bar capping the card
+   and the scattered-square texture behind it. The squares sit low and
+   right — the figure owns the top-left corner and nothing should
+   compete with it there. */
+.stat {
+  position: relative; background-color: var(--card);
+  background-image:
+    linear-gradient(rgba(var(--ink-rgb), .038), rgba(var(--ink-rgb), .038)),
+    linear-gradient(rgba(var(--ink-rgb), .026), rgba(var(--ink-rgb), .026)),
+    linear-gradient(rgba(var(--ink-rgb), .05),  rgba(var(--ink-rgb), .05));
+  background-size: 52px 52px, 30px 30px, 20px 20px;
+  background-position: 112% 14px, 78% 4px, 92% 52px;
+  background-repeat: no-repeat;
+  border: 1px solid var(--line); border-radius: var(--r);
+  padding: 22px 20px; overflow: hidden; display: flex; flex-direction: column;
+  transition: var(--t-card), background-position .55s var(--ease);
+}
+/* Full width at rest, like the service cards — the bar reads as part of
+   the card rather than a hover reward. Depth is the hover axis. */
+.stat::before { content: ''; position: absolute; left: 0; top: 0; height: 3px; width: 100%; background: var(--accent); transition: height .3s var(--ease); z-index: 2; }
+.stat:hover::before { height: 5px; }
+.stat:hover { border-color: var(--ink-3); transform: translateY(var(--lift)); box-shadow: var(--shadow-card); background-position: 108% 10px, 74% 0, 88% 48px; }
+/* The size lives on the wrapper so both children can use `em` against
+   the figure. Previously <u> was a SIBLING of <b>, so its `em` resolved
+   against the inherited 15.5px body size — the % rendered at 7px. */
+/* Up from clamp(2.5rem, 3.6vw, 3.125rem). These four figures are the
+   first evidence anyone meets, and at 50px they were smaller than the
+   section headings further down the page — which put the loudest type
+   on the least important content. */
+.stat__v {
+  display: inline-flex; align-items: flex-start; line-height: 1;
+  font-family: var(--display); font-stretch: 87.5%;
+  font-size: clamp(2.75rem, 4.2vw, 3.625rem);
+}
+.stat__v b { font-size: 1em; font-weight: 700; letter-spacing: -.045em; line-height: .86; font-variant-numeric: tabular-nums; }
+.stat__v u { text-decoration: none; color: var(--accent); font-weight: 700; font-size: .4em; line-height: 1; margin-left: .04em; margin-top: .06em; }
+.stat__k { display: block; font-size: .875rem; font-weight: 600; color: var(--ink); margin-top: 12px; line-height: 1.3; }
+.stat__src { display: block; font-size: .75rem; color: var(--ink-3); line-height: 1.5; margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--line); }
+.stat__src b { color: var(--ink-2); font-weight: 600; }
+
+/* ── Client strip ──
+   Deliberately quiet: a hairline row, no card, no accent bar. It sits
+   directly under four accent-capped stat cards, and a fifth bordered
+   box there would read as another statistic rather than as context. */
+.clients { display: flex; align-items: baseline; gap: clamp(16px, 2.4vw, 34px); flex-wrap: wrap; margin-top: clamp(22px, 2.4vw, 32px); padding-top: 20px; border-top: 1px solid var(--line); }
+.clients__k { flex-shrink: 0; font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.clients ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px clamp(18px, 2.2vw, 30px); margin: 0; padding: 0; }
+.clients li { display: flex; align-items: baseline; gap: 8px; font-size: .875rem; font-weight: 600; color: var(--ink); }
+/* The place sits beside the name rather than under it — one line per
+   client keeps the strip to a single row on a desktop width. */
+.clients li i { font-style: normal; font-size: .75rem; font-weight: 400; color: var(--ink-3); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SECTION HEAD
+   ══════════════════════════════════════════════════════════════════════ */
+.sec { padding-bottom: var(--band); }
+/* The footer already adds a band above itself — without this the last
+   section stacks two bands and the page ends on a hole. */
+.sec:last-of-type { padding-bottom: 0; }
+/* Every card block below now opens with a 3px accent bar at its top
+   left. The heading that introduces them had no such mark, so it read
+   as a different system from the cards underneath it. The section rule
+   takes the accent for its first 56px — same colour, same weight, same
+   left origin as the bars, without putting a sixth red line across the
+   full page width. */
+.sec__head { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: clamp(22px, 2.6vw, 34px); }
+.sec__head::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 56px; height: 3px; background: var(--accent); }
+.sec__head h2 { margin-top: 10px; }
+/* Was `.sec__head p`, which at 0-1-1 beat `.eyebrow` at 0-1-0 and blew
+   every section eyebrow up from 9.4px to 14px. Scoped to the lede. */
+.sec__lede { font-size: .875rem; max-width: 44ch; }
+.tagline { display: inline-flex; align-items: center; gap: 8px; }
+.tagline::before { content: ''; width: 7px; height: 7px; background: var(--accent); flex-shrink: 0; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   CARDS
+   ══════════════════════════════════════════════════════════════════════ */
+/* grid-auto-rows: 1fr makes every row match the tallest, so the second
+   row of cards can never sit shorter than the first. Without it each
+   row sizes to its own content and the block looks uneven. */
+.grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--gap); grid-auto-rows: 1fr; }
+
+/* Card inset rule for the whole page: 22px top and bottom on every
+   card, 24px at the sides on a 3-up grid and 20px on a 4-up one, so the
+   text inset tracks how much width the column actually has. It was
+   20/22/24 scattered across five card types with two of them
+   asymmetric — three values 2px apart, which nobody chose. */
+.card {
+  position: relative; overflow: hidden;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  display: flex; flex-direction: column;
+  transition: var(--t-card);
+}
+/* The padding moved off the card and onto this, so the project image
+   can run edge to edge. It was inset by 24px, which left a white margin
+   around every screenshot and made the pictures ~16% smaller than the
+   space available to them. */
+.card__in { padding: 22px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+
+/* Matches .svc__rule and .stat::before exactly: full width at rest,
+   3px to 5px on hover. It used to grow 0→100% width instead, so the
+   project cards were the only ones with no accent until you pointed at
+   them — and now that the chip is paper rather than accent, they had no
+   accent at all at rest. */
+.card::before { content: ''; position: absolute; left: 0; top: 0; height: 3px; width: 100%; background: var(--accent); transition: height .3s var(--ease); z-index: 3; }
+.card:hover::before { height: 5px; }
+.card:hover { border-color: var(--ink-3); box-shadow: var(--shadow-card); transform: translateY(var(--lift)); }
+.card > * { position: relative; z-index: 1; }
+/* Only the description grows. Without this, `.tech` is also a <p> and
+   also takes flex:1, so the free space in a short card gets split
+   between two elements and the gaps drift card to card. */
+.card p { font-size: .875rem; line-height: 1.68; flex: 1 1 auto; }
+/* `.card p` is 0-1-1 and beats a bare `.tech` at 0-1-0, so its size has
+   to be set at this specificity or the base rule silently wins and it
+   renders at 14px. */
+.card p.tech { flex: 0 0 auto; font-size: .6875rem; line-height: 1.5; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SERVICE CARDS — banded
+   A dark band carries the label and title where a picture would sit, so
+   each card has real weight without needing artwork. Scoped to .svc*
+   deliberately: .card is shared with the project grid below and must
+   not inherit any of this.
+   ══════════════════════════════════════════════════════════════════════ */
+.svcs { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--gap); grid-auto-rows: 1fr; }
+
+.svc {
+  position: relative; overflow: hidden;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  display: flex; flex-direction: column;
+  transition: var(--t-card);
+}
+.svc:hover { border-color: var(--ink-3); box-shadow: var(--shadow-card); transform: translateY(var(--lift)); }
+
+/* Scattered squares instead of a dot grid — five translucent ink
+   rectangles at different sizes, drifting toward the right of the band
+   so they sit behind empty space rather than behind the title. Drawn as
+   background layers, so there is no extra markup and nothing to load.
+   They shift right and deepen on hover. */
+.svc__band {
+  position: relative;
+  background-color: var(--soft);
+  background-image:
+    linear-gradient(rgba(var(--ink-rgb), .05),  rgba(var(--ink-rgb), .05)),
+    linear-gradient(rgba(var(--ink-rgb), .032), rgba(var(--ink-rgb), .032)),
+    linear-gradient(rgba(var(--ink-rgb), .06),  rgba(var(--ink-rgb), .06)),
+    linear-gradient(rgba(var(--ink-rgb), .028), rgba(var(--ink-rgb), .028)),
+    linear-gradient(rgba(var(--ink-rgb), .042), rgba(var(--ink-rgb), .042));
+  background-size: 58px 58px, 36px 36px, 24px 24px, 46px 46px, 30px 30px;
+  background-position: 100% -20px, 72% 54px, 84% 22px, 118% 40px, 62% -14px;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid var(--line);
+  /* Symmetric now the accent rule has moved to the card's top edge —
+     the extra 2px at the bottom existed to clear it. */
+  padding: 22px 24px;
+  transition: background-color .3s, background-position .55s var(--ease), border-color .3s;
+}
+.svc:hover .svc__band {
+  background-color: var(--soft-2);
+  background-position: 96% -16px, 68% 50px, 80% 18px, 114% 36px, 58% -10px;
+}
+
+/* Measured on the --soft band: --accent 4.10:1 and --ink-3 4.47:1 both
+   miss the 4.5 this size needs — --ink-3 only clears it on white. One
+   tier down to --ink-2 gives 5.79:1, and against the darker ground it
+   still reads at the same weight as the --ink-3 labels elsewhere.
+   The accent stays on the rule below, where the bar is 3:1. */
+.svc__k { display: block; font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); transition: color .3s; }
+
+.svc__band h3 { margin: 10px 0 0; }
+
+/* The reference's signature: a solid bar capping the card. The band is
+   the card's first child and sits flush inside the border, so top:0
+   here is the top of the card. 3px at rest, 5px on hover — the bar is
+   already full width, so depth is the only axis left to move on. */
+.svc__rule {
+  position: absolute; left: 0; top: 0; z-index: 2;
+  width: 100%; height: 3px; background: var(--accent);
+  transition: height .3s var(--ease);
+}
+.svc:hover .svc__rule { height: 5px; }
+
+.svc__in { padding: 22px 24px; display: flex; flex-direction: column; flex: 1; }
+.svc__in p { font-size: .875rem; line-height: 1.68; flex: 1; margin: 0; }
+
+/* Every row keeps its top hairline, including the first — that one
+   doubles as the divider between the description and the list. */
+.svc__list { margin-top: 17px; display: flex; flex-direction: column; }
+.svc__list span { display: grid; grid-template-columns: 9px 1fr; gap: 11px; align-items: baseline; padding-block: 8px; border-top: 1px solid var(--line-2); font-size: .8125rem; line-height: 1.42; color: var(--ink-2); }
+.svc__list span::before { content: ''; width: 4px; height: 4px; border-radius: 1px; background: var(--line); transition: background .3s; }
+.svc:hover .svc__list span::before { background: var(--accent); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PROJECT CARDS
+   ══════════════════════════════════════════════════════════════════════ */
+/* Full bleed: no radius of its own — the card clips it — and a hairline
+   underneath instead, exactly like the service band above its content. */
+.shot {
+  position: relative; aspect-ratio: 16/10; overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: var(--soft);
+  background-image: radial-gradient(rgba(var(--ink-rgb), .055) 1px, transparent 1px);
+  background-size: 13px 13px;
+  display: grid; place-items: center; transition: background-color .3s, border-color .3s;
+}
+.card:hover .shot { background-color: var(--soft-2); }
+.shot img { width: 100%; height: 100%; object-fit: cover; transition: scale .55s var(--ease); }
+.card:hover .shot img { scale: 1.045; }
+/* Matched to .chip — two mono pills sitting on the same picture bed
+   should not differ on radius, both padding axes and ink tier. */
+.shot__label { font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); background: var(--card); border: 1px solid var(--line); border-radius: var(--r-xs); padding: 5px 9px; transition: transform .3s var(--ease), border-color .3s; }
+.card:hover .shot__label { transform: translateY(var(--lift)); border-color: var(--ink-3); }
+/* Drawn stand-in for work with no public site — Sara answers a phone
+   line, so there is nothing to screenshot. Two bars carry the accent so
+   the mark has a focal point instead of reading as a flat equaliser. */
+.wave { display: flex; align-items: center; justify-content: center; gap: 4px; width: 100%; height: 100%; padding: 0 14%; }
+.wave i { flex: 1; min-width: 0; border-radius: 1px; background: var(--line); transition: background .34s, transform .5s var(--ease); transform-origin: center; }
+.wave i:nth-child(6), .wave i:nth-child(8) { background: var(--accent); }
+/* ── The one piece of motion on the page that describes its subject ──
+   Sara is a phone agent, so the bars breathe rather than sit still, and
+   the card speeds up when you point at it. Delays are set per bar in
+   Work.tsx so the movement travels left to right like speech.
+
+   TO REMOVE: delete this keyframes block and the two rules below it,
+   then drop `animationDelay` from the <i> style in Work.tsx. Nothing
+   else depends on it. */
+@keyframes wave-breathe {
+  0%, 100% { transform: scaleY(.76); }
+  50%      { transform: scaleY(1.06); }
+}
+.wave i { animation: wave-breathe 2.2s ease-in-out infinite both; }
+.card:hover .wave i { background: var(--ink-3); animation-duration: 1.25s; }
+.card:hover .wave i:nth-child(6), .card:hover .wave i:nth-child(8) { background: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wave i { animation: none; }
+}
+
+/* Paper chip, not an accent one. It sits on a photograph, so it needs a
+   solid ground to stay legible over whatever is behind it — and with a
+   chip on all six cards, filling them with accent would have put six
+   more red blocks on a page that already has ten. */
+/* Left edge aligned to the card's content column, not to the picture's
+   corner. At 10px it sat 14px left of the title, body, stack line and
+   foot beneath it — the one element in the card breaking an otherwise
+   unbroken vertical edge. */
+.chip { position: absolute; top: 16px; left: 24px; z-index: 2; font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-xs); padding: 5px 9px; color: var(--ink-2); transition: border-color .3s, color .3s; }
+.card:hover .chip { border-color: var(--ink-3); color: var(--ink); }
+.chip--pending { color: var(--ink-3); border-style: dashed; }
+.tech { font-family: var(--mono); font-size: .6875rem; color: var(--ink-3); letter-spacing: .01em; }
+.card__foot { display: flex; padding-top: 14px; border-top: 1px solid var(--line); }
+.pending { opacity: .74; }
+.pending .shot { background-image: repeating-linear-gradient(-45deg, transparent, transparent 7px, rgba(var(--ink-rgb), .035) 7px, rgba(var(--ink-rgb), .035) 14px); background-size: auto; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   TESTIMONIALS
+   ══════════════════════════════════════════════════════════════════════ */
+/* The score strip sits above the quotes: it is the only claim on the
+   page a visitor can verify in one click, so it should be reachable
+   before they have read anything. */
+.rating {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 14px 20px; margin-bottom: var(--gap);
+  transition: var(--t-card);
+}
+.rating:hover { border-color: var(--ink-3); box-shadow: var(--shadow-card); transform: translateY(var(--lift)); }
+.rating__score { font-family: var(--display); font-stretch: 87.5%; font-weight: 700; font-size: 1.5rem; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
+
+/* Grey row underneath, accent row clipped to the score on top, so a
+   4.6 shows six tenths of the fifth star rather than rounding. */
+/* 16px, not 13. A five-point star clipped at 13px is nearly all
+   antialiased edge, which greys the accent out to a washed pink. */
+/* width: max-content is load-bearing. Inside a testimonial card this is
+   a flex item in a column, so it would otherwise stretch to the full
+   204px — and since the fill layer is a percentage of that width, a 4.5
+   filled past all five stars and displayed as a perfect score. Every
+   rating below 5 was silently rounding up. */
+.stars { position: relative; display: inline-flex; width: max-content; gap: 4px; flex-shrink: 0; }
+.stars i { width: 16px; height: 16px; flex-shrink: 0; background: var(--line);
+  clip-path: polygon(50% 0%, 61.8% 35.5%, 100% 35.5%, 69% 57.5%, 80.9% 100%, 50% 78%, 19.1% 100%, 31% 57.5%, 0% 35.5%, 38.2% 35.5%); }
+/* z-index is load-bearing, not decoration. The grey stars are flex
+   items that come later in the DOM, and without an explicit stacking
+   order they paint over this layer — the score renders entirely grey. */
+.stars__fill { position: absolute; left: 0; top: 0; z-index: 1; display: inline-flex; gap: 4px; flex-wrap: nowrap; overflow: hidden; }
+.stars__fill i { background: var(--accent); }
+
+.rating__meta { font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.rating__go { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-size: .8125rem; font-weight: 600; color: var(--accent); transition: gap .22s var(--ease); }
+.rating:hover .rating__go { gap: 12px; }
+
+/* Four across. The quote sits under the person rather than above them,
+   so the eye meets a name and a score before it commits to reading. */
+.tsts { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--gap); grid-auto-rows: 1fr; }
+.tst {
+  position: relative; overflow: hidden; margin: 0;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 22px 20px; display: flex; flex-direction: column; gap: 14px;
+  transition: var(--t-card);
+}
+.tst:hover { border-color: var(--ink-3); box-shadow: var(--shadow-card); transform: translateY(var(--lift)); }
+
+/* Decorative, so it takes --line rather than a text-grade tone, and it
+   lives in a pseudo-element rather than the DOM — it carried no meaning
+   and was breaking figure/figcaption validity. Cropped tight: a quote
+   mark on its own line would otherwise eat 40px of card height. */
+.tst::before { content: '\201C'; display: block; height: 20px; font-family: var(--display); font-size: 3rem; line-height: .78; color: var(--line); transition: color .3s; }
+.tst:hover::before { color: var(--accent-soft); }
+
+.tst__cap { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tst__who { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.tst__ava {
+  flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
+  background: var(--soft); border: 1px solid var(--line);
+  display: grid; place-items: center;
+  font-family: var(--display); font-stretch: 87.5%; font-weight: 700;
+  font-size: .875rem; letter-spacing: -.01em; color: var(--ink-2);
+  transition: background .3s, border-color .3s, color .3s;
+}
+.tst:hover .tst__ava { background: var(--accent-soft); border-color: rgba(var(--accent-rgb), .3); color: var(--accent); }
+/* Type comes from the shared title rule above — this was a private copy
+   of it that had drifted to line-height 1.1. */
+.tst__name { min-width: 0; color: var(--ink); text-wrap: balance; }
+
+/* Full card width, so the role gets 204px instead of the 155px left
+   beside the avatar. */
+.tst__meta { display: flex; flex-direction: column; gap: 4px; }
+/* Reserve two lines whether or not the role needs them, so the stars
+   and the quote start at the same height in all four cards. Without it
+   a longer job title pushes its card's quote 17px below its neighbours. */
+.tst__role { min-height: 2.8em; font-size: .75rem; line-height: 1.4; color: var(--ink-2); }
+.tst__date { font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+
+/* 1.68 is the page's prose leading. This was 1.66 and .step p was 1.62
+   — three values within half a pixel of each other at the same size. */
+.tst blockquote { margin: 0; flex: 1; font-size: .8125rem; line-height: 1.68; color: var(--ink-2); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PROCESS
+   ══════════════════════════════════════════════════════════════════════ */
+/* A hairline runs behind the four cards at exactly the height of the
+   accent tick each one already opens with. The cards are opaque, so it
+   only shows in the gaps — the four ticks stop reading as four separate
+   marks and start reading as points on one track. Process is genuinely
+   a sequence, so the line states something true rather than decorating.
+   No new element: the tick was already there, it just had nothing to
+   sit on. */
+.steps { position: relative; display: grid; grid-template-columns: repeat(4,1fr); gap: var(--gap); grid-auto-rows: 1fr; }
+.steps::before { content: ''; position: absolute; left: 0; right: 0; top: 23px; height: 1px; background: var(--line); z-index: 0; }
+.step { z-index: 1; }
+/* A short accent rule opens each stage — the sequence still reads
+   left to right, without numbering the page like a demo. */
+.step { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px 20px; transition: var(--t-card); }
+.step::before { content: ''; display: block; width: 22px; height: 2px; background: var(--line); margin-bottom: 16px; transition: background .28s, width .32s var(--ease); }
+.step:hover::before { background: var(--accent); width: 34px; }
+.step:hover { border-color: var(--ink-3); transform: translateY(var(--lift)); box-shadow: var(--shadow-card); }
+.step h3 { margin-bottom: 7px; }
+.step p { font-size: .8125rem; line-height: 1.68; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESUME TABS
+   ══════════════════════════════════════════════════════════════════════ */
+.tabs { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 26px; flex-wrap: wrap; }
+.tab { position: relative; font-size: .875rem; font-weight: 600; color: var(--ink-3); padding: 13px 20px; transition: color .22s; }
+.tab::after { content: ''; position: absolute; left: 20px; right: 20px; bottom: -1px; height: 2px; background: var(--accent); transform: scaleX(0); transition: transform .28s var(--ease); }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); }
+.tab[aria-selected="true"]::after { transform: scaleX(1); }
+
+@keyframes panelIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.panel { animation: panelIn .42s var(--ease); }
+.panel[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .panel { animation: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RAIL — a paged horizontal track
+   ══════════════════════════════════════════════════════════════════════ */
+/* Scroll-snap rather than a transformed strip: swipe, drag, keyboard and
+   the browser's own scroll-into-view all keep working, and the buttons
+   only have to page it by one viewport width. */
+.rail { position: relative; }
+.rail__view {
+  display: grid; grid-auto-flow: column;
+  grid-auto-columns: calc((100% - var(--gap)) / 2);
+  gap: var(--gap);
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  /* The cards lift 3px and cast a shadow on hover; without room below,
+     the overflow container clips both. */
+  padding-block: 4px 6px;
+  scrollbar-width: none;
+}
+.rail__view::-webkit-scrollbar { display: none; }
+.rail__view > * { scroll-snap-align: start; }
+.rail__view:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: var(--r); }
+
+/* The reference's second carousel puts its controls bottom-left under
+   the track, as small solid blocks measured at 28×35. Same geometry,
+   in this page's ink and corner radius rather than their flat black. */
+.rail__nav { display: flex; align-items: center; gap: 8px; margin-top: 22px; }
+.rail__btn {
+  width: 28px; height: 35px; display: grid; place-items: center;
+  background: var(--ink); color: var(--white);
+  border-radius: var(--r-sm); font-size: 1.125rem; line-height: 1;
+  transition: background .22s, opacity .22s;
+}
+.rail__btn:hover:not(:disabled) { background: var(--accent); }
+.rail__btn:disabled { opacity: .28; cursor: default; }
+.rail__dots { display: flex; align-items: center; gap: 7px; margin-left: 10px; }
+.rail__dots button { width: 8px; height: 8px; border-radius: 50%; border: 2px solid var(--ink-3); background: transparent; transition: background .22s, border-color .22s; }
+.rail__dots button.is-on { background: var(--accent); border-color: var(--accent); }
+.rail__count { margin-left: auto; font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   EXPERIENCE / EDUCATION CARDS
+   ══════════════════════════════════════════════════════════════════════ */
+/* Was one tall bordered block with a vertical connector down the left.
+   On a rail the sequence runs left to right, so the connector does too:
+   a hairline out of each node to the card edge. */
+.tl {
+  --tl-pad: clamp(20px, 2.2vw, 30px);
+  position: relative; display: flex; flex-direction: column;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 26px var(--tl-pad) 28px;
+  transition: var(--t-card);
+}
+.tl:hover { border-color: var(--ink-3); transform: translateY(var(--lift)); box-shadow: var(--shadow-card); }
+.tl__when { position: relative; padding-left: 22px; margin-bottom: 16px; }
+.tl__when::before { content: ''; position: absolute; left: 0; top: 3px; width: 9px; height: 9px; border-radius: 50%; background: var(--card); border: 2px solid var(--ink-3); transition: border-color .3s, background .3s; }
+.tl:hover .tl__when::before { border-color: var(--accent); background: var(--accent); }
+.tl__when::after { content: ''; position: absolute; left: 15px; top: 7px; right: 0; height: 1px; background: var(--line); }
+/* Not the shared title rule any more. Stacked in a card the period sat
+   at 1.25rem directly above a 1.25rem role — two display lines running
+   into each other. It reads as a label here and the role is the
+   headline, which is the hierarchy that was already implied. */
+.tl__when b { display: block; font-family: var(--mono); font-size: .6875rem; font-weight: 700; letter-spacing: .12em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tl__when span { display: block; margin-top: 5px; font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.tl h3 { margin-bottom: 4px; }
+.tl__org { font-size: .8125rem; color: var(--ink-3); margin-bottom: 14px; }
+.tl ul { list-style: none; display: grid; gap: 8px; margin: 0; padding: 0; }
+/* Uncapped, these ran to 100 characters — the eye loses the start of
+   the next line past roughly 75. Everything else on the page already
+   sits in a narrow column; this was the one full-width measure. */
+.tl li { display: grid; grid-template-columns: 12px 1fr; gap: 8px; max-width: 74ch; font-size: .875rem; color: var(--ink-2); line-height: 1.68; }
+.tl li i { font-style: normal; color: var(--accent); font-weight: 700; font-size: .75rem; }
+.tl em { font-style: normal; color: var(--ink); font-weight: 600; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SKILLS
+   ══════════════════════════════════════════════════════════════════════ */
+/* grid-auto-rows and the hover treatment both matched the rest of the
+   page except here: this was the one card grid without equal rows, and
+   the one card that lifted 2px with no shadow while every sibling
+   lifted 3px with one. */
+.skills { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--gap); grid-auto-rows: 1fr; }
+.skill { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px 20px; transition: var(--t-card); }
+.skill:hover { border-color: var(--ink-3); transform: translateY(var(--lift)); box-shadow: var(--shadow-card); }
+/* --ink-3 like every other label. It was the only accent-coloured one,
+   and it already carries an accent square — the colour was doubling up
+   on a mark that was doing the job on its own. */
+.skill span { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px; }
+.skill span::before { content: ''; width: 6px; height: 6px; background: var(--accent); flex-shrink: 0; }
+.skill ul { list-style: none; display: grid; gap: 8px; margin: 0; padding: 0; }
+.skill li { font-size: .875rem; color: var(--ink-2); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ABOUT
+   ══════════════════════════════════════════════════════════════════════ */
+.about { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(24px, 2.8vw, 36px); display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: clamp(28px, 3.4vw, 56px); }
+.about p { line-height: 1.68; margin-bottom: 14px; }
+.about p:last-child { margin-bottom: 0; }
+.about em { font-style: normal; color: var(--ink); font-weight: 600; }
+.about__facts { display: grid; align-content: start; border-top: 1px solid var(--line); margin: 0; }
+.about__facts div { display: grid; grid-template-columns: minmax(0,6.5rem) minmax(0,1fr); gap: 12px; padding-block: 11px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.about__facts dt { font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.about__facts dd { font-size: .875rem; color: var(--ink-2); margin: 0; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   CONTACT
+   ══════════════════════════════════════════════════════════════════════ */
+/* Light, like the rest of the page. It was the only dark surface left
+   once the service band went to --soft, and a black block at the very
+   bottom read as a different site's footer rather than the close of
+   this one. Same card anatomy as everything else: white ground,
+   hairline border, accent bar across the top. */
+.contact { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+.contact::before { content: ''; position: absolute; left: 0; top: 0; height: 3px; width: 100%; background: var(--accent); z-index: 2; }
+/* The accent bloom survives, at a fraction of its old strength — .22
+   was tuned to glow out of black and would stain paper. */
+.contact::after { content: ''; position: absolute; left: -80px; bottom: -160px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(var(--accent-rgb), .05), transparent 66%); pointer-events: none; }
+.contact__l { position: relative; z-index: 1; padding: clamp(28px, 3.4vw, 48px); }
+.contact__l p { color: var(--ink-2); max-width: 34ch; }
+.details { margin: 30px 0 0; display: grid; }
+.detail { display: grid; grid-template-columns: 5.5rem 1fr; gap: 16px; padding-block: 12px; border-top: 1px solid var(--line); align-items: baseline; }
+.detail:first-child { border-top: 0; padding-top: 0; }
+.detail dt { font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.detail dd { font-size: .875rem; color: var(--ink); margin: 0; }
+
+/* --soft on the form side, the same tint the service band uses, so the
+   two halves read as one card with a working surface on the right. */
+.contact__r { position: relative; z-index: 1; padding: clamp(28px, 3.4vw, 48px); background: var(--soft); border-left: 1px solid var(--line); }
+.field { display: grid; gap: 8px; margin-bottom: 16px; }
+/* --ink-2, not --ink-3. These labels now sit on --soft, where --ink-3
+   measures 4.47:1 and misses AA by a hair — exactly as it did on the
+   service band. It only clears the bar on white. */
+.field label { font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.field input, .field textarea { font: inherit; font-size: .875rem; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 11px 13px; transition: border-color .22s; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: var(--ink-3); }
+/* `outline: none` was here at 0-2-1, which outranked the global
+   :focus-visible ring at 0-1-0 — so these three fields were the only
+   interactive elements on the page a keyboard user could not see focus
+   on. The border still turns accent for pointer users; the ring is
+   restored for keyboard ones. */
+.field input:focus, .field textarea:focus { border-color: var(--accent); }
+.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* The invert-to-paper override is gone with the dark ground — on a
+   light block the button behaves like every other .btn--fill on the
+   page and hovers to ink. */
+.contact .btn--fill:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   CASE STUDY
+   Reuses .stat, .skills and .skill wholesale — a case study should not
+   introduce a second card language. Only the reading column is new.
+   ══════════════════════════════════════════════════════════════════════ */
+.cs { padding-block: clamp(28px, 4vw, 52px) 0; }
+.cs__head { padding-bottom: clamp(28px, 3.4vw, 44px); border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 3.4vw, 44px); position: relative; }
+.cs__head::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 56px; height: 3px; background: var(--accent); }
+/* flex + max-content, not inline-flex: the eyebrow below carries
+   .tagline, which is itself inline-flex, so an inline back link let the
+   two sit on the same line. */
+.cs__back { display: flex; width: max-content; align-items: center; gap: 8px; font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: clamp(24px, 3vw, 40px); transition: color .22s, gap .22s var(--ease); }
+.cs__back:hover { color: var(--accent); gap: 12px; }
+.cs__head h1 { font-size: clamp(2rem, 4.4vw, 3.25rem); letter-spacing: -.03em; line-height: 1.02; margin: 12px 0 0; max-width: 20ch; }
+/* 66ch — the standfirst is the one place on the site with a long
+   measure, so it gets the reading cap rather than the card cap. */
+.cs__stand { font-size: 1.0625rem; line-height: 1.7; max-width: 66ch; margin-top: 18px; }
+.cs__meta { display: flex; flex-wrap: wrap; gap: 12px clamp(28px, 4vw, 56px); margin: clamp(24px, 3vw, 36px) 0 0; }
+.cs__meta dt { font-family: var(--mono); font-size: .5875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+.cs__meta dd { font-size: .875rem; color: var(--ink); margin: 0; }
+
+.cs__figs { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--gap); grid-auto-rows: 1fr; }
+
+.cs__body { margin-top: clamp(40px, 5vw, 72px); display: grid; gap: clamp(32px, 4vw, 52px); }
+.cs__sec h2 { font-size: clamp(1.375rem, 2.2vw, 1.75rem); letter-spacing: -.026em; margin-bottom: 14px; }
+.cs__sec p { font-size: .9375rem; line-height: 1.78; max-width: 68ch; margin-bottom: 14px; }
+.cs__sec p:last-child { margin-bottom: 0; }
+.cs__sec em { font-style: normal; color: var(--ink); font-weight: 600; }
+
+.cs__stack { margin-top: clamp(40px, 5vw, 72px); }
+.cs__stack h2 { font-size: clamp(1.375rem, 2.2vw, 1.75rem); letter-spacing: -.026em; margin-bottom: 20px; }
+.cs__stack .skills { grid-template-columns: repeat(3,1fr); }
+
+.cs__foot { margin-top: clamp(40px, 5vw, 72px); padding-top: clamp(28px, 3.4vw, 44px); border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: var(--band); }
+.cs__foot p { font-size: .9375rem; max-width: 46ch; }
+
+@media (max-width: 1000px) {
+  .cs__figs { grid-template-columns: repeat(2,1fr); }
+  .cs__stack .skills { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 680px) {
+  .cs__figs, .cs__stack .skills { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════════════════ */
+/* The rule belongs on the inner element, not on .wrap — on .wrap it is
+   drawn across the padded box and overhangs every other rule on the
+   page by the gutter width on each side. */
+.foot { padding-bottom: 34px; margin-top: var(--band); }
+.foot__in { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--line); padding-top: 26px; }
+.foot nav { display: flex; gap: 24px; }
+.foot nav a { font-size: .8125rem; color: var(--ink-3); transition: color .2s; }
+.foot nav a:hover { color: var(--ink); }
+/* `.foot nav a:hover` is 0-2-2 and the social links live inside
+   `.foot nav.social`, so a bare `.social a:hover` at 0-2-1 lost and the
+   accent never rendered — LinkedIn and X hovered to plain ink like every
+   other footer link. Matching the element-selector count fixes it. */
+.foot nav.social a:hover { color: var(--accent); }
+.foot span { font-size: .8125rem; color: var(--ink-3); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   NARROW SCREENS
+   Layout only — the full responsive pass comes later.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1000px) {
+  .steps { grid-template-columns: repeat(2,1fr); }
+  .about { grid-template-columns: 1fr; gap: 28px; }
+  .hero__grid { grid-template-columns: 1fr; gap: 40px; }
+  .photo { max-width: 280px; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .grid3, .svcs, .tsts { grid-template-columns: repeat(2,1fr); }
+  .skills { grid-template-columns: repeat(2,1fr); }
+  .rail__view { grid-auto-columns: 100%; }
+  .contact { grid-template-columns: 1fr; }
+  .contact__r { border-left: 0; border-top: 1px solid var(--line); }
+  .menu { display: none; }
+}
+@media (max-width: 680px) {
+  /* .steps and .stats were missing here — every other grid collapsed to
+     one column on a phone while Process and the headline figures stayed
+     two-up, which is where they broke first. */
+  .grid3, .svcs, .tsts, .skills, .steps, .stats { grid-template-columns: 1fr; }
+  .steps::before { display: none; }
 }
