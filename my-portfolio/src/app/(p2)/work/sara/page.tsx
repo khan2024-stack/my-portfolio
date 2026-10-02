@@ -4,7 +4,8 @@ import { saraCase } from "@/app/portfolio-content/sara-case";
 import { identity } from "@/app/portfolio-content/site-content";
 
 export const metadata: Metadata = {
-  title: "Sara — AI voice phone agent | Muhammad Sajjad",
+  /* Bare title — the (p2) layout template appends "| Muhammad Sajjad". */
+  title: "Sara — AI voice phone agent",
   description:
     "How a bilingual English and Gulf Arabic phone agent was built for live inbound sales calls — the latency budget, the pipeline, and 95% across 255 automated assertions.",
 };
@@ -18,10 +19,11 @@ export default function SaraCase() {
   const c = saraCase;
 
   return (
-    <main className="wrap">
+    <div className="wrap">
       <article className="cs">
         <header className="cs__head">
-          <Link className="cs__back" href="/#work">
+          {/* /work is a real page in this design, not a home anchor. */}
+          <Link className="cs__back" href="/work">
             <span className="arw">←</span> All work
           </Link>
 
@@ -100,6 +102,6 @@ export default function SaraCase() {
           </Link>
         </footer>
       </article>
-    </main>
+    </div>
   );
 }

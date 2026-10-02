@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
       { source: "/page/contact", destination: "/#contact", permanent: true },
       { source: "/page", destination: "/", permanent: true },
       { source: "/page/:path*", destination: "/", permanent: true },
+      /* The North design lived at /portfolio-2 while the old layout held
+         the root. It IS the root now, so the old paths follow it — the
+         sub-pages map one-to-one (/portfolio-2/about → /about). */
+      { source: "/portfolio-2", destination: "/", permanent: true },
+      { source: "/portfolio-2/:path*", destination: "/:path*", permanent: true },
     ];
   },
 };

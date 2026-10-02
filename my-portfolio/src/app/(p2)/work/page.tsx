@@ -1,0 +1,40 @@
+import type { Metadata } from "next";
+import { projects, sections, services, skills } from "@/app/portfolio-content/site-content";
+import Faq from "../_parts/Faq";
+import PageIntro from "../_parts/PageIntro";
+import SectionHead from "../_parts/SectionHead";
+import Ticker from "../_parts/Ticker";
+import { CtaBand, WorkGrid } from "../_parts/Sections";
+
+export const metadata: Metadata = { title: "Work" };
+
+const ticker = [...services.map((s) => s.title), ...skills.map((s) => s.group)];
+
+/**
+ * Work — their Works page runs: banner · ticker · the grid · FAQs ·
+ * closing CTA. This had only the first three.
+ */
+export default function P2Work() {
+  return (
+    <>
+      <PageIntro
+        eyebrow="Works page"
+        title="Shipped, live, and still running"
+        lede={`${projects.length} projects — commerce platforms, an AI voice agent taking real calls, and client sites in production today.`}
+        cta={{ label: "Start a project", href: "/contact" }}
+      />
+      <Ticker items={ticker} />
+
+      <section className="p2-sec" id="work">
+        <SectionHead eyebrow="My works" title={sections.work.title} />
+        <WorkGrid />
+      </section>
+
+      <section className="p2-sec p2-sec--tint">
+        <Faq />
+      </section>
+
+      <CtaBand />
+    </>
+  );
+}

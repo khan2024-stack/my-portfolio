@@ -1,0 +1,1754 @@
+/* ══════════════════════════════════════════════════════════════════════
+   PORTFOLIO 2 — ported from the "North" Elementor template kit
+   (templatekit.kitprostudio.com/north), read from computed styles on
+   the live page.
+
+     colours   bg #F3F1EB (warm cream, not white — confirmed on
+                 `body{background-color}`)
+               ink #000, muted #54595F (body copy)
+               accent #D9FF3F — a lime/chartreuse, confirmed on the
+                 "View work" button text and the "Based in" card fill
+     type      Space Grotesk (weight 500 — medium, not bold, even at
+                 64px) for every heading; Inter for body copy, the nav
+                 and the ticker rows
+     cards     every card is a 1px solid black border, square corners,
+                 20px padding, filled solid (lime / black / cream) —
+                 a bordered-cell "bento" language rather than shadow
+                 or radius-based cards
+     header    115px tall, 1px black bottom border, inline nav (Inter
+                 16 weight 600), a text link beside a 50×50 black
+                 arrow-icon square on the far side
+   ══════════════════════════════════════════════════════════════════════ */
+
+.p2 {
+  /* 1300px — read directly off the reference's own container:
+     `getComputedStyle(.e-con-inner).maxWidth` returns `min(100%, 1300px)`.
+     A prior 1314px estimate came from measuring a screenshot's badge
+     position instead of reading the actual computed value; direct
+     inspection is authoritative over pixel-counting a render. */
+  --p2-max: 1300px;
+  /* `100vw`, not `100%`. A custom property holding a calc() isn't
+     resolved where it's declared — it's substituted as raw tokens and
+     re-evaluated at every place that uses it. On the hero's two grid
+     columns, "100%" meant each column's own (roughly half-page) width,
+     not the page, so the gutter collapsed to its 24px floor there —
+     the badge sat 24px from the edge instead of the real 303. `vw` is
+     always viewport-relative regardless of which element consumes it. */
+  --p2-gut: max(24px, calc((100vw - var(--p2-max)) / 2));
+  --p2-bg: #f3f1eb;
+  --p2-ink: #000000;
+  --p2-white: #ffffff;
+  --p2-muted: #54595f;
+  --p2-accent: #d9ff3f;
+  --p2-line: #000000;
+  --p2-line-soft: rgba(0, 0, 0, .14);
+  --p2-face: var(--p2-display, 'Space Grotesk'), 'Segoe UI', sans-serif;
+  --p2-sans: var(--p2-body, 'Inter'), 'Segoe UI', sans-serif;
+  font-family: var(--p2-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--p2-bg);
+  color: var(--p2-muted);
+}
+.p2 * { box-sizing: border-box; }
+body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
+/* globals.css sets h1–h3 to layout 1's display face by element
+   selector, which beats anything this file inherits through a class —
+   the same miss that showed up building layout 3. Fixed from the start
+   here rather than after a rebuild. */
+.p2 h1, .p2 h2, .p2 h3, .p2 h4, .p2 h5, .p2 h6 {
+  font-family: var(--p2-face); font-weight: 500; font-stretch: normal; margin: 0; color: var(--p2-ink);
+}
+
+.p2-sec { padding: 100px var(--p2-gut); }
+.p2-sec--tint { background: #eae7de; }
+
+/* ── Scroll/load reveal ──
+   Their entrance-animation system, in miniature: opacity 0 + an offset
+   until Reveal.tsx's IntersectionObserver adds `.is-on`, then a 1.25s
+   ease tween to identity — the exact duration/timing their `animated
+   fadeInUp` class computes to. 24px, not their raw 100%-of-own-size —
+   animate.css's real distance is dramatic on a wide element (a whole
+   paragraph's width sliding in); a fixed, modest offset reads as the
+   same *kind* of motion without the lurch on anything wider than a
+   button. Transform only, so it never fights a grid/flex layout. */
+.p2-reveal { opacity: 0; transition: opacity 1.25s ease, transform 1.25s ease; will-change: opacity, transform; }
+.p2-reveal--up { transform: translateY(24px); }
+.p2-reveal--left { transform: translateX(-24px); }
+.p2-reveal--right { transform: translateX(24px); }
+.p2-reveal--fade { transform: none; }
+.p2-reveal.is-on { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .p2-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Eyebrow badge + heading ──
+   A bordered box with a small lime square and uppercase label, then a
+   large Space Grotesk heading — measured off "AVAILABLE FOR FREELANCE"
+   and "MY WORKS". */
+/* Measured: 5px 10px — noticeably tighter than the 9/16 this had been
+   running, which made every badge read heavier and less crisp. */
+.p2-badge { display: inline-flex; align-items: center; gap: 10px; padding: 5px 10px; border: 1px solid var(--p2-line); font-size: .8125rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--p2-ink); }
+.p2-badge__dot { width: 9px; height: 9px; background: var(--p2-accent); flex-shrink: 0; }
+.p2-head { margin-bottom: 36px; }
+/* Measured: their body-section heading computes to 52.8px, not the
+   44px ceiling this clamp topped out at — every section head below the
+   hero was reading a size class smaller than theirs. Badge-to-heading
+   gap (20px, confirmed identical in the hero and three levels down the
+   page) was already right. */
+/* Flat 52.8px, not a vw-scaled clamp. Elementor renders this size fixed
+   at every desktop width — the clamp() version only reached its own
+   3.3rem ceiling above a ~1467px viewport, so on any laptop screen
+   narrower than that (most of them) the heading was rendering smaller
+   than the reference regardless of how correct the ceiling number was. */
+.p2-head h2 { margin-top: 20px; font-size: 3.3rem; line-height: 1.15; text-wrap: balance; }
+.p2-head p { margin: 16px 0 0; max-width: 60ch; font-size: .9375rem; line-height: 1.8; }
+.p2-head--center { text-align: center; }
+.p2-head--center .p2-head__rule, .p2-head--center p { margin-inline: auto; }
+.p2-sub { font-size: 1.125rem; font-weight: 600; margin: 44px 0 20px; }
+.p2-sub:first-of-type { margin-top: 0; }
+
+/* ── Page intro — the centred banner every dedicated page opens on ──
+   Measured on /about-us/ and /works/: same badge, an H2 at the same
+   52.8px every other section heading uses (just centred here), a short
+   centred lede, one button. Vertical padding matches the hero's
+   measured 100px. */
+.p2-intro { padding: 100px var(--p2-gut); text-align: center; border-bottom: 1px solid var(--p2-line); display: flex; flex-direction: column; align-items: center; }
+.p2-intro h1 { margin-top: 20px; font-size: 3.3rem; line-height: 1.2; text-wrap: balance; max-width: 26ch; }
+.p2-intro p { margin: 20px 0 0; max-width: 56ch; font-size: .9375rem; line-height: 1.8; }
+.p2-intro .p2-btn { margin-top: 34px; }
+
+/* ── Small link with an arrow — section heads that continue onto
+   their own page, and the teaser cards on the home landing. ── */
+.p2-link { display: inline-flex; align-items: center; gap: 8px; font-size: .875rem; font-weight: 600; color: var(--p2-ink); transition: gap .3s, color .3s; }
+.p2-link:hover { gap: 12px; color: var(--p2-muted); }
+/* The 40px belongs on the ROW, not the head inside it. Zeroing the
+   head's own margin (so the title and the link align on one baseline)
+   also removed the separation from whatever follows — the grid ended up
+   flush against the heading at a measured -1px. */
+.p2-sec__top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+.p2-sec__top .p2-head { margin-bottom: 0; }
+
+/* ── Home teasers ── */
+
+/* ── Buttons ──
+   Primary: black fill, lime text, weight 600, padding 17/30, square.
+   Secondary: transparent, 1px black border. Both invert on hover. */
+.p2-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--p2-ink); color: var(--p2-accent); font-size: 1rem; font-weight: 600; padding: 17px 30px; transition: background .3s, color .3s; }
+.p2-btn:hover { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-btn--line { background: transparent; color: var(--p2-ink); border: 1px solid var(--p2-line); }
+.p2-btn--line:hover { background: var(--p2-ink); color: var(--p2-accent); border-color: var(--p2-ink); }
+.p2-acts { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 34px; }
+
+/* ── Card ── the one reusable cell: 1px border, square, solid fill. */
+.p2-card { border: 1px solid var(--p2-line); padding: 20px; }
+.p2-card--accent { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-card--dark { background: var(--p2-ink); color: rgba(255,255,255,.72); }
+.p2-card--line { background: var(--p2-white); }
+.p2-card__k { display: block; font-size: .75rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+.p2-card b { font-family: var(--p2-face); font-size: 1.375rem; font-weight: 500; color: inherit; }
+.p2-card--dark b { color: var(--p2-white); }
+.p2-card--line b { color: var(--p2-ink); }
+.p2-card a { color: inherit; }
+.p2-card a:hover { color: var(--p2-accent); }
+
+.p2-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.p2-chips li { font-size: .8125rem; font-weight: 500; color: var(--p2-white); border: 1px solid rgba(255,255,255,.3); padding: 6px 10px; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   HEADER
+   ══════════════════════════════════════════════════════════════════════ */
+/* ── The header is FULL-BLEED — measured cell by cell on the reference
+   at a 1920 viewport (1905 document width):
+
+       logo mark   0 → 126     black, spans the full bar height
+       name/role   126 → 471   1px right border
+       nav         471 → 1561  1px right border, takes the slack
+       let's talk  1561 → 1796
+       arrow       1796 → 1905 black, full height, hard against the edge
+
+   Total 0 → 1905: it touches both edges. This had `padding: 0
+   var(--p2-gut)` — the same 303px container inset the page body uses —
+   so the whole bar floated in the middle with 303px of dead space on
+   each side. The page CONTENT is containered; the header is not. That
+   is the mismatch. */
+.p2-hdr { position: relative; z-index: 30; border-bottom: 1px solid var(--p2-line); background: var(--p2-bg); }
+.p2-bar { display: flex; align-items: stretch; padding: 0; min-height: 115px; }
+.p2-logo { display: flex; align-items: stretch; flex-shrink: 0; }
+/* 126px wide, full bar height, 20px inset around the mark — the img on
+   the reference is 86×84 sitting inside a 126px cell. */
+.p2-logo__mark { display: flex; align-items: center; justify-content: center; width: 126px; background: var(--p2-ink); color: var(--p2-white); font-family: var(--p2-face); font-size: 2.75rem; font-weight: 700; flex-shrink: 0; }
+.p2-logo__mark i { color: var(--p2-accent); font-style: normal; }
+/* Name and role are Inter (not the display face) at 19.2px weight 600
+   and 16px weight 400 — measured. */
+/* min-width 345 puts the first divider at x=471, exactly where the
+   reference's sits. Without it the cell shrink-wraps my shorter name
+   and every divider downstream lands in a different place. */
+.p2-logo__txt { display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 24px; min-width: 345px; border-right: 1px solid var(--p2-line); }
+.p2-logo__txt b { font-family: var(--p2-sans); font-size: 1.2rem; font-weight: 600; color: var(--p2-ink); }
+.p2-logo__txt span { font-size: 1rem; color: var(--p2-muted); }
+.p2-logo--light .p2-logo__mark { background: var(--p2-white); color: var(--p2-ink); }
+.p2-logo--light .p2-logo__txt b { color: var(--p2-white); }
+.p2-logo--light .p2-logo__txt span { color: rgba(255,255,255,.6); }
+
+/* Measured on their <ul>: display:flex, justify-content:normal
+   (flex-start), gap 0, padding 0 — and it spans the nav cell exactly
+   (471→1560). No inner padding, or the links stop short of the divider. */
+.p2-nav { display: flex; align-items: center; justify-content: flex-start; gap: 0; padding: 0; flex: 1; flex-wrap: wrap; border-right: 1px solid var(--p2-line); }
+/* Measured: 10px 20px — wider horizontally, shorter vertically than
+   the 12/16 guess; it changes the click-target proportions enough to
+   notice next to the reference. */
+/* `flex: 1 1 auto` is the piece that was missing. Their links GROW to
+   fill the nav cell — "HOME" measures 161px wide for roughly 50px of
+   text, because each item takes an equal share of the 1089px leftover.
+   Mine were content-width and clustered in the middle, which is why the
+   menu looked cramped and floated instead of spanning the bar.
+   Title case, not uppercase — the reference sets its own labels in caps
+   but these read as written. Everything else is theirs: 16px weight
+   600, tracking normal, padding 10px 20px. */
+/* No underline, no weight change, no background — checked the live
+   reference: on the About page (current-menu-item) and on :hover, the
+   ONLY change is the link's own color going from #000 to the body's
+   muted grey, and `getComputedStyle` reports `transition-duration: 0s`
+   on the anchor itself — an instant colour swap, not an eased fade. An
+   underline that grows in on hover was my own invention; the reference
+   has none. */
+.p2-nav a { position: relative; flex: 1 1 auto; display: flex; align-items: center; justify-content: center; padding: 10px 20px; font-size: 1rem; font-weight: 600; letter-spacing: normal; white-space: nowrap; color: var(--p2-ink); }
+.p2-nav a:hover, .p2-nav a.is-on { color: var(--p2-muted); }
+
+.p2-hdr__cta { display: flex; align-items: stretch; flex-shrink: 0; }
+/* 235px wide — measured 1561 → 1796 on the reference, which puts the
+   last divider in the same place as theirs. */
+.p2-hdr__cta a:first-child { display: flex; align-items: center; justify-content: center; padding: 0 28px; min-width: 235px; font-size: 1rem; font-weight: 600; color: var(--p2-ink); white-space: nowrap; }
+.p2-hdr__cta a:first-child:hover { color: var(--p2-muted); }
+/* 109px wide and full bar height, hard against the right edge —
+   measured 1796 → 1905. Not the 50×50 floating square this had. */
+.p2-hdr__arrow { display: flex; align-items: center; justify-content: center; width: 109px; flex-shrink: 0; background: var(--p2-ink); color: var(--p2-accent); font-size: 1.5rem; transition: background .3s; }
+.p2-hdr__arrow:hover { background: var(--p2-accent); color: var(--p2-ink); }
+
+/* ── Mobile menu ──
+   Their own header swaps the inline nav for a hamburger toggle below
+   1000px rather than dropping it with nothing standing in — confirmed
+   in their markup (`hfe-nav-menu__toggle`). This is the same move: a
+   plain 40×40 hamburger, hidden on desktop, and a slide-in panel with
+   the full nav so the header never goes empty in the middle. */
+/* margin-right, not the bar's gutter — the bar is full-bleed now, so
+   the burger has to hold its own breathing room off the right edge. */
+.p2-burger { display: none; width: 40px; height: 40px; flex-direction: column; align-items: center; justify-content: center; gap: 5px; flex-shrink: 0; margin: auto 24px auto auto; }
+.p2-burger span { display: block; width: 22px; height: 2px; background: var(--p2-ink); }
+.p2-mscrim { position: fixed; inset: 0; z-index: 49; background: rgba(0, 0, 0, .5); opacity: 0; pointer-events: none; transition: opacity .3s; }
+.p2-mscrim.is-on { opacity: 1; pointer-events: auto; }
+.p2-mmenu { position: fixed; top: 0; right: 0; bottom: 0; z-index: 50; width: min(340px, 86vw); background: var(--p2-bg); border-left: 1px solid var(--p2-line); padding: 70px 32px; transform: translateX(100%); transition: transform .35s; overflow-y: auto; }
+.p2-mmenu.is-on { transform: translateX(0); }
+.p2-mmenu__close { position: absolute; top: 20px; right: 24px; width: 32px; height: 32px; font-size: 1.75rem; line-height: 1; color: var(--p2-ink); }
+.p2-mmenu nav { display: flex; flex-direction: column; }
+.p2-mmenu nav a { padding: 16px 0; font-size: 1.125rem; font-weight: 600; color: var(--p2-ink); border-bottom: 1px solid var(--p2-line); }
+.p2-mmenu nav a.is-on { color: var(--p2-muted); }
+.p2-mmenu__cta { margin-top: 24px; text-align: center; background: var(--p2-ink); color: var(--p2-accent) !important; border-bottom: 0 !important; padding: 16px !important; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-bottom: 1px solid var(--p2-line); }
+/* 100px top/bottom, measured (badge sits 215px below the viewport top,
+   minus the 115px header = 100). */
+/* Outer gutter on the left (the true page margin); a smaller fixed
+   gap on the right, facing the divider — not the full gutter on both
+   sides of the same column, which doubles up and pushes content too
+   far from the centre line. */
+.p2-hero__l { padding: 100px 60px 100px var(--p2-gut); display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--p2-line); }
+/* Flat 64px — measured on the reference and confirmed fixed regardless
+   of viewport width, not a vw-scaled clamp that only reached 4rem above
+   ~1450px. */
+.p2-hero__l h1 { margin-top: 20px; font-size: 4rem; line-height: 1.1; text-wrap: balance; }
+/* Their own gap here runs far past every other gap on the page — a
+   dedicated spacer element, not a typographic margin. 24px was reading
+   cramped underneath a 64px headline; this is deliberately generous
+   without chasing their exact, anomalous number. */
+.p2-hero__l p { margin: 44px 0 0; max-width: 46ch; font-size: 1rem; line-height: 1.8; }
+/* Measured: 100px top and bottom, matching the left column exactly —
+   it had been 44/0, which read as uneven next to the left side's 100. */
+.p2-hero__r { padding: 100px var(--p2-gut) 100px 44px; display: flex; flex-direction: column; }
+/* Portrait and the card stack sit side by side as one row; "specializing
+   in" spans full width beneath both — this wrapper is what makes that
+   split possible instead of everything stacking in a single column. */
+/* Equal halves — measured on the reference at 291px / 290px, an even
+   split rather than the fixed 280px-for-cards guess this ran before,
+   which left the portrait narrower than the card column beside it. */
+.p2-hero__mid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+.p2-hero__shot { overflow: hidden; border: 1px solid var(--p2-line); }
+.p2-hero__shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p2-hero__cards { display: grid; grid-template-rows: auto auto auto; gap: 0; border-top: 1px solid var(--p2-line); border-right: 1px solid var(--p2-line); border-bottom: 1px solid var(--p2-line); }
+.p2-hero__cards .p2-card { border-left: 0; border-top: 0; }
+.p2-hero__cards .p2-card:first-child { border-top: 1px solid var(--p2-line); margin-top: -1px; }
+/* Measured on the reference: this is a bordered card like the three
+   above it — 1px solid black, 20px padding, flex row — not a bare
+   strip with a top rule, which is what this had been. The label and
+   the item list sit in the same row with a vertical divider between
+   them, and items join with a dot, not a leading square marker before
+   each one. */
+.p2-hero__spec { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; padding: 20px; border: 1px solid var(--p2-line); }
+.p2-hero__spec span { position: relative; padding-right: 20px; font-size: 1rem; font-weight: 600; color: var(--p2-ink); flex-shrink: 0; border-right: 1px solid var(--p2-line); }
+.p2-hero__spec ul { list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin: 0; padding: 0; }
+.p2-hero__spec li { font-size: 1rem; color: var(--p2-ink); }
+.p2-hero__spec li:not(:last-child)::after { content: '\25CF'; margin-left: 10px; font-size: .5em; vertical-align: middle; color: var(--p2-accent); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   TICKER — black band, marquee
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-ticker { overflow: hidden; background: var(--p2-ink); border-bottom: 1px solid var(--p2-line); padding: 30px 0; }
+.p2-ticker__track { display: flex; gap: 44px; white-space: nowrap; width: max-content; animation: p2-scroll 32s linear infinite; }
+.p2-ticker__track span { display: inline-flex; align-items: center; gap: 44px; font-family: var(--p2-face); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 500; text-transform: uppercase; color: var(--p2-white); }
+.p2-ticker__track b { color: var(--p2-accent); font-size: .5em; }
+@keyframes p2-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .p2-ticker__track { animation: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ABOUT
+   ══════════════════════════════════════════════════════════════════════ */
+/* Three EQUAL columns with a 60px gap — measured on the reference:
+   text 303→700 (397), portrait 760→1158 (398), tools 1218→1603 (385),
+   inside a 1300px row. The `.78fr` middle column this had was a guess
+   and made the portrait visibly narrower than the other two. */
+/* `stretch`, not `start` — all three columns are equal height on the
+   reference (measured 529px each), which is what lets the left column's
+   space-between actually have room to push into. */
+.p2-about { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 60px; align-items: stretch; }
+/* Measured on the reference: the text column is a flex column with
+   `justify-content: space-between`, so the copy and button sit hard at
+   the bottom of the column while the heading stays at the top. */
+.p2-about__in { display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
+.p2-about__in .p2-head { margin-bottom: 0; }
+/* 40px / 44px weight 500 — measured. This block does NOT use the 52.8px
+   section-heading size; it is its own, smaller step. */
+.p2-about__in .p2-head h2 { font-size: 2.5rem; line-height: 1.1; font-weight: 500; }
+.p2-about__foot { display: flex; flex-direction: column; align-items: flex-start; }
+/* No aspect-ratio here. With the columns stretched to equal height,
+   `aspect-ratio: 4/5` derived the WIDTH from that stretched height
+   (576 × 4/5 = 461px) and blew the box 68px past its 393px column,
+   overlapping the Tools list. The column supplies the width and the
+   stretch supplies the height; the image just covers the result. */
+.p2-about__shot { overflow: hidden; border: 1px solid var(--p2-line); min-width: 0; }
+.p2-about__shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p2-lede { font-size: 1rem; line-height: 1.9; margin: 0 0 30px; max-width: 52ch; }
+.p2-lede em { font-style: normal; font-weight: 600; color: var(--p2-ink); }
+/* "Tools I use" and each tool name are both 19.2px weight 600 on the
+   reference — the label and the item titles share one size. */
+/* Uppercase — theirs is literally "TOOLS I USE" in the markup. */
+.p2-about__tools h3 { font-size: 1.2rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
+.p2-tools { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--p2-line); }
+.p2-tools li { display: flex; gap: 18px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid var(--p2-line); }
+/* Stands in for their tool logos (Figma, Webflow, VS Code…) — this site
+   has skill groups, not branded tools, so a mark rather than a fake
+   logo. */
+/* `display: block` is load-bearing. A bare <span> is inline, and
+   width/height do not apply to inline boxes — it only had a size inside
+   `.p2-tools li` because that is a flex container, which blockifies its
+   children. Reused in the award cells (not flex), it collapsed to 0×0
+   and vanished. */
+.p2-tools__mark { display: block; flex-shrink: 0; width: 30px; height: 30px; margin-top: 2px; background: var(--p2-accent); }
+/* The brand glyph, sized to the same 30px slot the mark occupied so the
+   text column keeps its alignment either way. Ink-coloured to sit in the
+   site's black/lime palette rather than importing five brand colours
+   into a two-colour design. */
+.p2-tools__icon { display: block; flex-shrink: 0; width: 30px; height: 30px; margin-top: 2px; color: var(--p2-ink); }
+.p2-tools li:hover .p2-tools__icon { color: var(--p2-muted); }
+.p2-tools b { display: block; font-family: var(--p2-sans); font-size: 1.2rem; font-weight: 600; color: var(--p2-ink); margin-bottom: 6px; }
+.p2-tools p { margin: 0; font-size: 1rem; line-height: 1.6; }
+.p2-tools--cv li > div { flex: 1; }
+.p2-cv__when { display: block; font-size: .75rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--p2-ink); margin-bottom: 6px; }
+.p2-cv__org { font-size: .8125rem; margin: 2px 0 10px; }
+.p2-tools--cv ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+/* `display: block` and `gap: 0` are the load-bearing part. `.p2-tools li`
+   is a flex row (mark + text), and it was matching these NESTED bullet
+   <li>s as well — so an inline <em> inside a bullet became its own flex
+   item with an 18px gap on each side, printing "Built  Sara  , a
+   bilingual…" with visible holes around every emphasised phrase. */
+.p2-tools--cv li li { display: block; gap: 0; padding: 0; border-bottom: 0; font-size: .8125rem; line-height: 1.7; }
+.p2-tools--cv li li em { font-style: normal; font-weight: 600; color: var(--p2-ink); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ACHIEVEMENTS / STRENGTHS / CTA — the rest of their About page
+   ══════════════════════════════════════════════════════════════════════ */
+/* Measured: two columns splitting the 1300 row almost evenly
+   (303→958 and 958→1603) with no gap — the grid's own cell borders
+   provide the separation. */
+.p2-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 60px; align-items: stretch; }
+.p2-split__l { display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
+.p2-split__l .p2-head { margin-bottom: 0; }
+/* Heading left, supporting copy right — their strengths block splits the
+   head itself across the row rather than stacking. */
+.p2-split--head { align-items: end; margin-bottom: 40px; }
+.p2-split--head .p2-head { margin-bottom: 0; }
+
+/* 2×2 of bordered cells. Negative margins collapse the shared edges so
+   adjacent cells show one hairline, not two. */
+.p2-award-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.p2-award { border: 1px solid var(--p2-line); margin: -1px 0 0 -1px; padding: 24px; }
+.p2-award__fig { display: block; margin: 16px 0 4px; font-family: var(--p2-face); font-size: 2rem; font-weight: 500; color: var(--p2-ink); font-variant-numeric: tabular-nums; }
+.p2-award h4 { font-size: 1.2rem; font-weight: 600; margin: 0 0 8px; }
+.p2-award p { margin: 0; font-size: .875rem; line-height: 1.7; color: var(--p2-muted); }
+.p2-award p b { font-weight: 600; color: var(--p2-ink); }
+
+/* Four numbered cards, same bordered-cell language. */
+.p2-strength-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.p2-strength { border: 1px solid var(--p2-line); margin: -1px 0 0 -1px; padding: 24px; }
+.p2-strength__no { display: block; font-size: 1rem; color: var(--p2-muted); margin-bottom: 20px; }
+/* Their lime line-icon inside a black square; this site has no icon set,
+   so it is a lime mark on the same black plate rather than a fake logo. */
+.p2-strength__icon { display: flex; align-items: center; justify-content: center; width: 62px; height: 56px; background: var(--p2-ink); margin-bottom: 20px; }
+.p2-strength__icon::after { content: ''; width: 24px; height: 24px; background: var(--p2-accent); }
+.p2-strength h4 { font-size: 1.2rem; font-weight: 600; margin: 0 0 8px; }
+.p2-strength p { margin: 0; font-size: .875rem; line-height: 1.7; color: var(--p2-muted); }
+
+/* ── FAQ accordion ──
+   Bordered rows in one flush run; the open row fills black with a minus,
+   closed rows sit on the page ground with a plus. */
+.p2-faq { align-self: start; }
+.p2-faq__row { border: 1px solid var(--p2-line); margin-top: -1px; }
+.p2-faq__row h3 { margin: 0; }
+.p2-faq__row button { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 20px 24px; background: transparent; font-family: var(--p2-sans); font-size: 1rem; font-weight: 600; text-align: left; color: var(--p2-ink); }
+.p2-faq__row button span { flex-shrink: 0; font-size: 1.25rem; line-height: 1; }
+.p2-faq__row.is-on { background: var(--p2-ink); border-color: var(--p2-ink); }
+.p2-faq__row.is-on button { color: var(--p2-white); }
+.p2-faq__a { padding: 0 24px 22px; }
+.p2-faq__a p { margin: 0; font-size: .9375rem; line-height: 1.75; color: rgba(255, 255, 255, .7); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   WHY CHOOSE — black section, measured off WHY CHOOSE NORTH
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-why { background: var(--p2-ink); padding: 100px var(--p2-gut); }
+/* Their badge flips on black: lime fill, black dot, black text. */
+.p2-badge--lime { background: var(--p2-accent); border-color: var(--p2-accent); color: var(--p2-ink); }
+.p2-badge--lime .p2-badge__dot { background: var(--p2-ink); }
+.p2-why .p2-head h2 { color: var(--p2-white); font-size: 2.5rem; } /* 40px measured */
+.p2-why .p2-lede { color: #a0a0a0; }
+
+/* 2×2 quadrants split by hairlines: vertical via border on the left
+   cells, horizontal via border on the first row. The photo (325×300,
+   measured) sits centred on the cross. */
+.p2-why-grid { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.p2-why__cell { padding: 40px 200px 60px 0; border-right: 1px solid rgba(255, 255, 255, .14); }
+.p2-why__cell--r { padding: 40px 0 60px 200px; border-right: 0; text-align: right; }
+.p2-why__cell:nth-child(-n+2) { border-bottom: 1px solid rgba(255, 255, 255, .14); }
+.p2-why__top { display: flex; align-items: center; gap: 20px; }
+.p2-why__cell--r .p2-why__top { flex-direction: row-reverse; }
+.p2-why__no { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: var(--p2-accent); color: var(--p2-ink); font-family: var(--p2-face); font-size: 1.2rem; font-weight: 600; }
+.p2-why__icon { width: 40px; height: 40px; color: var(--p2-white); stroke-width: 1.25; }
+.p2-why__cell h4 { margin-top: 38px; font-size: 1.5rem; font-weight: 500; color: var(--p2-white); }
+.p2-why__cell p { margin: 10px 0 0; font-size: 1rem; line-height: 1.7; color: #a0a0a0; }
+/* Same 325×300 slot as their single photo, but a 2×2 collage of the
+   four most recent project shots — hairline gaps so the black shows
+   through as grout, a lime hover frame since the whole thing links to
+   /work. */
+.p2-why__shot { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 325px; height: 300px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 3px; background: var(--p2-ink); border: 3px solid var(--p2-ink); transition: border-color .3s; }
+.p2-why__shot:hover { border-color: var(--p2-accent); }
+/* Quiet grey by default, full colour on hover — one held-back treatment
+   across four otherwise unrelated screenshots reads as a set rather
+   than four random crops, and the colour payoff on hover is what
+   makes the whole collage feel like a single clickable thing. */
+.p2-why__shot img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.05); transition: filter .4s; }
+.p2-why__shot:hover img { filter: grayscale(0) contrast(1.05); }
+
+/* Sara's cell — no screenshot exists (she takes phone calls, there's
+   nothing to photograph), so this stands in: the same waveform
+   language WorkGrid draws for her, at collage scale, lime-on-ink so it
+   reads as "this one is different" rather than a missing image. */
+.p2-why__sig { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: var(--p2-ink); color: var(--p2-accent); font-size: 1.5rem; }
+.p2-why__sig__wave { display: flex; align-items: center; gap: 3px; height: 22px; }
+.p2-why__sig__wave i { width: 3px; height: 100%; background: var(--p2-accent); opacity: .85; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PRICING — three 420px cards, middle one black (measured)
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+/* Checked live: the CHOOSE strip is a full-bleed footer flush with the
+   card's own border, not a padded button floating inside it — so the
+   card is a column with a padded body (`.p2-price__in`) and an
+   unpadded footer link, rather than uniform padding all the way down. */
+.p2-price { display: flex; flex-direction: column; border: 1px solid var(--p2-line); }
+.p2-price__in { padding: 30px; flex: 1; }
+.p2-price h5 { margin: 0; font-size: 1.2rem; font-weight: 600; }
+.p2-price__sub { margin: 4px 0 0; font-size: .9375rem; color: var(--p2-muted); }
+.p2-price__fig { display: flex; align-items: baseline; gap: 10px; margin-top: 28px; }
+.p2-price__fig b { font-family: var(--p2-face); font-size: 3rem; font-weight: 500; line-height: 1; } /* 48px measured */
+.p2-price__fig span { font-size: 1rem; color: var(--p2-muted); }
+.p2-price__lbl { display: block; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--p2-line-soft); font-size: 1rem; font-weight: 600; color: var(--p2-ink); }
+.p2-price ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+.p2-price li { font-size: 1rem; color: var(--p2-muted); }
+.p2-price__cta { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 30px; background: var(--p2-ink); color: var(--p2-accent); font-size: 1rem; font-weight: 600; transition: background .3s, color .3s; }
+.p2-price__cta:hover { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-price--dark { background: var(--p2-ink); border-color: var(--p2-ink); }
+.p2-price--dark h5 { color: var(--p2-white); }
+.p2-price--dark .p2-price__fig b { color: var(--p2-white); }
+.p2-price--dark .p2-price__sub, .p2-price--dark .p2-price__fig span, .p2-price--dark li { color: #a0a0a0; }
+.p2-price--dark .p2-price__lbl { color: var(--p2-white); border-top-color: rgba(255, 255, 255, .14); }
+/* The middle card is already black, so its CTA needs the same lime
+   fill the reference shows there — a black-on-black bar would vanish. */
+.p2-price--dark .p2-price__cta { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-price--dark .p2-price__cta:hover { background: var(--p2-white); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   REVIEWS — score rail · black featured quote · two bordered quotes
+   ══════════════════════════════════════════════════════════════════════ */
+/* Rail + featured quote only — the rest run in `.p2-rev-grid` below,
+   which can hold however many `testimonials` carries instead of a
+   330px column hard-capped at two. */
+.p2-rev { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 30px; align-items: stretch; }
+.p2-rev__rail { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: 30px; }
+.p2-rev__score { margin: 0; display: flex; align-items: baseline; gap: 6px; }
+.p2-rev__score b { font-family: var(--p2-face); font-size: 3rem; font-weight: 600; line-height: 1; } /* 48px measured */
+.p2-rev__score span { font-size: 1.375rem; color: var(--p2-muted); }
+.p2-rev__from { margin: 10px 0 0; font-size: 1rem; color: var(--p2-muted); }
+
+.p2-stars { position: relative; display: inline-block; font-size: 1rem; letter-spacing: 3px; line-height: 1; color: rgba(0, 0, 0, .18); }
+.p2-stars__on { position: absolute; left: 0; top: 0; overflow: hidden; white-space: nowrap; color: var(--p2-accent); }
+.p2-rev__row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.p2-rev__mark { font-family: var(--p2-face); font-size: 2rem; font-weight: 700; line-height: .6; color: var(--p2-accent); }
+
+.p2-rev__hero { display: flex; flex-direction: column; background: var(--p2-ink); padding: 30px; }
+.p2-rev__hero .p2-stars { color: rgba(255, 255, 255, .25); }
+.p2-rev__hero blockquote { margin: 24px 0 0; font-family: var(--p2-face); font-size: 1.3rem; /* 20.8px measured */ font-weight: 400; line-height: 1.5; color: var(--p2-white); }
+.p2-rev__hero footer { margin-top: auto; padding-top: 28px; }
+.p2-rev__hero footer b { display: block; font-size: 1rem; color: var(--p2-white); }
+.p2-rev__hero footer span { font-size: .875rem; color: #a0a0a0; }
+
+.p2-rev-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 20px; }
+.p2-rev__card { display: flex; flex-direction: column; border: 1px solid var(--p2-line); padding: 24px; }
+.p2-rev__card blockquote { margin: 16px 0 0; font-size: 1rem; line-height: 1.65; color: var(--p2-muted); }
+.p2-rev__card footer { margin-top: auto; padding-top: 18px; }
+.p2-rev__card footer b { display: block; font-size: 1rem; color: var(--p2-ink); }
+.p2-rev__card footer span { font-size: .875rem; color: var(--p2-muted); }
+
+/* Dev-only banner under the sample quotes — loud on purpose. */
+.p2-rev__note { margin: 30px 0 0; padding: 14px 18px; border: 1px dashed var(--p2-ink); font-size: .875rem; color: var(--p2-ink); background: rgba(217, 255, 63, .25); }
+
+/* Black closing band — 64px white heading (the hero H1 size, measured),
+   lime button opposite it. */
+.p2-cta { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; background: var(--p2-ink); padding: 100px var(--p2-gut); }
+.p2-cta h2 { font-size: 4rem; line-height: 1.1; font-weight: 500; color: var(--p2-white); max-width: 16ch; text-wrap: balance; }
+.p2-btn--lime { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-btn--lime:hover { background: var(--p2-white); color: var(--p2-ink); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SERVICES
+   ══════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════
+   WORK SHOWCASE — their home Works section
+   ══════════════════════════════════════════════════════════════════════ */
+/* Featured image left, project list right (measured 390px wide, sitting
+   at x=1213 in a 1300 row, so roughly a 56/34 split with a 60px gap). */
+.p2-show { display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 60px; align-items: stretch; }
+.p2-show__stage { position: relative; overflow: hidden; background: var(--p2-ink); min-height: 420px; }
+.p2-show__stage img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p2-show__pills { position: absolute; left: 20px; bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+.p2-show__pill { padding: 9px 16px; background: var(--p2-bg); border: 1px solid var(--p2-line); font-size: .8125rem; font-weight: 500; color: var(--p2-ink); }
+.p2-show__pill--accent { background: var(--p2-accent); }
+.p2-show__go { position: absolute; right: 20px; bottom: 20px; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: var(--p2-bg); color: var(--p2-ink); font-size: 1rem; transition: background .3s, color .3s; }
+.p2-show__go:hover { background: var(--p2-accent); }
+
+.p2-show__side { display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+.p2-show__list { display: flex; flex-direction: column; gap: 20px; }
+/* 55px rows, 1px black border, 17px/30px padding, 16px weight 500 —
+   measured. Selected row fills #DFDBCE, the reference's own tint. */
+.p2-show__list button { padding: 17px 30px; border: 1px solid var(--p2-line); background: transparent; font-size: 1rem; font-weight: 500; color: var(--p2-ink); text-align: center; transition: background .3s; }
+/* Checked live: hovering an UNSELECTED row fills the exact same
+   #DFDBCE tint the selected row already carries — one hover colour,
+   not a fainter stand-in for it. */
+.p2-show__list button:hover, .p2-show__list button.is-on { background: #dfdbce; }
+.p2-show__side .p2-btn { justify-content: center; }
+
+/* Measured on their grid: bordered cells in one flush run (434×300 at a
+   1300px row), shared edges collapsed by the negative margins so
+   neighbours show a single hairline. */
+.p2-svc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-left: -1px; }
+.p2-svc { position: relative; display: flex; flex-direction: column; border: 1px solid var(--p2-line); margin: -1px 0 0 -1px; min-height: 300px; padding: 30px; }
+
+/* The number sits in its own small bordered box at the top-left,
+   straddling the cell's own border — theirs overlaps it exactly. */
+.p2-svc__no { position: absolute; top: -1px; left: -1px; display: flex; align-items: center; justify-content: center; min-width: 46px; height: 44px; padding: 0 12px; border: 1px solid var(--p2-line); background: var(--p2-bg); font-size: 1.2rem; font-weight: 600; color: var(--p2-ink); }
+
+/* Their icon is 150px. Scaled to 84 here: mine sit above a title AND a
+   line of copy in a 300px cell, and at their size the text had nowhere
+   to go. */
+.p2-svc__art { display: flex; align-items: center; justify-content: center; flex: 1; padding: 24px 0 20px; }
+.p2-svc__icon { width: 84px; height: 84px; stroke-width: 1; color: var(--p2-ink); }
+
+.p2-svc__body { padding-right: 56px; }
+.p2-svc h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
+.p2-svc p { font-size: 1rem; line-height: 1.6; color: var(--p2-muted); margin: 0; }
+
+/* 51×51 lime square, pinned bottom-right and overlapping the border. */
+.p2-svc__go { position: absolute; right: -1px; bottom: -1px; width: 51px; height: 51px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--p2-line); background: var(--p2-accent); color: var(--p2-ink); font-size: 1rem; transition: background .3s, color .3s; }
+.p2-svc__go:hover { background: var(--p2-ink); color: var(--p2-accent); }
+
+.p2-svc ul { list-style: none; margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--p2-line-soft); display: grid; gap: 10px; }
+.p2-svc li { position: relative; padding-left: 18px; font-size: .8125rem; color: var(--p2-muted); }
+.p2-svc li::before { content: ''; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; background: var(--p2-accent); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   WORK
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-left: -1px; margin-top: -1px; }
+.p2-tile { border: 1px solid var(--p2-line); margin: -1px 0 0 -1px; }
+.p2-tile__shot { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--p2-ink); }
+.p2-tile__shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.p2-tile:hover .p2-tile__shot img { transform: scale(1.05); }
+/* Sara's tile — a live-call waveform standing in for the screenshot
+   that can't exist. A soft radial glow sits behind everything so the
+   bars don't float on flat black like the old version did. */
+.p2-tile__wave { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(217, 255, 63, .1), transparent 70%); }
+.p2-tile__pulse, .p2-tile__pulse::before { content: ''; position: absolute; top: 50%; left: 50%; width: 64px; height: 64px; border: 1px solid rgba(217, 255, 63, .35); border-radius: 50%; transform: translate(-50%, -50%); animation: p2-pulse 2.8s ease-out infinite; }
+.p2-tile__pulse::before { animation-delay: 1.4s; }
+@keyframes p2-pulse { 0% { transform: translate(-50%, -50%) scale(.6); opacity: .8; } 100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; } }
+.p2-tile__mic { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--p2-ink); border: 1px solid rgba(217, 255, 63, .4); color: var(--p2-accent); font-size: 1.1rem; z-index: 1; }
+.p2-tile__bars { display: flex; align-items: center; justify-content: center; gap: 4px; width: 100%; height: 100%; padding: 0 14%; }
+.p2-tile__bars i { flex: 1; border-radius: 2px; animation: p2-bar 1.8s ease-in-out infinite; }
+@keyframes p2-bar { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.82); } }
+@media (prefers-reduced-motion: reduce) {
+  .p2-tile__pulse, .p2-tile__pulse::before, .p2-tile__bars i { animation: none; }
+}
+.p2-tile__pill { position: absolute; left: 14px; bottom: 14px; font-size: .6875rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 7px 12px; }
+.p2-tile__pill--accent { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-tile__go { position: absolute; right: 14px; bottom: 14px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--p2-white); color: var(--p2-ink); font-size: 1rem; transition: background .3s, color .3s; }
+.p2-tile__go:hover { background: var(--p2-accent); }
+.p2-tile__cap { padding: 20px; border-top: 1px solid var(--p2-line); }
+.p2-tile__cap h4 { font-size: 1.0625rem; font-weight: 500; margin: 0 0 6px; }
+.p2-tile__cap p { margin: 0; font-size: .75rem; color: var(--p2-muted); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   CONTACT
+   ══════════════════════════════════════════════════════════════════════ */
+/* ── Brief checklist ──
+   The slot their contact form occupies. Bordered rows, collapsed on a
+   shared 1px edge like every other grid on this layout. */
+.p2-brief { list-style: none; margin: 0; padding: 0; align-self: start; }
+.p2-brief li { padding: 24px 30px; border: 1px solid var(--p2-line); margin-top: -1px; }
+.p2-brief__k { display: block; font-family: var(--p2-face); font-size: 1.125rem; font-weight: 600; color: var(--p2-ink); }
+.p2-brief li p { margin: 6px 0 0; font-size: .9375rem; line-height: 1.65; color: var(--p2-muted); }
+
+/* ── Get in touch rows ──
+   Their detail list: a 52px black square with a lime glyph, 20px of
+   gap, then a small uppercase muted label stacked over a 20px bold
+   value. Row pitch measured at ~75px on the reference. */
+.p2-reach { list-style: none; margin: 34px 0 0; padding: 0; display: flex; flex-direction: column; gap: 23px; }
+.p2-reach li { display: flex; align-items: center; gap: 20px; }
+.p2-reach__icon { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: var(--p2-ink); color: var(--p2-accent); font-size: 1.375rem; }
+.p2-reach__txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.p2-reach__k { font-size: .875rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--p2-muted); }
+.p2-reach__txt b, .p2-reach__txt a { font-family: var(--p2-sans); font-size: 1.25rem; font-weight: 600; line-height: 1.35; color: var(--p2-ink); overflow-wrap: anywhere; }
+.p2-reach__txt a:hover { color: var(--p2-muted); }
+
+/* The right half of their block is a Google Map. This carries the next
+   step instead — see the note in GetInTouch.tsx. Numbered because it is
+   an actual sequence, not decoration. */
+.p2-reach__panel { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 26px; padding: 50px; background: var(--p2-ink); }
+.p2-reach__panel h3 { margin: 0; font-size: 2rem; font-weight: 500; line-height: 1.15; color: var(--p2-white); }
+.p2-reach__panel ol { counter-reset: p2step; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.p2-reach__panel li { counter-increment: p2step; position: relative; padding-left: 46px; font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,.7); }
+.p2-reach__panel li::before { content: counter(p2step, decimal-leading-zero); position: absolute; left: 0; top: 0; font-family: var(--p2-face); font-size: 1rem; font-weight: 600; color: var(--p2-accent); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-foot { background: var(--p2-ink); color: rgba(255,255,255,.6); }
+.p2-foot__top { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; padding: 40px var(--p2-gut); border-bottom: 1px solid rgba(255,255,255,.15); }
+.p2-foot__nav { display: flex; gap: 22px; flex-wrap: wrap; margin-left: auto; }
+.p2-foot__nav a, .p2-foot__soc a { font-size: .875rem; color: rgba(255,255,255,.7); }
+.p2-foot__nav a:hover, .p2-foot__soc a:hover { color: var(--p2-accent); }
+.p2-foot__soc { display: flex; gap: 18px; }
+.p2-foot__bot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 18px var(--p2-gut); font-size: .75rem; }
+.p2-foot__bot a { color: rgba(255,255,255,.7); }
+.p2-foot__bot a:hover { color: var(--p2-accent); }
+
+@media (max-width: 1000px) {
+  .p2-hero { grid-template-columns: 1fr; }
+  .p2-hero__l { border-right: 0; border-bottom: 1px solid var(--p2-line); }
+  .p2-hero__r { padding: 44px var(--p2-gut); flex-direction: column; }
+  .p2-hero__mid, .p2-svc-grid, .p2-work-grid { grid-template-columns: repeat(2, 1fr); }
+  .p2-show { grid-template-columns: 1fr; gap: 30px; }
+  .p2-hero__cards { width: 100%; }
+  .p2-about { grid-template-columns: 1fr; }
+  .p2-about__in { padding: 30px 0 0; }
+  .p2-split, .p2-split--head { grid-template-columns: 1fr; gap: 30px; }
+  .p2-strength-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .p2-cta h2 { font-size: 3rem; }
+  /* Swap for the hamburger, not just gone — hiding the nav with no
+     replacement left the header with a dead gap between the logo and
+     "Let's talk" on any window narrower than this. */
+  .p2-nav, .p2-hdr__cta { display: none; }
+  .p2-burger { display: flex; }
+  /* These render at a flat, measured px size now rather than a
+     vw-scaled clamp — full size on any normal desktop width, but that
+     means they need an explicit step down once the layout itself has
+     already collapsed to one column below 1000px. */
+  .p2-hero__l h1 { font-size: 3rem; }
+  .p2-head h2, .p2-intro h1 { font-size: 2.5rem; }
+}
+@media (max-width: 680px) {
+  .p2-hero__mid, .p2-svc-grid, .p2-work-grid { grid-template-columns: 1fr; }
+  .p2-award-grid, .p2-strength-grid { grid-template-columns: 1fr; }
+  .p2-reach__panel { padding: 30px; }
+  .p2-reach__panel h3 { font-size: 1.625rem; }
+  /* Single column: un-mirror the right cells, drop the cross photo
+     (it would sit on top of the text), swap borders to row rules. */
+  .p2-why { padding: 60px var(--p2-gut); }
+  .p2-why-grid { grid-template-columns: 1fr; }
+  .p2-why__cell, .p2-why__cell--r { padding: 30px 0; border-right: 0; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, .14); }
+  .p2-why__cell--r .p2-why__top { flex-direction: row; }
+  .p2-why__cell:last-child { border-bottom: 0; }
+  .p2-why__cell h4 { margin-top: 20px; }
+  .p2-why__shot { display: none; }
+  .p2-price-grid { grid-template-columns: 1fr; }
+  .p2-rev { grid-template-columns: 1fr; }
+  .p2-rev__rail { flex-direction: row; align-items: center; }
+  .p2-rev-grid { grid-template-columns: 1fr; }
+  .p2-sec { padding: 60px var(--p2-gut); }
+  .p2-intro { padding: 60px var(--p2-gut); }
+  .p2-cta { padding: 60px var(--p2-gut); }
+  .p2-sec__top { align-items: flex-start; }
+  .p2-hero__l h1 { font-size: 2.25rem; }
+  .p2-head h2, .p2-intro h1 { font-size: 1.875rem; }
+  .p2-why .p2-head h2 { font-size: 1.875rem; } /* outranks the 2.5rem section rule */
+  .p2-cta h2 { font-size: 2.25rem; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   POLISH LAYER — eye comfort, sticky glass header, dark hero banner.
+   Sits last so it overrides the template-faithful rules above.
+     · ink #14161a / muted #3b4048 instead of pure #000 / #54595f:
+       softer on the eye but higher contrast for body copy (≈9:1)
+     · body copy 17px / 1.75, up from 15px — the old size was the main
+       "uncomfortable to read" complaint
+     · header sticks and blurs; nav links become pills with a clear
+       active state; CTA is a lime pill, the strongest target in the bar
+     · hero and inner-page banners are dark with a lime glow so the
+       first screen after the header is the focal point
+   ══════════════════════════════════════════════════════════════════════ */
+.p2 {
+  --p2-bg: #f5f3ec;
+  --p2-ink: #14161a;
+  --p2-muted: #3b4048;
+  --p2-line: #14161a;
+  --p2-dark: #14161a;
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.p2-sec--tint { background: #ece9df; }
+.p2-head p, .p2-intro p, .p2-lede, .p2-tools p, .p2-hero__l p { font-size: 1.0625rem; line-height: 1.8; }
+.p2-award p, .p2-tools--cv li li, .p2-cv__org { font-size: .9375rem; }
+.p2 :focus-visible { outline: 3px solid #6b8f00; outline-offset: 3px; }
+
+/* ── Header ── */
+.p2-hdr { position: sticky; top: 0; background: #f5f3ec; backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); box-shadow: 0 1px 0 var(--p2-line), 0 10px 30px -18px rgba(20, 22, 26, .35); }
+.p2-bar { min-height: 88px; }
+.p2-logo__mark { width: 88px; font-size: 2.25rem; }
+.p2-logo__txt { min-width: 0; padding: 0 28px; border-right: 0; }
+.p2-logo__txt b { font-size: 1.125rem; letter-spacing: -.01em; }
+.p2-logo__txt span { font-size: .875rem; }
+.p2-nav { justify-content: center; gap: 6px; padding: 0 16px; border-right: 0; flex-wrap: nowrap; }
+.p2-nav a { flex: 0 0 auto; padding: 10px 20px; border-radius: 999px; font-size: .9375rem; transition: background .2s, color .2s; }
+.p2-nav a:hover { background: rgba(20, 22, 26, .07); color: var(--p2-ink); }
+.p2-nav a.is-on { background: var(--p2-ink); color: var(--p2-accent); }
+.p2-hdr__cta { align-items: center; gap: 12px; padding: 0 28px 0 8px; }
+.p2-hdr__cta a:first-child { min-width: 0; padding: 0 26px; height: 50px; border-radius: 999px; background: var(--p2-accent); border: 1px solid var(--p2-ink); transition: transform .2s, box-shadow .2s; }
+.p2-hdr__cta a:first-child:hover { color: var(--p2-ink); transform: translateY(-2px); box-shadow: 0 6px 0 var(--p2-ink); }
+.p2-hdr__arrow { width: 50px; height: 50px; border-radius: 50%; }
+@media (max-width: 1200px) { .p2-nav a { padding: 10px 14px; } .p2-logo__txt span { display: none; } }
+
+/* ── Hero banner ── */
+.p2-hero { position: relative; isolation: isolate; background: var(--p2-dark); border-bottom: 0; overflow: hidden; }
+.p2-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background:
+  radial-gradient(60% 70% at 12% 8%, rgba(217, 255, 63, .22), transparent 62%),
+  radial-gradient(45% 55% at 92% 95%, rgba(217, 255, 63, .12), transparent 65%),
+  linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 56px 56px,
+  linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 56px 56px; }
+.p2-hero__l { border-right: 1px solid rgba(255, 255, 255, .14); }
+.p2 .p2-hero__l h1 { color: #fff; font-size: 4.25rem; line-height: 1.06; letter-spacing: -.025em; }
+.p2-hero__l p { color: rgba(255, 255, 255, .8); font-size: 1.1875rem; max-width: 48ch; }
+.p2-hero .p2-badge { color: #fff; border-color: rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .06); border-radius: 999px; padding: 7px 16px 7px 12px; }
+.p2-hero .p2-badge__dot { border-radius: 50%; box-shadow: 0 0 0 0 rgba(217, 255, 63, .6); animation: p2-pulse 2s infinite; }
+@keyframes p2-pulse { 70% { box-shadow: 0 0 0 9px rgba(217, 255, 63, 0); } 100% { box-shadow: 0 0 0 0 rgba(217, 255, 63, 0); } }
+.p2-hero .p2-btn { background: var(--p2-accent); color: var(--p2-ink); border-radius: 999px; padding: 18px 32px; box-shadow: 0 0 0 0 rgba(217,255,63,.0); }
+.p2-hero .p2-btn:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 10px 30px -8px rgba(217, 255, 63, .55); }
+.p2-hero .p2-btn--line { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, .45); }
+.p2-hero .p2-btn--line:hover { background: rgba(255, 255, 255, .12); color: #fff; box-shadow: none; }
+.p2-hero__shot { border: 1px solid rgba(255, 255, 255, .25); box-shadow: 14px 14px 0 var(--p2-accent); }
+.p2-hero__cards { border-color: rgba(255, 255, 255, .25); }
+.p2-hero__cards .p2-card { border-color: rgba(255, 255, 255, .25); }
+.p2-hero__cards .p2-card--dark { background: rgba(255, 255, 255, .06); }
+.p2-hero__spec { border-color: rgba(255, 255, 255, .25); background: rgba(255, 255, 255, .05); }
+.p2-hero__spec span { color: var(--p2-accent); border-right-color: rgba(255, 255, 255, .25); }
+.p2-hero__spec li { color: #fff; }
+@media (max-width: 1000px) { .p2-hero__l { border-bottom-color: rgba(255,255,255,.14); } .p2 .p2-hero__l h1 { font-size: 3rem; } }
+@media (max-width: 680px) { .p2 .p2-hero__l h1 { font-size: 2.375rem; } .p2-hero__shot { box-shadow: 8px 8px 0 var(--p2-accent); } .p2-hero__l p { font-size: 1.0625rem; } }
+
+/* ── Ticker: lime band so it separates cleanly from the dark hero ── */
+.p2-ticker { background: var(--p2-accent); border-bottom: 1px solid var(--p2-ink); }
+.p2-ticker__track span { color: var(--p2-ink); }
+.p2-ticker__track b { color: var(--p2-ink); }
+
+/* ── Inner-page banners (About, Work, Services, Resume, Contact) ── */
+.p2-intro { position: relative; isolation: isolate; background: var(--p2-dark); border-bottom: 0; overflow: hidden; padding-block: 120px; }
+.p2-intro::before { content: ''; position: absolute; inset: 0; z-index: -1; background:
+  radial-gradient(50% 90% at 50% 0%, rgba(217, 255, 63, .22), transparent 70%),
+  linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 56px 56px,
+  linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 56px 56px; }
+.p2 .p2-intro h1 { color: #fff; font-size: 3.75rem; letter-spacing: -.02em; }
+.p2-intro p { color: rgba(255, 255, 255, .8); font-size: 1.1875rem; }
+.p2-intro .p2-badge { color: #fff; border-color: rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .06); border-radius: 999px; padding: 7px 16px 7px 12px; }
+.p2-intro .p2-badge__dot { border-radius: 50%; }
+.p2-intro .p2-btn { background: var(--p2-accent); color: var(--p2-ink); border-radius: 999px; }
+.p2-intro .p2-btn:hover { background: #fff; }
+@media (max-width: 1000px) { .p2 .p2-intro h1 { font-size: 2.5rem; } }
+@media (max-width: 680px) { .p2-intro { padding-block: 72px; } .p2 .p2-intro h1 { font-size: 1.875rem; } }
+
+/* ── Buttons & cards elsewhere: softer, clearer affordance ── */
+.p2-btn { border-radius: 999px; transition: background .25s, color .25s, transform .2s; }
+.p2-btn:hover { transform: translateY(-2px); }
+.p2-card, .p2-award, .p2-strength { transition: background .25s; }
+@media (prefers-reduced-motion: reduce) { .p2-hero .p2-badge__dot { animation: none; } .p2-btn:hover, .p2-hdr__cta a:first-child:hover, .p2-hero .p2-btn:hover { transform: none; } }
+.p2-hero__l .p2-badge { align-self: flex-start; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ABOUT BLOCK POLISH — dark intro panel, framed portrait, card tools
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-about { gap: 40px; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr) minmax(0, 1.05fr); }
+/* Left: black panel so the intro has weight and the lime CTA pops. */
+.p2-about__in { background: var(--p2-dark); padding: 40px 36px; border: 1px solid var(--p2-ink); position: relative; overflow: hidden; }
+.p2-about__in::before { content: ''; position: absolute; inset: 0; background: radial-gradient(70% 50% at 0% 0%, rgba(217,255,63,.2), transparent 70%); pointer-events: none; }
+.p2-about__in > * { position: relative; }
+.p2-about__in .p2-badge { color: #fff; border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.06); }
+.p2 .p2-about__in .p2-head h2 { color: #fff; font-size: 2.75rem; letter-spacing: -.02em; }
+.p2-about__in .p2-lede { color: rgba(255,255,255,.82); font-size: 1.125rem; line-height: 1.85; margin-bottom: 32px; }
+.p2-about__in .p2-lede em, .p2-about__in .p2-lede b, .p2-about__in .p2-lede strong { color: var(--p2-accent); }
+.p2-about__in .p2-btn { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-about__in .p2-btn:hover { background: #fff; }
+/* Middle: framed portrait with a lime offset shadow, matching the hero. */
+.p2-about__shot { border: 1px solid var(--p2-ink); box-shadow: 12px 12px 0 var(--p2-accent); margin: 0 12px 12px 0; }
+/* Right: each skill group is its own card. */
+.p2-about__tools h3 { font-size: 1.0625rem; letter-spacing: .06em; margin-bottom: 16px; }
+.p2-about__tools .p2-tools:not(.p2-tools--cv) { border-top: 0; display: grid; gap: 14px; }
+.p2-about__tools .p2-tools:not(.p2-tools--cv) li { padding: 20px 22px; background: #fff; border: 1px solid var(--p2-ink); transition: transform .25s, box-shadow .25s; }
+.p2-about__tools .p2-tools:not(.p2-tools--cv) li:hover { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--p2-accent), 5px 5px 0 1px var(--p2-ink); }
+.p2-about__tools .p2-tools:not(.p2-tools--cv) .p2-tools__icon { width: 44px; height: 44px; padding: 9px; margin-top: 0; background: var(--p2-accent); border: 1px solid var(--p2-ink); }
+.p2-about__tools .p2-tools:not(.p2-tools--cv) li:hover .p2-tools__icon { color: var(--p2-ink); }
+.p2-about__tools .p2-tools:not(.p2-tools--cv) b { font-size: 1.125rem; margin-bottom: 4px; }
+.p2-about__tools .p2-tools:not(.p2-tools--cv) p { font-size: .9375rem; line-height: 1.65; }
+@media (max-width: 1000px) {
+  .p2-about__in { padding: 32px 26px; }
+  .p2-about__shot { max-width: 460px; }
+}
+@media (max-width: 680px) { .p2 .p2-about__in .p2-head h2 { font-size: 2.125rem; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   WORK SHOWCASE POLISH — framed stage, readable pills, numbered picker
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-show { grid-template-columns: minmax(0, 1fr) 400px; gap: 48px; }
+.p2-show__stage { min-height: 460px; border: 1px solid var(--p2-ink); box-shadow: 12px 12px 0 var(--p2-accent); margin: 0 12px 12px 0; }
+.p2-show__stage img { transition: transform .8s ease; }
+.p2-show__stage:hover img { transform: scale(1.04); }
+/* Dark fade under the pills so they stay legible on any screenshot. */
+.p2-show__stage::after { content: ''; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(to top, rgba(14,16,19,.72), transparent); pointer-events: none; }
+.p2-show__pills, .p2-show__go { z-index: 1; }
+.p2-show__pills { left: 24px; bottom: 24px; right: 96px; }
+.p2-show__pill { border-radius: 999px; padding: 8px 16px; font-size: .875rem; font-weight: 600; background: rgba(255,255,255,.94); }
+.p2-show__pill--accent { background: var(--p2-accent); }
+.p2-show__go { right: 24px; bottom: 24px; width: 52px; height: 52px; border-radius: 50%; background: var(--p2-accent); font-size: 1.25rem; }
+.p2-show__go:hover { background: #fff; transform: rotate(45deg); transition: background .3s, transform .3s; }
+
+/* Picker: numbered rows, left-aligned, selected one goes black. */
+.p2-show__side { gap: 24px; }
+.p2-show__list { gap: 12px; counter-reset: show; }
+.p2-show__list button { counter-increment: show; display: flex; align-items: center; gap: 16px; text-align: left; padding: 18px 22px; background: #fff; font-size: 1.0625rem; font-weight: 600; transition: background .25s, color .25s, transform .25s; }
+.p2-show__list button::before { content: '0' counter(show); font-size: .8125rem; font-weight: 600; color: var(--p2-muted); font-variant-numeric: tabular-nums; transition: color .25s; }
+.p2-show__list button::after { content: '\2197'; margin-left: auto; opacity: 0; transform: translateX(-6px); transition: opacity .25s, transform .25s; }
+.p2-show__list button:hover { background: #fff; transform: translateX(4px); }
+.p2-show__list button:hover::after { opacity: 1; transform: none; }
+.p2-show__list button.is-on { background: var(--p2-ink); color: #fff; transform: none; }
+.p2-show__list button.is-on:hover { background: var(--p2-ink); }
+.p2-show__list button.is-on::before { color: var(--p2-accent); }
+.p2-show__list button.is-on::after { opacity: 1; transform: none; color: var(--p2-accent); }
+@media (max-width: 1000px) { .p2-show { grid-template-columns: 1fr; gap: 36px; } .p2-show__stage { min-height: 320px; } }
+@media (max-width: 680px) { .p2-show__stage { box-shadow: 8px 8px 0 var(--p2-accent); min-height: 260px; } .p2-show__pills { right: 24px; bottom: 88px; } }
+.p2-split--head .p2-lede { font-size: 1.1875rem; line-height: 1.75; color: var(--p2-ink); margin: 0; padding-left: 20px; border-left: 4px solid var(--p2-accent); max-width: 44ch; }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   WORKS — same cream as About (the beige tint read as a mismatched band),
+   with a faint dot grid so the section still has texture.
+   ══════════════════════════════════════════════════════════════════════ */
+#work.p2-sec { background: var(--p2-bg) radial-gradient(rgba(20,22,26,.09) 1px, transparent 1px) 0 0 / 22px 22px; padding-block: 110px; }
+.p2 #work .p2-head h2 { font-size: 3.5rem; letter-spacing: -.025em; }
+#work .p2-show__side .p2-btn { background: var(--p2-ink); color: var(--p2-accent); }
+#work .p2-show__side .p2-btn:hover { background: var(--p2-accent); color: var(--p2-ink); }
+#work .p2-show__list button.is-on { background: var(--p2-ink); color: #fff; }
+@media (max-width: 1000px) { .p2 #work .p2-head h2 { font-size: 2.5rem; } #work.p2-sec { padding-block: 80px; } }
+@media (max-width: 680px) { .p2 #work .p2-head h2 { font-size: 1.875rem; } #work.p2-sec { padding-block: 64px; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   REST-OF-SITE POLISH — services, why, pricing, reviews, FAQ, contact,
+   CTA, footer. Same language as the hero/about/work: soft ink, lime
+   accents, rounded affordances, lift-on-hover, and brighter text on
+   dark grounds (#a0a0a0 on black was ~7:1 but looked dim; .78 white
+   reads clearly without glaring).
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-head h2 { letter-spacing: -.02em; }
+.p2-head .p2-badge, .p2-sec .p2-badge { border-radius: 999px; padding: 6px 14px 6px 10px; }
+.p2-badge__dot { border-radius: 50%; }
+.p2-link { padding: 10px 18px; border: 1px solid var(--p2-ink); border-radius: 999px; background: #fff; }
+.p2-link:hover { background: var(--p2-accent); color: var(--p2-ink); }
+
+/* ── Services: separate lifted cards instead of one fused grid ── */
+.p2-svc-grid { gap: 24px; margin-left: 0; }
+.p2-svc { margin: 0; background: #fff; min-height: 340px; padding: 34px 30px; transition: transform .3s, box-shadow .3s; }
+.p2-svc:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--p2-accent), 8px 8px 0 1px var(--p2-ink); }
+.p2-svc__no { top: 18px; left: 18px; min-width: 40px; height: 40px; border-radius: 50%; background: var(--p2-accent); border-color: var(--p2-ink); font-size: 1rem; }
+.p2-svc__art { padding-top: 40px; }
+.p2-svc__icon { width: 76px; height: 76px; stroke-width: 1.25; }
+.p2-svc h3 { font-size: 1.375rem; }
+.p2-svc p { font-size: 1.0625rem; line-height: 1.65; }
+.p2-svc__go { right: 18px; bottom: 18px; width: 46px; height: 46px; border-radius: 50%; }
+.p2-svc__go:hover { transform: rotate(45deg); }
+.p2-svc li { font-size: .9375rem; }
+
+/* ── Why (dark band): brighter copy ── */
+.p2-why { background: var(--p2-dark); position: relative; isolation: isolate; overflow: hidden; }
+.p2-why::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(45% 55% at 100% 0%, rgba(217,255,63,.14), transparent 70%), linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 56px 56px, linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 56px 56px; }
+.p2-why .p2-lede, .p2-why__cell p { color: rgba(255,255,255,.78); font-size: 1.0625rem; }
+.p2-why__no { border-radius: 50%; }
+.p2-why__cell h4 { font-size: 1.75rem; }
+.p2-why .p2-badge { background: var(--p2-accent); }
+
+/* ── Pricing ── */
+.p2-price { background: #fff; transition: transform .3s, box-shadow .3s; }
+.p2-price:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--p2-accent), 8px 8px 0 1px var(--p2-ink); }
+.p2-price--dark { background: var(--p2-dark); }
+.p2-price--dark .p2-price__sub, .p2-price--dark .p2-price__fig span, .p2-price--dark li { color: rgba(255,255,255,.78); }
+.p2-price li, .p2-price__sub, .p2-price__fig span { font-size: 1.0625rem; }
+.p2-price__cta { border-radius: 0 0 0 0; }
+
+/* ── Achievements / strengths ── */
+.p2-award, .p2-strength { background: #fff; }
+.p2-award__fig { font-size: 2.5rem; }
+.p2-award p, .p2-strength p { font-size: 1rem; }
+.p2-strength__icon { border-radius: 50%; width: 56px; }
+
+/* ── Reviews ── */
+.p2-rev__hero { background: var(--p2-dark); }
+.p2-rev__hero footer span { color: rgba(255,255,255,.7); }
+.p2-rev__card { background: #fff; transition: transform .3s, box-shadow .3s; }
+.p2-rev__card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px -18px rgba(20,22,26,.5); }
+.p2-rev__card blockquote { font-size: 1.0625rem; }
+
+/* ── FAQ ── */
+.p2-faq__row { background: #fff; margin-top: -1px; transition: background .25s; }
+.p2-faq__row:not(.is-on) button:hover { background: var(--p2-accent); }
+.p2-faq__row button { font-size: 1.0625rem; padding: 22px 26px; }
+.p2-faq__row.is-on { background: var(--p2-dark); }
+.p2-faq__row.is-on button span { color: var(--p2-accent); }
+.p2-faq__a { padding: 0 26px 26px; }
+.p2-faq__a p { font-size: 1rem; color: rgba(255,255,255,.82); }
+
+/* ── Contact ── */
+.p2-reach__icon { border-radius: 50%; }
+.p2-reach__txt b, .p2-reach__txt a { font-size: 1.1875rem; }
+.p2-reach__panel { background: var(--p2-dark); position: relative; isolation: isolate; overflow: hidden; }
+.p2-reach__panel::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60% 50% at 100% 0%, rgba(217,255,63,.18), transparent 70%); }
+.p2-reach__panel li { color: rgba(255,255,255,.82); font-size: 1.0625rem; }
+.p2-reach__panel .p2-btn, .p2-cta .p2-btn { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-reach__panel .p2-btn:hover, .p2-cta .p2-btn:hover { background: #fff; }
+
+/* ── Closing CTA + footer ── */
+.p2-cta { background: var(--p2-dark); position: relative; isolation: isolate; overflow: hidden; }
+.p2-cta::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 90% at 90% 50%, rgba(217,255,63,.22), transparent 70%), linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 56px 56px, linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 56px 56px; }
+.p2-foot { background: var(--p2-dark); color: rgba(255,255,255,.75); }
+.p2-foot__nav a, .p2-foot__soc a, .p2-foot__bot a { font-size: .9375rem; color: rgba(255,255,255,.82); }
+.p2-foot__bot { font-size: .875rem; }
+@media (max-width: 680px) { .p2-svc-grid { gap: 18px; } .p2-svc { min-height: 0; } }
+@media (prefers-reduced-motion: reduce) { .p2-svc:hover, .p2-price:hover, .p2-rev__card:hover { transform: none; } }
+
+/* One light ground everywhere: every "tint" section uses the same cream
+   plus a faint dot grid instead of a different beige. */
+.p2-sec--tint { background: var(--p2-bg) radial-gradient(rgba(20,22,26,.09) 1px, transparent 1px) 0 0 / 22px 22px; }
+#about.p2-sec { background: var(--p2-bg) radial-gradient(rgba(20,22,26,.09) 1px, transparent 1px) 0 0 / 22px 22px; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SERVICES CARDS v2 — icon tile + outlined numeral, left-aligned copy,
+   and the whole card inverts to black on hover so the hovered service is
+   unmistakable. Overrides the earlier services rules above.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-svc-grid { gap: 28px; }
+.p2-svc { overflow: clip; min-height: 400px; padding: 36px 32px 100px; background: #fff; border-radius: 4px; transition: transform .35s, box-shadow .35s, background .35s; }
+.p2-svc::before { content: ''; position: absolute; inset: auto -20% -45% auto; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(217,255,63,.55), transparent 68%); opacity: 0; transition: opacity .4s; pointer-events: none; }
+.p2-svc:hover { background: var(--p2-dark); transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--p2-accent), 8px 8px 0 1px var(--p2-ink); }
+.p2-svc:hover::before { opacity: .5; }
+/* Big outlined numeral top-right instead of a small circle. */
+.p2-svc__no { top: 26px; right: 28px; left: auto; min-width: 0; height: auto; padding: 0; border: 0; border-radius: 0; background: transparent; font-family: var(--p2-face); font-size: 3.5rem; font-weight: 500; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(20,22,26,.3); transition: -webkit-text-stroke-color .35s; }
+.p2-svc:hover .p2-svc__no { -webkit-text-stroke-color: var(--p2-accent); }
+/* Icon sits on a lime tile with a hard offset shadow. */
+.p2-svc__art { flex: 0 0 auto; justify-content: flex-start; padding: 0; margin-bottom: 34px; }
+.p2-svc__art svg, .p2-svc__icon { box-sizing: content-box; width: 52px; height: 52px; padding: 18px; background: var(--p2-accent); border: 1px solid var(--p2-ink); box-shadow: 6px 6px 0 var(--p2-ink); color: var(--p2-ink); stroke-width: 1.5; transition: transform .35s, box-shadow .35s; }
+.p2-svc:hover .p2-svc__icon { transform: rotate(-6deg) scale(1.05); box-shadow: 6px 6px 0 rgba(255,255,255,.9); }
+.p2-svc__body { padding-right: 0; position: relative; }
+.p2-svc h3 { font-size: 1.625rem; line-height: 1.2; letter-spacing: -.01em; margin-bottom: 14px; transition: color .35s; }
+.p2-svc p { font-size: 1.0625rem; line-height: 1.7; transition: color .35s; }
+.p2-svc:hover h3 { color: #fff; }
+.p2-svc:hover p, .p2-svc:hover li { color: rgba(255,255,255,.82); }
+.p2-svc ul { border-top-color: rgba(128,128,128,.3); }
+/* Arrow becomes a labelled pill pinned bottom-left. */
+.p2-svc__go { right: auto; left: 32px; bottom: 32px; width: auto; height: 46px; padding: 0 22px 0 20px; border-radius: 999px; gap: 8px; font-size: .9375rem; font-weight: 600; }
+.p2-svc__go::before { content: 'Enquire'; }
+.p2-svc__go:hover { transform: none; background: #fff; color: var(--p2-ink); }
+.p2-svc:hover .p2-svc__go { background: var(--p2-accent); }
+.p2-svc:hover .p2-svc__go:hover { background: #fff; }
+@media (max-width: 680px) { .p2-svc { min-height: 0; padding-bottom: 96px; } .p2-svc__no { font-size: 2.75rem; } }
+@media (prefers-reduced-motion: reduce) { .p2-svc:hover .p2-svc__icon { transform: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   WHY CHOOSE v2 — four even glass cards (no mirrored right-aligned
+   cells), collage becomes a full-width project strip underneath instead
+   of floating over the cross and crowding the copy.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-why { padding-block: 120px; }
+.p2 .p2-why .p2-head h2 { font-size: 3.25rem; letter-spacing: -.025em; }
+.p2-why .p2-lede { color: rgba(255,255,255,.82); font-size: 1.1875rem; margin: 0; padding-left: 20px; border-left: 4px solid var(--p2-accent); max-width: 44ch; }
+.p2-why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.p2-why__cell, .p2-why__cell--r { position: relative; overflow: hidden; padding: 36px 36px 40px; text-align: left; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.04); transition: background .3s, border-color .3s, transform .3s; }
+.p2-why__cell:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.16); }
+.p2-why__cell:hover { background: rgba(217,255,63,.08); border-color: var(--p2-accent); transform: translateY(-4px); }
+.p2-why__top, .p2-why__cell--r .p2-why__top { flex-direction: row; justify-content: space-between; }
+.p2-why__no { width: 48px; height: 48px; font-size: 1.0625rem; }
+.p2-why__icon { width: 44px; height: 44px; color: var(--p2-accent); stroke-width: 1.4; }
+.p2-why__cell h4, .p2-why__cell--r h4 { margin-top: 30px; font-size: 1.875rem; letter-spacing: -.01em; }
+.p2-why__cell p { margin-top: 14px; font-size: 1.0625rem; line-height: 1.75; color: rgba(255,255,255,.82); }
+/* Collage → strip. */
+.p2-why__shot { position: relative; left: auto; top: auto; transform: none; grid-column: 1 / -1; width: 100%; height: 200px; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: 1fr; gap: 12px; background: transparent; border: 0; margin-top: 12px; }
+.p2-why__shot:hover { border-color: transparent; }
+.p2-why__shot img, .p2-why__sig { border: 1px solid rgba(255,255,255,.2); transition: filter .4s, transform .4s, border-color .3s; }
+.p2-why__shot:hover img { transform: none; }
+.p2-why__shot img:hover { transform: translateY(-4px); border-color: var(--p2-accent); }
+.p2-why__sig { background: rgba(255,255,255,.05); }
+.p2-why__shot::after { content: 'See all projects \2197'; position: absolute; right: 16px; bottom: 16px; padding: 10px 18px; border-radius: 999px; background: var(--p2-accent); color: var(--p2-ink); font-size: .9375rem; font-weight: 600; }
+@media (max-width: 1000px) { .p2-why { padding-block: 80px; } .p2-why__shot { height: 160px; } }
+@media (max-width: 680px) {
+  .p2 .p2-why .p2-head h2 { font-size: 2rem; }
+  .p2-why-grid { grid-template-columns: 1fr; gap: 16px; }
+  .p2-why__cell, .p2-why__cell--r { padding: 28px 24px; border: 1px solid rgba(255,255,255,.16); }
+  .p2-why__cell:last-of-type { border-bottom: 1px solid rgba(255,255,255,.16); }
+  .p2-why__shot { display: grid; height: 120px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, 1fr); height: 240px; }
+  .p2-why__shot::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .p2-why__cell:hover, .p2-why__shot img:hover { transform: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   WHY CHOOSE v3 — deeper ground, bigger type, tools as chips.
+   The four cards keep the site's square, hairline language; what
+   changes is the hierarchy: a lime word in the heading, three counted
+   facts beside the lede, an icon tile, one plain line per discipline,
+   and every tool as its own chip instead of a dot-joined sentence.
+   ══════════════════════════════════════════════════════════════════════ */
+/* Ground: near-black with two lime glows, and the grid fading out
+   toward the edges instead of running flat across the whole band. */
+.p2-why { padding-block: 128px; background: linear-gradient(180deg, #0e1013 0%, #14161a 45%, #0d0f12 100%); border-top: 1px solid rgba(217,255,63,.35); }
+.p2-why::before { z-index: -1; background: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 64px 64px, linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) 0 0 / 64px 64px; -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 35%, transparent 100%); mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 35%, transparent 100%); }
+.p2-why::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(42% 50% at 92% 0%, rgba(217,255,63,.2), transparent 70%), radial-gradient(38% 46% at 0% 100%, rgba(217,255,63,.09), transparent 70%); }
+
+/* Head: larger, tighter heading; the second half in lime. */
+.p2-why .p2-split--head { align-items: end; margin-bottom: 56px; }
+.p2 .p2-why .p2-head h2 { font-size: clamp(2.5rem, 4.4vw, 4.25rem); line-height: 1.02; letter-spacing: -.035em; max-width: 12ch; margin-top: 22px; }
+.p2 .p2-why .p2-head h2 em { font-style: normal; color: var(--p2-accent); }
+.p2-why__side { justify-self: end; max-width: 520px; }
+.p2-why .p2-lede { font-size: 1.25rem; line-height: 1.7; color: rgba(255,255,255,.86); max-width: none; }
+
+/* Cards. */
+.p2-why-grid { gap: 20px; }
+.p2-why__cell, .p2-why__cell--r { display: flex; flex-direction: column; padding: 34px 34px 36px; border: 1px solid rgba(255,255,255,.12); background: linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.02)); transition: border-color .35s, transform .35s, background .35s; }
+.p2-why__cell::before { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 2px; background: var(--p2-accent); transform: scaleX(0); transform-origin: left; transition: transform .45s ease; }
+.p2-why__cell:hover { transform: translateY(-6px); border-color: rgba(217,255,63,.55); background: linear-gradient(180deg, rgba(217,255,63,.09), rgba(255,255,255,.02)); }
+.p2-why__cell:hover::before { transform: scaleX(1); }
+/* The big outlined number sits behind the copy, bottom right. */
+.p2-why__ghost { position: absolute; right: 18px; bottom: -34px; z-index: 0; font-family: var(--p2-face); font-size: 10.5rem; font-weight: 700; line-height: 1; letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.08); pointer-events: none; user-select: none; transition: -webkit-text-stroke-color .35s; }
+.p2-why__cell:hover .p2-why__ghost { -webkit-text-stroke-color: rgba(217,255,63,.3); }
+.p2-why__top, .p2-why__cell h4, .p2-why__cell p, .p2-why__tags { position: relative; z-index: 1; }
+.p2-why__top, .p2-why__cell--r .p2-why__top { align-items: center; justify-content: space-between; }
+.p2-why__tile { display: flex; align-items: center; justify-content: center; width: 58px; height: 58px; background: var(--p2-accent); transition: transform .35s; }
+.p2-why__cell:hover .p2-why__tile { transform: rotate(-6deg) scale(1.04); }
+.p2-why__tile .p2-why__icon { width: 28px; height: 28px; color: var(--p2-ink); stroke-width: 1.8; }
+.p2-why__no { width: auto; height: auto; border-radius: 0; background: transparent; color: rgba(255,255,255,.55); font-size: .8125rem; font-weight: 500; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
+.p2-why__cell h4, .p2-why__cell--r h4 { margin-top: 28px; font-size: 2.125rem; line-height: 1.1; letter-spacing: -.02em; }
+.p2-why__cell p { margin-top: 10px; font-size: 1.0625rem; line-height: 1.65; color: rgba(255,255,255,.7); max-width: 34ch; }
+/* Tools as chips. */
+.p2-why__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; padding: 22px 0 0; list-style: none; border-top: 1px solid rgba(255,255,255,.12); }
+.p2-why__tags li { padding: 8px 12px; border: 1px solid rgba(255,255,255,.18); background: #1c1f24; color: rgba(255,255,255,.92); font-size: .875rem; font-weight: 500; line-height: 1; white-space: nowrap; transition: border-color .3s, background .3s; }
+.p2-why__cell:hover .p2-why__tags li { border-color: rgba(217,255,63,.4); }
+.p2-why__tags li:hover { background: var(--p2-accent); border-color: var(--p2-accent); color: var(--p2-ink); }
+/* Project strip: a little more room above it. */
+.p2-why__shot { margin-top: 20px; height: 210px; gap: 20px; }
+
+@media (max-width: 1000px) {
+  .p2-why { padding-block: 88px; }
+  .p2 .p2-why .p2-head h2 { max-width: none; }
+  .p2-why__side { justify-self: start; max-width: none; }
+  .p2-why__shot { height: 170px; gap: 12px; }
+}
+@media (max-width: 680px) {
+  .p2-why { padding-block: 64px; }
+  .p2 .p2-why .p2-head h2 { font-size: 2.25rem; }
+  .p2-why .p2-split--head { margin-bottom: 36px; }
+  .p2-why .p2-lede { font-size: 1.0625rem; }
+  .p2-why__cell, .p2-why__cell--r { padding: 26px 22px 28px; }
+  .p2-why__cell h4, .p2-why__cell--r h4 { font-size: 1.75rem; margin-top: 22px; }
+  .p2-why__ghost { font-size: 7.5rem; bottom: -24px; right: 10px; }
+  .p2-why__tile { width: 50px; height: 50px; }
+  .p2-why__tags li { font-size: .8125rem; padding: 7px 10px; }
+  .p2-why__shot { height: 240px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .p2-why__cell:hover, .p2-why__cell:hover .p2-why__tile { transform: none; }
+  .p2-why__cell::before { transition: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   WHY → SELECTED WORK strip. Header row carries the CTA; four captioned
+   tiles below. Nothing overlays a screenshot (the old lime pill sat on
+   top of the last tile and hid it).
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-why__work { grid-column: 1 / -1; margin-top: 28px; padding-top: 36px; border-top: 1px solid rgba(255,255,255,.14); }
+.p2-why__work-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.p2-why__work-k { display: block; font-family: var(--p2-face); font-size: 1.75rem; font-weight: 500; letter-spacing: -.01em; color: #fff; }
+.p2-why__work-head p { margin: 6px 0 0; font-size: 1rem; color: rgba(255,255,255,.7); }
+.p2-why__work-cta { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 999px; background: var(--p2-accent); color: var(--p2-ink); font-size: 1rem; font-weight: 600; transition: background .25s, transform .25s; }
+.p2-why__work-cta:hover { background: #fff; transform: translateY(-2px); }
+.p2-why__work-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.p2-why__work-tile { display: block; }
+.p2-why__work-art { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; aspect-ratio: 16 / 10; overflow: hidden; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.2); color: var(--p2-accent); font-size: 1.75rem; transition: border-color .3s, transform .3s; }
+.p2-why__work-art img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .6s; }
+.p2-why__work-cap { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; font-size: 1rem; font-weight: 600; color: rgba(255,255,255,.92); }
+.p2-why__work-cap::after { content: '\2197'; color: var(--p2-accent); opacity: 0; transform: translate(-4px, 4px); transition: opacity .25s, transform .25s; }
+.p2-why__work-tile:hover .p2-why__work-art { border-color: var(--p2-accent); transform: translateY(-4px); }
+.p2-why__work-tile:hover img { transform: scale(1.05); }
+.p2-why__work-tile:hover .p2-why__work-cap::after { opacity: 1; transform: none; }
+@media (max-width: 1000px) { .p2-why__work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .p2-why__work-head { align-items: flex-start; } .p2-why__work-grid { gap: 14px; } .p2-why__work-k { font-size: 1.5rem; } }
+@media (prefers-reduced-motion: reduce) { .p2-why__work-tile:hover .p2-why__work-art, .p2-why__work-cta:hover { transform: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PRICING v2 — roomier cards, check-marked lists, pill CTA inside the
+   card (no flush black bar), featured card lifted with a lime glow.
+   No "best seller" tag: that would be an unverifiable claim.
+   ══════════════════════════════════════════════════════════════════════ */
+#pricing .p2-head { margin-bottom: 56px; }
+#pricing .p2-head h2 { font-size: 3.25rem; letter-spacing: -.025em; }
+#pricing .p2-head p { font-size: 1.1875rem; color: var(--p2-muted); }
+.p2-price-grid { gap: 28px; align-items: stretch; }
+.p2-price { position: relative; border-radius: 4px; overflow: clip; padding-bottom: 30px; }
+.p2-price::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--p2-accent); border-bottom: 1px solid var(--p2-ink); }
+.p2-price__in { padding: 40px 32px 28px; }
+.p2-price h5 { font-size: 1.625rem; line-height: 1.2; letter-spacing: -.01em; }
+.p2-price__sub { margin-top: 8px; color: var(--p2-muted); }
+.p2-price__fig { flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 30px; }
+.p2-price__fig b { font-size: 3.5rem; letter-spacing: -.03em; }
+/* "quoted per scope" as a pill so it reads as a label, not stray text. */
+.p2-price__fig span { padding: 6px 14px; border: 1px solid currentColor; border-radius: 999px; font-size: .875rem; font-weight: 600; line-height: 1.2; color: var(--p2-ink); background: rgba(217,255,63,.55); border-color: var(--p2-ink); }
+.p2-price__lbl { margin-top: 28px; padding-top: 28px; font-size: .8125rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.p2-price ul { gap: 14px; margin-top: 18px; }
+.p2-price li { position: relative; padding-left: 34px; font-size: 1.0625rem; line-height: 1.5; color: var(--p2-ink); }
+.p2-price li::before { content: '\2713'; position: absolute; left: 0; top: 1px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--p2-accent); border: 1px solid var(--p2-ink); color: var(--p2-ink); font-size: .75rem; font-weight: 700; }
+/* CTA: pill inside the card padding. */
+.p2-price__cta { margin: 0 32px; border-radius: 999px; padding: 16px 28px; border: 1px solid var(--p2-ink); }
+.p2-price__cta:hover { transform: translateY(-2px); }
+/* Featured (dark) card: lifted, lime glow, light text. */
+.p2-price--dark { transform: translateY(-14px); box-shadow: 0 30px 60px -28px rgba(20,22,26,.6), 0 0 0 1px var(--p2-ink); }
+.p2-price--dark::after { content: ''; position: absolute; inset: auto -30% -40% auto; width: 80%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(217,255,63,.28), transparent 65%); pointer-events: none; }
+.p2-price--dark:hover { transform: translateY(-20px); box-shadow: 0 30px 60px -28px rgba(20,22,26,.6), 0 0 0 1px var(--p2-ink); }
+.p2-price--dark h5, .p2-price--dark .p2-price__fig b, .p2-price--dark li { color: #fff; }
+.p2-price--dark .p2-price__sub { color: rgba(255,255,255,.75); }
+.p2-price--dark .p2-price__fig span { color: var(--p2-ink); background: var(--p2-accent); border-color: var(--p2-accent); }
+.p2-price--dark .p2-price__lbl { color: var(--p2-accent); }
+.p2-price--dark .p2-price__cta { border-color: var(--p2-accent); }
+.p2-price--dark .p2-price__in, .p2-price--dark .p2-price__cta { position: relative; z-index: 1; }
+@media (max-width: 1000px) { .p2-price-grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; } .p2-price--dark, .p2-price--dark:hover { transform: none; } #pricing .p2-head h2 { font-size: 2.5rem; } }
+@media (max-width: 680px) { #pricing .p2-head h2 { font-size: 1.875rem; } .p2-price__fig b { font-size: 3rem; } .p2-price__in { padding: 34px 24px 24px; } .p2-price__cta { margin: 0 24px; } }
+@media (prefers-reduced-motion: reduce) { .p2-price--dark:hover, .p2-price__cta:hover { transform: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   REVIEWS v3 — profile pictures, a rail that is a card of its own, a
+   large featured quote on the dark ground, and cards that name the
+   rating and the date. Stars go ink on white (lime on white could not
+   be read) and stay lime on the dark card.
+   ══════════════════════════════════════════════════════════════════════ */
+#reviews.p2-sec { background: var(--p2-bg) radial-gradient(rgba(20,22,26,.09) 1px, transparent 1px) 0 0 / 22px 22px; padding-block: 120px; }
+
+/* Profile picture: a real photo, or initials on a tile. */
+.p2-ava { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 50%; border: 1px solid var(--p2-ink); object-fit: cover; font-family: var(--p2-face); font-weight: 700; line-height: 1; letter-spacing: .02em; }
+.p2 .p2-ava--a { background: var(--p2-accent); color: var(--p2-ink); }
+.p2 .p2-ava--b { background: var(--p2-dark); color: var(--p2-accent); }
+.p2 .p2-ava--c { background: #fff; color: var(--p2-ink); }
+.p2 .p2-ava--more { background: var(--p2-bg); color: var(--p2-ink); font-size: .8125rem; font-weight: 600; }
+
+/* Stars and the row above each quote. */
+.p2-stars { color: rgba(20,22,26,.16); letter-spacing: 2px; }
+.p2-stars__on { color: var(--p2-ink); }
+.p2-rev__hero .p2-stars { color: rgba(255,255,255,.22); }
+.p2-rev__hero .p2-stars__on { color: var(--p2-accent); }
+.p2-rev__rate { display: inline-flex; align-items: center; gap: 10px; }
+.p2-rev__rate b { font-family: var(--p2-face); font-size: .9375rem; font-weight: 700; color: var(--p2-ink); font-variant-numeric: tabular-nums; }
+.p2-rev__hero .p2-rev__rate b { color: var(--p2-white); }
+.p2-rev__date { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--p2-muted); white-space: nowrap; }
+.p2-rev__hero .p2-rev__date { color: rgba(255,255,255,.6); }
+
+/* The person under a quote. */
+.p2-rev__who { display: flex; align-items: center; gap: 14px; }
+.p2-rev__id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.p2 .p2-rev__id b { font-family: var(--p2-face); font-size: 1.0625rem; font-weight: 700; letter-spacing: -.005em; }
+.p2 .p2-rev__id span { font-size: .875rem; line-height: 1.4; }
+
+/* Rail: its own card. */
+.p2-rev { grid-template-columns: 300px minmax(0, 1fr); gap: 20px; }
+.p2-rev__rail { justify-content: flex-start; gap: 24px; padding: 30px; background: #fff; border: 1px solid var(--p2-line); }
+.p2-rev__sum { width: 100%; }
+.p2-rev__score b { font-size: 4.5rem; font-weight: 500; letter-spacing: -.045em; color: var(--p2-ink); }
+.p2-rev__score span { font-size: 1.5rem; }
+.p2-rev__sum .p2-stars { margin-top: 14px; font-size: 1.125rem; }
+.p2-rev__from { margin-top: 8px; font-size: .9375rem; }
+.p2-rev__stack { display: flex; flex-direction: column; gap: 12px; width: 100%; padding-top: 22px; border-top: 1px solid var(--p2-line-soft); }
+.p2-rev__faces { display: flex; }
+.p2-rev__faces .p2-ava { margin-left: -5px; box-shadow: 0 0 0 2px #fff; }
+.p2-rev__faces .p2-ava:first-child { margin-left: 0; }
+.p2-rev__count { font-size: .9375rem; color: var(--p2-muted); }
+.p2-rev__count b { font-family: var(--p2-face); font-size: 1.0625rem; color: var(--p2-ink); }
+.p2-rev__rail .p2-btn { margin-top: auto; }
+
+/* Featured quote. */
+.p2-rev__hero { position: relative; isolation: isolate; overflow: hidden; padding: 40px 44px; }
+.p2-rev__hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(48% 70% at 100% 0%, rgba(217,255,63,.2), transparent 70%), linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 48px 48px, linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 48px 48px; }
+.p2-rev__hero .p2-rev__mark { position: absolute; right: 30px; bottom: -70px; z-index: -1; font-size: 18rem; line-height: 1; color: rgba(217,255,63,.13); }
+.p2-rev__hero blockquote { margin-top: 28px; max-width: 24ch; font-size: clamp(1.5rem, 2.1vw, 2.125rem); font-weight: 500; line-height: 1.28; letter-spacing: -.02em; }
+.p2-rev__hero .p2-rev__who { margin-top: auto; padding-top: 36px; }
+.p2-rev__hero .p2-ava { border-color: rgba(255,255,255,.35); }
+
+/* Cards. */
+.p2-rev-grid { gap: 20px; margin-top: 20px; }
+.p2-rev__card { padding: 28px; }
+.p2-rev__card:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--p2-accent), 8px 8px 0 1px var(--p2-ink); }
+.p2-rev__card blockquote { margin: 20px 0 22px; font-size: 1.125rem; line-height: 1.6; color: var(--p2-ink); }
+.p2-rev__card .p2-rev__who { padding-top: 20px; border-top: 1px solid var(--p2-line-soft); }
+
+@media (max-width: 1000px) {
+  #reviews.p2-sec { padding-block: 80px; }
+  .p2-rev { grid-template-columns: 1fr; }
+  .p2-rev__rail { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 20px 36px; }
+  .p2-rev__sum { width: auto; }
+  .p2-rev__stack { width: auto; padding-top: 0; border-top: 0; }
+  .p2-rev__rail .p2-btn { margin-top: 0; margin-left: auto; }
+  .p2-rev-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 680px) {
+  #reviews.p2-sec { padding-block: 64px; }
+  .p2-rev__rail { flex-direction: column; align-items: flex-start; padding: 24px; }
+  .p2-rev__stack { width: 100%; padding-top: 20px; border-top: 1px solid var(--p2-line-soft); }
+  .p2-rev__rail .p2-btn { margin-left: 0; }
+  .p2-rev__score b { font-size: 3.5rem; }
+  .p2-rev__hero { padding: 28px 24px; }
+  .p2-rev__hero blockquote { max-width: none; font-size: 1.375rem; }
+  .p2-rev__hero .p2-rev__mark { font-size: 11rem; bottom: -44px; right: 12px; }
+  .p2-rev-grid { grid-template-columns: 1fr; }
+  .p2-rev__card { padding: 24px; }
+  .p2-rev__card blockquote { font-size: 1.0625rem; }
+}
+@media (prefers-reduced-motion: reduce) { .p2-rev__card:hover { transform: none; } }
+
+/* ── Track record row inside the Why band ──
+   The four sourced figures as one strip between the heading and the
+   cards — they used to fill a whole section of their own on home. */
+.p2-why__stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 20px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.03); }
+.p2-why__stat { padding: 26px 28px 24px; border-right: 1px solid rgba(255,255,255,.14); }
+.p2-why__stat:last-child { border-right: 0; }
+.p2-why__stat > b { display: block; font-family: var(--p2-face); font-size: 3.25rem; font-weight: 500; line-height: 1; letter-spacing: -.04em; color: var(--p2-accent); font-variant-numeric: tabular-nums; }
+.p2-why__stat > b i { font-style: normal; font-size: .55em; margin-left: 2px; letter-spacing: 0; }
+.p2 .p2-why__stat h5 { margin-top: 14px; font-size: 1.0625rem; font-weight: 500; color: var(--p2-white); }
+.p2-why__stat p { margin: 4px 0 0; font-size: .875rem; line-height: 1.5; color: rgba(255,255,255,.6); }
+.p2-why__stat p b { font-weight: 600; color: rgba(255,255,255,.92); }
+@media (max-width: 1000px) {
+  .p2-why__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .p2-why__stat:nth-child(2n) { border-right: 0; }
+  .p2-why__stat:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.14); }
+}
+@media (max-width: 680px) {
+  .p2-why__stat { padding: 18px 16px; }
+  .p2-why__stat > b { font-size: 2.5rem; }
+  .p2 .p2-why__stat h5 { font-size: 1rem; margin-top: 10px; }
+  .p2-why__stat p { font-size: .8125rem; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SPLIT PAGE BANNER — copy left, framed photo right (About page).
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-intro--split { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: 72px; text-align: left; padding-block: 100px; }
+.p2-intro__copy { display: flex; flex-direction: column; align-items: flex-start; }
+.p2 .p2-intro--split h1 { max-width: 14ch; font-size: 4rem; line-height: 1.06; }
+.p2-intro--split p { max-width: 46ch; }
+.p2-intro__photo { position: relative; margin: 0 14px 14px 0; border: 1px solid rgba(255,255,255,.28); box-shadow: 14px 14px 0 var(--p2-accent); aspect-ratio: 3 / 2; overflow: clip; background: #0b0c0e; }
+.p2-intro__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+@media (max-width: 1000px) { .p2-intro--split { grid-template-columns: 1fr; gap: 48px; padding-block: 72px; } .p2 .p2-intro--split h1 { font-size: 2.75rem; max-width: none; } .p2-intro__photo { max-width: 560px; } }
+@media (max-width: 680px) { .p2 .p2-intro--split h1 { font-size: 2.125rem; } .p2-intro__photo { box-shadow: 8px 8px 0 var(--p2-accent); } }
+.p2-about__shot img { object-position: 50% 28%; }
+
+/* Audit fixes: no text under 13px; outlined card numerals a little
+   stronger (they are decorative, but were ~1.9:1). */
+.p2-card__k, .p2-rev__date { font-size: .8125rem; }
+.p2-svc__no { -webkit-text-stroke-color: rgba(20,22,26,.5); }
+
+/* VIN Wear screenshot is a website top-of-page capture: anchor the crop
+   to the top so the header isn't trimmed, instead of centring it like
+   the laptop mockups. */
+.p2-show__stage img[alt*="VIN Wear"], .p2-tile img[alt*="VIN Wear"] { object-position: top; }
+
+/* One fixed stage height for every project. Without it the stage took its
+   height from the image's own aspect ratio, so the 4:3 VIN Wear capture
+   made it taller than the wider laptop mockups. The image just covers it. */
+.p2-show__stage { height: 460px; min-height: 0; }
+.p2-show__stage img { height: 100%; }
+@media (max-width: 1000px) { .p2-show__stage { height: 340px; } }
+@media (max-width: 680px) { .p2-show__stage { height: 260px; } }
+
+/* ── Hero proof strip — three figures on a solid lime ground ── */
+.p2-hero__proof { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 32px 0 0; padding: 0; max-width: 560px; background: var(--p2-accent); border: 1px solid var(--p2-accent); }
+.p2-hero__proof li { padding: 18px 20px; border-right: 1px solid rgba(20,22,26,.85); }
+.p2-hero__proof li:last-child { border-right: 0; }
+.p2-hero__proof b { display: block; font-family: var(--p2-face); font-size: 2.25rem; font-weight: 600; line-height: 1; letter-spacing: -.02em; color: var(--p2-ink); font-variant-numeric: tabular-nums; }
+.p2-hero__proof span { display: block; margin-top: 8px; font-size: .875rem; font-weight: 600; line-height: 1.3; color: var(--p2-ink); }
+.p2-hero__l .p2-acts { margin-top: 28px; }
+@media (max-width: 680px) { .p2-hero__proof li { padding: 14px 12px; } .p2-hero__proof b { font-size: 1.625rem; } .p2-hero__proof span { font-size: .75rem; } }
+
+/* Tighter hero rhythm so the buttons stay on the first screen now that the
+   proof strip sits above them. */
+@media (min-width: 1001px) {
+  .p2-hero__l { padding-block: 64px; }
+  .p2-hero__r { padding-block: 64px; }
+  .p2-hero__l p { margin-top: 28px; }
+  .p2-hero__proof { margin-top: 24px; }
+  .p2-hero__l .p2-acts { margin-top: 24px; }
+}
+
+/* Hero copy now opens on the headline itself (the availability badge is
+   gone): pin it to the top so it starts level with the portrait instead
+   of floating down the column. */
+@media (min-width: 1001px) {
+  .p2-hero__l { justify-content: flex-start; }
+  .p2 .p2-hero__l h1 { margin-top: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SECTION HEADS — one size, one pattern everywhere (sentence case, title
+   left, intro right). Pricing's old centred head is gone.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2 .p2-sec .p2-head h2, .p2 #work .p2-head h2, .p2 #pricing .p2-head h2, .p2 .p2-why .p2-head h2 { font-size: 3.25rem; letter-spacing: -.025em; line-height: 1.12; }
+#pricing .p2-split--head .p2-head { margin-bottom: 0; }
+#pricing .p2-split--head { margin-bottom: 56px; }
+@media (max-width: 1000px) { .p2 .p2-sec .p2-head h2, .p2 #work .p2-head h2, .p2 #pricing .p2-head h2, .p2 .p2-why .p2-head h2 { font-size: 2.5rem; } }
+@media (max-width: 680px) { .p2 .p2-sec .p2-head h2, .p2 #work .p2-head h2, .p2 #pricing .p2-head h2, .p2 .p2-why .p2-head h2 { font-size: 1.875rem; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE FIXES — phones and tablets.
+   The About block's 3-column rule (added for desktop) was declared after
+   the ≤1000px single-column rule and overrode it, so phones got three
+   squeezed columns and the page scrolled sideways. minmax(0, …) tracks
+   everywhere so long words can never widen a column.
+   ══════════════════════════════════════════════════════════════════════ */
+html, body { max-width: 100%; overflow-x: clip; }
+.p2 img { max-width: 100%; }
+@media (max-width: 1000px) {
+  .p2-about { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .p2-hero { grid-template-columns: minmax(0, 1fr); }
+  .p2-hero__l, .p2-hero__r { min-width: 0; }
+  .p2-about__shot { max-width: 520px; margin-right: 12px; }
+}
+@media (max-width: 680px) {
+  .p2-hero__l { padding: 44px var(--p2-gut) 40px; }
+  .p2-hero__r { padding: 8px var(--p2-gut) 48px; }
+  .p2-hero__mid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .p2-hero__shot { margin-right: 10px; max-height: 420px; }
+  .p2-hero__cards { grid-template-rows: none; }
+  .p2-hero__spec { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .p2-hero__spec span { border-right: 0; padding-right: 0; }
+  .p2-about__in { padding: 28px 22px; }
+  .p2-tools li, .p2-about__tools .p2-tools li { min-width: 0; }
+  .p2-tools b, .p2-tools p { overflow-wrap: anywhere; }
+}
+
+/* Works stage on phones: one row of tags along the bottom with the arrow
+   beside it, instead of wrapping into a stack over the screenshot. */
+@media (max-width: 680px) {
+  .p2-show__pills { left: 14px; right: 70px; bottom: 14px; gap: 8px; flex-wrap: nowrap; overflow: hidden; }
+  .p2-show__pill { padding: 6px 12px; font-size: .75rem; white-space: nowrap; }
+  .p2-show__pill:nth-child(n+3) { display: none; }
+  .p2-show__go { right: 14px; bottom: 10px; width: 44px; height: 44px; }
+}
+
+/* ── Mobile menu: bigger display-face links, lime marker on the current
+   page, lime call-to-action. ── */
+.p2-mmenu { background: var(--p2-bg); border-left: 4px solid var(--p2-accent); }
+.p2-mmenu nav a { font-family: var(--p2-face); font-size: 1.75rem; font-weight: 500; letter-spacing: -.01em; padding: 18px 0 18px 0; color: var(--p2-ink); transition: padding .25s, color .25s; }
+.p2-mmenu nav a:hover { padding-left: 10px; }
+.p2-mmenu nav a.is-on { color: var(--p2-ink); padding-left: 16px; box-shadow: inset 5px 0 0 var(--p2-accent); }
+.p2-mmenu__cta { background: var(--p2-accent) !important; color: var(--p2-ink) !important; border-radius: 999px; font-family: var(--p2-sans) !important; font-size: 1.0625rem !important; font-weight: 600 !important; box-shadow: none !important; padding: 16px !important; }
+.p2-mmenu__cta:hover { padding-left: 16px !important; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE / TABLET LAYOUT v2 (≤1000px)
+   · portrait FIRST, then headline, then the cards — the photo is what
+     holds a thumb-scroller on arrival
+   · View work + Contact me side by side
+   · even gutters and vertical rhythm
+   · slim header + a solid lime scroll-progress bar, so a reader always
+     sees where they are on the page
+   ══════════════════════════════════════════════════════════════════════ */
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Scroll progress: a solid lime bar under the sticky header that fills as
+   you read. Header.tsx writes --p2-progress (0–1) on <html>; the bar is
+   just a scaled pseudo-element. (A CSS-only scroll-timeline version was
+   dropped by the build's CSS minifier, so this is the dependable one.) */
+.p2-hdr::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 4px; background: var(--p2-accent); transform: scaleX(var(--p2-progress, 0)); transform-origin: left; pointer-events: none; z-index: 2; }
+
+@media (max-width: 1000px) {
+  /* Hero: flatten the right column into the flow so each piece can be
+     ordered on its own — photo, copy, cards, specialities. */
+  .p2-hero { display: flex; flex-direction: column; }
+  .p2-hero__r, .p2-hero__mid { display: contents; }
+  .p2-hero__shot { order: 1; margin: 28px var(--p2-gut) 0; height: clamp(300px, 78vw, 460px); min-height: 0; }
+  .p2-hero__l { order: 2; border-right: 0; border-bottom: 0; padding: 36px var(--p2-gut) 32px; }
+  .p2-hero__cards { order: 3; margin: 0 var(--p2-gut); }
+  .p2-hero__spec { order: 4; margin: 20px var(--p2-gut) 44px; }
+
+  /* About: photo leads the block, then the copy, then the tools. */
+  .p2-about__shot { order: -1; width: 100%; max-width: none; height: clamp(300px, 80vw, 480px); margin: 0 12px 12px 0; }
+  .p2-about__shot img { height: 100%; }
+
+  /* Inner-page banner with a photo (About): photo first. */
+  .p2-intro--split .p2-intro__photo { order: -1; width: calc(100% - 14px); max-width: none; }
+  .p2-intro--split { gap: 36px; padding-block: 44px 56px; }
+}
+
+@media (max-width: 680px) {
+  /* Slimmer sticky header, more screen for content. */
+  .p2-bar { min-height: 66px; }
+  .p2-logo__mark { width: 66px; font-size: 1.75rem; }
+  .p2-logo__txt { padding: 0 18px; }
+  .p2-logo__txt b { font-size: 1.0625rem; }
+  html { scroll-padding-top: 72px; }
+
+  /* Hero rhythm. */
+  .p2-hero__shot { margin-top: 24px; }
+  .p2-hero__l { padding: 32px var(--p2-gut) 28px; }
+  .p2 .p2-hero__l h1 { font-size: 2.375rem; line-height: 1.08; }
+  .p2-hero__l p { margin-top: 18px; font-size: 1.0625rem; line-height: 1.7; }
+  .p2-hero__proof { max-width: none; margin-top: 22px; }
+
+  /* Buttons: one row, equal width. */
+  .p2-hero__l .p2-acts { flex-wrap: nowrap; gap: 12px; margin-top: 22px; }
+  .p2-hero__l .p2-acts .p2-btn { flex: 1 1 0; justify-content: center; min-width: 0; padding: 16px 10px; font-size: .9375rem; white-space: nowrap; gap: 6px; }
+
+  /* Section rhythm: consistent, a little tighter than desktop. */
+  .p2-sec { padding: 56px var(--p2-gut); }
+  .p2-head h2, .p2 .p2-sec .p2-head h2 { margin-top: 14px; }
+  .p2-split--head { gap: 18px; margin-bottom: 28px; }
+  .p2-ticker { padding: 22px 0; }
+  .p2-about { gap: 28px; }
+}
+
+/* "Worked with" chips: optional kind-of-work label in lime. */
+.p2-chips li { display: inline-flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.p2-chips li em { font-style: normal; font-size: .6875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--p2-accent); }
+
+/* ── Nothing hides on phones ──
+   The role line under the name was dropped below 1200px to free room for
+   the desktop nav. Below 1000px the nav is a burger, so there is room —
+   bring it back. And the third Works tag was hidden; the stage now lets
+   tags wrap instead of cutting them. */
+@media (max-width: 1000px) {
+  .p2-logo__txt { gap: 1px; }
+  .p2-logo__txt span { display: block; font-size: .8125rem; line-height: 1.25; }
+}
+@media (max-width: 680px) {
+  .p2-show__pills { flex-wrap: wrap; overflow: visible; }
+  .p2-show__pill:nth-child(n+3) { display: inline-block; }
+  .p2-logo__txt { padding: 0 14px; min-width: 0; }
+  .p2-logo__txt b { font-size: 1rem; white-space: nowrap; }
+  .p2-logo__txt span { white-space: nowrap; font-size: .75rem; }
+}
+
+/* The ≤1000px rule gave .p2-hero__cards width:100% — plus the side margins
+   added above, that pushed its right edge past the screen where the page's
+   overflow guard silently clipped it. Let it size from its margins. */
+@media (max-width: 1000px) {
+  .p2-hero__cards { width: auto; min-width: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE SLIDERS (≤680px)
+   Services, the four disciplines, pricing and the review cards become
+   swipe rows: native scroll-snap, the next card peeking in from the edge
+   so it's obvious there's more, and dots below (SliderDots.tsx). Above
+   680px nothing here applies — they stay ordinary grids.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-why-cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; grid-column: 1 / -1; }
+.p2-dots { display: none; }
+
+@media (max-width: 680px) {
+  .p2-svc-grid, .p2-price-grid, .p2-why-cells, .p2-rev-grid {
+    display: flex; flex-wrap: nowrap; align-items: stretch;
+    gap: 14px; grid-template-columns: none; max-width: none;
+    /* bleed to the screen edges, then re-inset with padding so the first
+       card lines up with the page margin and the last can scroll clear */
+    margin-inline: calc(var(--p2-gut) * -1);
+    padding: 12px var(--p2-gut) 16px;
+    scroll-padding-inline: var(--p2-gut);
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .p2-svc-grid::-webkit-scrollbar, .p2-price-grid::-webkit-scrollbar, .p2-why-cells::-webkit-scrollbar, .p2-rev-grid::-webkit-scrollbar { display: none; }
+  .p2-svc-grid > *, .p2-price-grid > *, .p2-why-cells > *, .p2-rev-grid > * {
+    flex: 0 0 84%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always;
+    /* off-screen slides must not wait for a scroll-into-view fade */
+    opacity: 1 !important; transform: none !important;
+  }
+  .p2-rev-grid { margin-top: 20px; }
+
+  /* The featured (dark) pricing card stays flush with the others in a row. */
+  .p2-price--dark, .p2-price--dark:hover { transform: none !important; }
+
+  /* Dots */
+  .p2-dots { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 4px 0 0; }
+  .p2-dots button { width: 10px; height: 10px; padding: 0; border-radius: 999px; border: 1px solid var(--p2-ink); background: transparent; transition: width .25s, background .25s; }
+  .p2-dots button.is-on { width: 28px; background: var(--p2-accent); }
+  .p2-why .p2-dots button { border-color: rgba(255,255,255,.6); }
+  .p2-why .p2-dots button.is-on { border-color: var(--p2-accent); }
+}
+
+/* Review cards on phones: let the rating/date row wrap and tighten the date
+   so it never pokes past the card edge. */
+@media (max-width: 680px) {
+  .p2-rev__row { flex-wrap: wrap; gap: 6px 14px; }
+  .p2-rev__date { letter-spacing: .06em; white-space: normal; }
+  .p2-rev__card, .p2-rev__hero { min-width: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE SPACING SYSTEM (≤680px) — one rhythm, declared last so it wins.
+     side margin   20px      (was 24px, with some blocks at 0 or 22)
+     section       56px top and bottom, every section, same everywhere
+     head → body   28px
+     card padding  22px      card → card gap 16px
+     paragraph     17px / 1.7
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .p2 { --p2-gut: 20px; }
+
+  /* Sections: identical vertical padding. */
+  .p2 .p2-sec, .p2 #work.p2-sec, .p2 #pricing.p2-sec, .p2 .p2-why, .p2 .p2-cta { padding-top: 56px; padding-bottom: 56px; padding-left: var(--p2-gut); padding-right: var(--p2-gut); }
+  .p2 .p2-intro, .p2 .p2-intro--split { padding-top: 40px; padding-bottom: 52px; padding-left: var(--p2-gut); padding-right: var(--p2-gut); }
+  .p2-ticker { padding: 20px 0; }
+  .p2-ticker__track span { font-size: 1.375rem; }
+
+  /* Headings and the block that follows them. */
+  .p2 .p2-head h2, .p2 .p2-sec .p2-head h2, .p2 #work .p2-head h2, .p2 #pricing .p2-head h2, .p2 .p2-why .p2-head h2 { font-size: 1.875rem; line-height: 1.15; margin-top: 14px; }
+  .p2-split--head, .p2 #pricing .p2-split--head { gap: 18px; margin-bottom: 28px; }
+  .p2-split--head .p2-lede { font-size: 1.0625rem; line-height: 1.65; padding-left: 16px; }
+  .p2-sec__top { margin-bottom: 28px; gap: 14px; }
+
+  /* Body copy. */
+  .p2-lede, .p2-head p, .p2-intro p { font-size: 1.0625rem; line-height: 1.7; }
+  .p2 .p2-intro h1, .p2 .p2-intro--split h1 { font-size: 2.125rem; line-height: 1.1; }
+  .p2-intro p { margin-top: 16px; }
+  .p2-intro .p2-btn { margin-top: 26px; }
+
+  /* Cards: same inner padding, same gap. */
+  .p2-svc { padding: 28px 22px 92px; min-height: 0; }
+  .p2-svc__go { left: 22px; bottom: 24px; }
+  .p2-price__in { padding: 30px 22px 22px; }
+  .p2-price__cta { margin: 0 22px; }
+  .p2-why__cell, .p2-why__cell--r { padding: 26px 22px 28px; }
+  .p2-rev__card, .p2-rev__hero, .p2-rev__rail { padding: 22px; }
+  .p2-award, .p2-strength { padding: 22px; }
+  .p2-about__in { padding: 28px 22px; }
+  .p2-reach__panel { padding: 28px 22px; }
+  .p2-tools li { padding: 18px 0; }
+  .p2-svc-grid, .p2-price-grid, .p2-why-cells, .p2-rev-grid { gap: 14px; }
+  .p2-why-grid { gap: 14px; }
+  .p2-about { gap: 24px; }
+  .p2-split { gap: 24px; }
+
+  /* Buttons: comfortable thumb height everywhere. */
+  .p2-btn { padding: 16px 26px; }
+  .p2-link { padding: 11px 18px; }
+
+  /* Footer / CTA breathing room. */
+  .p2-cta { gap: 26px; }
+  .p2 .p2-cta h2 { font-size: 2rem; line-height: 1.12; }
+  .p2-foot__top { padding: 32px var(--p2-gut) 28px; gap: 22px; }
+  .p2-foot__bot { padding: 18px var(--p2-gut) 24px; }
+}
+@media (max-width: 680px) {
+  .p2 #reviews.p2-sec, .p2 #contact.p2-sec, .p2 #about.p2-sec, .p2 #services.p2-sec { padding-top: 56px; padding-bottom: 56px; }
+}
+
+/* Photo / stage frames on phones: 8px lime offset, inset so the shadow stays
+   inside the 20px page margin instead of nearly touching the screen edge. */
+@media (max-width: 680px) {
+  .p2-hero__shot { margin-right: calc(var(--p2-gut) + 8px); box-shadow: 8px 8px 0 var(--p2-accent); }
+  .p2-about__shot { margin: 0 8px 8px 0; box-shadow: 8px 8px 0 var(--p2-accent); }
+  .p2-intro--split .p2-intro__photo { width: calc(100% - 8px); margin: 0 8px 8px 0; box-shadow: 8px 8px 0 var(--p2-accent); }
+  .p2-show__stage { margin: 0 8px 8px 0; box-shadow: 8px 8px 0 var(--p2-accent); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE: CENTRED SECTION HEADS (≤680px)
+   label → heading → intro, all centred, with a small lime bar centred
+   above the intro in place of the desktop's left bar. Cards and body copy
+   stay left-aligned (centred paragraphs read badly); the hero keeps its
+   left-aligned lead; the About panel stays left inside its dark card.
+   The "All 3 services" link is dropped on phones — the cards swipe, and
+   the Services page is in the menu.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .p2 .p2-head { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .p2 .p2-head h2 { text-wrap: balance; }
+  .p2 .p2-head p { margin-inline: auto; text-align: center; }
+
+  .p2-split--head { justify-items: stretch; text-align: center; }
+  .p2-split--head .p2-lede,
+  .p2 .p2-why__side .p2-lede { border-left: 0; padding-left: 0; margin-inline: auto; max-width: 34ch; text-align: center; }
+  .p2-split--head .p2-lede::before,
+  .p2 .p2-why__side .p2-lede::before { content: ''; display: block; width: 44px; height: 5px; margin: 0 auto 16px; background: var(--p2-accent); box-shadow: 0 0 0 1px var(--p2-ink); }
+  .p2 .p2-why .p2-split--head .p2-lede::before { box-shadow: none; }
+
+  .p2-sec__top { flex-direction: column; align-items: center; }
+  .p2-sec__top .p2-link { display: none; }
+
+  /* Track record: centred head, centred copy and button. */
+  .p2-split__l { align-items: center; text-align: center; }
+  .p2-split__l .p2-about__foot { align-items: center; text-align: center; }
+  .p2-split__l .p2-lede { margin-inline: auto; }
+
+  /* Inner-page banner with the photo (About): copy centred too. */
+  .p2-intro--split .p2-intro__copy { align-items: center; text-align: center; }
+  .p2-intro--split p { margin-inline: auto; }
+
+  /* Keep the About panel's own head left-aligned inside its dark card. */
+  .p2 .p2-about__in .p2-head { align-items: flex-start; text-align: left; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE POLISH PASS — readable sizes, thumb-sized targets
+   · nothing under 13px except the 12px uppercase micro-labels
+   · slider dots keep their small look but get a 32px tap area
+   · text links get a 44px-tall hit area
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1000px) {
+  .p2-logo__txt span { font-size: .8125rem; }
+}
+@media (max-width: 680px) {
+  .p2-logo__txt span { font-size: .8125rem; }
+  .p2-hero__proof span { font-size: .8125rem; line-height: 1.3; }
+  .p2-chips li em { font-size: .75rem; }
+  .p2-show__pill { font-size: .8125rem; }
+  .p2-card__k, .p2-rev__date { font-size: .8125rem; }
+
+  /* Dots: visual size unchanged, hit area 32×32. */
+  .p2-dots { gap: 0; margin-top: 2px; }
+  .p2-dots button { position: relative; width: 32px; height: 32px; border: 0; background: transparent; padding: 0; }
+  .p2-dots button::after { content: ''; position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; transform: translate(-50%, -50%); border-radius: 999px; border: 1px solid var(--p2-ink); background: transparent; transition: width .25s, background .25s; }
+  .p2-dots button.is-on { width: 44px; background: transparent; }
+  .p2-dots button.is-on::after { width: 28px; background: var(--p2-accent); }
+  .p2-why .p2-dots button::after { border-color: rgba(255,255,255,.6); }
+  .p2-why .p2-dots button.is-on::after { border-color: var(--p2-accent); }
+
+  /* Contact rows: whole value is an easy tap. */
+  .p2-reach__txt a { display: inline-block; padding: 10px 0; }
+  .p2-reach li { gap: 16px; }
+  .p2-foot__nav a, .p2-foot__soc a { display: inline-block; padding: 10px 0; }
+}
+
+/* Services intro: same voice as every other section intro (ink, 17px,
+   lime bar above on phones). */
+.p2-sec__top .p2-head p { color: var(--p2-ink); font-size: 1.0625rem; line-height: 1.65; }
+@media (max-width: 680px) {
+  .p2-sec__top .p2-head p { max-width: 34ch; margin-top: 0; }
+  .p2-sec__top .p2-head p::before { content: ''; display: block; width: 44px; height: 5px; margin: 16px auto 16px; background: var(--p2-accent); box-shadow: 0 0 0 1px var(--p2-ink); }
+}
+
+/* Selected-work strip on phones: centred header like every other section,
+   tighter captions so two-word names don't stack into three loose lines. */
+@media (max-width: 680px) {
+  .p2-why__work { margin-top: 36px; padding-top: 32px; }
+  .p2-why__work-head { flex-direction: column; align-items: center; text-align: center; gap: 16px; margin-bottom: 22px; }
+  .p2-why__work-head p { margin-top: 4px; }
+  .p2-why__work-cap { font-size: .9375rem; line-height: 1.3; margin-top: 10px; align-items: flex-start; }
+  .p2-why__work-grid { gap: 20px 14px; }
+}
+
+/* Closing banner + footer on phones: centred banner; footer links in a
+   tight wrapped row instead of 70px-apart lines. */
+@media (max-width: 680px) {
+  .p2 .p2-cta { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .p2 .p2-cta h2 { max-width: 14ch; margin-inline: auto; text-wrap: balance; }
+
+  .p2-foot__top { flex-direction: column; align-items: flex-start; }
+  .p2-foot__nav { margin-left: 0; gap: 0 22px; width: 100%; }
+  .p2-foot__nav a, .p2-foot__soc a { line-height: 1.2; padding: 12px 0; }
+  .p2-foot__soc { gap: 22px; width: 100%; padding-top: 6px; border-top: 1px solid rgba(255,255,255,.14); }
+  .p2-foot__bot { flex-direction: column; align-items: flex-start; gap: 6px; line-height: 1.5; }
+}
+
+/* Stats on phones: compact 2×2 instead of four full-width slabs. */
+@media (max-width: 680px) {
+  .p2-award-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .p2-award { padding: 18px 16px; }
+  .p2-award .p2-tools__mark { width: 22px; height: 22px; }
+  .p2-award__fig { font-size: 2.125rem; margin: 12px 0 4px; }
+  .p2-award h4 { font-size: 1rem; margin-bottom: 6px; line-height: 1.25; }
+  .p2-award p { font-size: .875rem; line-height: 1.5; }
+  /* "Track record" intro: same voice as the other section intros. */
+  .p2-split__l .p2-lede { color: var(--p2-ink); font-size: 1.0625rem; max-width: 34ch; }
+  .p2-split__l .p2-lede::before { content: ''; display: block; width: 44px; height: 5px; margin: 0 auto 16px; background: var(--p2-accent); box-shadow: 0 0 0 1px var(--p2-ink); }
+}
+
+/* Strengths join the phone sliders (same recipe as the other card groups). */
+@media (max-width: 680px) {
+  .p2-strength-grid {
+    display: flex; flex-wrap: nowrap; align-items: stretch; gap: 14px; grid-template-columns: none;
+    margin-inline: calc(var(--p2-gut) * -1); padding: 12px var(--p2-gut) 16px; scroll-padding-inline: var(--p2-gut);
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .p2-strength-grid::-webkit-scrollbar { display: none; }
+  .p2-strength-grid > * { flex: 0 0 78%; min-width: 0; margin: 0; scroll-snap-align: start; scroll-snap-stop: always; opacity: 1 !important; transform: none !important; background: #fff; }
+  .p2-strength { padding: 22px; }
+  .p2-strength__no { margin-bottom: 14px; }
+  .p2-strength__icon { margin-bottom: 16px; }
+}
+
+/* Any head + copy + button block inside a split (Track record, Contact's
+   "Let's talk"): centred as one unit on phones. */
+@media (max-width: 680px) {
+  .p2-split > div { text-align: center; }
+  .p2-split .p2-about__foot { align-items: center; text-align: center; }
+  .p2-split .p2-about__foot .p2-lede { margin-inline: auto; color: var(--p2-ink); font-size: 1.0625rem; max-width: 34ch; }
+  .p2-split .p2-about__foot .p2-lede::before { content: ''; display: block; width: 44px; height: 5px; margin: 0 auto 16px; background: var(--p2-accent); box-shadow: 0 0 0 1px var(--p2-ink); }
+  .p2-brief li { padding: 22px; text-align: left; }
+}
+
+/* Readable minimums on phones for the two places that still carried tiny
+   type: Work-grid tags (11px) and the Sara case-study labels (9.4px, from
+   the older global styles). 12px uppercase micro-labels, no smaller. */
+@media (max-width: 680px) {
+  .p2-tile__pill { font-size: .75rem; }
+  .p2 .cs__back, .p2 .cs__meta dt, .p2 .cs .eyebrow, .p2 .cs .skill span, .p2 .cs .skill b { font-size: .75rem; }
+  .p2 .cs__meta dd { font-size: .9375rem; }
+}
