@@ -1,97 +1,118 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { projects } from "@/app/portfolio-content/site-content";
+import Reveal from "./Reveal";
 import VoiceWave from "./VoiceWave";
 
+type Item = (typeof projects)[number];
+
 /**
- * Their home Works section, measured: one large featured image on the
- * left carrying a lime year pill, outline tag pills and a white arrow
- * button, with a vertical list of project names on the right — 55px
- * bordered rows, 20px apart, the selected one filled #DFDBCE — and a
- * black "View more" button under the list.
+ * Project cards — one clean format for every project.
  *
- * Selecting a name swaps the featured image, which is why this is a
- * client component. The Work PAGE keeps the plain grid; this is the
- * home preview only.
+ *   ┌─────────────────────┐
+ *   │   soft stage        │
+ *   │    ┌───────────┐    │   the work, on a laptop screen
+ *   │    └───────────┘    │
+ *   ├─────────────────────┤
+ *   │ Title            ↗  │   a title and one line, nothing more
+ *   │ Kind · Stack        │
+ *   └─────────────────────┘
+ *
+ * Three to a row. The home page shows six (two clean rows) with a "See
+ * all" button for the remainder; /work shows everything. If a count ever
+ * leaves a lone card (7 on /work) the first — the newest — leads
+ * full-width, laptop beside its text, and the rest fall into rows of three.
+ *
+ * Server-rendered and script-free; each whole card is one link.
  */
 export default function WorkShowcase({
-  items = projects.slice(0, 4),
+  items = projects.slice(0, 6), // two rows of three; the rest sit behind "See all"
 }: {
   items?: typeof projects;
 }) {
-  const [active, setActive] = useState(0);
-  const current = items[active]!;
+  const rest = items.length % 3; // 0 → clean rows, 1 → lead card, 2 → last two wide
+  const hasMore = items.length < projects.length;
 
   return (
-    <div className="p2-show">
-      <div className="p2-show__stage">
-        {current.image ? (
-          <Image
-            key={current.title}
-            src={current.image}
-            alt={`Screenshot of the ${current.title} interface`}
-            placeholder="blur"
-            sizes="(max-width: 1000px) 100vw, 56vw"
-          />
-        ) : (
-          <VoiceWave />
-        )}
-
-        <div className="p2-show__pills">
-          {/* The lime pill is their year. These carry the project's real
-              category instead — this site has no per-project year. */}
-          <span className="p2-show__pill p2-show__pill--accent">
-            {current.category.split(" · ")[0]}
-          </span>
-          {current.tech
-            .split(" · ")
-            .slice(0, 2)
-            .map((t) => (
-              <span className="p2-show__pill" key={t}>
-                {t}
-              </span>
-            ))}
-        </div>
-
-        {current.href ? (
-          <a
-            className="p2-show__go"
-            href={current.href}
-            aria-label={`Open ${current.title}`}
-            {...(current.href.startsWith("/")
-              ? {}
-              : { target: "_blank", rel: "noopener noreferrer" })}
-          >
-            <span aria-hidden="true">&#8599;</span>
-          </a>
-        ) : null}
+    <div className="p2-pcs">
+      <div className={`p2-pcs__grid is-r${rest}`}>
+        {items.map((p) => (
+          <Card key={p.title} p={p} />
+        ))}
       </div>
 
-      <div className="p2-show__side">
-        {/* A real tablist: arrow keys move between projects and the
-            selected row is announced, rather than six unlabelled
-            buttons that only work with a mouse. */}
-        <div className="p2-show__list" role="tablist" aria-label="Selected projects">
-          {items.map((p, i) => (
-            <button
-              key={p.title}
-              role="tab"
-              aria-selected={i === active}
-              className={i === active ? "is-on" : undefined}
-              onClick={() => setActive(i)}
-            >
-              {p.title}
-            </button>
-          ))}
+      {hasMore ? (
+        <div className="p2-pcs__more">
+          <Link className="p2-btn" href="/work">
+            See all {projects.length} projects <span aria-hidden="true">&#8599;</span>
+          </Link>
         </div>
-
-        <Link className="p2-btn" href="/work">
-          View more <span aria-hidden="true">&#8599;</span>
-        </Link>
-      </div>
+      ) : null}
     </div>
+  );
+}
+
+function Card({ p }: { p: Item }) {
+  const external = !!p.href && !p.href.startsWith("/");
+  const title = <h3>{p.title}</h3>;
+
+  const label = p.linkLabel ?? "Watch demo";
+
+  return (
+    <Reveal as="article" dir="up" className="p2-pc">
+      <div className="p2-pc__stage">
+        <div className="p2-pc__device">
+          <div className="p2-pc__lid">
+            <span className="p2-pc__cam" aria-hidden="true" />
+            <div className="p2-pc__screen">
+              {p.image ? (
+                <Image
+                  src={p.image}
+                  alt={`${p.title} — screenshot of the finished work`}
+                  placeholder="blur"
+                  sizes="(max-width: 680px) 90vw, (max-width: 1000px) 45vw, 30vw"
+                />
+              ) : (
+                <VoiceWave />
+              )}
+            </div>
+          </div>
+          <div className="p2-pc__base" aria-hidden="true">
+            <i />
+          </div>
+        </div>
+      </div>
+
+      <div className="p2-pc__foot">
+        <div className="p2-pc__txt">
+          {p.href ? (
+            external ? (
+              <a
+                className="p2-pc__link"
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {title}
+              </a>
+            ) : (
+              <Link className="p2-pc__link" href={p.href}>
+                {title}
+              </Link>
+            )
+          ) : (
+            title
+          )}
+          <p>{p.category}</p>
+          {/* Shown on the lead card only (CSS) — the small cards stay to a
+              title and one line. */}
+          <p className="p2-pc__stack">{p.tech}</p>
+        </div>
+        <span className="p2-pc__go" aria-hidden="true">
+          <b>{label}</b>
+          <span>&#8599;</span>
+        </span>
+      </div>
+    </Reveal>
   );
 }

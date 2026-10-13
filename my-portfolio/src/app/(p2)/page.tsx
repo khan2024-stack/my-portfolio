@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { projects, sections, services, skills } from "@/app/portfolio-content/site-content";
+import { sections, services, skills } from "@/app/portfolio-content/site-content";
 import GetInTouch from "./_parts/GetInTouch";
 import SectionHead from "./_parts/SectionHead";
 import Ticker from "./_parts/Ticker";
@@ -46,16 +46,14 @@ export default function Portfolio2() {
       </section>
 
       {/* ── Work preview ──
-          Their home Works is a featured-image selector, not a grid: pick
-          a project on the right, it loads on the left. The plain grid
-          stays on the Work page. Head splits heading-left / lede-right,
-          as theirs does. */}
+          Six project cards, three to a row; the rest sit behind "See all".
+          Head: title left, one short intro right. */}
       <section className="p2-sec p2-sec--tint" id="work">
         <div className="p2-split p2-split--head">
           <SectionHead eyebrow="My works" title={sections.work.title} />
           <p className="p2-lede">
-            Commerce platforms, an AI voice agent taking live calls, and
-            client sites in production today — {projects.length} in all.
+            A Shopify automation, an AI voice agent taking live calls, and
+            commerce sites for clients in the UAE and UK.
           </p>
         </div>
         <WorkShowcase />
@@ -68,15 +66,17 @@ export default function Portfolio2() {
           the three cards fill the row evenly. Capability lists stay on
           the Services page. */}
       <section className="p2-sec" id="services">
-        <div className="p2-sec__top">
-          <SectionHead
-            eyebrow="Services"
-            title={sections.services.title}
-            lede="Three focused offers — web platforms, AI and voice systems, and automation — each scoped and quoted in writing."
-          />
-          <Link className="p2-link" href="/services">
-            All {services.length} services <span aria-hidden="true">&#8599;</span>
-          </Link>
+        <div className="p2-split p2-split--head">
+          <SectionHead eyebrow="Services" title={sections.services.title} />
+          <div className="p2-head__side">
+            <p className="p2-lede">
+              Three focused offers — web platforms, AI and voice systems, and
+              automation — each scoped and quoted in writing.
+            </p>
+            <Link className="p2-link" href="/services">
+              All {services.length} services <span aria-hidden="true">&#8599;</span>
+            </Link>
+          </div>
         </div>
         <ServicesGrid />
       </section>

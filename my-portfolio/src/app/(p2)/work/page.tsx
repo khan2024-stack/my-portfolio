@@ -4,7 +4,8 @@ import Faq from "../_parts/Faq";
 import PageIntro from "../_parts/PageIntro";
 import SectionHead from "../_parts/SectionHead";
 import Ticker from "../_parts/Ticker";
-import { CtaBand, WorkGrid } from "../_parts/Sections";
+import { CtaBand } from "../_parts/Sections";
+import WorkShowcase from "../_parts/WorkShowcase";
 
 export const metadata: Metadata = { title: "Work" };
 
@@ -27,7 +28,7 @@ export default function P2Work() {
 
       <section className="p2-sec" id="work">
         <SectionHead eyebrow="My works" title={sections.work.title} />
-        <WorkGrid />
+        <WorkShowcase items={projects} />
       </section>
 
       <section className="p2-sec p2-sec--tint">

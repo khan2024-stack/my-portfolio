@@ -1752,3 +1752,223 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   .p2 .cs__back, .p2 .cs__meta dt, .p2 .cs .eyebrow, .p2 .cs .skill span, .p2 .cs .skill b { font-size: .75rem; }
   .p2 .cs__meta dd { font-size: .9375rem; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   WORK — PROJECT CARDS
+   Clean white cards, three to a row. The project sits on a laptop on a
+   soft warm stage; a title and one line underneath. When the count would
+   leave a lone card, the first one leads full-width.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-pcs__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 28px; }
+.p2-pcs__grid > .p2-pc { grid-column: span 2; }
+.p2-pcs__grid.is-r1 > .p2-pc:first-child { grid-column: 1 / -1; }
+.p2-pcs__grid.is-r2 > .p2-pc:nth-last-child(-n+2) { grid-column: span 3; }
+.p2-pcs__more { display: flex; justify-content: center; margin-top: 48px; }
+
+/* ── Card ── */
+.p2-pc { position: relative; display: flex; flex-direction: column; overflow: clip; background: #fff; border: 1px solid var(--p2-ink); border-radius: 4px; transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s; }
+.p2-pc:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--p2-accent), 7px 7px 0 1px var(--p2-ink); }
+
+/* Stage: a soft warm backdrop with a quiet lime glow under the laptop. */
+.p2-pc__stage { padding: 34px 9% 26px; background: radial-gradient(70% 60% at 50% 100%, rgba(217, 255, 63, .55), transparent 75%), #ece9df; border-bottom: 1px solid var(--p2-ink); }
+.p2-pc__device { max-width: 520px; margin-inline: auto; transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+.p2-pc:hover .p2-pc__device { transform: translateY(-4px); }
+
+.p2-pc__lid { position: relative; padding: 8px 8px 10px; background: #1c1e23; border-radius: 11px 11px 4px 4px; box-shadow: 0 18px 24px -16px rgba(20, 22, 26, .55); }
+.p2-pc__cam { position: absolute; left: 50%; top: 3px; width: 3px; height: 3px; border-radius: 50%; background: #4a4d55; transform: translateX(-50%); }
+.p2-pc__screen { position: relative; aspect-ratio: 16 / 10; overflow: clip; border-radius: 2px; background: #0b0c0e; }
+.p2-pc__screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
+.p2-pc:hover .p2-pc__screen img { transform: scale(1.04); }
+.p2-pc__base { position: relative; height: 10px; margin: 0 -5%; background: linear-gradient(#e2e5e9, #b1b6bd); border-radius: 0 0 14px 14px; box-shadow: 0 10px 14px -10px rgba(20, 22, 26, .5); }
+.p2-pc__base i { position: absolute; left: 50%; top: 0; width: 16%; height: 4px; transform: translateX(-50%); background: #9ba0a7; border-radius: 0 0 6px 6px; }
+
+/* Foot: title + one line, arrow on the right. */
+.p2-pc__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 22px 22px; }
+.p2-pc__txt { min-width: 0; display: grid; gap: 4px; }
+.p2 .p2-pc__txt h3 { font-size: 1.25rem; line-height: 1.2; letter-spacing: -.015em; }
+.p2-pc__txt p { margin: 0; font-size: .9375rem; line-height: 1.4; color: var(--p2-muted); }
+.p2-pc__link { color: inherit; }
+/* One tap target: the title's link stretches over the whole card. */
+.p2-pc__link::after { content: ''; position: absolute; inset: 0; z-index: 2; }
+.p2-pc__link:focus-visible::after { outline: 3px solid #6b8f00; outline-offset: -4px; }
+.p2-pc__stack { display: none; }
+.p2-pc__go b { display: none; font-size: 1rem; font-weight: 600; }
+.p2-pc__go { flex-shrink: 0; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 50%; border: 1px solid var(--p2-ink); background: var(--p2-accent); color: var(--p2-ink); font-size: 1.125rem; transition: transform .3s, background .3s, color .3s; }
+.p2-pc:hover .p2-pc__go { transform: rotate(45deg); background: var(--p2-ink); color: var(--p2-accent); }
+
+/* ── Lead card (a lone first card): laptop left, text right ── */
+@media (min-width: 1001px) {
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__stage { padding: 48px 10% 40px; border-bottom: 0; border-right: 1px solid var(--p2-ink); }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__device { max-width: 640px; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__foot { flex-direction: column; align-items: flex-start; justify-content: center; gap: 32px; padding: 44px 40px; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__txt { gap: 12px; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__txt h3 { font-size: 2.25rem; line-height: 1.1; letter-spacing: -.025em; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__txt p { font-size: 1.0625rem; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__txt .p2-pc__stack { display: block; padding-top: 14px; margin-top: 4px; border-top: 1px solid var(--p2-line-soft); font-size: .9375rem; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__go { width: auto; height: auto; padding: 16px 28px; border-radius: 999px; background: var(--p2-ink); color: var(--p2-accent); border-color: var(--p2-ink); }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__go b { display: inline; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child:hover .p2-pc__go { transform: none; background: var(--p2-accent); color: var(--p2-ink); }
+}
+
+/* ── Tablet: two across ── */
+@media (max-width: 1000px) {
+  .p2-pcs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .p2-pcs__grid > .p2-pc, .p2-pcs__grid.is-r2 > .p2-pc:nth-last-child(-n+2) { grid-column: span 1; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child { grid-column: 1 / -1; }
+}
+/* ── Phone: one across ── */
+@media (max-width: 680px) {
+  .p2-pcs__grid { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .p2-pcs__grid > .p2-pc, .p2-pcs__grid.is-r1 > .p2-pc:first-child, .p2-pcs__grid.is-r2 > .p2-pc:nth-last-child(-n+2) { grid-column: 1 / -1; }
+  .p2-pc:hover { transform: none; box-shadow: none; }
+  .p2-pc__stage { padding: 26px 8% 20px; }
+  .p2-pc__foot { padding: 18px 18px 20px; }
+  .p2 .p2-pc__txt h3 { font-size: 1.25rem; }
+  .p2-pcs__more { margin-top: 36px; }
+  .p2-pcs__more .p2-btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .p2-pc, .p2-pc__device, .p2-pc__screen img, .p2-pc__go { transition: none; }
+  .p2-pc:hover, .p2-pc:hover .p2-pc__device, .p2-pc:hover .p2-pc__screen img { transform: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SECTION HEAD, RIGHT COLUMN (Services: intro + section link)
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-head__side { display: grid; gap: 22px; justify-items: start; align-self: end; }
+.p2-head__side .p2-lede { margin: 0; }
+@media (max-width: 680px) {
+  .p2-head__side { justify-items: center; gap: 22px; align-self: stretch; }
+  .p2-split--head .p2-link { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PROJECT CARDS v2 — bigger laptops on a calm stage, fade-in
+   ══════════════════════════════════════════════════════════════════════ */
+/* The card is a Reveal now: keep its entrance tween, but once it is in,
+   hover transforms stay snappy. */
+.p2-pc.p2-reveal { transition: opacity .8s ease, transform .8s cubic-bezier(.2, .8, .2, 1), box-shadow .35s; }
+.p2-pc.p2-reveal.is-on { transition: opacity .8s ease, transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s; }
+
+/* Larger laptop (less padding, thinner bezel) so the screenshot is
+   readable; one soft lime glow under it, nothing else on the stage. */
+.p2-pc__stage { padding: 28px 6% 24px; background: radial-gradient(70% 60% at 50% 100%, rgba(217, 255, 63, .5), transparent 75%), #ece9df; }
+.p2-pc__device { max-width: 600px; }
+.p2-pc__lid { padding: 6px 6px 8px; border-radius: 10px 10px 4px 4px; }
+.p2-pc__cam { top: 2px; }
+
+/* Lead card keeps a roomier stage. */
+@media (min-width: 1001px) {
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__stage { padding: 44px 8% 36px; }
+  .p2-pcs__grid.is-r1 > .p2-pc:first-child .p2-pc__device { max-width: 680px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .p2-pc.p2-reveal, .p2-pc.p2-reveal.is-on { transition: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   COMPACT LAYER
+   One tighter rhythm for the whole page. Declared last, so it overrides the
+   roomy template-faithful values above without touching them.
+     desktop  section 68px (was 100–128) · head → body 28px · cards 20px apart
+     tablet   section 56px
+     phone    already tuned separately (56px) — only the card gap is trimmed
+   ══════════════════════════════════════════════════════════════════════ */
+@media (min-width: 1001px) {
+  /* Sections */
+  .p2 .p2-sec, .p2 #work.p2-sec, .p2 #pricing.p2-sec, .p2 #reviews.p2-sec,
+  .p2 #about.p2-sec, .p2 #services.p2-sec, .p2 #contact.p2-sec { padding-top: 68px; padding-bottom: 68px; }
+  .p2 .p2-why { padding-top: 76px; padding-bottom: 76px; }
+  .p2 .p2-cta { padding-top: 64px; padding-bottom: 64px; }
+  .p2-ticker { padding: 18px 0; }
+  .p2-ticker__track span { font-size: clamp(1.25rem, 2.2vw, 1.75rem); }
+
+  /* Hero */
+  .p2-hero__l, .p2-hero__r { padding-top: 48px; padding-bottom: 48px; }
+
+  /* Heads */
+  .p2-head h2, .p2 .p2-sec .p2-head h2, .p2 #work .p2-head h2, .p2 #pricing .p2-head h2, .p2 .p2-why .p2-head h2 { font-size: 2.75rem; margin-top: 14px; }
+  .p2-split--head, .p2 #pricing .p2-split--head { margin-bottom: 30px; gap: 40px; }
+  .p2-head { margin-bottom: 0; }
+
+  /* About */
+  .p2-about { gap: 32px; }
+  .p2-about__in { padding: 32px 30px; }
+  .p2 .p2-about__in .p2-head h2 { font-size: 2.25rem; }
+  .p2-about__tools .p2-tools:not(.p2-tools--cv) { gap: 10px; }
+  .p2-about__tools .p2-tools:not(.p2-tools--cv) li { padding: 14px 18px; }
+
+  /* Works cards */
+  .p2-pcs__grid { gap: 20px; }
+  .p2-pc__stage { padding: 22px 5% 18px; }
+  .p2-pc__foot { padding: 14px 20px 16px; }
+  .p2-pcs__more { margin-top: 32px; }
+
+  /* Services */
+  .p2-svc-grid { gap: 20px; }
+  .p2-svc { min-height: 0; padding: 28px 26px 84px; }
+  .p2-svc__art { margin-bottom: 22px; }
+  .p2-svc__go { left: 26px; bottom: 24px; }
+  .p2-svc h3 { margin-bottom: 8px; }
+
+  /* Why */
+  .p2-why-grid { gap: 16px; }
+  .p2-why-cells { gap: 16px; }
+  .p2-why__cell, .p2-why__cell--r { padding: 26px 28px 28px; }
+  .p2-why__cell h4, .p2-why__cell--r h4 { margin-top: 18px; font-size: 1.75rem; }
+  .p2-why__tags { margin-top: 16px; padding-top: 16px; }
+  .p2-why__meta div { padding: 14px 16px; }
+  .p2-why__work { margin-top: 20px; padding-top: 26px; }
+  .p2-why__work-head { margin-bottom: 16px; }
+
+  /* Pricing */
+  .p2-price-grid { gap: 20px; }
+  .p2-price__in { padding: 30px 26px 20px; }
+  .p2-price__fig { margin-top: 20px; }
+  .p2-price__fig b { font-size: 2.75rem; }
+  .p2-price__lbl { margin-top: 18px; padding-top: 18px; }
+  .p2-price ul { gap: 10px; margin-top: 12px; }
+  .p2-price__cta { margin: 0 26px; padding: 14px 24px; }
+  .p2-price { padding-bottom: 24px; }
+
+  /* Reviews */
+  .p2-rev { gap: 16px; }
+  .p2-rev__rail { padding: 24px; gap: 18px; }
+  .p2-rev__score b { font-size: 3.5rem; }
+  .p2-rev__hero { padding: 30px 34px; }
+  .p2-rev__hero blockquote { margin-top: 18px; }
+  .p2-rev__hero .p2-rev__who { padding-top: 22px; }
+  .p2-rev-grid { gap: 16px; margin-top: 16px; }
+  .p2-rev__card { padding: 22px; }
+  .p2-rev__card blockquote { margin: 14px 0 16px; font-size: 1.0625rem; }
+  .p2-rev__card .p2-rev__who { padding-top: 14px; }
+  .p2-rev__note { margin-top: 20px; }
+
+  /* Track record / strengths (About page) */
+  .p2-award { padding: 18px 20px; }
+  .p2-strength { padding: 20px; }
+
+  /* Contact */
+  .p2-reach { gap: 16px; margin-top: 24px; }
+  .p2-reach__panel { padding: 34px; gap: 18px; }
+  .p2-brief li { padding: 18px 22px; }
+
+  /* Closing banner + footer */
+  .p2 .p2-cta h2 { font-size: 3rem; }
+  .p2-foot__top { padding: 28px var(--p2-gut); }
+  .p2-foot__bot { padding: 14px var(--p2-gut); }
+
+  /* Inner-page banners */
+  .p2 .p2-intro { padding-top: 64px; padding-bottom: 64px; }
+  .p2 .p2-intro--split { padding-top: 56px; padding-bottom: 56px; }
+}
+
+/* Tablet */
+@media (min-width: 681px) and (max-width: 1000px) {
+  .p2 .p2-sec, .p2 #work.p2-sec, .p2 #pricing.p2-sec, .p2 #reviews.p2-sec,
+  .p2 #about.p2-sec, .p2 #services.p2-sec, .p2 #contact.p2-sec { padding-top: 56px; padding-bottom: 56px; }
+  .p2 .p2-why, .p2 .p2-cta { padding-top: 60px; padding-bottom: 60px; }
+  .p2-split--head { margin-bottom: 26px; }
+  .p2-pcs__grid { gap: 18px; }
+}
