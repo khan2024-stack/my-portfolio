@@ -11,7 +11,7 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "framer-motion": "^12.10.5",
-    "next": "15.3.2",
+    "next": "^15.5.27",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
@@ -25,7 +25,7 @@
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
-    "eslint-config-next": "15.3.2",
+    "eslint-config-next": "^15.5.27",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.6",
     "typescript": "^5"
