@@ -29,6 +29,7 @@ export default function ContactForm({
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [note, setNote] = useState("");
+  const [detail, setDetail] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -52,6 +53,7 @@ export default function ContactForm({
 
     setStatus("sending");
     setNote("");
+    setDetail("");
 
     try {
       const emailjs = (await import("@emailjs/browser")).default;
@@ -67,12 +69,15 @@ export default function ContactForm({
       setStatus("sent");
       form.reset();
     } catch (err) {
-      // 429-style "too soon" from the library's own limiter, or a real
-      // delivery failure — either way, never lose the visitor's message.
-      const tooSoon =
-        typeof err === "object" && err !== null && "text" in err
-          ? /limit/i.test(String((err as { text?: string }).text))
-          : false;
+      // EmailJS rejects with { status, text }. Keep the visitor-facing
+      // message friendly, but surface the real reason (small, under it and
+      // in the console) so a broken template / expired service is obvious
+      // instead of a silent "couldn't send".
+      const e = err as { status?: number; text?: string } | null;
+      const reason = e && (e.status || e.text) ? `${e.status ?? ""} ${e.text ?? ""}`.trim() : String(err);
+      console.error("[contact] EmailJS send failed:", err);
+      setDetail(reason.slice(0, 220));
+      const tooSoon = /limit/i.test(e?.text ?? "");
       fail(
         tooSoon
           ? "Please wait a few seconds before sending again."
@@ -179,6 +184,9 @@ export default function ContactForm({
           "Goes straight to my inbox. No newsletters, no list."
         )}
       </p>
+      {status === "error" && detail ? (
+        <p className="p2-form__detail">Details: {detail}</p>
+      ) : null}
     </form>
   );
 }

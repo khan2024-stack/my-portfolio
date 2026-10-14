@@ -2074,3 +2074,4 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .p2-form__note { font-size: .8125rem; }
 .p2-reach__panel .p2-reach__steps { max-width: 440px; font-size: .875rem; }
 @media (max-width: 680px) { .p2-form { max-width: none; } .p2-reach__panel .p2-reach__steps { max-width: none; } }
+.p2-form__detail { margin: 0; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .75rem; line-height: 1.5; color: rgba(255, 255, 255, .55); overflow-wrap: anywhere; }
