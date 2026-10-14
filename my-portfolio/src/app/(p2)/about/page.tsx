@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { identity } from "@/app/portfolio-content/site-content";
+
 import exhibition from "@/assets/exhibition-2019.jpg";
 import PageIntro from "../_parts/PageIntro";
 import Ticker from "../_parts/Ticker";
@@ -43,11 +43,10 @@ export default function P2About() {
       />
       <Ticker items={ticker} />
 
-      {/* "Download CV" here, not "Learn more" — this IS the full page,
-          so the home button's target would be a link to itself. */}
+      {/* This IS the full About page, so the button points onward to
+          Contact rather than back to itself. */}
       <section className="p2-sec" id="about">
-        <AboutBlock
-          cta={{ label: "Download CV", href: identity.cvUrl, download: true }}
+        <AboutBlock cta={{ label: "Start a project", href: "/contact" }} />
         />
       </section>
 

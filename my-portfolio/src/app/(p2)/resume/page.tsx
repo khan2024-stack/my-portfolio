@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { experience, identity, skills } from "@/app/portfolio-content/site-content";
+import { experience, skills } from "@/app/portfolio-content/site-content";
 import PageIntro from "../_parts/PageIntro";
 import Ticker from "../_parts/Ticker";
 import { CtaBand, ResumeBlock } from "../_parts/Sections";
@@ -20,8 +20,8 @@ export default function P2Resume() {
       <PageIntro
         eyebrow="Resume"
         title={`Since 2017: ${WORDS[experience.length] ?? experience.length} roles, one straight line`}
-        lede="From a Peshawar bootcamp to AI voice systems in production — open to freelance projects and full-time roles."
-        cta={{ label: "Download CV", href: identity.cvUrl, download: true }}
+        lede="From a Peshawar bootcamp to AI voice systems in production — available for freelance projects."
+        cta={{ label: "Start a project", href: "/contact" }}
       />
       <Ticker items={ticker} />
       <section className="p2-sec" id="resume">

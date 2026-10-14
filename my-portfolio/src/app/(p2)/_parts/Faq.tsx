@@ -32,7 +32,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Are you available for hire?",
-    a: "Yes — for freelance projects and for a full-time role. Freelance work is scoped and quoted in writing before it starts; for a full-time position, send the role and the team and I’ll reply personally.",
+    a: "Yes — I work freelance, remotely, with clients in the UAE, UK and USA. Every project is scoped and quoted in writing before it starts: send a short brief and you’ll get an approach, an honest estimate and a start date.",
   },
   {
     q: "How do we work together?",

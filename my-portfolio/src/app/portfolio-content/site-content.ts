@@ -41,7 +41,6 @@ export const identity = {
        to "since 2017", never a running count of years. */
     "Full-stack engineer building e-commerce platforms, AI voice agents and automation for clients in the UAE, UK and USA. Python and TypeScript, from database schema to the screen your customer uses — in production since 2017.",
   portrait: profile as StaticImageData,
-  cvUrl: "/cv.pdf",
 };
 
 /* ── Section headings ─────────────────────────────────────────────
@@ -646,7 +645,7 @@ export const about = {
     /* The hero already says "database schema to the screen"; this one
        carries the history instead — three roles, each in the experience
        list: Fenzacci (UAE), Sara (Abu Dhabi), VIN Wear (Shopify). */
-    "Full-stack engineer based in Peshawar, <em>in production since 2017</em>. I led e-commerce development for a UAE trading company, built an AI voice agent that answers live sales calls in Abu Dhabi, and automate a US Shopify store from paid order to print-ready draft. Open to freelance projects and full-time roles.",
+    "Full-stack engineer based in Peshawar, <em>in production since 2017</em>. I led e-commerce development for a UAE trading company, built an AI voice agent that answers live sales calls in Abu Dhabi, and automate a US Shopify store from paid order to print-ready draft. Available for freelance projects.",
     "I started in 2017 through the CodeCamp bootcamp and academic work at Qurtuba University, where I took <em>first position</em> at the project exhibition. From 2019 to 2022 I freelanced remotely — <em>fifteen-plus Django and React builds</em>, Stripe and PayPal integrations, and automation that cut client operating costs by about a third.",
     "From 2022 to 2025 I led e-commerce development at <em>Fenzacci Trading L.L.C in the UAE</em> — a scalable backend with payment and inventory integrations, <em>90% faster page loads</em>, and deployments 80% quicker on CI/CD.",
     /* The story used to stop at 2025 and gesture vaguely at "more
@@ -662,7 +661,7 @@ export const about = {
     { label: "Phone",       value: "+92 313 932 2585" },
     { label: "WhatsApp",    value: "+92 322 9830466" },
     { label: "Email",       value: "sajjadk546@gmail.com" },
-    { label: "Freelance",   value: "Open to freelance projects and full-time roles" },
+    { label: "Freelance",   value: "Available for freelance projects" },
     { label: "Languages",   value: "Fluent in English, Urdu and Pashto" },
   ],
 };

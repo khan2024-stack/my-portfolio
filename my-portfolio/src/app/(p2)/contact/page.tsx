@@ -10,7 +10,7 @@ import { CtaBand } from "../_parts/Sections";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Send a short brief and get back an approach, an honest estimate and a start date. Email, WhatsApp or the form — open to freelance projects and full-time roles.",
+    "Send a short brief and get back an approach, an honest estimate and a start date. Email, WhatsApp or the form — available for freelance projects.",
   alternates: { canonical: "/contact" },
 };
 

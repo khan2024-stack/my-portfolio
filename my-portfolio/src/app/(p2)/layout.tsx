@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     template: "%s | Muhammad Sajjad",
   },
   description:
-    "Full stack and AI engineer in production since 2017 — e-commerce platforms, AI voice agents and automation for clients in the UAE, UK and USA. Django, FastAPI, React and Next.js. Open to freelance projects and full-time roles.",
+    "Full stack and AI engineer in production since 2017 — e-commerce platforms, AI voice agents and automation for clients in the UAE, UK and USA. Django, FastAPI, React and Next.js. Available for freelance projects.",
   openGraph: {
     title: "Muhammad Sajjad | Full Stack & AI Engineer",
     description:
