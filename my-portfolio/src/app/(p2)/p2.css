@@ -2445,3 +2445,21 @@ main:focus { outline: none; }
   .p2 .cs__body, .p2 .cs__stack { margin-top: 30px; }
   .p2 .cs__sec + .cs__sec { margin-top: 30px; }
 }
+
+/* Sara case study: the stack-section labels were 9.4px on desktop too
+   (the earlier floor only covered phones). 12px minimum at every width. */
+.p2 .cs__back, .p2 .cs__meta dt, .p2 .cs .eyebrow, .p2 .cs .skill span, .p2 .cs .skill b { font-size: .75rem; }
+.p2 .cs__meta dd { font-size: .9375rem; }
+
+/* Split-section left columns (Track record, FAQ): the template pushed the
+   intro + button to the column's bottom, which opened a hole under the
+   heading whenever the right column was tall. Stack them under the heading. */
+@media (min-width: 1001px) {
+  .p2-split__l { justify-content: flex-start; gap: 24px; }
+}
+
+/* Resume: a single reading column. The bullets ran the full 1300px row
+   (~150 characters a line); 900px keeps them around 90. */
+@media (min-width: 1001px) {
+  #resume .p2-sub, #resume .p2-tools--cv { max-width: 900px; margin-left: auto; margin-right: auto; }
+}
