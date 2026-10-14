@@ -11,6 +11,7 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 
+import { SITE_URL } from "@/app/portfolio-content/site-url";
 import P2Header from "./_parts/Header";
 import P2Footer from "./_parts/Footer";
 import WhatsAppFab from "./_parts/WhatsAppFab";
@@ -44,6 +45,8 @@ export const viewport: Viewport = {
 /* This is the site now — the old layout at (site)/ is gone, so the
    noindex guard that kept the draft design out of search is gone too. */
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: "/" },
   title: {
     default: "Muhammad Sajjad | Full Stack & AI Engineer",
     template: "%s | Muhammad Sajjad",

@@ -2170,3 +2170,22 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .p2-markets > div:first-child { border-top: 0; padding-top: 4px; }
 .p2-markets dt { font-family: var(--p2-face); font-size: .9375rem; font-weight: 700; letter-spacing: .04em; color: var(--p2-accent); }
 .p2-markets dd { margin: 0; font-size: .9375rem; font-weight: 500; line-height: 1.45; color: #fff; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SARA CASE STUDY — brought onto the site's palette
+   The page predates this design and still used the older global tokens
+   (red-orange accent, warm greys). Re-point them at the p2 tokens so it
+   reads as part of the same site.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2 .wrap { --ink: #14161a; --ink-2: #3b4048; --ink-3: #54595f; --accent: #14161a; --accent-rgb: 20, 22, 26; --accent-soft: #eef7c9; font-family: var(--p2-sans); color: var(--p2-muted); padding-inline: var(--p2-gut); max-width: none; padding-block: 56px 80px; }
+.p2 .cs { max-width: 920px; margin-inline: auto; }
+.p2 .cs h1, .p2 .cs h2, .p2 .cs h3 { font-family: var(--p2-face); color: var(--p2-ink); letter-spacing: -.02em; }
+.p2 .cs h1 { font-size: clamp(2rem, 4.4vw, 3.5rem); line-height: 1.08; }
+.p2 .cs .eyebrow { display: inline-block; padding: 5px 12px; border: 1px solid var(--p2-ink); border-radius: 999px; font-family: var(--p2-sans); font-size: .75rem; font-weight: 700; letter-spacing: .1em; color: var(--p2-ink); }
+.p2 .cs__back { font-family: var(--p2-sans); font-size: .8125rem; font-weight: 700; color: var(--p2-ink); }
+.p2 .cs__stand { font-size: 1.1875rem; line-height: 1.7; color: var(--p2-muted); }
+.p2 .cs__meta dt { font-family: var(--p2-sans); font-size: .75rem; color: var(--p2-muted); }
+.p2 .cs__meta dd { font-size: 1rem; color: var(--p2-ink); }
+.p2 .cs p, .p2 .cs li { font-size: 1.0625rem; line-height: 1.75; }
+.p2 .cs__figs .stat { background: #fff; border: 1px solid var(--p2-ink); border-radius: 0; box-shadow: 6px 6px 0 #d9ff3f; }
+.p2 .cs .btn, .p2 .cs .btn--fill { background: var(--p2-ink); color: #d9ff3f; border-radius: 999px; border: 1px solid var(--p2-ink); }
