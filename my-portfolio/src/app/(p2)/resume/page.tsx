@@ -4,7 +4,12 @@ import PageIntro from "../_parts/PageIntro";
 import Ticker from "../_parts/Ticker";
 import { CtaBand, ResumeBlock } from "../_parts/Sections";
 
-export const metadata: Metadata = { title: "Resume" };
+export const metadata: Metadata = {
+  title: "Resume",
+  description:
+    "Experience and education: AI Voice Systems Engineer, E-Commerce Development Lead, full-stack developer since 2017. Master's in Computer Science, gold medalist.",
+  alternates: { canonical: "/resume" },
+};
 
 const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"];
 const ticker = skills.flatMap((s) => s.items).slice(0, 10);

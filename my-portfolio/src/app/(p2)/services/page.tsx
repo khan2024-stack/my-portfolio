@@ -4,7 +4,12 @@ import PageIntro from "../_parts/PageIntro";
 import Ticker from "../_parts/Ticker";
 import { CtaBand, ServicesGrid } from "../_parts/Sections";
 
-export const metadata: Metadata = { title: "Services" };
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "E-commerce and web platforms, AI and voice systems, and automation — scoped and quoted in writing. Django, FastAPI, React, Next.js, Twilio, Pinecone.",
+  alternates: { canonical: "/services" },
+};
 
 const ticker = services.map((s) => s.title);
 

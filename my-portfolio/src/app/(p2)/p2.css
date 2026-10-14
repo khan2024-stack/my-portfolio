@@ -2189,3 +2189,57 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .p2 .cs p, .p2 .cs li { font-size: 1.0625rem; line-height: 1.75; }
 .p2 .cs__figs .stat { background: #fff; border: 1px solid var(--p2-ink); border-radius: 0; box-shadow: 6px 6px 0 #d9ff3f; }
 .p2 .cs .btn, .p2 .cs .btn--fill { background: var(--p2-ink); color: #d9ff3f; border-radius: 999px; border: 1px solid var(--p2-ink); }
+
+/* Keyboard users: a skip link that appears on focus, and no outline ring
+   on <main> when the skip link moves focus to it. */
+.p2-skip { position: fixed; left: 16px; top: -80px; z-index: 100; padding: 12px 18px; background: var(--p2-ink); color: var(--p2-accent); font-weight: 600; border-radius: 999px; transition: top .2s; }
+.p2-skip:focus { top: 16px; outline: 3px solid var(--p2-accent); outline-offset: 3px; }
+main:focus { outline: none; }
+
+/* ── Blog ── */
+.p2-posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; max-width: 820px; }
+.p2-posts a { display: grid; gap: 8px; padding: 24px 26px; background: #fff; border: 1px solid var(--p2-ink); transition: transform .25s, box-shadow .25s; }
+.p2-posts a:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--p2-accent), 6px 6px 0 1px var(--p2-ink); }
+.p2-posts time, .p2-article time { font-size: .8125rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--p2-muted); }
+.p2 .p2-posts h2 { font-size: 1.5rem; line-height: 1.2; letter-spacing: -.015em; }
+.p2-posts p { margin: 0; color: var(--p2-muted); }
+.p2-posts a > span { font-weight: 600; color: var(--p2-ink); }
+.p2-article { max-width: 760px; margin-inline: auto; }
+.p2-article > * + * { margin-top: 20px; }
+.p2 .p2-article h1 { font-size: clamp(2rem, 4.4vw, 3.25rem); line-height: 1.1; letter-spacing: -.025em; }
+.p2 .p2-article h2 { font-size: 1.625rem; margin-top: 40px; }
+.p2-article p, .p2-article li { font-size: 1.125rem; line-height: 1.8; }
+.p2-article ul { padding-left: 1.25rem; }
+.p2-article pre { overflow-x: auto; padding: 18px 20px; background: var(--p2-dark); color: #e8f3b8; font-size: .9375rem; line-height: 1.6; border-radius: 4px; }
+
+/* ── CV page: on screen a clean sheet, in print a plain A4 document ── */
+.p2-cvpage { padding: 48px var(--p2-gut) 72px; }
+.p2-cv-actions { max-width: 820px; margin: 0 auto 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+.p2-cv-actions span { font-size: .9375rem; color: var(--p2-muted); }
+.p2-cv-sheet { max-width: 820px; margin: 0 auto; padding: 48px 52px; background: #fff; border: 1px solid var(--p2-ink); color: #1f2328; font-size: .9375rem; line-height: 1.6; }
+.p2 .p2-cv-sheet h1 { font-size: 2.25rem; letter-spacing: -.02em; }
+.p2 .p2-cv-sheet h2 { margin: 26px 0 10px; padding-bottom: 6px; border-bottom: 1.5px solid var(--p2-ink); font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.p2-cv-role { margin: 4px 0 0; font-size: 1.125rem; font-weight: 600; color: var(--p2-ink); }
+.p2-cv-contact { margin: 8px 0 0; font-size: .875rem; color: #4a5058; }
+.p2-cv-sheet p { margin: 0; }
+.p2-cv-job { margin-top: 14px; break-inside: avoid; }
+.p2-cv-row { display: flex; justify-content: space-between; gap: 16px; }
+.p2-cv-row b { font-weight: 700; color: var(--p2-ink); }
+.p2-cv-row span { white-space: nowrap; color: #4a5058; font-size: .875rem; }
+.p2-cv-org { color: #4a5058; font-size: .875rem; }
+.p2-cv-sheet ul { margin: 6px 0 0; padding-left: 1.1rem; }
+.p2-cv-sheet li { margin-top: 3px; }
+.p2-cv-sheet em { font-style: normal; font-weight: 600; color: var(--p2-ink); }
+.p2-cv-skills { margin: 0; display: grid; gap: 6px; }
+.p2-cv-skills div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; }
+.p2-cv-skills dt { font-weight: 700; color: var(--p2-ink); }
+.p2-cv-skills dd { margin: 0; }
+@media (max-width: 680px) { .p2-cv-sheet { padding: 28px 20px; } .p2-cv-row { flex-direction: column; gap: 0; } .p2-cv-skills div { grid-template-columns: 1fr; gap: 0; } }
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body.p2-root, .p2 { background: #fff !important; }
+  .p2-hdr, .p2-foot, .p2-wa, .p2-skip, .p2-cv-actions, .p2-ticker { display: none !important; }
+  .p2-cvpage { padding: 0; }
+  .p2-cv-sheet { max-width: none; border: 0; padding: 0; font-size: 10.5pt; }
+  .p2 .p2-cv-sheet h1 { font-size: 22pt; }
+}

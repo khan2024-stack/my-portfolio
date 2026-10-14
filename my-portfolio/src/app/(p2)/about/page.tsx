@@ -10,7 +10,12 @@ import {
   StrengthsBlock,
 } from "../_parts/Sections";
 
-export const metadata: Metadata = { title: "About" };
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Muhammad Sajjad — full-stack and AI engineer in production since 2017. Gold medalist, A1 in Computer Science; led e-commerce for a UAE company, built a live AI voice agent in Abu Dhabi, automates a US Shopify store.",
+  alternates: { canonical: "/about" },
+};
 
 const ticker = ["Full-Stack", "Django", "FastAPI", "React", "Next.js", "AI & Voice"];
 

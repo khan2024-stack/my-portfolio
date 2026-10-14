@@ -56,16 +56,36 @@ export default function ContactForm({
     setDetail("");
 
     try {
-      const emailjs = (await import("@emailjs/browser")).default;
-      await emailjs.send(
-        emailjsConfig.serviceId,
-        emailjsConfig.templateId,
-        { name, email: from, message },
-        {
-          publicKey: emailjsConfig.publicKey,
-          limitRate: { id: "contact-form", throttle: 15000 },
-        },
-      );
+      // 1) Our own server route (Resend). 2) If it isn't configured or is
+      // unreachable, fall back to EmailJS so the form never goes dead.
+      let sentByServer = false;
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email: from, message }),
+        });
+        if (res.ok) sentByServer = true;
+        else if (res.status === 429) throw { status: 429, text: "limit" };
+        else if (res.status === 422) throw { status: 422, text: "invalid" };
+        // 503 / 502 / anything else → fall through to EmailJS
+      } catch (e) {
+        if (typeof e === "object" && e !== null && "status" in e) throw e;
+        // network failure → fall through to EmailJS
+      }
+
+      if (!sentByServer) {
+        const emailjs = (await import("@emailjs/browser")).default;
+        await emailjs.send(
+          emailjsConfig.serviceId,
+          emailjsConfig.templateId,
+          { name, email: from, message },
+          {
+            publicKey: emailjsConfig.publicKey,
+            limitRate: { id: "contact-form", throttle: 15000 },
+          },
+        );
+      }
       setStatus("sent");
       form.reset();
     } catch (err) {

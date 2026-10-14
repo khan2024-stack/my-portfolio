@@ -7,7 +7,12 @@ import SectionHead from "../_parts/SectionHead";
 import Ticker from "../_parts/Ticker";
 import { CtaBand } from "../_parts/Sections";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Send a short brief and get back an approach, an honest estimate and a start date. Email, WhatsApp or the form — open to freelance projects and full-time roles.",
+  alternates: { canonical: "/contact" },
+};
 
 const ticker = [...services.map((s) => s.title), ...skills.map((s) => s.group)];
 

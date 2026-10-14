@@ -12,6 +12,7 @@ import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 
 import { SITE_URL } from "@/app/portfolio-content/site-url";
+import { identity, socials } from "@/app/portfolio-content/site-content";
 import P2Header from "./_parts/Header";
 import P2Footer from "./_parts/Footer";
 import WhatsAppFab from "./_parts/WhatsAppFab";
@@ -61,15 +62,50 @@ export const metadata: Metadata = {
   },
 };
 
+/* Structured data: tells search engines who this site is about. Built from
+   the same data the pages render, so it cannot drift from them. */
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: identity.fullName,
+      jobTitle: identity.role,
+      url: SITE_URL,
+      image: `${SITE_URL}/opengraph-image.jpg`,
+      address: { "@type": "PostalAddress", addressLocality: "Peshawar", addressCountry: "PK" },
+      knowsAbout: ["E-commerce", "AI voice agents", "Automation", "Django", "FastAPI", "React", "Next.js", "Shopify"],
+      sameAs: socials.map((s) => s.href),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: `${identity.fullName} — ${identity.role}`,
+      publisher: { "@id": `${SITE_URL}/#person` },
+    },
+  ],
+};
+
 export default function P2RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`p2-root ${p2Display.variable} ${p2Body.variable}`}>
+        <a className="p2-skip" href="#main">
+          Skip to content
+        </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <div className="p2">
           <P2Header />
-          <main>{children}</main>
+          <main id="main" tabIndex={-1}>
+            {children}
+          </main>
           <P2Footer />
           <WhatsAppFab />
         </div>

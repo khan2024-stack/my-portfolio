@@ -7,7 +7,12 @@ import Ticker from "../_parts/Ticker";
 import { CtaBand } from "../_parts/Sections";
 import WorkShowcase from "../_parts/WorkShowcase";
 
-export const metadata: Metadata = { title: "Work" };
+export const metadata: Metadata = {
+  title: "Work",
+  description:
+    "Selected projects: a Shopify order automation, an AI voice agent answering live calls, and commerce platforms built for clients in the USA, UAE and UK.",
+  alternates: { canonical: "/work" },
+};
 
 const ticker = [...services.map((s) => s.title), ...skills.map((s) => s.group)];
 
