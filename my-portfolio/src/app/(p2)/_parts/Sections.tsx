@@ -512,46 +512,6 @@ export function WhyChooseBlock() {
             AI & Voice is one of the four quadrants beside it. Her cell
             draws the same waveform WorkGrid already uses for her, at
             collage scale, rather than leaving voice work unrepresented. */}
-        {/* Header row owns the call to action; each tile is its own link
-            with a caption, so nothing is drawn on top of a screenshot. */}
-        <div className="p2-why__work">
-          <div className="p2-why__work-head">
-            <div>
-              <span className="p2-why__work-k">Selected work</span>
-              <p>The four disciplines above, shipped and in production.</p>
-            </div>
-            <Link className="p2-why__work-cta" href="/work">
-              See all projects <span aria-hidden="true">&#8599;</span>
-            </Link>
-          </div>
-          <ul className="p2-why__work-grid">
-            <li>
-              <Link href="/work/sara" className="p2-why__work-tile">
-                <span className="p2-why__work-art p2-why__work-art--voice" aria-hidden="true">
-                  <FiMic />
-                  <span className="p2-why__sig__wave">
-                    {[40, 70, 100, 65, 90, 50].map((h, n) => (
-                      <i key={n} style={{ height: `${h}%` }} />
-                    ))}
-                  </span>
-                </span>
-                <span className="p2-why__work-cap">Sara — AI Voice Agent</span>
-              </Link>
-            </li>
-            {["VIN Wear Automations", "Headless Commerce Platform", "Duomada Skylights"]
-              .map((t) => shots.find((x) => x.title === t)!)
-              .map((s) => (
-              <li key={s.title}>
-                <Link href="/work" className="p2-why__work-tile">
-                  <span className="p2-why__work-art">
-                    <Image src={s.image!} alt="" width={320} height={200} />
-                  </span>
-                  <span className="p2-why__work-cap">{s.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </section>
   );

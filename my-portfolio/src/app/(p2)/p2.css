@@ -2245,3 +2245,16 @@ main:focus { outline: none; }
 }
 /* "Fixed quote" is longer than "Custom": keep it on one line in the cards. */
 @media (max-width: 680px) { .p2-price__fig b { font-size: 2.25rem; } }
+
+/* ── UX pass ──
+   Services head: the intro + link column was taller than the title, so with
+   bottom alignment the intro climbed above the badge. A wider intro (two
+   lines, not three) brings the column back level with the title. */
+@media (min-width: 681px) {
+  .p2-head__side { gap: 14px; }
+  .p2-head__side .p2-lede { max-width: 60ch; }
+}
+/* Ghost numerals in the discipline cards: keep them decorative, not a
+   second layer of type behind the tool chips. */
+.p2-why__ghost { -webkit-text-stroke-color: rgba(255, 255, 255, .045); }
+.p2-why__cell:hover .p2-why__ghost { -webkit-text-stroke-color: rgba(217, 255, 63, .18); }
