@@ -39,7 +39,7 @@ export const identity = {
     /* Context only — the proof figures (90%, 80%, 15+ apps) live in the
        hero's solid strip, see `heroProof` in Sections.tsx. Still anchored
        to "since 2017", never a running count of years. */
-    "Full-stack engineer in production since 2017 — Django and FastAPI behind React and Next.js interfaces, and AI voice agents that answer live phone calls. One person, from database schema to the screen your customer uses.",
+    "Full-stack engineer building e-commerce platforms, AI voice agents and automation for clients in the USA, UAE and UK. Python and TypeScript, from database schema to the screen your customer uses — in production since 2017.",
   portrait: profile as StaticImageData,
   cvUrl: "/cv.pdf",
 };
