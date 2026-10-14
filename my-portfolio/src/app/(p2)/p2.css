@@ -2120,3 +2120,35 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .p2-hero__shot img { object-position: 50% 22%; }
 .p2-about__shot img { object-position: 50% 30%; }
 @media (max-width: 680px) { .p2-hero__shot img { object-position: 50% 20%; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   CONTACT PANEL — light version (white card, ink text, lime button)
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-reach__panel { background: #fff; border: 1px solid var(--p2-ink); color: var(--p2-muted); box-shadow: 8px 8px 0 var(--p2-accent), 8px 8px 0 1px var(--p2-ink); margin: 0 8px 8px 0; }
+.p2-reach__panel::before { display: none; }
+.p2 .p2-reach__panel h3, .p2 .p2-form--done h3 { color: var(--p2-ink); }
+
+.p2-form__f > span { color: var(--p2-ink); }
+.p2-form input[type="text"], .p2-form input[type="email"], .p2-form textarea { background: var(--p2-bg); border: 1px solid var(--p2-ink); color: var(--p2-ink); }
+.p2-form input::placeholder, .p2-form textarea::placeholder { color: #6b7078; }
+.p2-form input:focus, .p2-form textarea:focus { background: #fff; border-color: var(--p2-ink); box-shadow: 0 0 0 3px var(--p2-accent); }
+.p2-form__go { background: var(--p2-ink); color: var(--p2-accent); }
+.p2-form__go:hover:not(:disabled) { background: var(--p2-accent); color: var(--p2-ink); }
+.p2-form__note { color: var(--p2-muted); }
+.p2-form__note a { color: var(--p2-ink); font-weight: 600; }
+.p2-form__note.is-error { border-color: #b3261e; background: #fdecea; color: #7a1712; }
+.p2-form__detail { color: #6b7078; }
+.p2-form--done p { color: var(--p2-muted); }
+.p2-form__again { color: var(--p2-ink); }
+.p2-reach__panel .p2-reach__steps { color: var(--p2-muted); border-top-color: var(--p2-line-soft); }
+.p2-reach__panel .p2-btn.p2-btn--lime, .p2-reach__panel .p2-btn { background: var(--p2-accent); color: var(--p2-ink); border: 1px solid var(--p2-ink); }
+.p2-reach__panel .p2-btn:hover { background: var(--p2-ink); color: var(--p2-accent); }
+@media (max-width: 680px) { .p2-reach__panel { box-shadow: 6px 6px 0 var(--p2-accent), 6px 6px 0 1px var(--p2-ink); margin: 0 6px 6px 0; } }
+
+/* Phone: the form reads left-aligned (labels sit over their inputs), and
+   the WhatsApp button text stays on one line. */
+@media (max-width: 680px) {
+  .p2-reach__panel, .p2-reach__panel .p2-form, .p2-form__f, .p2-form__note, .p2-form__detail, .p2-reach__steps { text-align: left; }
+  .p2-form__go { justify-self: stretch; }
+  .p2-reach__panel .p2-btn { font-size: .9375rem; padding: 15px 14px; white-space: nowrap; }
+}
