@@ -597,7 +597,7 @@ export const education = [
     duration: "Master's degree",
     title: "Master's Degree in Computer Science",
     org: "Qurtuba University of Science & IT · Khyber Pakhtunkhwa, Pakistan",
-    points: ["Graded <em>A1 — 84%</em>", "Award-winning academic project work"],
+    points: ["<em>Gold medalist</em> — first position in class", "Graded <em>A1 — 84%</em>", "Award-winning academic project work"],
   },
   {
     period: "2016",

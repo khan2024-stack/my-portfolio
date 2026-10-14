@@ -31,12 +31,12 @@ export default function Recognition() {
 
         <ul className="p2-rc__list">
           <li>
-            <b>A1 · 84%</b>
-            <span>Master&rsquo;s in Computer Science, Qurtuba University</span>
+            <b>Gold medalist</b>
+            <span>First position in class · Qurtuba University</span>
           </li>
           <li>
-            <b>Award-winning</b>
-            <span>Academic projects through the degree</span>
+            <b>A1 · 84%</b>
+            <span>Master&rsquo;s in Computer Science</span>
           </li>
           <li>
             <b>Full-stack graduate</b>
