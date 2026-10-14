@@ -33,6 +33,10 @@ export function Hero() {
   return (
     <section className="p2-hero">
       <Reveal as="div" dir="up" className="p2-hero__l">
+        <p className="p2-hero__kicker">
+          {identity.focus}
+          <span>{identity.markets}</span>
+        </p>
         <h1>{identity.tagline}</h1>
         <p>{identity.intro}</p>
         {/* Solid proof strip: the numbers get their own cells instead of

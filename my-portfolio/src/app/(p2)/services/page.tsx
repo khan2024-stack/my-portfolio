@@ -14,7 +14,7 @@ export default function P2Services() {
       <PageIntro
         eyebrow="Services page"
         title="Three things, done properly, not six done halfway"
-        lede="Full-stack builds, AI and voice systems, and the automation that keeps them running without you watching."
+        lede="E-commerce and web platforms, AI and voice systems, and the automation that keeps them running without you watching."
         cta={{ label: "Start a project", href: "/contact" }}
       />
       <Ticker items={ticker} />

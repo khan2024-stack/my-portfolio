@@ -30,6 +30,10 @@ export const identity = {
      claim only a record can back: VIN Wear and Sara are running in
      production today, and the section below is titled the same way. */
   tagline: "Web platforms and AI agents that stay live.",
+  /* The line above the headline: what I do, and where the clients are.
+     Markets are the ones the client list actually supports. */
+  focus: "E-commerce · AI & Voice · Automation",
+  markets: "Clients in the UAE and UK",
   /* Anchored to the year, not a count. "Nine years" was accurate when it
      was written and quietly becomes false every January; "since 2017"
      never does — and a date a reader can check beats a round number.
@@ -93,10 +97,10 @@ export const sections = {
    the Shopify automation (VIN Wear) read as what they are, not just names. */
 export const clients: { name: string; place: string; tag?: string }[] = [
   { name: "VIN Wear", place: "Online store", tag: "Shopify automation" },
-  { name: "Capital X Car Care", place: "Abu Dhabi", tag: "Voice AI" },
-  { name: "Fenzacci Trading L.L.C", place: "United Arab Emirates" },
-  { name: "Duomada", place: "United Kingdom" },
-  { name: "UKTOP Ltd", place: "London" },
+  { name: "Capital X Car Care", place: "Abu Dhabi", tag: "Voice AI · UAE" },
+  { name: "Fenzacci Trading L.L.C", place: "United Arab Emirates", tag: "E-commerce · UAE" },
+  { name: "Duomada", place: "United Kingdom", tag: "E-commerce · UK" },
+  { name: "UKTOP Ltd", place: "London", tag: "Corporate site · UK" },
 ];
 
 /* ── Testimonials ─────────────────────────────────────────────────

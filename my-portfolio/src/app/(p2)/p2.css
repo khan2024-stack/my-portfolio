@@ -2152,3 +2152,14 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   .p2-form__go { justify-self: stretch; }
   .p2-reach__panel .p2-btn { font-size: .9375rem; padding: 15px 14px; white-space: nowrap; }
 }
+
+/* Hero kicker: what I do + where the clients are, above the headline.
+   Plain mono text — a line, not a badge. */
+.p2-hero__kicker { margin: 0 0 14px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .8125rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--p2-accent); }
+.p2-hero__kicker span { color: rgba(255, 255, 255, .7); }
+.p2-hero__kicker span::before { content: '/'; margin-right: 14px; color: rgba(255, 255, 255, .35); }
+@media (max-width: 680px) { .p2-hero__kicker { font-size: .75rem; letter-spacing: .08em; margin-bottom: 12px; } .p2-hero__kicker span::before { display: none; } }
+@media (min-width: 1001px) { .p2 .p2-hero__l h1 { margin-top: 0; } }
+.p2 .p2-hero__l .p2-hero__kicker { display: grid; gap: 6px; color: var(--p2-accent); max-width: none; margin: 0 0 16px; font-size: .8125rem; line-height: 1.4; }
+.p2 .p2-hero__l .p2-hero__kicker span { color: rgba(255, 255, 255, .82); font-weight: 600; letter-spacing: .1em; }
+.p2-hero__kicker span::before { content: none !important; }

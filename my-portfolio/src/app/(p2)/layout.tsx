@@ -49,11 +49,11 @@ export const metadata: Metadata = {
     template: "%s | Muhammad Sajjad",
   },
   description:
-    "Full stack and AI engineer building in production since 2017 — Python backends in Django and FastAPI, typed React and Next.js frontends in TypeScript, and AI voice agents on live phone lines.",
+    "Full stack and AI engineer in production since 2017 — e-commerce platforms, AI voice agents and automation for clients in the UAE and UK. Django, FastAPI, React and Next.js. Open to freelance projects and full-time roles.",
   openGraph: {
     title: "Muhammad Sajjad | Full Stack & AI Engineer",
     description:
-      "Web platforms and AI voice agents in production. Django, FastAPI, TypeScript, React and Next.js.",
+      "E-commerce, AI voice agents and automation for clients in the UAE and UK. Django, FastAPI, React and Next.js.",
     type: "website",
   },
 };
