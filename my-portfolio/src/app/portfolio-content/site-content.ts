@@ -30,10 +30,6 @@ export const identity = {
      claim only a record can back: VIN Wear and Sara are running in
      production today, and the section below is titled the same way. */
   tagline: "Web platforms and AI agents that stay live.",
-  /* The line above the headline: what I do, and where the clients are.
-     Markets are the ones the client list actually supports. */
-  focus: "E-commerce · AI & Voice · Automation",
-  markets: "Clients in the UAE and UK",
   /* Anchored to the year, not a count. "Nine years" was accurate when it
      was written and quietly becomes false every January; "since 2017"
      never does — and a date a reader can check beats a round number.
@@ -95,12 +91,16 @@ export const sections = {
 /* `tag` is the kind of work done for them — shown as a small label on the
    hero's "Worked with" chips, so the voice agent (Capital X Car Care) and
    the Shopify automation (VIN Wear) read as what they are, not just names. */
-export const clients: { name: string; place: string; tag?: string }[] = [
-  { name: "VIN Wear", place: "Online store", tag: "Shopify automation" },
-  { name: "Capital X Car Care", place: "Abu Dhabi", tag: "Voice AI · UAE" },
-  { name: "Fenzacci Trading L.L.C", place: "United Arab Emirates", tag: "E-commerce · UAE" },
-  { name: "Duomada", place: "United Kingdom", tag: "E-commerce · UK" },
-  { name: "UKTOP Ltd", place: "London", tag: "Corporate site · UK" },
+export const clients: {
+  name: string;
+  region: "USA" | "UAE" | "UK";
+  place: string;
+}[] = [
+  { name: "VIN Wear", region: "USA", place: "United States" },
+  { name: "Capital X Car Care", region: "UAE", place: "Abu Dhabi" },
+  { name: "Fenzacci Trading", region: "UAE", place: "United Arab Emirates" },
+  { name: "Duomada", region: "UK", place: "United Kingdom" },
+  { name: "UKTOP", region: "UK", place: "London" },
 ];
 
 /* ── Testimonials ─────────────────────────────────────────────────
@@ -413,7 +413,7 @@ export const projects: Project[] = [
      says "live since" rather than "finished". */
   {
     title: "VIN Wear Automations",
-    category: "Automation · Shopify",
+    category: "Automation · Shopify · USA",
     body: "The automation behind a car-culture apparel store where every garment carries its own registration number. A Python service turns each paid Shopify order into a Printful draft with the numbered tag on the sleeve in about 15 seconds — live since September 2026, custom VINs in progress.",
     tech: "Python · Shopify API · Printful",
     image: vinwear as StaticImageData,
@@ -687,7 +687,7 @@ export const contact = {
     { label: "WhatsApp", value: "+92 322 9830466", href: "https://wa.me/923229830466" },
     { label: "Email", value: "sajjadk546@gmail.com", href: "mailto:sajjadk546@gmail.com" },
     { label: "Based", value: "Peshawar, Pakistan", href: null },
-    { label: "Works", value: "Remote-first · clients in the UAE and UK", href: null },
+    { label: "Works", value: "Remote-first · clients in the USA, UAE and UK", href: null },
   ],
 };
 

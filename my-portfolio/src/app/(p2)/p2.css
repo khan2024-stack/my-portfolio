@@ -2163,3 +2163,10 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .p2 .p2-hero__l .p2-hero__kicker { display: grid; gap: 6px; color: var(--p2-accent); max-width: none; margin: 0 0 16px; font-size: .8125rem; line-height: 1.4; }
 .p2 .p2-hero__l .p2-hero__kicker span { color: rgba(255, 255, 255, .82); font-weight: 600; letter-spacing: .1em; }
 .p2-hero__kicker span::before { content: none !important; }
+
+/* Clients, grouped by market: region label + names, no per-name tags. */
+.p2-markets { margin: 6px 0 0; display: grid; }
+.p2-markets > div { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 11px 0; border-top: 1px solid rgba(255, 255, 255, .16); }
+.p2-markets > div:first-child { border-top: 0; padding-top: 4px; }
+.p2-markets dt { font-family: var(--p2-face); font-size: .9375rem; font-weight: 700; letter-spacing: .04em; color: var(--p2-accent); }
+.p2-markets dd { margin: 0; font-size: .9375rem; font-weight: 500; line-height: 1.45; color: #fff; }

@@ -33,10 +33,6 @@ export function Hero() {
   return (
     <section className="p2-hero">
       <Reveal as="div" dir="up" className="p2-hero__l">
-        <p className="p2-hero__kicker">
-          {identity.focus}
-          <span>{identity.markets}</span>
-        </p>
         <h1>{identity.tagline}</h1>
         <p>{identity.intro}</p>
         {/* Solid proof strip: the numbers get their own cells instead of
@@ -86,15 +82,20 @@ export function Hero() {
               <b>{identity.location}</b>
             </div>
             <div className="p2-card p2-card--dark">
-              <span className="p2-card__k">Worked with</span>
-              <ul className="p2-chips">
-                {clients.map((c) => (
-                  <li key={c.name}>
-                    {c.name}
-                    {c.tag ? <em>{c.tag}</em> : null}
-                  </li>
+              <span className="p2-card__k">Clients across</span>
+              <dl className="p2-markets">
+                {(["USA", "UAE", "UK"] as const).map((r) => (
+                  <div key={r}>
+                    <dt>{r}</dt>
+                    <dd>
+                      {clients
+                        .filter((c) => c.region === r)
+                        .map((c) => c.name)
+                        .join(" · ")}
+                    </dd>
+                  </div>
                 ))}
-              </ul>
+              </dl>
             </div>
             <div className="p2-card p2-card--line">
               <b>
