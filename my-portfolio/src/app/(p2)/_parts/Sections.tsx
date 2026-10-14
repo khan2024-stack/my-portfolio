@@ -18,7 +18,7 @@ import {
   testimonialsAreSamples,
 } from "@/app/portfolio-content/site-content";
 import type { Testimonial } from "@/app/portfolio-content/site-content";
-import aboutPortrait from "@/assets/portrait-2.jpg";
+import aboutPortrait from "@/assets/portrait-desk.jpg";
 import Reveal from "./Reveal";
 import SliderDots from "./SliderDots";
 import SectionHead from "./SectionHead";

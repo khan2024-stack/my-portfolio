@@ -10,7 +10,7 @@ import madleen from "@/assets/madleen.jpg";
 import duomada from "@/assets/duomada.jpg";
 import uktop from "@/assets/uktop.jpg";
 import vinwear from "@/assets/vinwear.jpg";
-import profile from "@/assets/profile.jpg";
+import profile from "@/assets/portrait-studio.jpg";
 import type { StaticImageData } from "next/image";
 
 /* ── Identity ─────────────────────────────────────────────────────── */

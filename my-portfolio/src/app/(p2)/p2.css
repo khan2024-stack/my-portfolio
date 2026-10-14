@@ -2114,3 +2114,9 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   }
   .p2-pcs__more { margin-top: 20px; }
 }
+
+/* New portraits are square with the face in the upper-middle: keep the
+   face in frame when the hero / about frames crop them. */
+.p2-hero__shot img { object-position: 50% 22%; }
+.p2-about__shot img { object-position: 50% 30%; }
+@media (max-width: 680px) { .p2-hero__shot img { object-position: 50% 20%; } }
