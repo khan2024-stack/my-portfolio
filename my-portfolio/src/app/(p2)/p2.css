@@ -2299,20 +2299,132 @@ main:focus { outline: none; }
   .p2-split .p2-about__foot { gap: 0; }
   .p2-why .p2-split--head { margin-bottom: 26px; }
 
-  /* Pricing: three cards taller than the screen do not belong in a
-     sideways slider. Stack them, compact. */
-  .p2-price-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-inline: 0; padding: 4px 0 0; overflow: visible; scroll-snap-type: none; max-width: none; }
-  .p2-price-grid > * { flex: none; width: auto; }
-  #pricing .p2-dots { display: none; }
-  .p2-price { padding-bottom: 20px; }
-  .p2-price__in { padding: 24px 20px 14px; }
-  .p2 .p2-price h5 { font-size: 1.375rem; }
-  .p2-price__sub { margin-top: 4px; font-size: .9375rem; }
-  .p2-price__fig { margin-top: 14px; gap: 10px; }
-  .p2-price__fig b { font-size: 2rem; }
-  .p2-price__lbl { margin-top: 16px; padding-top: 14px; }
-  .p2-price ul { gap: 8px; margin-top: 10px; }
-  .p2-price li { font-size: 1rem; padding-left: 30px; }
-  .p2-price li::before { width: 20px; height: 20px; }
-  .p2-price__cta { margin: 0 20px; padding: 14px 20px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE COMPACT v2 (≤680px) — declared last, wins.
+   Sliders stay. Cards get less inner padding (text gets the width),
+   slightly smaller type, and the gaps between components shrink so the
+   page reads as one tight, custom layout.
+     section   44px   head→content 16px   card padding 16–18px
+     slide     88% wide, 10px apart        dots right under the row
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  /* Sections and heads */
+  .p2 .p2-sec, .p2 #work.p2-sec, .p2 #pricing.p2-sec, .p2 #reviews.p2-sec, .p2 #about.p2-sec,
+  .p2 #services.p2-sec, .p2 #contact.p2-sec { padding-top: 44px; padding-bottom: 44px; }
+  .p2 .p2-why, .p2 .p2-cta { padding-top: 44px; padding-bottom: 44px; }
+  .p2 .p2-intro, .p2 .p2-intro--split { padding-top: 32px; padding-bottom: 40px; }
+  .p2-ticker { padding: 14px 0; }
+  .p2-ticker__track span { font-size: 1.25rem; }
+  .p2 .p2-head h2, .p2 .p2-sec .p2-head h2, .p2 #work .p2-head h2, .p2 #pricing .p2-head h2, .p2 .p2-why .p2-head h2 { font-size: 1.75rem; margin-top: 10px; }
+  .p2-split--head, .p2 #pricing .p2-split--head, .p2-why .p2-split--head { margin-bottom: 16px; }
+  .p2-sec__top { margin-bottom: 16px; }
+  .p2-head .p2-badge, .p2-sec .p2-badge { padding: 5px 12px 5px 9px; font-size: .75rem; }
+
+  /* Hero */
+  .p2-hero__shot { margin-top: 14px; }
+  .p2-hero__l { padding: 18px var(--p2-gut) 20px; }
+  .p2 .p2-hero__l h1 { font-size: 2.125rem; }
+  .p2-hero__l p { margin-top: 12px; }
+  .p2-hero__l .p2-acts { margin-top: 16px; }
+  .p2-hero__proof { margin-top: 16px; }
+  .p2-hero__proof li { padding: 14px 12px; }
+  .p2-hero__cards { margin-top: 16px; }
+  .p2-card { padding: 16px; }
+  .p2-hero__spec { margin: 14px var(--p2-gut) 32px; padding: 16px; }
+
+  /* All phone sliders: one width, one gap, dots tight under the row */
+  .p2-svc-grid, .p2-price-grid, .p2-why-cells, .p2-rev-grid, .p2-strength-grid, .p2-pcs__grid {
+    display: flex; flex-wrap: nowrap; gap: 10px; margin-inline: calc(var(--p2-gut) * -1);
+    padding: 4px var(--p2-gut) 8px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; max-width: none;
+  }
+  .p2-svc-grid > *, .p2-price-grid > *, .p2-why-cells > *, .p2-rev-grid > *, .p2-strength-grid > *,
+  .p2-pcs__grid > .p2-pc, .p2-pcs__grid.is-r1 > .p2-pc:first-child, .p2-pcs__grid.is-r2 > .p2-pc:nth-last-child(-n+2) {
+    flex: 0 0 88%; width: auto; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; grid-column: auto;
+  }
+  .p2-dots, #pricing .p2-dots { display: flex; margin-top: 0; }
+  .p2-pcs__more { margin-top: 10px; }
+
+  /* Pricing: compact, text gets the width */
+  .p2-price { padding-bottom: 14px; }
+  .p2-price--dark, .p2-price--dark:hover { transform: none !important; box-shadow: none !important; }
+  .p2-price__in { padding: 18px 16px 10px; }
+  .p2 .p2-price h5 { font-size: 1.1875rem; }
+  .p2-price__sub { margin-top: 2px; font-size: .875rem; }
+  .p2-price__fig { margin-top: 10px; gap: 8px; }
+  .p2-price__fig b { font-size: 1.75rem; }
+  .p2-price__fig span { font-size: .75rem; padding: 4px 10px; }
+  .p2-price__lbl { margin-top: 12px; padding-top: 10px; font-size: .6875rem; }
+  .p2-price ul { gap: 6px; margin-top: 8px; }
+  .p2-price li { font-size: .9375rem; line-height: 1.4; padding-left: 26px; }
+  .p2-price li::before { width: 18px; height: 18px; font-size: .625rem; top: 0; }
+  .p2-price__cta { margin: 0 16px; padding: 12px 16px; font-size: .9375rem; }
+
+  /* Services cards */
+  .p2-svc { padding: 20px 16px 76px; min-height: 0; }
+  .p2-svc__art { margin-bottom: 18px; }
+  .p2-svc__art svg, .p2-svc__icon { width: 40px; height: 40px; padding: 13px; box-shadow: 5px 5px 0 var(--p2-ink); }
+  .p2-svc__no { font-size: 2.25rem; top: 16px; right: 16px; }
+  .p2-svc h3 { font-size: 1.3125rem; margin-bottom: 8px; }
+  .p2-svc p { font-size: .9375rem; line-height: 1.55; }
+  .p2-svc__go { left: 16px; bottom: 16px; height: 42px; padding: 0 18px; font-size: .875rem; }
+  .p2-svc li { font-size: .875rem; }
+
+  /* Project cards */
+  .p2-pc__stage { padding: 18px 6% 14px; }
+  .p2-pc__foot { padding: 12px 14px 14px; gap: 10px; }
+  .p2 .p2-pc__txt h3 { font-size: 1.125rem; }
+  .p2-pc__txt p { font-size: .875rem; }
+  .p2-pc__go { width: 40px; height: 40px; font-size: 1rem; }
+
+  /* Why: stats + discipline cards */
+  .p2-why__meta div { padding: 10px 8px; }
+  .p2-why__meta dt { font-size: 1.375rem; }
+  .p2-why__cell, .p2-why__cell--r { padding: 18px 16px 20px; }
+  .p2-why__tile { width: 44px; height: 44px; }
+  .p2-why__cell h4, .p2-why__cell--r h4 { font-size: 1.5rem; margin-top: 14px; }
+  .p2-why__cell p { margin-top: 8px; font-size: .9375rem; line-height: 1.5; }
+  .p2-why__tags { margin-top: 14px; padding-top: 14px; gap: 6px; }
+  .p2-why__tags li { font-size: .75rem; padding: 6px 9px; }
+  .p2-why__ghost { font-size: 6rem; bottom: -18px; right: 8px; }
+
+  /* Reviews */
+  .p2-rev { gap: 12px; }
+  .p2-rev__rail { padding: 18px; gap: 14px; }
+  .p2-rev__hero { padding: 20px 18px; }
+  .p2-rev__hero blockquote { margin-top: 14px; font-size: 1.25rem; }
+  .p2-rev-grid { margin-top: 12px; }
+  .p2-rev__card { padding: 18px 16px; }
+  .p2-rev__card blockquote { margin: 12px 0 14px; font-size: 1rem; }
+
+  /* About, recognition, tools */
+  .p2-about { gap: 16px; }
+  .p2-about__in { padding: 22px 18px; }
+  .p2 .p2-about__in .p2-head h2 { font-size: 1.875rem; }
+  .p2-about__in .p2-lede { font-size: 1.0625rem; line-height: 1.7; margin-bottom: 20px; }
+  .p2-about__tools h3 { margin-bottom: 10px; }
+  .p2-about__tools .p2-tools:not(.p2-tools--cv) { gap: 10px; }
+  .p2-about__tools .p2-tools:not(.p2-tools--cv) li { padding: 14px 16px; }
+  .p2-rc { padding: 24px var(--p2-gut); }
+  .p2-rc__in { gap: 18px; }
+  .p2-rc__lead { gap: 14px; }
+  .p2-rc__lead b { font-size: 1.75rem; }
+  .p2-rc__list li { padding: 11px 0; }
+
+  /* Contact */
+  .p2-reach { gap: 12px; margin-top: 18px; }
+  .p2-reach__icon { width: 44px; height: 44px; font-size: 1.125rem; }
+  .p2-reach__panel { padding: 20px 16px; gap: 14px; }
+  .p2-form { gap: 10px; }
+  .p2-form input[type="text"], .p2-form input[type="email"], .p2-form textarea { padding: 10px 12px; }
+  .p2-form textarea { min-height: 76px; }
+  .p2-brief li { padding: 16px; }
+
+  /* Closing banner, footer */
+  .p2-cta { gap: 18px; }
+  .p2 .p2-cta h2 { font-size: 1.75rem; }
+  .p2-foot__top { padding: 24px var(--p2-gut) 20px; gap: 16px; }
+  .p2-foot__nav a, .p2-foot__soc a { padding: 9px 0; }
+  .p2-foot__bot { padding: 14px var(--p2-gut) 18px; }
 }
