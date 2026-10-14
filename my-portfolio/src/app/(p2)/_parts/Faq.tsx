@@ -31,10 +31,12 @@ const FAQS: { q: string; a: string }[] = [
     }.`,
   },
   {
-    q: "Are you taking on new work?",
-    a:
-      about.facts.find((f) => f.label === "Freelance")?.value ??
-      "Taking on select projects.",
+    q: "Are you available for hire?",
+    a: "Yes — for freelance projects and for a full-time role. Freelance work is scoped and quoted in writing before it starts; for a full-time position, send the role and the team and I’ll reply personally.",
+  },
+  {
+    q: "How do we work together?",
+    a: "Remote-first. You send a short brief, I reply with an approach, an honest estimate and a start date, and scope and timeline are agreed before any code is written. Progress is shown in builds you can open, not status reports.",
   },
   {
     q: "What do you build?",
@@ -62,8 +64,8 @@ export default function Faq() {
         <SectionHead eyebrow="FAQs" title="Frequently asked questions" />
         <div className="p2-about__foot">
           <p className="p2-lede">
-            Anything not covered here, ask directly — I answer from{" "}
-            {identity.location}.
+            Still have a question? Ask me directly — I reply personally,
+            from {identity.location}.
           </p>
           <Link className="p2-btn" href="/contact">
             Get in touch <span aria-hidden="true">&#8599;</span>

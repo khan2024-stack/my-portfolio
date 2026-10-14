@@ -15,7 +15,7 @@ export default function P2Resume() {
       <PageIntro
         eyebrow="Resume page"
         title={`Since 2017: ${WORDS[experience.length] ?? experience.length} roles, one straight line`}
-        lede="From a Peshawar bootcamp to production AI voice systems — the track record behind the pitch."
+        lede="From a Peshawar bootcamp to production AI voice systems — the record behind the pitch, open to freelance projects and full-time roles."
         cta={{ label: "Download CV", href: identity.cvUrl, download: true }}
       />
       <Ticker items={ticker} />

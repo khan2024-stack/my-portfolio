@@ -658,7 +658,7 @@ export const about = {
     { label: "Phone",       value: "+92 313 932 2585" },
     { label: "WhatsApp",    value: "+92 322 9830466" },
     { label: "Email",       value: "sajjadk546@gmail.com" },
-    { label: "Freelance",   value: "Taking on select projects" },
+    { label: "Freelance",   value: "Open to freelance projects and full-time roles" },
     { label: "Languages",   value: "Fluent in English, Urdu and Pashto" },
   ],
 };
@@ -683,7 +683,7 @@ export const contact = {
     { label: "WhatsApp", value: "+92 322 9830466", href: "https://wa.me/923229830466" },
     { label: "Email", value: "sajjadk546@gmail.com", href: "mailto:sajjadk546@gmail.com" },
     { label: "Based", value: "Peshawar, Pakistan", href: null },
-    { label: "Works", value: "Remote · UAE · UK", href: null },
+    { label: "Works", value: "Remote-first · clients in the UAE and UK", href: null },
   ],
 };
 

@@ -363,8 +363,8 @@ export function AchievementsBlock() {
         <SectionHead eyebrow="Track record" title="Results from real projects" />
         <div className="p2-about__foot">
           <p className="p2-lede">
-            Every figure below names where it came from — the platform, the
-            stack and the year. No unsourced numbers.
+            Every result below names the project it came from — no
+            unsourced numbers.
           </p>
           <Link className="p2-btn" href="/work">
             See the work <span aria-hidden="true">&#8599;</span>
@@ -693,8 +693,8 @@ export function ReviewsBlock() {
       <div className="p2-split p2-split--head">
         <SectionHead eyebrow="Reviews" title="What clients say about the work" />
         <p className="p2-lede">
-          Real quotes only, published with each client&rsquo;s permission —
-          which is why this section stays empty until there are some.
+          Feedback from the people I&rsquo;ve built for, published with their
+          permission.
         </p>
       </div>
 
@@ -820,8 +820,8 @@ export function StrengthsBlock() {
       <div className="p2-split p2-split--head">
         <SectionHead eyebrow="My strengths" title="What I bring to a build" />
         <p className="p2-lede">
-          Four areas I work across end to end — the same four that show up in
-          every project on this site.
+          Four disciplines I deliver end to end — the same four behind every
+          project on this site.
         </p>
       </div>
 

@@ -29,7 +29,7 @@ export default function P2About() {
         title="One engineer, end to end"
         /* Not identity.intro — it opens "End to end since 2017", which
            would echo the title word for word right underneath it. */
-        lede="Who I am, how I work, and the record behind both — sourced, dated, and checkable."
+        lede="Who I am, how I work, and the record behind it — every claim dated and checkable."
         cta={{ label: "See the work", href: "/work" }}
         image={{
           src: exhibition,

@@ -21,7 +21,7 @@ export default function P2Work() {
       <PageIntro
         eyebrow="Works page"
         title="Shipped, live, and still running"
-        lede={`${projects.length} projects — commerce platforms, an AI voice agent taking real calls, and client sites in production today.`}
+        lede={`${projects.length} projects: a Shopify automation, an AI voice agent answering live calls, and commerce platforms built for clients in the UAE and UK.`}
         cta={{ label: "Start a project", href: "/contact" }}
       />
       <Ticker items={ticker} />
