@@ -2258,3 +2258,27 @@ main:focus { outline: none; }
    second layer of type behind the tool chips. */
 .p2-why__ghost { -webkit-text-stroke-color: rgba(255, 255, 255, .045); }
 .p2-why__cell:hover .p2-why__ghost { -webkit-text-stroke-color: rgba(217, 255, 63, .18); }
+
+/* ── Touch screens ──
+   A tap sets :hover and it sticks until the next tap, so the "invert the
+   whole card" hover styles turned cards black on phones. Keep hover
+   effects for pointers only. */
+@media (hover: none) {
+  .p2-svc:hover { background: #fff; transform: none; box-shadow: none; }
+  .p2-svc:hover::before { opacity: 0; }
+  .p2-svc:hover h3 { color: var(--p2-ink); }
+  .p2-svc:hover p, .p2-svc:hover li { color: var(--p2-muted); }
+  .p2-svc:hover .p2-svc__no { -webkit-text-stroke-color: rgba(20, 22, 26, .5); }
+  .p2-svc:hover .p2-svc__icon { transform: none; box-shadow: 6px 6px 0 var(--p2-ink); }
+  .p2-svc:hover .p2-svc__go { background: var(--p2-accent); }
+  .p2-pc:hover, .p2-price:hover, .p2-rev__card:hover, .p2-why__cell:hover,
+  .p2-about__tools .p2-tools:not(.p2-tools--cv) li:hover, .p2-posts a:hover { transform: none; box-shadow: none; }
+  .p2-pc:hover .p2-pc__device, .p2-pc:hover .p2-pc__screen img, .p2-pc:hover .p2-pc__go { transform: none; }
+  .p2-why__cell:hover { background: linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.02)); border-color: rgba(255,255,255,.12); }
+  .p2-why__cell:hover::before { transform: scaleX(0); }
+  .p2-price--dark:hover { transform: translateY(-14px); box-shadow: 0 30px 60px -28px rgba(20,22,26,.6), 0 0 0 1px var(--p2-ink); }
+}
+/* Floating chat button steps aside while the contact form is on screen. */
+@media (max-width: 1000px) {
+  html[data-form-visible] .p2-wa { opacity: 0; transform: translateY(14px); pointer-events: none; }
+}

@@ -54,6 +54,15 @@ export default function P2Header() {
       el.style.setProperty("--p2-progress", p.toFixed(4));
       // Lets CSS keep the floating chat button off the landing screen.
       el.toggleAttribute("data-scrolled", el.scrollTop > 120);
+      // Hide the floating chat button while the contact form is on screen
+      // (it has its own WhatsApp button, and on phones the float would sit
+      // on top of "Send message").
+      const panel = document.querySelector(".p2-reach__panel");
+      const r = panel?.getBoundingClientRect();
+      el.toggleAttribute(
+        "data-form-visible",
+        !!r && r.top < window.innerHeight && r.bottom > 0,
+      );
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
