@@ -8,7 +8,7 @@
 // Reference: templatekit.kitprostudio.com/north — read from computed
 // styles on the live page, not the screenshot. Every number in p2.css
 // says where it came from.
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 
 import P2Header from "./_parts/Header";
@@ -33,6 +33,13 @@ const p2Body = Inter({
   weight: ["400", "500", "600"],
   display: "swap",
 });
+
+/* Tints the phone browser's address bar to match the header. */
+export const viewport: Viewport = {
+  themeColor: "#f5f3ec",
+  width: "device-width",
+  initialScale: 1,
+};
 
 /* This is the site now — the old layout at (site)/ is gone, so the
    noindex guard that kept the draft design out of search is gone too. */

@@ -52,6 +52,8 @@ export default function P2Header() {
       const max = el.scrollHeight - el.clientHeight;
       const p = max > 0 ? Math.min(1, Math.max(0, el.scrollTop / max)) : 0;
       el.style.setProperty("--p2-progress", p.toFixed(4));
+      // Lets CSS keep the floating chat button off the landing screen.
+      el.toggleAttribute("data-scrolled", el.scrollTop > 120);
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);

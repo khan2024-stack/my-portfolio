@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { projects } from "@/app/portfolio-content/site-content";
 import Reveal from "./Reveal";
+import SliderDots from "./SliderDots";
 import VoiceWave from "./VoiceWave";
 
 type Item = (typeof projects)[number];
@@ -40,6 +41,9 @@ export default function WorkShowcase({
           <Card key={p.title} p={p} />
         ))}
       </div>
+      {/* Phones: the grid above becomes a swipe row (CSS) and these dots
+          show the position; hidden by CSS everywhere else. */}
+      <SliderDots />
 
       {hasMore ? (
         <div className="p2-pcs__more">

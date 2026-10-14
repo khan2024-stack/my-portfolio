@@ -2075,3 +2075,42 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 .p2-reach__panel .p2-reach__steps { max-width: 440px; font-size: .875rem; }
 @media (max-width: 680px) { .p2-form { max-width: none; } .p2-reach__panel .p2-reach__steps { max-width: none; } }
 .p2-form__detail { margin: 0; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .75rem; line-height: 1.5; color: rgba(255, 255, 255, .55); overflow-wrap: anywhere; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE FIXES — landing screen, work-card slider, chat button
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Form micro-labels: never under 12px. */
+.p2-form__f > span { font-size: .75rem; }
+
+@media (max-width: 680px) {
+  /* ── Landing screen ──
+     Photo → headline → intro → BUTTONS → proof strip. The buttons were
+     ~900px down, below the first screen; a shorter photo and moving the
+     proof strip under them puts the call to action in view on load. */
+  .p2-hero__shot { height: clamp(200px, 56vw, 250px); margin-top: 18px; }
+  .p2-hero__shot img { object-position: 50% 18%; }
+  .p2-hero__l { display: flex; flex-direction: column; padding: 24px var(--p2-gut) 28px; }
+  .p2 .p2-hero__l h1 { font-size: 2.25rem; }
+  .p2-hero__l p { margin-top: 14px; font-size: 1rem; line-height: 1.6; }
+  .p2-hero__l .p2-acts { order: 3; margin-top: 20px; }
+  .p2-hero__proof { order: 4; margin-top: 20px; }
+
+  /* ── Floating chat button: off the landing screen, in after a scroll ── */
+  .p2-wa { transition: opacity .3s, transform .3s, box-shadow .25s; }
+  html:not([data-scrolled]) .p2-wa { opacity: 0; transform: translateY(14px); pointer-events: none; }
+
+  /* ── Work cards: swipe slider ── */
+  .p2-pcs__grid {
+    display: flex; flex-wrap: nowrap; align-items: stretch; gap: 14px; grid-template-columns: none;
+    margin-inline: calc(var(--p2-gut) * -1); padding: 8px var(--p2-gut) 14px; scroll-padding-inline: var(--p2-gut);
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .p2-pcs__grid::-webkit-scrollbar { display: none; }
+  .p2-pcs__grid > .p2-pc, .p2-pcs__grid.is-r1 > .p2-pc:first-child, .p2-pcs__grid.is-r2 > .p2-pc:nth-last-child(-n+2) {
+    flex: 0 0 82%; min-width: 0; grid-column: auto; scroll-snap-align: start; scroll-snap-stop: always;
+    /* off-screen slides must be visible, not waiting on a scroll-into-view fade */
+    opacity: 1 !important; transform: none !important;
+  }
+  .p2-pcs__more { margin-top: 20px; }
+}
