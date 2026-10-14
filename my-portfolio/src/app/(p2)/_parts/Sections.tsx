@@ -791,22 +791,29 @@ export function StrengthsBlock() {
       </div>
 
       <div className="p2-strength-grid">
-        {skills.map((s, i) => (
-          <Reveal
-            as="article"
-            dir="up"
-            delay={i * 100}
-            className="p2-strength"
-            key={s.group}
-          >
-            <span className="p2-strength__no">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span className="p2-strength__icon" aria-hidden="true" />
-            <h4>{s.group}</h4>
-            <p>{s.items.join(" · ")}</p>
-          </Reveal>
-        ))}
+        {skills.map((s, i) => {
+          const Icon = WHY_ICONS[i % WHY_ICONS.length];
+          return (
+            <Reveal
+              as="article"
+              dir="up"
+              delay={i * 100}
+              className="p2-strength"
+              key={s.group}
+            >
+              <span className="p2-strength__no">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="p2-strength__icon" aria-hidden="true">
+                <Icon />
+              </span>
+              <h4>{s.group}</h4>
+              {/* The note, not the tool list — "Tools I use" one screen up
+                  already carries every tool name. */}
+              <p>{WHY_NOTES[i % WHY_NOTES.length]}</p>
+            </Reveal>
+          );
+        })}
       </div>
       <SliderDots />
     </>

@@ -2428,3 +2428,20 @@ main:focus { outline: none; }
   .p2-foot__nav a, .p2-foot__soc a { padding: 9px 0; }
   .p2-foot__bot { padding: 14px var(--p2-gut) 18px; }
 }
+
+/* Strengths cards: real line icon on the ink disc (was a lime square). */
+.p2-strength__icon::after { content: none; }
+.p2-strength__icon svg { width: 24px; height: 24px; color: var(--p2-accent); stroke-width: 1.6; }
+.p2-strength p { font-size: 1rem; line-height: 1.6; }
+
+/* Sara case study: breathing room around its section headings; less dead
+   space under the header on phones. */
+.p2 .cs__body { margin-top: 36px; }
+.p2 .cs__sec + .cs__sec { margin-top: 36px; }
+.p2 .cs__sec h2, .p2 .cs__stack h2 { margin: 0 0 12px; font-size: 1.5rem; }
+.p2 .cs__stack { margin-top: 40px; }
+@media (max-width: 680px) {
+  .p2 .wrap { padding-block: 24px 56px; }
+  .p2 .cs__body, .p2 .cs__stack { margin-top: 30px; }
+  .p2 .cs__sec + .cs__sec { margin-top: 30px; }
+}
