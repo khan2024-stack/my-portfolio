@@ -30,11 +30,11 @@ export default function P2About() {
   return (
     <>
       <PageIntro
-        eyebrow="About page"
+        eyebrow="About"
         title="One engineer, end to end"
         /* Not identity.intro — it opens "End to end since 2017", which
            would echo the title word for word right underneath it. */
-        lede="Who I am, how I work, and the record behind it — every claim dated and checkable."
+        lede="Who I am, how I work, and what I’ve shipped — with the dates to back it up."
         cta={{ label: "See the work", href: "/work" }}
         image={{
           src: exhibition,

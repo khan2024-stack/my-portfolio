@@ -39,7 +39,7 @@ export const identity = {
     /* Context only — the proof figures (90%, 80%, 15+ apps) live in the
        hero's solid strip, see `heroProof` in Sections.tsx. Still anchored
        to "since 2017", never a running count of years. */
-    "Full-stack engineer building e-commerce platforms, AI voice agents and automation for clients in the USA, UAE and UK. Python and TypeScript, from database schema to the screen your customer uses — in production since 2017.",
+    "Full-stack engineer building e-commerce platforms, AI voice agents and automation for clients in the UAE, UK and USA. Python and TypeScript, from database schema to the screen your customer uses — in production since 2017.",
   portrait: profile as StaticImageData,
   cvUrl: "/cv.pdf",
 };
@@ -532,7 +532,7 @@ export const experience = [
     period: "Aug 2026 — Present",
     duration: "Current",
     title: "Shopify & Automation Engineer",
-    org: "VIN Wear · vin-wear.com · Remote",
+    org: "VIN Wear · United States · Remote freelance",
     points: [
       "Built the order automation behind <em>VIN Wear</em>, a Shopify store whose garments each carry a registration number on the sleeve — the number is placed on every order with no manual step",
       "Python service on the Shopify and Printful APIs: from <em>paid order to tag on a Printful draft in about 15 seconds</em>, with signed webhooks and three retries before a human alert",
@@ -687,7 +687,7 @@ export const contact = {
     { label: "WhatsApp", value: "+92 322 9830466", href: "https://wa.me/923229830466" },
     { label: "Email", value: "sajjadk546@gmail.com", href: "mailto:sajjadk546@gmail.com" },
     { label: "Based", value: "Peshawar, Pakistan", href: null },
-    { label: "Works", value: "Remote-first · clients in the USA, UAE and UK", href: null },
+    { label: "Works", value: "Remote freelance for clients based in the UAE, UK and USA", href: null },
   ],
 };
 

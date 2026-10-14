@@ -51,7 +51,7 @@ export default function P2Contact() {
   return (
     <>
       <PageIntro
-        eyebrow="Contact page"
+        eyebrow="Contact"
         title={sections.contact.title}
         lede={contact.body}
       />

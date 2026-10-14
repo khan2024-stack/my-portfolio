@@ -17,7 +17,7 @@ export default function P2Services() {
   return (
     <>
       <PageIntro
-        eyebrow="Services page"
+        eyebrow="Services"
         title="Three things, done properly, not six done halfway"
         lede="E-commerce and web platforms, AI and voice systems, and the automation that keeps them running without you watching."
         cta={{ label: "Start a project", href: "/contact" }}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { projects, sections, services, skills } from "@/app/portfolio-content/site-content";
+import { projects, services, skills } from "@/app/portfolio-content/site-content";
 import Faq from "../_parts/Faq";
 import PageIntro from "../_parts/PageIntro";
 import SectionHead from "../_parts/SectionHead";
@@ -10,7 +10,7 @@ import WorkShowcase from "../_parts/WorkShowcase";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected projects: a Shopify order automation, an AI voice agent answering live calls, and commerce platforms built for clients in the USA, UAE and UK.",
+    "Selected projects: a Shopify order automation, an AI voice agent answering live calls, and commerce platforms built for clients in the UAE, UK and USA.",
   alternates: { canonical: "/work" },
 };
 
@@ -24,15 +24,15 @@ export default function P2Work() {
   return (
     <>
       <PageIntro
-        eyebrow="Works page"
-        title="Shipped, live, and still running"
-        lede={`${projects.length} projects: a Shopify automation, an AI voice agent answering live calls, and commerce platforms built for clients in the USA, UAE and UK.`}
+        eyebrow="Work"
+        title="Shipped, live and still running"
+        lede={`${projects.length} projects: a Shopify automation, an AI voice agent answering live calls, and commerce platforms built for clients in the UAE, UK and USA.`}
         cta={{ label: "Start a project", href: "/contact" }}
       />
       <Ticker items={ticker} />
 
       <section className="p2-sec" id="work">
-        <SectionHead eyebrow="My works" title={sections.work.title} />
+        <SectionHead eyebrow="All projects" title="Newest first" />
         <WorkShowcase items={projects} />
       </section>
 

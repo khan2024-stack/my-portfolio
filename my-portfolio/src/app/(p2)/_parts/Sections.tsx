@@ -84,7 +84,7 @@ export function Hero() {
             <div className="p2-card p2-card--dark">
               <span className="p2-card__k">Clients across</span>
               <dl className="p2-markets">
-                {(["USA", "UAE", "UK"] as const).map((r) => (
+                {(["UAE", "UK", "USA"] as const).map((r) => (
                   <div key={r}>
                     <dt>{r}</dt>
                     <dd>
@@ -368,8 +368,7 @@ export function AchievementsBlock() {
         <SectionHead eyebrow="Track record" title="Results from real projects" />
         <div className="p2-about__foot">
           <p className="p2-lede">
-            Every result below names the project it came from — no
-            unsourced numbers.
+            Each number below comes from a named project.
           </p>
           <Link className="p2-btn" href="/work">
             See the work <span aria-hidden="true">&#8599;</span>
@@ -826,8 +825,8 @@ export function StrengthsBlock() {
       <div className="p2-split p2-split--head">
         <SectionHead eyebrow="My strengths" title="What I bring to a build" />
         <p className="p2-lede">
-          Four disciplines I deliver end to end — the same four behind every
-          project on this site.
+          Four disciplines I deliver end to end, so a build never waits on a
+          handoff.
         </p>
       </div>
 

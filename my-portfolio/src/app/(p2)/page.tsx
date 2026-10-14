@@ -57,7 +57,7 @@ export default function Portfolio2() {
           <SectionHead eyebrow="My works" title={sections.work.title} />
           <p className="p2-lede">
             A Shopify automation, an AI voice agent taking live calls, and
-            commerce sites for clients in the USA, UAE and UK.
+            commerce sites for clients in the UAE, UK and USA.
           </p>
         </div>
         <WorkShowcase />
