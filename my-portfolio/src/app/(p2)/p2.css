@@ -2282,3 +2282,37 @@ main:focus { outline: none; }
 @media (max-width: 1000px) {
   html[data-form-visible] .p2-wa { opacity: 0; transform: translateY(14px); pointer-events: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE: section intros hidden, pricing stacked
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  /* Section intro sentences (the ones under a section heading, with the
+     lime bar) are desktop texture; on a phone they only push the content
+     down. Page banners and the hero intro are kept — they carry the pitch. */
+  .p2-split--head .p2-lede,
+  .p2-head__side .p2-lede,
+  .p2-why__side .p2-lede,
+  .p2-split .p2-about__foot .p2-lede,
+  .p2-sec__top .p2-head p { display: none; }
+  .p2-split--head, .p2 #pricing .p2-split--head { margin-bottom: 22px; gap: 0; }
+  .p2-split .p2-about__foot { gap: 0; }
+  .p2-why .p2-split--head { margin-bottom: 26px; }
+
+  /* Pricing: three cards taller than the screen do not belong in a
+     sideways slider. Stack them, compact. */
+  .p2-price-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-inline: 0; padding: 4px 0 0; overflow: visible; scroll-snap-type: none; max-width: none; }
+  .p2-price-grid > * { flex: none; width: auto; }
+  #pricing .p2-dots { display: none; }
+  .p2-price { padding-bottom: 20px; }
+  .p2-price__in { padding: 24px 20px 14px; }
+  .p2 .p2-price h5 { font-size: 1.375rem; }
+  .p2-price__sub { margin-top: 4px; font-size: .9375rem; }
+  .p2-price__fig { margin-top: 14px; gap: 10px; }
+  .p2-price__fig b { font-size: 2rem; }
+  .p2-price__lbl { margin-top: 16px; padding-top: 14px; }
+  .p2-price ul { gap: 8px; margin-top: 10px; }
+  .p2-price li { font-size: 1rem; padding-left: 30px; }
+  .p2-price li::before { width: 20px; height: 20px; }
+  .p2-price__cta { margin: 0 20px; padding: 14px 20px; }
+}
