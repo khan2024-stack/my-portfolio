@@ -13,6 +13,7 @@ import { Space_Grotesk, Inter } from "next/font/google";
 
 import P2Header from "./_parts/Header";
 import P2Footer from "./_parts/Footer";
+import WhatsAppFab from "./_parts/WhatsAppFab";
 import "../globals.css";
 import "./p2.css";
 
@@ -60,6 +61,7 @@ export default function P2RootLayout({
           <P2Header />
           <main>{children}</main>
           <P2Footer />
+          <WhatsAppFab />
         </div>
       </body>
     </html>

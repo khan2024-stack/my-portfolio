@@ -1,6 +1,8 @@
 import type { IconType } from "react-icons";
-import { FiClock, FiGlobe, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { FiClock, FiGlobe, FiMail, FiMapPin } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 import { about, contact, identity } from "@/app/portfolio-content/site-content";
+import ContactForm from "./ContactForm";
 import SectionHead from "./SectionHead";
 
 /**
@@ -18,27 +20,16 @@ type Row = { icon: IconType; label: string; value: string; href?: string };
 const detail = (label: string) => contact.details.find((d) => d.label === label);
 const fact = (label: string) => about.facts.find((f) => f.label === label);
 
-const phone = detail("Phone");
-/* about.facts lists the same +971 number under both "Phone" and
-   "WhatsApp", so one row carries both rather than printing it twice. */
-const isWhatsApp = fact("WhatsApp")?.value === phone?.value;
+const wa = contact.whatsapp;
+const waHref = `https://wa.me/${wa.digits}?text=${encodeURIComponent(wa.message)}`;
 
 const ROWS: Row[] = [
   { icon: FiMail, label: "Email", value: contact.inbox, href: `mailto:${contact.inbox}` },
-  {
-    icon: FiPhone,
-    label: isWhatsApp ? "Phone / WhatsApp" : "Phone",
-    value: phone?.value ?? "",
-    href: phone?.href ?? undefined,
-  },
+  { icon: FaWhatsapp, label: "WhatsApp", value: wa.display, href: waHref },
   { icon: FiMapPin, label: "Location", value: identity.location },
   { icon: FiGlobe, label: "Works", value: detail("Works")?.value ?? "" },
   { icon: FiClock, label: "Availability", value: fact("Freelance")?.value ?? "" },
 ].filter((r) => r.value);
-
-const waHref = phone?.value
-  ? `https://wa.me/${phone.value.replace(/\D/g, "")}`
-  : null;
 
 export default function GetInTouch() {
   return (
@@ -61,25 +52,21 @@ export default function GetInTouch() {
       </div>
 
       <div className="p2-reach__panel">
-        <h3>What happens next</h3>
-        <ol>
-          <li>You send a short description of what you&rsquo;re building.</li>
-          <li>
-            I come back with how I&rsquo;d approach it, roughly what it takes,
-            and when I could start.
-          </li>
-          <li>Scope and timeline are agreed before any code gets written.</li>
-        </ol>
-        {isWhatsApp && waHref ? (
-          <a
-            className="p2-btn p2-btn--lime"
-            href={waHref}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Message on WhatsApp <span aria-hidden="true">&#8599;</span>
-          </a>
-        ) : null}
+        <h3>Send me a message</h3>
+        <ContactForm email={contact.inbox} whatsappHref={waHref} />
+        <p className="p2-reach__steps">
+          You send a short brief &rarr; I reply with how I&rsquo;d approach it
+          and when I could start &rarr; scope and timeline are agreed before
+          any code is written.
+        </p>
+        <a
+          className="p2-btn p2-btn--lime"
+          href={waHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Prefer WhatsApp? Message me <span aria-hidden="true">&#8599;</span>
+        </a>
       </div>
     </div>
   );

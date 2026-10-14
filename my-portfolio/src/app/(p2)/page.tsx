@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { sections, services, skills } from "@/app/portfolio-content/site-content";
 import GetInTouch from "./_parts/GetInTouch";
+import Recognition from "./_parts/Recognition";
 import SectionHead from "./_parts/SectionHead";
 import Ticker from "./_parts/Ticker";
 import {
@@ -44,6 +45,9 @@ export default function Portfolio2() {
       <section className="p2-sec" id="about">
         <AboutBlock cta={{ label: "Learn more", href: "/about" }} />
       </section>
+
+      {/* ── Recognition ── first position + credentials, early. */}
+      <Recognition />
 
       {/* ── Work preview ──
           Six project cards, three to a row; the rest sit behind "See all".

@@ -579,10 +579,10 @@ export const experience = [
     title: "Intern / Trainee Developer",
     org: "CodeCamp & academic projects · Peshawar, Pakistan",
     points: [
-      "Award-winning academic projects",
+      "<em>1st position</em> at the University of Qurtuba project exhibition (2019)",
+      "Award-winning academic projects across the degree",
       "Open-source contributions",
       "Full-stack bootcamp graduate",
-      "<em>University of Qurtuba winner</em>",
     ],
   },
 ];
@@ -643,7 +643,7 @@ export const about = {
        carries the history instead — three roles, each in the experience
        list: Fenzacci (UAE), Sara (Abu Dhabi), VIN Wear (Shopify). */
     "I am a full-stack engineer in Peshawar, Pakistan, <em>building in production since 2017</em>. I led e-commerce development in the UAE, built a voice agent that answers live sales calls in Abu Dhabi, and now automate a Shopify store from paid order to print-ready draft.",
-    "I started in 2017 through the CodeCamp bootcamp and academic work at Qurtuba University. From 2019 to 2022 I freelanced remotely — <em>fifteen-plus Django and React builds</em>, Stripe and PayPal integrations, and automation that cut client operating costs by about a third.",
+    "I started in 2017 through the CodeCamp bootcamp and academic work at Qurtuba University, where I took <em>first position</em> at the project exhibition. From 2019 to 2022 I freelanced remotely — <em>fifteen-plus Django and React builds</em>, Stripe and PayPal integrations, and automation that cut client operating costs by about a third.",
     "From 2022 to 2025 I led e-commerce development at <em>Fenzacci Trading L.L.C in the UAE</em> — a scalable backend with payment and inventory integrations, <em>90% faster page loads</em>, and deployments 80% quicker on CI/CD.",
     /* The story used to stop at 2025 and gesture vaguely at "more
        recently AI and voice systems" — while the Work section above it
@@ -656,7 +656,7 @@ export const about = {
     { label: "Name",        value: "Muhammad Sajjad" },
     { label: "Nationality", value: "Pakistani" },
     { label: "Phone",       value: "+92 313 932 2585" },
-    { label: "WhatsApp",    value: "+971 54 761 0315" },
+    { label: "WhatsApp",    value: "+92 322 9830466" },
     { label: "Email",       value: "sajjadk546@gmail.com" },
     { label: "Freelance",   value: "Taking on select projects" },
     { label: "Languages",   value: "Fluent in English, Urdu and Pashto" },
@@ -669,9 +669,18 @@ export const contact = {
      the details below changed what the page displayed but not where a
      submitted enquiry actually went. */
   inbox: "sajjadk546@gmail.com",
+  /* WhatsApp: ONE number, used by the Contact page, the "Reach me
+     directly" block and the floating chat button. `digits` is the number
+     with country code and no "+" or spaces — what wa.me expects. */
+  whatsapp: {
+    display: "+92 322 9830466",
+    digits: "923229830466",
+    message:
+      "Hi Sajjad, I found your portfolio and would like to talk about a project.",
+  },
   body: "Send a short brief — you get back an approach, an honest estimate and a start date.",
   details: [
-    { label: "Phone", value: "+971 54 761 0315", href: "tel:+971547610315" },
+    { label: "WhatsApp", value: "+92 322 9830466", href: "https://wa.me/923229830466" },
     { label: "Email", value: "sajjadk546@gmail.com", href: "mailto:sajjadk546@gmail.com" },
     { label: "Based", value: "Peshawar, Pakistan", href: null },
     { label: "Works", value: "Remote · UAE · UK", href: null },

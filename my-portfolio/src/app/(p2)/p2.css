@@ -1972,3 +1972,105 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   .p2-split--head { margin-bottom: 26px; }
   .p2-pcs__grid { gap: 18px; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   FLOATING WHATSAPP BUTTON
+   Fixed bottom-right on every page. Sits under the mobile menu (z 50) and
+   above content. Icon-only on phones so it never covers text; with a
+   label from tablet up.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-wa { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 8px 20px 8px 8px; border-radius: 999px; background: var(--p2-ink); color: #fff; border: 1px solid var(--p2-ink); box-shadow: 0 12px 30px -10px rgba(20, 22, 26, .6); font-size: .9375rem; font-weight: 600; line-height: 1; transition: transform .25s, box-shadow .25s, background .25s; }
+.p2-wa:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -10px rgba(20, 22, 26, .7); background: #1b1e23; }
+.p2-wa__icon { width: 46px; height: 46px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: #25d366; color: #fff; font-size: 1.625rem; flex-shrink: 0; }
+.p2-wa__icon::after { content: ''; position: absolute; width: 46px; height: 46px; border-radius: 50%; box-shadow: 0 0 0 0 rgba(37, 211, 102, .55); animation: p2-wa-ping 2.6s infinite; pointer-events: none; }
+.p2-wa__icon { position: relative; }
+@keyframes p2-wa-ping { 70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+.p2-wa:focus-visible { outline: 3px solid var(--p2-accent); outline-offset: 3px; }
+@media (max-width: 680px) {
+  .p2-wa { right: 14px; bottom: 14px; padding: 6px; }
+  .p2-wa__label { display: none; }
+  .p2-wa__icon { width: 52px; height: 52px; font-size: 1.875rem; }
+  .p2-wa__icon::after { width: 52px; height: 52px; }
+}
+@media print { .p2-wa { display: none; } }
+@media (prefers-reduced-motion: reduce) { .p2-wa__icon::after { animation: none; } .p2-wa { transition: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RECOGNITION BAND — first position + credentials
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-rc { position: relative; isolation: isolate; background: var(--p2-dark); padding: 36px var(--p2-gut); border-block: 1px solid var(--p2-ink); }
+.p2-rc::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 120% at 0% 50%, rgba(217, 255, 63, .2), transparent 70%), linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px) 0 0 / 44px 44px, linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px) 0 0 / 44px 44px; }
+.p2-rc__in { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 2fr); gap: 40px; align-items: center; max-width: var(--p2-max); margin-inline: auto; }
+
+.p2-rc__lead { margin: 0; display: flex; align-items: center; gap: 20px; }
+.p2-rc__photo { flex: 0 0 150px; position: relative; display: block; aspect-ratio: 4 / 3; overflow: clip; border: 1px solid rgba(255, 255, 255, .3); border-radius: 4px; box-shadow: 6px 6px 0 var(--p2-accent); margin: 0 6px 6px 0; }
+.p2-rc__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+.p2-rc__lead figcaption { display: grid; gap: 4px; min-width: 0; }
+.p2-rc__lead b { font-family: var(--p2-face); font-size: 2.25rem; font-weight: 600; line-height: 1; letter-spacing: -.025em; color: var(--p2-accent); }
+.p2-rc__lead figcaption > span:last-child { font-size: .9375rem; line-height: 1.45; color: rgba(255, 255, 255, .82); }
+
+.p2-rc__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.p2-rc__list li { display: grid; gap: 6px; padding: 4px 22px; border-left: 1px solid rgba(255, 255, 255, .2); }
+.p2-rc__list b { font-family: var(--p2-face); font-size: 1.375rem; font-weight: 600; line-height: 1.15; letter-spacing: -.01em; color: #fff; }
+.p2-rc__list span { font-size: .9375rem; line-height: 1.45; color: rgba(255, 255, 255, .72); }
+
+@media (max-width: 1000px) {
+  .p2-rc__in { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+}
+@media (max-width: 680px) {
+  .p2-rc { padding: 32px var(--p2-gut); }
+  .p2-rc__lead { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .p2-rc__photo { flex: none; width: calc(100% - 6px); }
+  .p2-rc__lead b { font-size: 2rem; }
+  .p2-rc__list { grid-template-columns: minmax(0, 1fr); }
+  .p2-rc__list li { padding: 14px 0; border-left: 0; border-top: 1px solid rgba(255, 255, 255, .18); }
+}
+
+/* Contact rows stay left-aligned on phones (the head above them is centred,
+   but a label centred over a left-aligned value reads as a mistake). */
+@media (max-width: 680px) {
+  .p2-split .p2-reach, .p2-split .p2-reach li, .p2-reach__txt { text-align: left; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   CONTACT FORM (inside the dark "Send me a message" panel)
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-form { width: 100%; display: grid; gap: 16px; }
+.p2-form__f { display: grid; gap: 8px; }
+.p2-form__f > span { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .72); }
+.p2-form input[type="text"], .p2-form input[type="email"], .p2-form textarea { width: 100%; padding: 14px 16px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .28); border-radius: 0; color: #fff; font: inherit; font-size: 1rem; line-height: 1.5; transition: border-color .2s, background .2s; }
+.p2-form textarea { min-height: 120px; resize: vertical; }
+.p2-form input::placeholder, .p2-form textarea::placeholder { color: rgba(255, 255, 255, .45); }
+.p2-form input:focus, .p2-form textarea:focus { outline: none; border-color: var(--p2-accent); background: rgba(255, 255, 255, .11); box-shadow: 0 0 0 3px rgba(217, 255, 63, .25); }
+/* Honeypot: off-screen, not display:none (some bots skip display:none). */
+.p2-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.p2-form__go { justify-self: start; display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; border-radius: 999px; background: var(--p2-accent); color: var(--p2-ink); font-size: 1rem; font-weight: 600; transition: background .25s, transform .25s, gap .25s; }
+.p2-form__go:hover:not(:disabled) { background: #fff; gap: 14px; transform: translateY(-2px); }
+.p2-form__go:disabled { opacity: .65; cursor: progress; }
+.p2-form__note { margin: 0; font-size: .875rem; line-height: 1.5; color: rgba(255, 255, 255, .7); }
+.p2-form__note a { color: var(--p2-accent); text-decoration: underline; text-underline-offset: 3px; }
+.p2-form__note.is-error { padding: 12px 14px; border: 1px solid rgba(255, 120, 120, .6); background: rgba(255, 90, 90, .12); color: #ffd7d7; }
+.p2-form--done { gap: 10px; padding: 14px 0 6px; justify-items: start; }
+.p2-form__tick { width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--p2-accent); color: var(--p2-ink); font-size: 1.5rem; font-weight: 700; }
+.p2 .p2-form--done h3 { color: #fff; font-size: 1.5rem; }
+.p2-form--done p { margin: 0; color: rgba(255, 255, 255, .8); }
+.p2-form__again { margin-top: 6px; padding: 0; background: none; color: var(--p2-accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.p2-reach__steps { margin: 0; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .18); font-size: .9375rem; line-height: 1.6; color: rgba(255, 255, 255, .72); }
+
+@media (max-width: 680px) {
+  .p2-form__go { justify-self: stretch; justify-content: center; }
+  .p2-reach__panel .p2-btn { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .p2-form__go { transition: none; } }
+
+/* Contact form: compact fields, kept to the left of the panel so it sits
+   level with the text beside it instead of stretching edge to edge. */
+.p2-form { max-width: 440px; gap: 12px; }
+.p2-form__f { gap: 6px; }
+.p2-form__f > span { font-size: .6875rem; letter-spacing: .1em; }
+.p2-form input[type="text"], .p2-form input[type="email"], .p2-form textarea { padding: 10px 12px; font-size: .9375rem; line-height: 1.45; }
+.p2-form textarea { min-height: 84px; }
+.p2-form__go { padding: 13px 24px; font-size: .9375rem; }
+.p2-form__note { font-size: .8125rem; }
+.p2-reach__panel .p2-reach__steps { max-width: 440px; font-size: .875rem; }
+@media (max-width: 680px) { .p2-form { max-width: none; } .p2-reach__panel .p2-reach__steps { max-width: none; } }
