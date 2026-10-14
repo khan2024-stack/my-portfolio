@@ -47,6 +47,8 @@ export const viewport: Viewport = {
    noindex guard that kept the draft design out of search is gone too. */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  /* Google Search Console (HTML-tag method; the DNS TXT is the other). */
+  verification: { google: "lC0_wE-qi2oeskyu2iV2OMk9Nd68qg-DvlMKtIqOVGU" },
   alternates: { canonical: "/" },
   title: {
     default: "Muhammad Sajjad | Full Stack & AI Engineer",
