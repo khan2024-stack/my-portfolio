@@ -47,7 +47,6 @@ export default function P2About() {
           Contact rather than back to itself. */}
       <section className="p2-sec" id="about">
         <AboutBlock cta={{ label: "Start a project", href: "/contact" }} />
-        />
       </section>
 
       <section className="p2-sec p2-sec--tint">
