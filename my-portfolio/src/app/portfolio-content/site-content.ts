@@ -315,7 +315,7 @@ export const services = [
     no: "01",
     title: "Web Platforms",
     sub: "Design through to deployment",
-    body: "Commerce sites, dashboards and custom platforms — Django or FastAPI behind React, Next.js and TypeScript, taken from a design file to a live, indexed, paid-for site.",
+    body: "Commerce sites, dashboards and custom platforms — Django or FastAPI behind React, Next.js and TypeScript, taken from a design file to a live, indexed site that takes payments.",
     capabilities: [
       "Django / FastAPI with React, Next.js and TypeScript",
       "Figma, XD and PSD to production",
@@ -413,7 +413,7 @@ export const projects: Project[] = [
      says "live since" rather than "finished". */
   {
     title: "VIN Wear Automations",
-    category: "Automation · Shopify · USA",
+    category: "Shopify automation · USA",
     body: "The automation behind a car-culture apparel store where every garment carries its own registration number. A Python service turns each paid Shopify order into a Printful draft with the numbered tag on the sleeve in about 15 seconds — live since September 2026, custom VINs in progress.",
     tech: "Python · Shopify API · Printful",
     image: vinwear as StaticImageData,
@@ -423,7 +423,7 @@ export const projects: Project[] = [
   },
   {
     title: "Sara — AI Voice Phone Agent",
-    category: "Voice AI · Abu Dhabi",
+    category: "AI voice agent · Abu Dhabi",
     body: "A bilingual English and Gulf Arabic phone agent on live inbound calls — 19 priced services, in-call memory, and 95% quality across 255 automated tests.",
     /* Back to three names: six wrapped to a second line in a 333px card
        and threw the row's rhythm out. */
@@ -442,7 +442,7 @@ export const projects: Project[] = [
      "E-Commerce Platform" three times tells a visitor nothing. */
   {
     title: "Headless Commerce Platform",
-    category: "Django REST · React",
+    category: "E-commerce platform · Django & React",
     body: "A decoupled build — Django REST API behind a React and Redux storefront, with product management, authentication, an admin dashboard, transactional email and a payment gateway handling live orders.",
     tech: "Django · DRF · React · Redux",
     image: fenzacci as StaticImageData,
@@ -455,7 +455,7 @@ export const projects: Project[] = [
      a page anyone can read. */
   {
     title: "Duomada Skylights",
-    category: "Commerce · United Kingdom",
+    category: "E-commerce platform · UK",
     body: "A full custom build for a UK skylight and roof lantern company — FastAPI and MySQL behind a Next.js 15 storefront, with a size and colour variant matrix, nested categories and its own admin dashboard.",
     tech: "FastAPI · Next.js 15 · MySQL",
     image: duomada as StaticImageData,
@@ -465,7 +465,7 @@ export const projects: Project[] = [
   },
   {
     title: "Multi-Filter Retail Store",
-    category: "Django · DigitalOcean",
+    category: "E-commerce store · Django",
     body: "Built around dynamic filtering by colour and size, with cart, wishlist, order management, payments and email notifications behind a full admin panel — deployed and maintained on a DigitalOcean server.",
     tech: "Django · DRF · HTML · CSS",
     image: fenz as StaticImageData,
@@ -474,7 +474,7 @@ export const projects: Project[] = [
   },
   {
     title: "PSD-to-Production Storefront",
-    category: "Design to code",
+    category: "E-commerce storefront · Design to code",
     body: "A custom PSD taken to a responsive frontend in hand-written HTML and CSS at full design fidelity, then wired to a Django backend for products, cart and authentication.",
     tech: "Django · HTML · CSS · PSD to HTML",
     image: madleen as StaticImageData,
@@ -486,7 +486,7 @@ export const projects: Project[] = [
      credentials, the recipient address and the repo paths are not. */
   {
     title: "UKTOP Façade & Glazing",
-    category: "Glazing · London",
+    category: "Corporate site · UK",
     body: "A marketing and portfolio site for a London façade engineering firm — Next.js 16 with Tailwind 4, six architectural case studies and four product ranges, all driven from typed content files rather than a CMS.",
     tech: "Next.js 16 · React 19 · Tailwind 4",
     image: uktop as StaticImageData,

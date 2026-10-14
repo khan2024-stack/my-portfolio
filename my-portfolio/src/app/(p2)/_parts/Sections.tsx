@@ -414,10 +414,10 @@ const WHY_ICONS = [FiServer, FiLayout, FiMic, FiTerminal];
 /* v3: one plain line under each title, so a visitor reads what the
    discipline delivers before the tool names. Same order as `skills`. */
 const WHY_NOTES = [
-  "APIs, data models and auth, built to run in production.",
-  "Typed, fast interfaces, from design to deploy.",
-  "Voice agents that answer live phone calls.",
-  "Containers, pipelines and cloud hosting.",
+  "APIs, data models and auth that hold up under real traffic.",
+  "Typed, fast interfaces, built from the design file to deploy.",
+  "Voice and chat agents that handle live calls — in two languages.",
+  "Containers, CI/CD and cloud hosting, with zero-downtime releases.",
 ];
 
 /* "SQLAlchemy · Alembic" is one entry in `skills`; as chips each tool
@@ -439,8 +439,9 @@ export function WhyChooseBlock() {
         </Reveal>
         <Reveal as="div" dir="up" delay={100} className="p2-why__side">
           <p className="p2-lede">
-            Everything a build needs, from one engineer — no handoffs, no gaps,
-            and the same stack on every project on this site.
+            Backend, frontend, AI and infrastructure from one engineer — no
+            handoffs, no gaps, and one person accountable from the first commit
+            to live traffic.
           </p>
         </Reveal>
       </div>
@@ -518,7 +519,7 @@ export function WhyChooseBlock() {
           <div className="p2-why__work-head">
             <div>
               <span className="p2-why__work-k">Selected work</span>
-              <p>The same stack, shipped on real projects.</p>
+              <p>The four disciplines above, shipped and in production.</p>
             </div>
             <Link className="p2-why__work-cta" href="/work">
               See all projects <span aria-hidden="true">&#8599;</span>
@@ -598,8 +599,8 @@ export function PricingBlock() {
                     </>
                   ) : (
                     <>
-                      <b>Custom</b>
-                      <span>quoted per scope</span>
+                      <b>Fixed quote</b>
+                      <span>per written scope</span>
                     </>
                   )}
                 </div>
