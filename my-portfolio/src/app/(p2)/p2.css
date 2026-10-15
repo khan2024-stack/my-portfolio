@@ -2489,3 +2489,30 @@ main:focus { outline: none; }
 .p2-mmenu__links a:hover { text-decoration-color: var(--p2-accent); }
 /* Very short screens (landscape phones): let it scroll, compact links. */
 @media (max-height: 560px) { .p2-mmenu nav a { font-size: 1.25rem; padding: 9px 0; } .p2-mmenu__head { display: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE LANDING — calmer first screen.
+   The two buttons were tall pills and the stats were a solid lime block,
+   so three loud shapes competed. Now: slimmer buttons (still ≥44px to
+   tap), and a quiet outlined stats strip with lime numbers, so the one
+   lime button is what the eye lands on.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .p2 .p2-hero__l h1 { font-size: 2.125rem; line-height: 1.1; }
+  .p2-hero__l p { font-size: .9375rem; line-height: 1.65; margin-top: 12px; color: rgba(255, 255, 255, .82); }
+
+  .p2-hero__l .p2-acts { gap: 10px; margin-top: 18px; }
+  .p2-hero__l .p2-acts .p2-btn {
+    min-height: 44px; padding: 10px 12px; font-size: .875rem; font-weight: 600; gap: 5px;
+  }
+  .p2-hero .p2-btn--line { border-color: rgba(255, 255, 255, .35); }
+
+  .p2-hero__proof {
+    margin-top: 16px; background: transparent; border: 0;
+    border-top: 1px solid rgba(255, 255, 255, .18); border-bottom: 1px solid rgba(255, 255, 255, .18);
+  }
+  .p2-hero__proof li { padding: 12px 10px 12px 0; border-right: 0; }
+  .p2-hero__proof li + li { padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, .18); }
+  .p2-hero__proof b { font-size: 1.375rem; color: var(--p2-accent); }
+  .p2-hero__proof span { margin-top: 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; color: rgba(255, 255, 255, .78); }
+}
