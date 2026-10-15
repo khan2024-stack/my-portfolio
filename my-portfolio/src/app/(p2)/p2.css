@@ -2463,3 +2463,24 @@ main:focus { outline: none; }
 @media (min-width: 1001px) {
   #resume .p2-sub, #resume .p2-tools--cv { max-width: 900px; margin-left: auto; margin-right: auto; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE MENU v2 — fits any screen height.
+   Name/role at the top, six links at 60px each, and a footer (call-to-
+   action + contact links) pinned to the bottom. Safe-area aware.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-mmenu { display: flex; flex-direction: column; padding: 18px 26px 0; padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+.p2-mmenu__head { display: grid; gap: 2px; padding: 6px 44px 18px 0; border-bottom: 1px solid var(--p2-ink); margin-bottom: 6px; }
+.p2-mmenu__head b { font-family: var(--p2-sans); font-size: 1rem; font-weight: 700; color: var(--p2-ink); }
+.p2-mmenu__head span { font-size: .8125rem; color: var(--p2-muted); }
+.p2-mmenu__close { top: 16px; right: 20px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--p2-ink); background: #fff; font-size: 1.375rem; }
+.p2-mmenu nav a { font-size: 1.5rem; padding: 13px 0; line-height: 1.2; }
+.p2-mmenu nav a.is-on { padding-left: 14px; }
+.p2-mmenu nav a:hover { padding-left: 8px; }
+.p2-mmenu__foot { margin-top: auto; padding-top: 18px; display: grid; gap: 12px; }
+.p2-mmenu .p2-mmenu__cta { margin: 0; padding: 15px !important; text-align: center; }
+.p2-mmenu__links { display: flex; flex-wrap: wrap; gap: 4px 18px; padding: 4px 2px 0; }
+.p2-mmenu__links a { padding: 8px 0; font-size: .9375rem; font-weight: 600; color: var(--p2-ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(20, 22, 26, .3); }
+.p2-mmenu__links a:hover { text-decoration-color: var(--p2-accent); }
+/* Very short screens (landscape phones): let it scroll, compact links. */
+@media (max-height: 560px) { .p2-mmenu nav a { font-size: 1.25rem; padding: 9px 0; } .p2-mmenu__head { display: none; } }

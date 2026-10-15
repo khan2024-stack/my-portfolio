@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { identity } from "@/app/portfolio-content/site-content";
+import { contact, identity, socials } from "@/app/portfolio-content/site-content";
 import { P2_NAV } from "./nav";
 
 /**
@@ -146,6 +146,10 @@ export default function P2Header() {
         aria-label="Site navigation"
         aria-hidden={!open}
       >
+        <div className="p2-mmenu__head">
+          <b>{identity.fullName}</b>
+          <span>{identity.role}</span>
+        </div>
         <button
           className="p2-mmenu__close"
           onClick={() => setOpen(false)}
@@ -171,6 +175,10 @@ export default function P2Header() {
               </Link>
             );
           })}
+        </nav>
+        {/* Pinned to the bottom of the panel so it is always on screen —
+            it used to sit below the fold on short phones. */}
+        <div className="p2-mmenu__foot">
           <Link
             className="p2-mmenu__cta"
             href="/contact"
@@ -178,7 +186,31 @@ export default function P2Header() {
           >
             Let&rsquo;s talk &#8599;
           </Link>
-        </nav>
+          <div className="p2-mmenu__links">
+            <a href={`mailto:${contact.inbox}`} tabIndex={open ? 0 : -1}>
+              Email
+            </a>
+            <a
+              href={`https://wa.me/${contact.whatsapp.digits}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              tabIndex={open ? 0 : -1}
+            >
+              WhatsApp
+            </a>
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                tabIndex={open ? 0 : -1}
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </header>
   );
