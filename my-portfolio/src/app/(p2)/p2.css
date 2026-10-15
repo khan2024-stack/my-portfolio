@@ -720,7 +720,7 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
        softer on the eye but higher contrast for body copy (≈9:1)
      · body copy 17px / 1.75, up from 15px — the old size was the main
        "uncomfortable to read" complaint
-     · header sticks and blurs; nav links become pills with a clear
+     · header sticks; nav links become pills with a clear
        active state; CTA is a lime pill, the strongest target in the bar
      · hero and inner-page banners are dark with a lime glow so the
        first screen after the header is the focal point
@@ -742,7 +742,12 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 .p2 :focus-visible { outline: 3px solid #6b8f00; outline-offset: 3px; }
 
 /* ── Header ── */
-.p2-hdr { position: sticky; top: 0; background: #f5f3ec; backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); box-shadow: 0 1px 0 var(--p2-line), 0 10px 30px -18px rgba(20, 22, 26, .35); }
+/* No backdrop-filter on the header: it is opaque, so the blur was never
+   visible, and a filter on an ancestor makes it the containing block for
+   the fixed-position phone menu and scrim. On the production build they
+   were only as tall as the header (the dev build strips the property,
+   which is why it looked fine locally). */
+.p2-hdr { position: sticky; top: 0; background: #f5f3ec; box-shadow: 0 1px 0 var(--p2-line), 0 10px 30px -18px rgba(20, 22, 26, .35); }
 .p2-bar { min-height: 88px; }
 .p2-logo__mark { width: 88px; font-size: 2.25rem; }
 .p2-logo__txt { min-width: 0; padding: 0 28px; border-right: 0; }
