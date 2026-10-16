@@ -113,11 +113,15 @@ export const clients: {
 export type Testimonial = {
   quote: string;
   name: string;
-  role: string;
-  company: string;
-  /* Shown under the role. Month and year is enough — a full date on a
-     two-year-old quote just draws attention to its age. */
-  date: string;
+  /* Role and company are shown under the name when both are given;
+     otherwise the card shows "project · country". */
+  role?: string;
+  company?: string;
+  country?: string;
+  project?: string;
+  /* Optional. Month and year is enough — a full date on a two-year-old
+     quote just draws attention to its age. */
+  date?: string;
   /* Out of 5. Half values render as a part-filled star, so 4.5 is
      honest rather than rounded up to a clean row. */
   stars: number;
@@ -220,7 +224,40 @@ const sampleTestimonials: Testimonial[] = [
 
    Each needs: quote, name, role, company, date, stars (0–5, halves
    allowed), and the person's permission to publish it. */
-const realTestimonials: Testimonial[] = [];
+const realTestimonials: Testimonial[] = [
+  {
+    quote:
+      "Exceptional work on our AI voice agent! The conversational logic is incredibly natural, and the seamless integration into our existing business workflows has saved us countless hours. Highly professional, communicative, and deeply understands complex AI implementation.",
+    name: "Khalid",
+    country: "UAE",
+    project: "AI Voice Agent",
+    stars: 5,
+  },
+  {
+    quote:
+      "A fantastic experience from start to finish. The e-commerce platform was built with excellent attention to detail, ensuring a smooth user experience and robust technical performance. Delivered on time, handled all technical complexities beautifully, and exceeded our expectations.",
+    name: "Majed",
+    country: "UAE",
+    project: "E-commerce Development",
+    stars: 5,
+  },
+  {
+    quote:
+      "Outstanding web development skills. The transition from initial development to final production deployment was completely flawless. The website is fast, fully responsive, and built with clean, maintainable code. Great communication and problem-solving throughout the entire project.",
+    name: "Petar Zlatarev",
+    country: "UK",
+    project: "Web Development",
+    stars: 5,
+  },
+  {
+    quote:
+      "Absolutely transformed our Shopify store. The automation workflows they set up have streamlined our daily operations significantly, and the third-party technical integrations work flawlessly. A true expert in e-commerce automation. I highly recommend their services!",
+    name: "Ted Alvendia",
+    country: "USA",
+    project: "E-commerce & Shopify Automation",
+    stars: 5,
+  },
+];
 
 export const testimonials: Testimonial[] =
   realTestimonials.length > 0
@@ -249,7 +286,7 @@ const realRating: Rating | null = null;
 
 export const rating: Rating | null =
   realRating ??
-  (SHOW_SAMPLE_TESTIMONIALS
+  (SHOW_SAMPLE_TESTIMONIALS && realTestimonials.length === 0
     ? { score: 4.9, count: 23, href: "#" } /* ⚠ invented — see the note above */
     : null);
 

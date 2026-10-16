@@ -43,6 +43,13 @@ function initialsOf(name: string) {
   return ((parts[0]?.[0] ?? "") + last).toUpperCase();
 }
 
+/* "Role, Company" when the client gave both, else "Project · Country". */
+function byline(t: Testimonial) {
+  return t.role && t.company
+    ? `${t.role}, ${t.company}`
+    : [t.project, t.country].filter(Boolean).join(" · ");
+}
+
 function Avatar({ t, i, size = 48 }: { t: Testimonial; i: number; size?: number }) {
   if (t.photo) {
     return (
@@ -132,16 +139,14 @@ export function ReviewsBlock() {
               <Stars n={first.stars} />
               <b>{first.stars.toFixed(1)}</b>
             </span>
-            <span className="p2-rev__date">{first.date}</span>
+            {first.date ? <span className="p2-rev__date">{first.date}</span> : null}
           </div>
           <blockquote>&ldquo;{first.quote}&rdquo;</blockquote>
           <footer className="p2-rev__who">
             <Avatar t={first} i={0} size={64} />
             <span className="p2-rev__id">
               <b>{first.name}</b>
-              <span>
-                {first.role}, {first.company}
-              </span>
+              <span>{byline(first)}</span>
             </span>
           </footer>
         </Reveal>
@@ -166,16 +171,14 @@ export function ReviewsBlock() {
                   <Stars n={t.stars} />
                   <b>{t.stars.toFixed(1)}</b>
                 </span>
-                <span className="p2-rev__date">{t.date}</span>
+                {t.date ? <span className="p2-rev__date">{t.date}</span> : null}
               </div>
               <blockquote>&ldquo;{t.quote}&rdquo;</blockquote>
               <footer className="p2-rev__who">
                 <Avatar t={t} i={i + 1} size={48} />
                 <span className="p2-rev__id">
                   <b>{t.name}</b>
-                  <span>
-                    {t.role}, {t.company}
-                  </span>
+                  <span>{byline(t)}</span>
                 </span>
               </footer>
             </Reveal>
