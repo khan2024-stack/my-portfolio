@@ -21,7 +21,11 @@ export default function P2Resume() {
         eyebrow="Resume"
         title={`Since 2017: ${WORDS[experience.length] ?? experience.length} roles, one straight line`}
         lede="From a Peshawar bootcamp to AI voice systems in production — available for freelance projects."
-        cta={{ label: "Start a project", href: "/contact" }}
+        cta={{
+          label: "Download resume (PDF)",
+          href: "/Muhammad-Sajjad-Resume.pdf",
+          download: true,
+        }}
       />
       <Ticker items={ticker} />
       <section className="p2-sec" id="resume">
