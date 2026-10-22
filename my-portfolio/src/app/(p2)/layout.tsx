@@ -16,6 +16,7 @@ import { identity, socials } from "@/app/portfolio-content/site-content";
 import P2Header from "./_parts/Header";
 import P2Footer from "./_parts/Footer";
 import WhatsAppFab from "./_parts/WhatsAppFab";
+import TabBar from "./_parts/TabBar";
 import "../globals.css";
 import "./p2.css";
 
@@ -109,6 +110,7 @@ export default function P2RootLayout({
             {children}
           </main>
           <P2Footer />
+          <TabBar />
           <WhatsAppFab />
         </div>
       </body>

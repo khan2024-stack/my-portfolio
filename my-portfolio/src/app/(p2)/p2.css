@@ -2566,3 +2566,63 @@ main:focus { outline: none; }
 @media (max-width: 680px) {
   .p2-foot__bot { padding-bottom: calc(86px + env(safe-area-inset-bottom)); }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE: APP FEEL
+   Bottom tab bar, a slightly smaller type and spacing scale, softer
+   rounded cards. Desktop and tablet are untouched.
+   ══════════════════════════════════════════════════════════════════════ */
+.p2-tabs { display: none; }
+
+@media (max-width: 680px) {
+  /* ── Bottom tab bar: a floating pill within thumb reach ── */
+  .p2-tabs {
+    position: fixed; left: 12px; right: 12px; z-index: 40;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; padding: 6px;
+    background: #fff; border: 1px solid var(--p2-ink); border-radius: 22px;
+    box-shadow: 0 10px 28px -10px rgba(20, 22, 26, .45);
+  }
+  .p2-tabs a { display: grid; justify-items: center; gap: 3px; padding: 7px 0 6px; border-radius: 16px; color: var(--p2-muted); -webkit-tap-highlight-color: transparent; transition: background .2s, color .2s; }
+  .p2-tabs__ico { display: grid; place-items: center; width: 22px; height: 22px; font-size: 1.25rem; }
+  .p2-tabs__lbl { font-size: .75rem; font-weight: 600; line-height: 1.1; }
+  .p2-tabs a.is-on { background: var(--p2-accent); color: var(--p2-ink); }
+  .p2-tabs a.is-on .p2-tabs__lbl { font-weight: 700; }
+  .p2-tabs a:active { background: rgba(20, 22, 26, .08); }
+  /* While typing in the contact form the on-screen keyboard needs the room. */
+  html:has(.p2-form input:focus, .p2-form textarea:focus) .p2-tabs { display: none; }
+
+  /* Chat button rides above the bar; footer clears both. */
+  .p2-wa { bottom: calc(86px + env(safe-area-inset-bottom)); right: 16px; }
+  .p2-foot__bot { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
+
+  /* ── Smaller, calmer scale ── */
+  .p2 { --p2-gut: 18px; }
+  .p2-sec { padding-block: 40px; }
+  #work.p2-sec, #reviews.p2-sec { padding-block: 40px; }
+  .p2 .p2-sec .p2-head h2, .p2 #work .p2-head h2, .p2 #pricing .p2-head h2, .p2 .p2-why .p2-head h2 { font-size: 1.625rem; line-height: 1.15; }
+  .p2 .p2-hero__l h1 { font-size: 2rem; }
+  .p2 .p2-intro h1, .p2 .p2-intro--split h1 { font-size: 1.75rem; }
+  .p2-intro { padding: 32px var(--p2-gut) 36px; }
+  .p2-hero__l p, .p2-intro p, .p2 .p2-head p, .p2-lede { font-size: .9375rem; line-height: 1.6; }
+  .p2-btn { padding: 11px 18px; font-size: .875rem; }
+  .p2-intro .p2-btn, .p2 .p2-cta .p2-btn { padding: 13px 18px; }
+  .p2 .p2-cta { padding: 40px var(--p2-gut); gap: 20px; }
+  .p2 .p2-cta h2 { font-size: 1.75rem; }
+
+  /* ── Softer, rounded cards ── */
+  .p2-svc, .p2-price, .p2-pc, .p2-rev__card, .p2-rev__hero, .p2-strength, .p2-reach__panel,
+  .p2-about__in, .p2-hero__shot, .p2-intro__photo, .p2-show__stage, .p2-brief li, .p2-faq details {
+    border-radius: 16px;
+  }
+  .p2-hero__shot, .p2-intro__photo, .p2-show__stage, .p2-reach__panel { box-shadow: 5px 5px 0 var(--p2-accent); }
+  .p2-hero__shot { overflow: hidden; }
+}
+
+@media (max-width: 680px) {
+  .p2-card, .p2-why-cells { border-radius: 16px; overflow: hidden; }
+  .p2-about__tools li, .p2-tools:not(.p2-tools--cv) li { border-radius: 14px; }
+}
+
+/* Small labels never under 12px. */
+.p2-price__lbl { font-size: .75rem; }
