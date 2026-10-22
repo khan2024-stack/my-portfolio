@@ -2624,5 +2624,5 @@ main:focus { outline: none; }
   .p2-about__tools li, .p2-tools:not(.p2-tools--cv) li { border-radius: 14px; }
 }
 
-/* Small labels never under 12px. */
-.p2-price__lbl { font-size: .75rem; }
+/* Phone: small labels never under 12px. */
+@media (max-width: 680px) { .p2-price__lbl { font-size: .75rem; } }
