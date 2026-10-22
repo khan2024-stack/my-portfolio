@@ -48,7 +48,7 @@ export function PricingBlock() {
                     </>
                   ) : (
                     <>
-                      <b>Fixed quote</b>
+                      <b>{t.per === "/month" ? "Monthly plan" : "Fixed quote"}</b>
                       <span>per written scope</span>
                     </>
                   )}

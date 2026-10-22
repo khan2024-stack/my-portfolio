@@ -74,8 +74,8 @@ export default function Portfolio2() {
           <SectionHead eyebrow="Services" title={sections.services.title} />
           <div className="p2-head__side">
             <p className="p2-lede">
-              Three focused offers — web platforms, AI and voice systems, and
-              automation — each scoped and quoted in writing.
+              Four focused offers — web platforms, AI and voice systems, automation, and
+              ongoing management and support, each scoped and quoted in writing.
             </p>
             <Link className="p2-link" href="/services">
               All {services.length} services <span aria-hidden="true">&#8599;</span>

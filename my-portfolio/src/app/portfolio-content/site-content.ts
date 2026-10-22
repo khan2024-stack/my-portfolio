@@ -389,6 +389,21 @@ export const services = [
       "Zero-downtime releases",
     ],
   },
+  {
+    no: "04",
+    title: "Management & Support",
+    sub: "Looked after once it is live",
+    body: "Ongoing care for what is already running — monitoring, updates, fixes and one accountable person to call. Releases, backups and incidents are handled for you, and a project can be staffed with a small team when it needs more hands.",
+    capabilities: [
+      "Uptime monitoring and incident response",
+      "Security, dependency and framework updates",
+      "Bug fixes and small feature requests",
+      "Release management with safe rollbacks",
+      "Managed hosting, deployments and backups",
+      "Project management with written status updates",
+      "A small team brought in when a project needs it",
+    ],
+  },
 ];
 
 /* ── Pricing ──────────────────────────────────────────────────────
@@ -413,6 +428,7 @@ export const pricing: PriceTier[] = [
   { service: 0, price: null, per: "/project" },
   { service: 1, price: null, per: "/project", featured: true },
   { service: 2, price: null, per: "/project" },
+  { service: 3, price: null, per: "/month" },
 ];
 
 /* ── Projects ─────────────────────────────────────────────────────

@@ -1,5 +1,5 @@
 import type { IconType } from "react-icons";
-import { FiLayers, FiMic, FiRefreshCw } from "react-icons/fi";
+import { FiLayers, FiLifeBuoy, FiMic, FiRefreshCw } from "react-icons/fi";
 
 /**
  * Their service cards carry a large (150px) black line icon. These are
@@ -16,6 +16,7 @@ const ICONS: Record<string, IconType> = {
   "Web Platforms": FiLayers,
   "AI & Voice Systems": FiMic,
   "Automation & Infrastructure": FiRefreshCw,
+  "Management & Support": FiLifeBuoy,
 };
 
 export default function ServiceIcon({ title }: { title: string }) {

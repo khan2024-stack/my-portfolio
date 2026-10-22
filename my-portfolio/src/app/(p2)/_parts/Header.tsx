@@ -46,6 +46,7 @@ export default function P2Header() {
   // passive listener; writes a single CSS variable, no re-renders.
   useEffect(() => {
     let raf = 0;
+    let lastY = 0;
     const update = () => {
       raf = 0;
       const el = document.documentElement;
@@ -54,6 +55,13 @@ export default function P2Header() {
       el.style.setProperty("--p2-progress", p.toFixed(4));
       // Lets CSS keep the floating chat button off the landing screen.
       el.toggleAttribute("data-scrolled", el.scrollTop > 120);
+      // Scroll direction, so phones can tuck the chat button away while
+      // reading downward and bring it back on the way up.
+      const y = el.scrollTop;
+      if (Math.abs(y - lastY) > 8) {
+        el.dataset.scrollDir = y > lastY && y > 160 ? "down" : "up";
+        lastY = y;
+      }
       // Hide the floating chat button while the contact form is on screen
       // (it has its own WhatsApp button, and on phones the float would sit
       // on top of "Send message").

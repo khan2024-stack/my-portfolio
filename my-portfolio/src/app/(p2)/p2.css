@@ -2857,3 +2857,43 @@ main:focus { outline: none; }
   .p2 .p2-price p, .p2 .p2-price__sub { font-size: .9375rem; }
   .p2-btn, .p2-form__go { min-height: 44px; }
 }
+
+/* ── Four services: four across on wide screens, two across below that ── */
+@media (min-width: 1001px) {
+  .p2 .p2-svc-grid, .p2 .p2-price-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1400px) {
+  .p2 .p2-svc-grid, .p2 .p2-price-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Four across: titles reserve two lines so the rows underneath line up. */
+@media (min-width: 1400px) {
+  .p2 .p2-price h5, .p2 .p2-svc h3 { min-height: 2.45em; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE: LESS SCROLLING, FEWER THINGS IN THE WAY
+   · hero info block: "Based in" and "Years" side by side, clients below
+   · credentials band: two across instead of a long stack
+   · reviews summary box: one slim row, no duplicate button
+   · chat button tucks away while reading downward, returns on scroll up
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .p2-hero__cards { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+  .p2-hero__cards .p2-card--accent { order: 1; }
+  .p2-hero__cards .p2-card--line { order: 2; border-left: 1px solid rgba(255, 255, 255, .25); }
+  .p2-hero__cards .p2-card--dark { order: 3; grid-column: 1 / -1; }
+  .p2-hero .p2-card { padding: 16px 16px; }
+  .p2-hero .p2-card b { font-size: 1.125rem; }
+
+  .p2-rc__list { grid-template-columns: 1fr 1fr; column-gap: 20px; }
+  .p2-rc__list b { font-size: 1.125rem; }
+  .p2-rc__list span { font-size: .875rem; }
+
+  .p2-rev__rail { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 16px; }
+  .p2-rev__stack { flex-direction: row; align-items: center; gap: 12px; width: auto; padding-top: 0; border-top: 0; }
+  .p2-rev__rail .p2-btn { display: none; }
+
+  .p2-wa { transition: opacity .25s, transform .25s, box-shadow .25s; }
+  html[data-scroll-dir="down"] .p2-wa { opacity: 0; transform: translateY(14px) scale(.92); pointer-events: none; }
+}
