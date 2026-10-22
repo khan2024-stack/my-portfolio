@@ -2626,3 +2626,48 @@ main:focus { outline: none; }
 
 /* Phone: small labels never under 12px. */
 @media (max-width: 680px) { .p2-price__lbl { font-size: .75rem; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   DESKTOP SPACING SYSTEM  (≥1001px)
+   One set of numbers for the whole page, declared last:
+     container   up to 1520px wide, side gutters 28–48px (they were
+                 70–310px, which left the content floating in the middle
+                 of a wide screen)
+     sections    88px top and bottom, every section the same
+     head → body 40px
+     grids       24px between cards
+   Tablet and phone keep their own layers above.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (min-width: 1001px) {
+  .p2 {
+    --p2-max: 1520px;
+    --p2-gut: max(clamp(28px, 3vw, 48px), calc((100vw - var(--p2-max)) / 2));
+    --p2-sec-y: 88px;
+    --p2-head-gap: 40px;
+    --p2-grid-gap: 24px;
+  }
+
+  /* Sections: one vertical rhythm. */
+  .p2 .p2-sec, .p2 #work.p2-sec, .p2 #pricing.p2-sec, .p2 #reviews.p2-sec,
+  .p2 #about.p2-sec, .p2 #services.p2-sec, .p2 #contact.p2-sec, .p2 #resume.p2-sec,
+  .p2 .p2-why { padding-top: var(--p2-sec-y); padding-bottom: var(--p2-sec-y); }
+  .p2 .p2-cta { padding-top: 72px; padding-bottom: 72px; }
+  .p2-rc { padding-block: 40px; }
+  .p2-ticker { padding: 20px 0; }
+
+  /* Banners on inner pages. */
+  .p2-intro { padding-block: 80px; }
+
+  /* Heading block → content: the same gap everywhere. */
+  .p2-split--head, .p2 #pricing .p2-split--head, .p2-why .p2-split--head { margin-bottom: var(--p2-head-gap); }
+  .p2-sec__top { margin-bottom: var(--p2-head-gap); }
+
+  /* Card grids: the same gutter between cards. */
+  .p2-pcs__grid, .p2-svc-grid, .p2-price-grid, .p2-strength-grid { gap: var(--p2-grid-gap); }
+}
+
+/* Header and footer sit on the same left and right edges as the content. */
+@media (min-width: 1001px) {
+  .p2-bar { padding-inline: var(--p2-gut); }
+  .p2-hdr__cta { padding-right: 0; }
+}
