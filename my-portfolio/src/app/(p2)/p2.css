@@ -2766,3 +2766,61 @@ main:focus { outline: none; }
 @media (min-width: 1001px) {
   .p2 .p2-reach__panel .p2-reach__steps { max-width: none; width: 100%; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   REFINEMENT 2 — smaller corners, roomier cards, border-first depth
+     corners   12px (was 20px) on desktop and phone
+     inside    more padding in every card, so the content breathes
+     between   32px between cards on desktop (was 24–28px)
+     depth     a clear 1px line defines each card; the shadow is only a
+               whisper at rest and appears properly on hover
+   ══════════════════════════════════════════════════════════════════════ */
+@media (min-width: 1001px) {
+  .p2 {
+    --p2-r: 12px;
+    --p2-soft: rgba(20, 22, 26, .26);
+    --p2-sh: 0 1px 2px rgba(20, 22, 26, .04);
+    --p2-grid-gap: 32px;
+  }
+  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li { border-radius: 10px; }
+  .p2-hero__spec { border-radius: 10px; }
+
+  /* Room inside the cards. */
+  .p2 .p2-svc { padding: 44px 40px 112px; }
+  .p2 .p2-price__in { padding: 44px 38px 30px; }
+  .p2 .p2-price__cta { margin: 0 38px; }
+  .p2 .p2-rev__card { padding: 36px; }
+  .p2 .p2-rev__hero { padding: 52px 56px; }
+  .p2 .p2-rev__rail { padding: 36px; }
+  .p2 .p2-about__in { padding: 48px 44px; }
+  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li { padding: 24px 28px; }
+  .p2 .p2-why__cell, .p2 .p2-why__cell--r { padding: 40px 40px 44px; }
+  .p2 .p2-why__stat { padding: 30px 34px 28px; }
+  .p2 .p2-reach__panel { padding: 48px 48px 44px; }
+  .p2 .p2-hero .p2-card { padding: 24px 26px; }
+  .p2 .p2-pc__foot { padding: 20px 24px 22px; }
+
+  /* More air between cards. */
+  .p2-pcs__grid, .p2-svc-grid, .p2-price-grid, .p2-strength-grid,
+  .p2 .p2-rev-grid, .p2 .p2-why-grid, .p2 .p2-why-cells { gap: var(--p2-grid-gap); }
+  .p2 .p2-rev { gap: var(--p2-grid-gap); }
+  .p2-about { gap: 48px; }
+  .p2 .p2-why__stats { margin-bottom: var(--p2-grid-gap); }
+}
+
+/* Phone: same smaller corner. */
+@media (max-width: 680px) {
+  .p2-svc, .p2-price, .p2-pc, .p2-rev__card, .p2-rev__hero, .p2-strength, .p2-reach__panel,
+  .p2-about__in, .p2-hero__shot, .p2-intro__photo, .p2-show__stage, .p2-brief li, .p2-faq details,
+  .p2-card, .p2-why-cells { border-radius: 12px; }
+  .p2-about__tools li, .p2-tools:not(.p2-tools--cv) li { border-radius: 10px; }
+}
+
+/* "Enquire" sits on the same left edge as the card text. */
+@media (min-width: 1001px) {
+  .p2 .p2-svc__go { left: 40px; bottom: 40px; }
+}
+
+@media (min-width: 1001px) {
+  .p2 .p2-rev-grid { margin-top: var(--p2-grid-gap); }
+}
