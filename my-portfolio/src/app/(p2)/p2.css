@@ -2613,15 +2613,15 @@ main:focus { outline: none; }
   /* ── Softer, rounded cards ── */
   .p2-svc, .p2-price, .p2-pc, .p2-rev__card, .p2-rev__hero, .p2-strength, .p2-reach__panel,
   .p2-about__in, .p2-hero__shot, .p2-intro__photo, .p2-show__stage, .p2-brief li, .p2-faq details {
-    border-radius: 16px;
+    border-radius: 4px;
   }
   .p2-hero__shot, .p2-intro__photo, .p2-show__stage, .p2-reach__panel { box-shadow: 5px 5px 0 var(--p2-accent); }
   .p2-hero__shot { overflow: hidden; }
 }
 
 @media (max-width: 680px) {
-  .p2-card, .p2-why-cells { border-radius: 16px; overflow: hidden; }
-  .p2-about__tools li, .p2-tools:not(.p2-tools--cv) li { border-radius: 14px; }
+  .p2-card, .p2-why-cells { border-radius: 4px; overflow: hidden; }
+  .p2-about__tools li, .p2-tools:not(.p2-tools--cv) li { border-radius: 4px; }
 }
 
 /* Phone: small labels never under 12px. */
@@ -2685,10 +2685,10 @@ main:focus { outline: none; }
 @media (min-width: 1001px) {
   .p2 {
     --p2-max: 1680px;
-    --p2-r: 20px;
-    --p2-soft: rgba(20, 22, 26, .16);
-    --p2-sh: 0 1px 2px rgba(20, 22, 26, .05), 0 14px 34px -16px rgba(20, 22, 26, .22);
-    --p2-sh-up: 0 2px 4px rgba(20, 22, 26, .06), 0 30px 56px -22px rgba(20, 22, 26, .36);
+    --p2-r: 4px;
+    --p2-soft: var(--p2-line);
+    --p2-sh: none;
+    --p2-sh-up: none;
   }
 
   /* One radius everywhere. */
@@ -2696,19 +2696,14 @@ main:focus { outline: none; }
   .p2-about__in, .p2-intro__photo, .p2-show__stage, .p2-brief li, .p2-faq details, .p2-why-cells {
     border-radius: var(--p2-r);
   }
-  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li { border-radius: 14px; }
-  .p2-hero__spec { border-radius: 14px; }
+  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li { border-radius: 4px; }
+  .p2-hero__spec { border-radius: 4px; }
 
   /* Light cards: soft hairline + soft shadow, lift on hover. */
   .p2 .p2-pc, .p2 .p2-svc, .p2 .p2-price:not(.p2-price--dark), .p2 .p2-rev__card,
   .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li {
     border-color: var(--p2-soft); box-shadow: var(--p2-sh);
     transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s, border-color .35s, background .35s;
-  }
-  .p2 .p2-price--dark { box-shadow: var(--p2-sh-up); }
-  .p2 .p2-pc:hover, .p2 .p2-svc:hover, .p2 .p2-price:hover, .p2 .p2-rev__card:hover,
-  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li:hover {
-    transform: translateY(-5px); box-shadow: var(--p2-sh-up); border-color: var(--p2-ink);
   }
 
   /* Hero: rounded photo + info column, quiet stats. */
@@ -2754,7 +2749,6 @@ main:focus { outline: none; }
 
 @media (min-width: 1001px) {
   /* Contact panel: fields fill the panel, name + email side by side. */
-  .p2 .p2-reach__panel { margin: 0; box-shadow: var(--p2-sh-up); border-color: var(--p2-soft); }
   .p2 .p2-reach__panel .p2-form { max-width: none; grid-template-columns: 1fr 1fr; column-gap: 16px; }
   .p2 .p2-reach__panel .p2-form__f:nth-of-type(3),
   .p2 .p2-reach__panel .p2-form__go,
@@ -2762,7 +2756,7 @@ main:focus { outline: none; }
   .p2 .p2-reach__panel .p2-form__detail { grid-column: 1 / -1; }
 }
 
-.p2-form input[type="text"], .p2-form input[type="email"], .p2-form textarea { border-radius: 10px; }
+.p2-form input[type="text"], .p2-form input[type="email"], .p2-form textarea { border-radius: 0; }
 @media (min-width: 1001px) {
   .p2 .p2-reach__panel .p2-reach__steps { max-width: none; width: 100%; }
 }
@@ -2777,13 +2771,13 @@ main:focus { outline: none; }
    ══════════════════════════════════════════════════════════════════════ */
 @media (min-width: 1001px) {
   .p2 {
-    --p2-r: 12px;
-    --p2-soft: rgba(20, 22, 26, .26);
-    --p2-sh: 0 1px 2px rgba(20, 22, 26, .04);
+    --p2-r: 4px;
+    --p2-soft: var(--p2-line);
+    --p2-sh: none;
     --p2-grid-gap: 32px;
   }
-  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li { border-radius: 10px; }
-  .p2-hero__spec { border-radius: 10px; }
+  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li { border-radius: 4px; }
+  .p2-hero__spec { border-radius: 4px; }
 
   /* Room inside the cards. */
   .p2 .p2-svc { padding: 44px 40px 112px; }
@@ -2812,8 +2806,8 @@ main:focus { outline: none; }
 @media (max-width: 680px) {
   .p2-svc, .p2-price, .p2-pc, .p2-rev__card, .p2-rev__hero, .p2-strength, .p2-reach__panel,
   .p2-about__in, .p2-hero__shot, .p2-intro__photo, .p2-show__stage, .p2-brief li, .p2-faq details,
-  .p2-card, .p2-why-cells { border-radius: 12px; }
-  .p2-about__tools li, .p2-tools:not(.p2-tools--cv) li { border-radius: 10px; }
+  .p2-card, .p2-why-cells { border-radius: 4px; }
+  .p2-about__tools li, .p2-tools:not(.p2-tools--cv) li { border-radius: 4px; }
 }
 
 /* "Enquire" sits on the same left edge as the card text. */
