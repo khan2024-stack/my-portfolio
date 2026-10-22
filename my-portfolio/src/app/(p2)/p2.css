@@ -2516,3 +2516,53 @@ main:focus { outline: none; }
   .p2-hero__proof b { font-size: 1.375rem; color: var(--p2-accent); }
   .p2-hero__proof span { margin-top: 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; color: rgba(255, 255, 255, .78); }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHONE: LEFT-ALIGNED, APP-STYLE
+   Centered headings and paragraphs on a narrow screen float away from
+   the edge the eye follows. Everything that was centered on phones —
+   section heads, page banners, the closing banner — now starts at the
+   same 20px left edge, like a native app, and full-width buttons sit on
+   that same edge.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  /* Section heads: badge, heading and lede on one left edge. */
+  .p2 .p2-head { align-items: flex-start; text-align: left; }
+  .p2 .p2-head h2 { text-wrap: pretty; }
+  .p2 .p2-head p { margin-inline: 0; text-align: left; }
+  .p2-split--head { text-align: left; }
+  .p2-split--head .p2-lede,
+  .p2 .p2-why__side .p2-lede { margin-inline: 0; max-width: none; text-align: left; }
+  .p2-split--head .p2-lede::before,
+  .p2 .p2-why__side .p2-lede::before,
+  .p2-split .p2-about__foot .p2-lede::before { margin: 0 0 14px; }
+  .p2-sec__top { align-items: flex-start; }
+  .p2-head__side { justify-items: start; }
+  .p2-why__work-head { align-items: flex-start; text-align: left; }
+
+  /* Blocks inside a split (Track record, Contact "Let's talk"). */
+  .p2-split > div, .p2-split__l { text-align: left; }
+  .p2-split__l, .p2-split__l .p2-about__foot, .p2-split .p2-about__foot { align-items: flex-start; text-align: left; }
+  .p2-split__l .p2-lede, .p2-split .p2-about__foot .p2-lede { margin-inline: 0; max-width: none; }
+
+  /* Page banners (Resume, Services, Work, Contact, About). */
+  .p2-intro { text-align: left; align-items: flex-start; padding: 40px var(--p2-gut) 44px; }
+  .p2 .p2-intro h1 { font-size: 2rem; line-height: 1.12; margin-top: 16px; text-wrap: pretty; }
+  .p2-intro p { margin-inline: 0; font-size: 1rem; line-height: 1.65; }
+  .p2-intro .p2-btn { width: 100%; justify-content: center; margin-top: 24px; }
+  .p2-intro--split { gap: 32px; }
+  .p2 .p2-intro--split h1 { font-size: 2rem; }
+  .p2-intro--split .p2-intro__copy { align-items: flex-start; text-align: left; }
+  .p2-intro--split p { margin-inline: 0; }
+
+  /* Closing banner. */
+  .p2 .p2-cta { align-items: flex-start; text-align: left; }
+  .p2 .p2-cta h2 { max-width: none; margin-inline: 0; text-wrap: pretty; }
+  .p2 .p2-cta .p2-btn { width: 100%; justify-content: center; }
+}
+
+/* Phone: leave room under the footer's last line for the floating chat
+   button, so the copyright and email are never hidden behind it. */
+@media (max-width: 680px) {
+  .p2-foot__bot { padding-bottom: calc(86px + env(safe-area-inset-bottom)); }
+}
