@@ -2671,3 +2671,98 @@ main:focus { outline: none; }
   .p2-bar { padding-inline: var(--p2-gut); }
   .p2-hdr__cta { padding-right: 0; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   DESKTOP VISUAL REFINEMENT  (≥1001px)
+   The look moves from hard boxes to a calmer, modern system:
+     · content up to 1680px with the same gutters as before (120px at 1920)
+     · one corner radius on every card and panel
+     · light cards: soft hairline + soft shadow, and a gentle lift on hover
+       (the hard offset shadows stay only on photos and primary actions)
+     · hero: quiet outlined stats, rounded photo + info column
+     · slimmer ticker band, tighter heading type, lime text selection
+   ══════════════════════════════════════════════════════════════════════ */
+@media (min-width: 1001px) {
+  .p2 {
+    --p2-max: 1680px;
+    --p2-r: 20px;
+    --p2-soft: rgba(20, 22, 26, .16);
+    --p2-sh: 0 1px 2px rgba(20, 22, 26, .05), 0 14px 34px -16px rgba(20, 22, 26, .22);
+    --p2-sh-up: 0 2px 4px rgba(20, 22, 26, .06), 0 30px 56px -22px rgba(20, 22, 26, .36);
+  }
+
+  /* One radius everywhere. */
+  .p2-svc, .p2-price, .p2-pc, .p2-rev__card, .p2-rev__hero, .p2-strength, .p2-reach__panel,
+  .p2-about__in, .p2-intro__photo, .p2-show__stage, .p2-brief li, .p2-faq details, .p2-why-cells {
+    border-radius: var(--p2-r);
+  }
+  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li { border-radius: 14px; }
+  .p2-hero__spec { border-radius: 14px; }
+
+  /* Light cards: soft hairline + soft shadow, lift on hover. */
+  .p2 .p2-pc, .p2 .p2-svc, .p2 .p2-price:not(.p2-price--dark), .p2 .p2-rev__card,
+  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li {
+    border-color: var(--p2-soft); box-shadow: var(--p2-sh);
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s, border-color .35s, background .35s;
+  }
+  .p2 .p2-price--dark { box-shadow: var(--p2-sh-up); }
+  .p2 .p2-pc:hover, .p2 .p2-svc:hover, .p2 .p2-price:hover, .p2 .p2-rev__card:hover,
+  .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) li:hover {
+    transform: translateY(-5px); box-shadow: var(--p2-sh-up); border-color: var(--p2-ink);
+  }
+
+  /* Hero: rounded photo + info column, quiet stats. */
+  .p2-hero__shot { border-radius: var(--p2-r) 0 0 var(--p2-r); }
+  .p2-hero__cards { border-radius: 0 var(--p2-r) var(--p2-r) 0; overflow: hidden; }
+  .p2-hero__proof {
+    background: transparent; border: 0; max-width: 600px;
+    border-top: 1px solid rgba(255, 255, 255, .18); border-bottom: 1px solid rgba(255, 255, 255, .18);
+  }
+  .p2-hero__proof li { padding: 18px 20px 18px 0; border-right: 0; }
+  .p2-hero__proof li + li { padding-left: 22px; border-left: 1px solid rgba(255, 255, 255, .18); }
+  .p2-hero__proof b { color: var(--p2-accent); font-size: 2.125rem; }
+  .p2-hero__proof span { margin-top: 6px; font-weight: 500; color: rgba(255, 255, 255, .78); }
+
+  /* Ticker band: slimmer, so it separates sections without shouting. */
+  .p2-ticker { padding: 12px 0; }
+  .p2-ticker__track span { font-size: clamp(1rem, 1.35vw, 1.3125rem); }
+
+  /* Headings: slightly tighter and balanced. */
+  .p2 .p2-head h2, .p2 .p2-hero__l h1, .p2 .p2-intro h1, .p2 .p2-cta h2 { letter-spacing: -.025em; text-wrap: balance; }
+}
+
+/* All sizes: lime text selection. */
+.p2 ::selection { background: var(--p2-accent); color: var(--p2-ink); }
+
+@media (min-width: 1001px) {
+  /* Dark "why" section: rounded stat bar and cells. */
+  .p2-why__stats { border-radius: var(--p2-r); overflow: hidden; }
+  .p2-why__cell { border-radius: var(--p2-r); }
+  /* Work cards: the divider under the screenshot is a soft hairline too. */
+  .p2-pc__stage { border-bottom-color: var(--p2-soft); }
+}
+
+@media (min-width: 1001px) {
+  /* Reviews: real quotes are longer than the samples the featured card was
+     sized for, so give the quote a comfortable reading width. */
+  .p2-rev__hero blockquote { max-width: 56ch; font-size: clamp(1.375rem, 1.7vw, 1.75rem); line-height: 1.38; }
+  .p2-rev__rail { border-radius: var(--p2-r); border-color: var(--p2-soft); box-shadow: var(--p2-sh); }
+}
+
+/* No rating box above the faces → no dangling divider line either. */
+.p2-rev__rail:not(:has(.p2-rev__sum)) .p2-rev__stack { border-top: 0; padding-top: 0; }
+
+@media (min-width: 1001px) {
+  /* Contact panel: fields fill the panel, name + email side by side. */
+  .p2 .p2-reach__panel { margin: 0; box-shadow: var(--p2-sh-up); border-color: var(--p2-soft); }
+  .p2 .p2-reach__panel .p2-form { max-width: none; grid-template-columns: 1fr 1fr; column-gap: 16px; }
+  .p2 .p2-reach__panel .p2-form__f:nth-of-type(3),
+  .p2 .p2-reach__panel .p2-form__go,
+  .p2 .p2-reach__panel .p2-form__note,
+  .p2 .p2-reach__panel .p2-form__detail { grid-column: 1 / -1; }
+}
+
+.p2-form input[type="text"], .p2-form input[type="email"], .p2-form textarea { border-radius: 10px; }
+@media (min-width: 1001px) {
+  .p2 .p2-reach__panel .p2-reach__steps { max-width: none; width: 100%; }
+}
