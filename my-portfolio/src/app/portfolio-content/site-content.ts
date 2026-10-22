@@ -351,9 +351,9 @@ export const services = [
     no: "01",
     title: "Web Platforms",
     sub: "Design through to deployment",
-    body: "Commerce sites, dashboards and custom platforms — Django or FastAPI behind React, Next.js and TypeScript, taken from a design file to a live, indexed site that takes payments.",
+    body: "Commerce sites, dashboards and custom platforms — Django, FastAPI or Node.js behind React, Next.js and TypeScript, on PostgreSQL or MySQL — taken from a design file to a live, indexed site that takes payments.",
     capabilities: [
-      "Django / FastAPI with React, Next.js and TypeScript",
+      "Django, FastAPI or Node.js with React, Next.js and TypeScript",
       "Figma, XD and PSD to production",
       "Payment, shipping and third-party APIs",
       "Admin dashboards and role permissions",
@@ -665,13 +665,13 @@ export const education = [
 ];
 
 /* Every item is evidenced by a shipped project or the repos on this
-   machine — Duomada alone covers SQLAlchemy/Alembic, Pydantic, JWT and
+   machine — Duomada alone covers Pydantic, JWT and
    OAuth on the API side and TypeScript, React 19, Tailwind 4 and Framer
    Motion on the storefront. Dropped: "GitHub", "HTML5", "CSS3" — table
    stakes that read junior next to the rest — and "JavaScript", which
    "TypeScript" supersedes. */
 export const skills = [
-  { group: "Backend",     items: ["Python", "Django", "FastAPI", "SQLAlchemy · Alembic", "Pydantic", "MySQL", "JWT · OAuth"] },
+  { group: "Backend",     items: ["Python", "Django", "FastAPI", "Node.js", "PostgreSQL", "MySQL", "Pydantic", "JWT · OAuth"] },
   { group: "Frontend",    items: ["TypeScript", "React 19", "Next.js 15 App Router", "Redux.js", "Tailwind CSS 4", "Framer Motion"] },
   { group: "AI & Voice",  items: ["Groq · Gemini", "Deepgram STT", "Cartesia · ElevenLabs TTS", "Pinecone", "Twilio", "Redis"] },
   { group: "DevOps",      items: ["Google Cloud Run", "Docker", "Nginx · Gunicorn", "CI/CD pipelines", "DigitalOcean"] },

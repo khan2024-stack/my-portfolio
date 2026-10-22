@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const ticker = ["Full-Stack", "Django", "FastAPI", "React", "Next.js", "AI & Voice"];
+const ticker = ["Full-Stack", "Django", "FastAPI", "Node.js", "PostgreSQL", "React", "Next.js", "AI & Voice"];
 
 /**
  * About — the reference's About page runs seven blocks in this order:

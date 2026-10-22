@@ -56,11 +56,11 @@ export const metadata: Metadata = {
     template: "%s | Muhammad Sajjad",
   },
   description:
-    "Full stack and AI engineer in production since 2017 — e-commerce platforms, AI voice agents and automation for clients in the UAE, UK and USA. Django, FastAPI, React and Next.js. Available for freelance projects.",
+    "Full stack and AI engineer in production since 2017 — e-commerce platforms, AI voice agents and automation for clients in the UAE, UK and USA. Django, FastAPI, Node.js, PostgreSQL, React and Next.js. Available for freelance projects.",
   openGraph: {
     title: "Muhammad Sajjad | Full Stack & AI Engineer",
     description:
-      "E-commerce, AI voice agents and automation for clients in the UAE, UK and USA. Django, FastAPI, React and Next.js.",
+      "E-commerce, AI voice agents and automation for clients in the UAE, UK and USA. Django, FastAPI, Node.js, PostgreSQL, React and Next.js.",
     type: "website",
   },
 };
@@ -78,7 +78,7 @@ const jsonLd = {
       url: SITE_URL,
       image: `${SITE_URL}/opengraph-image.jpg`,
       address: { "@type": "PostalAddress", addressLocality: "Peshawar", addressCountry: "PK" },
-      knowsAbout: ["E-commerce", "AI voice agents", "Automation", "Django", "FastAPI", "React", "Next.js", "Shopify"],
+      knowsAbout: ["E-commerce", "AI voice agents", "Automation", "Django", "FastAPI", "Node.js", "PostgreSQL", "React", "Next.js", "Shopify"],
       sameAs: socials.map((s) => s.href),
     },
     {

@@ -7,7 +7,7 @@ import { CtaBand, ServicesGrid } from "../_parts/Sections";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "E-commerce and web platforms, AI and voice systems, and automation — scoped and quoted in writing. Django, FastAPI, React, Next.js, Twilio, Pinecone.",
+    "E-commerce and web platforms, AI and voice systems, and automation — scoped and quoted in writing. Django, FastAPI, Node.js, PostgreSQL, React, Next.js, Twilio, Pinecone.",
   alternates: { canonical: "/services" },
 };
 
