@@ -713,7 +713,7 @@ export const about = {
     { label: "Nationality", value: "Pakistani" },
     { label: "Phone",       value: "+92 313 932 2585" },
     { label: "WhatsApp",    value: "+92 322 9830466" },
-    { label: "Email",       value: "sajjadk546@gmail.com" },
+    { label: "Email",       value: "connect.sajjadaie@gmail.com" },
     { label: "Freelance",   value: "Available for freelance projects" },
     { label: "Languages",   value: "Fluent in English, Urdu and Pashto" },
   ],
@@ -724,7 +724,7 @@ export const contact = {
   /* The form used to hardcode this address in Contact.tsx, so editing
      the details below changed what the page displayed but not where a
      submitted enquiry actually went. */
-  inbox: "sajjadk546@gmail.com",
+  inbox: "connect.sajjadaie@gmail.com",
   /* WhatsApp: ONE number, used by the Contact page, the "Reach me
      directly" block and the floating chat button. `digits` is the number
      with country code and no "+" or spaces — what wa.me expects. */
@@ -737,13 +737,13 @@ export const contact = {
   body: "Send a short brief — you get back an approach, an honest estimate and a start date.",
   details: [
     { label: "WhatsApp", value: "+92 322 9830466", href: "https://wa.me/923229830466" },
-    { label: "Email", value: "sajjadk546@gmail.com", href: "mailto:sajjadk546@gmail.com" },
+    { label: "Email", value: "connect.sajjadaie@gmail.com", href: "mailto:connect.sajjadaie@gmail.com" },
     { label: "Based", value: "Peshawar, Pakistan", href: null },
     { label: "Works", value: "Remote freelance for clients based in the UAE, UK and USA", href: null },
   ],
 };
 
 export const socials = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/sajjad-khan-2a150b166/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/sajjad-ai-eng/" },
   { label: "X", href: "https://x.com/sajjad_dxb" },
 ];

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly progress report</title>
+<style>
+  .bar{max-width:600px;margin:0 auto;padding:14px 0;font:13px Arial,sans-serif;color:#3b4048;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .bar button{font:bold 13px Arial,sans-serif;padding:9px 16px;border:1px solid #14161a;border-radius:24px;background:#d9ff3f;color:#14161a;cursor:pointer}
+  .bar code{background:#fff;border:1px solid #14161a;border-radius:4px;padding:3px 8px;color:#14161a}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#f5f3ec;">
+<div class="bar">
+  <button type="button" onclick="var r=document.createRange();r.selectNode(document.getElementById('email'));var s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy');s.removeAllRanges();this.textContent='Copied - paste into Gmail'">Copy email</button>
+  <span><b>Weekly progress report.</b> Short update to keep a client confident while work or ads are running.</span>
+  <span>Subject: <code>[Project name] - update for week of [date]</code></span>
+  <span>Replace every [bracket] before copying: click and type on the page.</span>
+</div>
+<div id="email">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f3ec;">
+<tr><td align="center" style="padding:8px 12px 24px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border:1px solid #14161a;border-radius:4px;font-family:Arial,Helvetica,sans-serif;color:#14161a;">
+  <tr><td style="padding:24px 32px 16px;border-bottom:1px solid #14161a;">
+    <div style="font-size:18px;font-weight:bold;">Muhammad Sajjad</div>
+    <div style="font-size:13px;color:#3b4048;margin-top:2px;">Full-Stack &amp; AI Engineer &middot; Shopify, web apps, automation</div>
+  </td></tr>
+  <tr><td contenteditable="true" style="padding:24px 32px 8px;font-size:15px;line-height:1.6;">
+<p style="margin:0 0 14px;">Hi [First name],</p>
+<p style="margin:0 0 14px;">Here is this week's update on <b>[Project name]</b>.</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 14px;"><tr><td style="padding:12px 0;border-top:1px solid #e3e0d6;"><b>Done this week</b><br><span style="color:#3b4048;">[Two or three short points.]</span></td></tr><tr><td style="padding:12px 0;border-top:1px solid #e3e0d6;"><b>Results</b><br><span style="color:#3b4048;">[Real numbers only: e.g. spend, clicks, add-to-carts, orders.]</span></td></tr><tr><td style="padding:12px 0;border-top:1px solid #e3e0d6;"><b>Next week</b><br><span style="color:#3b4048;">[What happens next.]</span></td></tr><tr><td style="padding:12px 0;border-top:1px solid #e3e0d6;border-bottom:1px solid #e3e0d6;"><b>Needed from you</b><br><span style="color:#3b4048;">[Approval / content / nothing right now.]</span></td></tr></table>
+<p style="margin:0 0 14px;">Reply with any questions, or tell me if you would like to adjust anything.</p>
+  </td></tr>
+  <tr><td style="padding:8px 32px 28px;font-size:15px;line-height:1.6;">
+    <p style="margin:0;">Best regards,<br><b>Muhammad Sajjad</b><br>
+    <span style="font-size:13px;color:#3b4048;">Full-Stack &amp; AI Engineer<br>
+    connect.sajjadaie@gmail.com &middot; <a href="https://www.sajjad-ai-eng.site" style="color:#3b4048;">sajjad-ai-eng.site</a> &middot; <a href="https://www.linkedin.com/in/sajjad-ai-eng/" style="color:#3b4048;">LinkedIn</a></span></p>
+  </td></tr>
+</table>
+<div style="max-width:600px;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#6b6f76;padding:12px 8px;text-align:left;">Sent as part of your [project / monthly management plan].</div>
+</td></tr>
+</table>
+</div>
+</body>
+</html>

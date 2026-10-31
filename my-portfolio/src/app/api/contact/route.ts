@@ -17,7 +17,7 @@ import { NextResponse } from "next/server";
  */
 export const runtime = "nodejs";
 
-const INBOX = "sajjadk546@gmail.com";
+const INBOX = "connect.sajjadaie@gmail.com";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 // Light per-instance throttle: 1 message / 20 s / IP. (Serverless instances
