@@ -393,7 +393,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 /* Four numbered cards, same bordered-cell language. */
 .p2-strength-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .p2-strength { border: 1px solid var(--p2-line); margin: -1px 0 0 -1px; padding: 24px; }
-.p2-strength__no { display: block; font-size: 1rem; color: var(--p2-muted); margin-bottom: 20px; }
 /* Their lime line-icon inside a black square; this site has no icon set,
    so it is a lime mark on the same black plate rather than a fake logo. */
 .p2-strength__icon { display: flex; align-items: center; justify-content: center; width: 62px; height: 56px; background: var(--p2-ink); margin-bottom: 20px; }
@@ -433,7 +432,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 .p2-why__cell:nth-child(-n+2) { border-bottom: 1px solid rgba(255, 255, 255, .14); }
 .p2-why__top { display: flex; align-items: center; gap: 20px; }
 .p2-why__cell--r .p2-why__top { flex-direction: row-reverse; }
-.p2-why__no { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: var(--p2-accent); color: var(--p2-ink); font-family: var(--p2-face); font-size: 1.2rem; font-weight: 600; }
 .p2-why__icon { width: 40px; height: 40px; color: var(--p2-white); stroke-width: 1.25; }
 .p2-why__cell h4 { margin-top: 38px; font-size: 1.5rem; font-weight: 500; color: var(--p2-white); }
 .p2-why__cell p { margin: 10px 0 0; font-size: 1rem; line-height: 1.7; color: #a0a0a0; }
@@ -566,7 +564,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 
 /* The number sits in its own small bordered box at the top-left,
    straddling the cell's own border — theirs overlaps it exactly. */
-.p2-svc__no { position: absolute; top: -1px; left: -1px; display: flex; align-items: center; justify-content: center; min-width: 46px; height: 44px; padding: 0 12px; border: 1px solid var(--p2-line); background: var(--p2-bg); font-size: 1.2rem; font-weight: 600; color: var(--p2-ink); }
 
 /* Their icon is 150px. Scaled to 84 here: mine sit above a title AND a
    line of copy in a 300px cell, and at their size the text had nowhere
@@ -910,7 +907,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 .p2-svc-grid { gap: 24px; margin-left: 0; }
 .p2-svc { margin: 0; background: #fff; min-height: 340px; padding: 34px 30px; transition: transform .3s, box-shadow .3s; }
 .p2-svc:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--p2-accent), 8px 8px 0 1px var(--p2-ink); }
-.p2-svc__no { top: 18px; left: 18px; min-width: 40px; height: 40px; border-radius: 50%; background: var(--p2-accent); border-color: var(--p2-ink); font-size: 1rem; }
 .p2-svc__art { padding-top: 40px; }
 .p2-svc__icon { width: 76px; height: 76px; stroke-width: 1.25; }
 .p2-svc h3 { font-size: 1.375rem; }
@@ -923,7 +919,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 .p2-why { background: var(--p2-dark); position: relative; isolation: isolate; overflow: hidden; }
 .p2-why::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(45% 55% at 100% 0%, rgba(217,255,63,.14), transparent 70%), linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 56px 56px, linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 56px 56px; }
 .p2-why .p2-lede, .p2-why__cell p { color: rgba(255,255,255,.78); font-size: 1.0625rem; }
-.p2-why__no { border-radius: 50%; }
 .p2-why__cell h4 { font-size: 1.75rem; }
 .p2-why .p2-badge { background: var(--p2-accent); }
 
@@ -991,8 +986,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 .p2-svc:hover { background: var(--p2-dark); transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--p2-accent), 8px 8px 0 1px var(--p2-ink); }
 .p2-svc:hover::before { opacity: .5; }
 /* Big outlined numeral top-right instead of a small circle. */
-.p2-svc__no { top: 26px; right: 28px; left: auto; min-width: 0; height: auto; padding: 0; border: 0; border-radius: 0; background: transparent; font-family: var(--p2-face); font-size: 3.5rem; font-weight: 500; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(20,22,26,.3); transition: -webkit-text-stroke-color .35s; }
-.p2-svc:hover .p2-svc__no { -webkit-text-stroke-color: var(--p2-accent); }
 /* Icon sits on a lime tile with a hard offset shadow. */
 .p2-svc__art { flex: 0 0 auto; justify-content: flex-start; padding: 0; margin-bottom: 34px; }
 .p2-svc__art svg, .p2-svc__icon { box-sizing: content-box; width: 52px; height: 52px; padding: 18px; background: var(--p2-accent); border: 1px solid var(--p2-ink); box-shadow: 6px 6px 0 var(--p2-ink); color: var(--p2-ink); stroke-width: 1.5; transition: transform .35s, box-shadow .35s; }
@@ -1009,7 +1002,7 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 .p2-svc__go:hover { transform: none; background: #fff; color: var(--p2-ink); }
 .p2-svc:hover .p2-svc__go { background: var(--p2-accent); }
 .p2-svc:hover .p2-svc__go:hover { background: #fff; }
-@media (max-width: 680px) { .p2-svc { min-height: 0; padding-bottom: 96px; } .p2-svc__no { font-size: 2.75rem; } }
+@media (max-width: 680px) { .p2-svc { min-height: 0; padding-bottom: 96px; } }
 @media (prefers-reduced-motion: reduce) { .p2-svc:hover .p2-svc__icon { transform: none; } }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -1025,7 +1018,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 .p2-why__cell:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.16); }
 .p2-why__cell:hover { background: rgba(217,255,63,.08); border-color: var(--p2-accent); transform: translateY(-4px); }
 .p2-why__top, .p2-why__cell--r .p2-why__top { flex-direction: row; justify-content: space-between; }
-.p2-why__no { width: 48px; height: 48px; font-size: 1.0625rem; }
 .p2-why__icon { width: 44px; height: 44px; color: var(--p2-accent); stroke-width: 1.4; }
 .p2-why__cell h4, .p2-why__cell--r h4 { margin-top: 30px; font-size: 1.875rem; letter-spacing: -.01em; }
 .p2-why__cell p { margin-top: 14px; font-size: 1.0625rem; line-height: 1.75; color: rgba(255,255,255,.82); }
@@ -1075,14 +1067,11 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 .p2-why__cell:hover { transform: translateY(-6px); border-color: rgba(217,255,63,.55); background: linear-gradient(180deg, rgba(217,255,63,.09), rgba(255,255,255,.02)); }
 .p2-why__cell:hover::before { transform: scaleX(1); }
 /* The big outlined number sits behind the copy, bottom right. */
-.p2-why__ghost { position: absolute; right: 18px; bottom: -34px; z-index: 0; font-family: var(--p2-face); font-size: 10.5rem; font-weight: 700; line-height: 1; letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.08); pointer-events: none; user-select: none; transition: -webkit-text-stroke-color .35s; }
-.p2-why__cell:hover .p2-why__ghost { -webkit-text-stroke-color: rgba(217,255,63,.3); }
 .p2-why__top, .p2-why__cell h4, .p2-why__cell p, .p2-why__tags { position: relative; z-index: 1; }
 .p2-why__top, .p2-why__cell--r .p2-why__top { align-items: center; justify-content: space-between; }
 .p2-why__tile { display: flex; align-items: center; justify-content: center; width: 58px; height: 58px; background: var(--p2-accent); transition: transform .35s; }
 .p2-why__cell:hover .p2-why__tile { transform: rotate(-6deg) scale(1.04); }
 .p2-why__tile .p2-why__icon { width: 28px; height: 28px; color: var(--p2-ink); stroke-width: 1.8; }
-.p2-why__no { width: auto; height: auto; border-radius: 0; background: transparent; color: rgba(255,255,255,.55); font-size: .8125rem; font-weight: 500; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
 .p2-why__cell h4, .p2-why__cell--r h4 { margin-top: 28px; font-size: 2.125rem; line-height: 1.1; letter-spacing: -.02em; }
 .p2-why__cell p { margin-top: 10px; font-size: 1.0625rem; line-height: 1.65; color: rgba(255,255,255,.7); max-width: 34ch; }
 /* Tools as chips. */
@@ -1106,7 +1095,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
   .p2-why .p2-lede { font-size: 1.0625rem; }
   .p2-why__cell, .p2-why__cell--r { padding: 26px 22px 28px; }
   .p2-why__cell h4, .p2-why__cell--r h4 { font-size: 1.75rem; margin-top: 22px; }
-  .p2-why__ghost { font-size: 7.5rem; bottom: -24px; right: 10px; }
   .p2-why__tile { width: 50px; height: 50px; }
   .p2-why__tags li { font-size: .8125rem; padding: 7px 10px; }
   .p2-why__shot { height: 240px; }
@@ -1305,7 +1293,6 @@ body.p2-root { background: var(--p2-bg); color: var(--p2-muted); }
 /* Audit fixes: no text under 13px; outlined card numerals a little
    stronger (they are decorative, but were ~1.9:1). */
 .p2-card__k, .p2-rev__date { font-size: .8125rem; }
-.p2-svc__no { -webkit-text-stroke-color: rgba(20,22,26,.5); }
 
 /* VIN Wear screenshot is a website top-of-page capture: anchor the crop
    to the top so the header isn't trimmed, instead of centring it like
@@ -1735,7 +1722,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   .p2-strength-grid::-webkit-scrollbar { display: none; }
   .p2-strength-grid > * { flex: 0 0 78%; min-width: 0; margin: 0; scroll-snap-align: start; scroll-snap-stop: always; opacity: 1 !important; transform: none !important; background: #fff; }
   .p2-strength { padding: 22px; }
-  .p2-strength__no { margin-bottom: 14px; }
   .p2-strength__icon { margin-bottom: 16px; }
 }
 
@@ -2261,8 +2247,6 @@ main:focus { outline: none; }
 }
 /* Ghost numerals in the discipline cards: keep them decorative, not a
    second layer of type behind the tool chips. */
-.p2-why__ghost { -webkit-text-stroke-color: rgba(255, 255, 255, .045); }
-.p2-why__cell:hover .p2-why__ghost { -webkit-text-stroke-color: rgba(217, 255, 63, .18); }
 
 /* ── Touch screens ──
    A tap sets :hover and it sticks until the next tap, so the "invert the
@@ -2273,7 +2257,6 @@ main:focus { outline: none; }
   .p2-svc:hover::before { opacity: 0; }
   .p2-svc:hover h3 { color: var(--p2-ink); }
   .p2-svc:hover p, .p2-svc:hover li { color: var(--p2-muted); }
-  .p2-svc:hover .p2-svc__no { -webkit-text-stroke-color: rgba(20, 22, 26, .5); }
   .p2-svc:hover .p2-svc__icon { transform: none; box-shadow: 6px 6px 0 var(--p2-ink); }
   .p2-svc:hover .p2-svc__go { background: var(--p2-accent); }
   .p2-pc:hover, .p2-price:hover, .p2-rev__card:hover, .p2-why__cell:hover,
@@ -2370,7 +2353,6 @@ main:focus { outline: none; }
   .p2-svc { padding: 20px 16px 76px; min-height: 0; }
   .p2-svc__art { margin-bottom: 18px; }
   .p2-svc__art svg, .p2-svc__icon { width: 40px; height: 40px; padding: 13px; box-shadow: 5px 5px 0 var(--p2-ink); }
-  .p2-svc__no { font-size: 2.25rem; top: 16px; right: 16px; }
   .p2-svc h3 { font-size: 1.3125rem; margin-bottom: 8px; }
   .p2-svc p { font-size: .9375rem; line-height: 1.55; }
   .p2-svc__go { left: 16px; bottom: 16px; height: 42px; padding: 0 18px; font-size: .875rem; }
@@ -2392,7 +2374,6 @@ main:focus { outline: none; }
   .p2-why__cell p { margin-top: 8px; font-size: .9375rem; line-height: 1.5; }
   .p2-why__tags { margin-top: 14px; padding-top: 14px; gap: 6px; }
   .p2-why__tags li { font-size: .75rem; padding: 6px 9px; }
-  .p2-why__ghost { font-size: 6rem; bottom: -18px; right: 8px; }
 
   /* Reviews */
   .p2-rev { gap: 12px; }
@@ -2896,4 +2877,22 @@ main:focus { outline: none; }
 
   .p2-wa { transition: opacity .25s, transform .25s, box-shadow .25s; }
   html[data-scroll-dir="down"] .p2-wa { opacity: 0; transform: translateY(14px) scale(.92); pointer-events: none; }
+}
+
+/* ── Project mockup images ──────────────────────────────────────────
+   The image is already framed (the real site in a browser window and a
+   phone, on a themed backdrop), so it fills the stage edge to edge.
+   Kept last and doubled up on classes: the stage padding is overridden
+   in several places above (lead card, tablet, phone) and this has to
+   beat all of them. */
+.p2-pcs .p2-pcs__grid .p2-pc .p2-pc__stage.p2-pc__stage--shot { padding: 0; aspect-ratio: 4 / 3; overflow: clip; background: #0b0c0e; }
+.p2-pcs .p2-pc .p2-pc__stage--shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
+.p2-pcs .p2-pc:hover .p2-pc__stage--shot img { transform: scale(1.03); }
+/* Work with no screenshot keeps the drawn laptop; same 4:3 height so a
+   row of cards still lines up. */
+.p2-pcs .p2-pc .p2-pc__stage:not(.p2-pc__stage--shot) { aspect-ratio: 4 / 3; display: flex; flex-direction: column; justify-content: center; }
+.p2-pcs .p2-pc .p2-pc__stage:not(.p2-pc__stage--shot) .p2-pc__device { width: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  .p2-pcs .p2-pc .p2-pc__stage--shot img { transition: none; }
+  .p2-pcs .p2-pc:hover .p2-pc__stage--shot img { transform: none; }
 }

@@ -34,9 +34,6 @@ export function StrengthsBlock() {
               className="p2-strength"
               key={s.group}
             >
-              <span className="p2-strength__no">
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <span className="p2-strength__icon" aria-hidden="true">
                 <Icon />
               </span>

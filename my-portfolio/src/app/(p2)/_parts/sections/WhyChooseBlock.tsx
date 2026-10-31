@@ -63,7 +63,6 @@ export function WhyChooseBlock() {
         <div className="p2-why-cells">
         {skills.map((s, i) => {
           const Icon = WHY_ICONS[i % WHY_ICONS.length];
-          const no = String(i + 1).padStart(2, "0");
           return (
             <Reveal
               as="article"
@@ -72,15 +71,9 @@ export function WhyChooseBlock() {
               className={`p2-why__cell${i % 2 ? " p2-why__cell--r" : ""}`}
               key={s.group}
             >
-              <span className="p2-why__ghost" aria-hidden="true">
-                {no}
-              </span>
               <div className="p2-why__top">
                 <span className="p2-why__tile">
                   <Icon className="p2-why__icon" aria-hidden="true" />
-                </span>
-                <span className="p2-why__no">
-                  {no} / {String(skills.length).padStart(2, "0")}
                 </span>
               </div>
               <h4>{s.group}</h4>

@@ -11,9 +11,9 @@ type Item = (typeof projects)[number];
  * Project cards — one clean format for every project.
  *
  *   ┌─────────────────────┐
- *   │   soft stage        │
- *   │    ┌───────────┐    │   the work, on a laptop screen
- *   │    └───────────┘    │
+ *   │   mockup image      │   the real site in a browser + phone (4:3);
+ *   │                     │   work with no screenshot gets the drawn laptop
+ *   │                     │
  *   ├─────────────────────┤
  *   │ Title            ↗  │   a title and one line, nothing more
  *   │ Kind · Stack        │
@@ -64,28 +64,33 @@ function Card({ p }: { p: Item }) {
 
   return (
     <Reveal as="article" dir="up" className="p2-pc">
-      <div className="p2-pc__stage">
-        <div className="p2-pc__device">
-          <div className="p2-pc__lid">
-            <span className="p2-pc__cam" aria-hidden="true" />
-            <div className="p2-pc__screen">
-              {p.image ? (
-                <Image
-                  src={p.image}
-                  alt={`${p.title} — screenshot of the finished work`}
-                  placeholder="blur"
-                  sizes="(max-width: 680px) 90vw, (max-width: 1000px) 45vw, 30vw"
-                />
-              ) : (
+      {p.image ? (
+        /* The image is already a finished mockup — the real site in a
+           browser window and a phone on a themed backdrop — so it fills
+           the stage instead of sitting inside the drawn laptop. */
+        <div className="p2-pc__stage p2-pc__stage--shot">
+          <Image
+            src={p.image}
+            alt={p.imageAlt ?? `${p.title} — the live site on desktop and phone`}
+            placeholder="blur"
+            sizes="(max-width: 680px) 92vw, (max-width: 1000px) 46vw, 32vw"
+          />
+        </div>
+      ) : (
+        <div className="p2-pc__stage">
+          <div className="p2-pc__device">
+            <div className="p2-pc__lid">
+              <span className="p2-pc__cam" aria-hidden="true" />
+              <div className="p2-pc__screen">
                 <VoiceWave />
-              )}
+              </div>
+            </div>
+            <div className="p2-pc__base" aria-hidden="true">
+              <i />
             </div>
           </div>
-          <div className="p2-pc__base" aria-hidden="true">
-            <i />
-          </div>
         </div>
-      </div>
+      )}
 
       <div className="p2-pc__foot">
         <div className="p2-pc__txt">

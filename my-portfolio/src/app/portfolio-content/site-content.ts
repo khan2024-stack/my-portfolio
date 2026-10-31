@@ -10,6 +10,7 @@ import madleen from "@/assets/madleen.jpg";
 import duomada from "@/assets/duomada.jpg";
 import uktop from "@/assets/uktop.jpg";
 import vinwear from "@/assets/vinwear.jpg";
+import sara from "@/assets/sara.jpg";
 import profile from "@/assets/portrait-studio.jpg";
 import type { StaticImageData } from "next/image";
 
@@ -348,7 +349,6 @@ export const stats = [
    problem.                                                          */
 export const services = [
   {
-    no: "01",
     title: "Web Platforms",
     sub: "Design through to deployment",
     body: "Commerce sites, dashboards and custom platforms — Django, FastAPI or Node.js behind React, Next.js and TypeScript, on PostgreSQL or MySQL — taken from a design file to a live, indexed site that takes payments.",
@@ -362,7 +362,6 @@ export const services = [
     ],
   },
   {
-    no: "02",
     title: "AI & Voice Systems",
     sub: "Built for live conversation",
     body: "Real-time phone and chat agents with streaming speech, grounded answers and a latency budget tight enough that callers do not work out they are talking to software.",
@@ -376,7 +375,6 @@ export const services = [
     ],
   },
   {
-    no: "03",
     title: "Automation & Infrastructure",
     sub: "Runs without you watching",
     body: "The work that removes the manual step — spreadsheets turned into systems, reports that write themselves, and pipelines that put releases live without downtime.",
@@ -390,7 +388,6 @@ export const services = [
     ],
   },
   {
-    no: "04",
     title: "Management & Support",
     sub: "Looked after once it is live",
     body: "Ongoing care for what is already running — monitoring, updates, fixes and one accountable person to call. Releases, backups and incidents are handled for you, and a project can be staffed with a small team when it needs more hands.",
@@ -440,6 +437,9 @@ type Project = {
   body: string;
   tech: string;
   image: StaticImageData | null;
+  /* Alt text when the image is not a screenshot of a site (Sara's is
+     an illustration). Defaults to describing the live site. */
+  imageAlt?: string;
   /* For work with no public site to screenshot. Draws a CSS mark in the
      image bed instead of the "Image · 16:10" caption, so the card reads
      as designed rather than as one waiting for an upload. */
@@ -480,9 +480,13 @@ export const projects: Project[] = [
     /* Back to three names: six wrapped to a second line in a 333px card
        and threw the row's rhythm out. */
     tech: "FastAPI · Groq · Deepgram",
-    /* No public site to photograph — it answers a phone line. The
-       waveform is drawn in CSS rather than faking a screenshot. */
-    image: null,
+    /* No public site to photograph — it answers a phone line — so the
+       image is an illustration of the agent on a call, built only from
+       the facts in this card (bilingual, 19 services, memory, 95% of
+       255 tests) and labelled as one in the alt text. `plate` stays as
+       the fallback if the image is ever removed. */
+    image: sara as StaticImageData,
+    imageAlt: "Illustration of Sara, the AI voice agent, on a live bilingual call",
     plate: "signal",
     /* Internal route, so no target="_blank" — Work.tsx checks for a
        leading slash. */

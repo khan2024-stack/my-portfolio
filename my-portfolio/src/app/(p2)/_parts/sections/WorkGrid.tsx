@@ -21,7 +21,7 @@ export function WorkGrid({ items = projects }: { items?: typeof projects }) {
               {p.image ? (
                 <Image
                   src={p.image}
-                  alt={`Screenshot of the ${p.title} interface`}
+                  alt={p.imageAlt ?? `Screenshot of the ${p.title} interface`}
                   placeholder="blur"
                   sizes="(max-width: 680px) 100vw, (max-width: 1000px) 50vw, 33vw"
                 />
