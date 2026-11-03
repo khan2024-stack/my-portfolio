@@ -2885,7 +2885,7 @@ main:focus { outline: none; }
    Kept last and doubled up on classes: the stage padding is overridden
    in several places above (lead card, tablet, phone) and this has to
    beat all of them. */
-.p2-pcs .p2-pcs__grid .p2-pc .p2-pc__stage.p2-pc__stage--shot { padding: 0; aspect-ratio: 4 / 3; overflow: clip; background: #0b0c0e; }
+.p2-pcs .p2-pcs__grid .p2-pc .p2-pc__stage.p2-pc__stage--shot { padding: 0; aspect-ratio: 16 / 9; overflow: clip; background: #0b0c0e; }
 .p2-pcs .p2-pc .p2-pc__stage--shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
 .p2-pcs .p2-pc:hover .p2-pc__stage--shot img { transform: scale(1.03); }
 /* Work with no screenshot keeps the drawn laptop; same 4:3 height so a
@@ -2896,3 +2896,13 @@ main:focus { outline: none; }
   .p2-pcs .p2-pc .p2-pc__stage--shot img { transition: none; }
   .p2-pcs .p2-pc:hover .p2-pc__stage--shot img { transform: none; }
 }
+
+/* Earlier work: text only, no thumbnails. */
+.p2-earlier { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; }
+.p2-earlier li { padding: 22px 0; border-top: 1px solid var(--p2-ink); }
+.p2 .p2-earlier h3 { font-size: 1.25rem; line-height: 1.2; }
+.p2-earlier p { margin: 6px 0 0; }
+.p2-earlier__cat { font-size: .9375rem; font-weight: 600; color: var(--p2-ink); }
+.p2-earlier .p2-link { display: inline-block; margin-top: 10px; }
+.p2-work-head { margin-bottom: 28px; }
+@media (max-width: 900px) { .p2-earlier { grid-template-columns: minmax(0, 1fr); } }

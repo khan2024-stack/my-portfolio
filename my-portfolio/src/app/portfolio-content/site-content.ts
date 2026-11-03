@@ -4,15 +4,9 @@
 // so text changes never require touching a component.
 // ══════════════════════════════════════════════════════════════════════
 
-import fenzacci from "@/assets/fenzacci.jpg";
-import fenz from "@/assets/fenz.jpg";
-import madleen from "@/assets/madleen.jpg";
-import duomada from "@/assets/duomada.jpg";
-import uktop from "@/assets/uktop.jpg";
-import vinwear from "@/assets/vinwear.jpg";
-import sara from "@/assets/sara.jpg";
 import profile from "@/assets/portrait-studio.jpg";
 import type { StaticImageData } from "next/image";
+import { projectPages } from "./project-pages";
 
 /* ── Identity ─────────────────────────────────────────────────────── */
 export const identity = {
@@ -54,7 +48,7 @@ export const sections = {
   },
   work: {
     eyebrow: "Work",
-    title: "Shipped, live and still running",
+    title: "Real builds, ready to look through",
     lede: null,
   },
   process: {
@@ -364,12 +358,12 @@ export const services = [
   {
     title: "AI & Voice Systems",
     sub: "Built for live conversation",
-    body: "Real-time phone and chat agents with streaming speech, grounded answers and a latency budget tight enough that callers do not work out they are talking to software.",
+    body: "Phone and chat agents with streaming speech, answers grounded in your own data, and memory across the whole call.",
     capabilities: [
       "Real-time voice over Twilio",
       "Streaming STT and TTS",
       "LLM routing with fallback",
-      "Retrieval grounding (Pinecone)",
+      "Answers grounded in your own data",
       "In-call memory and persona control",
       "Automated quality assertions",
     ],
@@ -453,102 +447,55 @@ type Project = {
   note?: string;
 };
 
-/* VIN Wear leads — the newest work, still in progress. Sara is next and
-   the only one with a case study to open. All cards are equal size; the
-   double-width featured cell was tried and reverted. The first four
-   feed the home page picker, the rest show on /work. */
-export const projects: Project[] = [
-  /* VIN Wear — vin-wear.com. Public facts only: what the store sells and
-     what the service does, taken from the project README. The server
-     address, keys, config and folder layout stay out of the page. The
-     work is ongoing (a Custom VIN feature is in progress), so the body
-     says "live since" rather than "finished". */
+/* One card per project page. Card text and image come from the page data,
+   so a card and its page cannot disagree. */
+const cardMeta: Record<string, { category: string; tech: string }> = {
+  zushap: { category: "Online store · Our own build", tech: "Medusa · Next.js" },
+  vinwear: { category: "Online store · USA", tech: "Medusa · Next.js" },
+  sara: { category: "AI voice agent · English and Gulf Arabic", tech: "FastAPI · Gemini · Deepgram" },
+  madleen: { category: "Online fashion store", tech: "Medusa · Next.js" },
+  uktop: { category: "Business website · UK", tech: "Next.js 16" },
+};
+
+export const projects: Project[] = projectPages.map((p) => ({
+  title: p.name,
+  category: cardMeta[p.slug].category,
+  body: p.summary,
+  tech: cardMeta[p.slug].tech,
+  image: p.images.hero,
+  imageAlt: `${p.name} shown on a laptop, tablet and phone`,
+  href: `/work/${p.slug}`,
+  linkLabel: "View project",
+  status: "shipped",
+}));
+
+/* Earlier work: text only. */
+export const earlierWork: { title: string; category: string; body: string; href?: string }[] = [
   {
     title: "VIN Wear Automations",
     category: "Shopify automation · USA",
-    body: "The automation behind a car-culture apparel store where every garment carries its own registration number. A Python service turns each paid Shopify order into a Printful draft with the numbered tag on the sleeve in about 15 seconds — live since September 2026, custom VINs in progress.",
-    tech: "Python · Shopify API · Printful",
-    image: vinwear as StaticImageData,
-    href: "https://vin-wear.com",
-    linkLabel: "Visit store",
-    status: "shipped",
+    body: "A Python service that turns each paid Shopify order into a Printful draft with the numbered tag on the sleeve, in about 15 seconds.",
   },
-  {
-    title: "Sara — AI Voice Phone Agent",
-    category: "AI voice agent · Abu Dhabi",
-    body: "A bilingual English and Gulf Arabic phone agent on live inbound calls — 19 priced services, in-call memory, and 95% quality across 255 automated tests.",
-    /* Back to three names: six wrapped to a second line in a 333px card
-       and threw the row's rhythm out. */
-    tech: "FastAPI · Groq · Deepgram",
-    /* No public site to photograph — it answers a phone line — so the
-       image is an illustration of the agent on a call, built only from
-       the facts in this card (bilingual, 19 services, memory, 95% of
-       255 tests) and labelled as one in the alt text. `plate` stays as
-       the fallback if the image is ever removed. */
-    image: sara as StaticImageData,
-    imageAlt: "Illustration of Sara, the AI voice agent, on a live bilingual call",
-    plate: "signal",
-    /* Internal route, so no target="_blank" — Work.tsx checks for a
-       leading slash. */
-    href: "/work/sara",
-    linkLabel: "Read the case study",
-    status: "shipped",
-  },
-  /* Three commerce builds — titled by what makes each distinct, since
-     "E-Commerce Platform" three times tells a visitor nothing. */
-  {
-    title: "Headless Commerce Platform",
-    category: "E-commerce platform · Django & React",
-    body: "A decoupled build — Django REST API behind a React and Redux storefront, with product management, authentication, an admin dashboard, transactional email and a payment gateway handling live orders.",
-    tech: "Django · DRF · React · Redux",
-    image: fenzacci as StaticImageData,
-    href: "https://youtu.be/3T1kOxwXhK4",
-    status: "shipped",
-  },
-  /* Duomada — duomada.co.uk. Public facts only: the shop is live, so
-     the stack and the feature set are all observable from outside.
-     Nothing about the server, its address or any credential belongs in
-     a page anyone can read. */
   {
     title: "Duomada Skylights",
     category: "E-commerce platform · UK",
-    body: "A full custom build for a UK skylight and roof lantern company — FastAPI and MySQL behind a Next.js 15 storefront, with a size and colour variant matrix, nested categories and its own admin dashboard.",
-    tech: "FastAPI · Next.js 15 · MySQL",
-    image: duomada as StaticImageData,
+    body: "A full custom build for a UK skylight and roof lantern company, with a size and colour variant matrix and its own admin dashboard.",
     href: "https://duomada.co.uk",
-    linkLabel: "Visit site",
-    status: "shipped",
+  },
+  {
+    title: "Headless Commerce Platform",
+    category: "E-commerce platform · Django and React",
+    body: "A Django REST API behind a React and Redux storefront, with product management, an admin dashboard, transactional email and a payment gateway.",
   },
   {
     title: "Multi-Filter Retail Store",
     category: "E-commerce store · Django",
-    body: "Built around dynamic filtering by colour and size, with cart, wishlist, order management, payments and email notifications behind a full admin panel — deployed and maintained on a DigitalOcean server.",
-    tech: "Django · DRF · HTML · CSS",
-    image: fenz as StaticImageData,
-    href: "https://youtu.be/31XaR1myFYI",
-    status: "shipped",
+    body: "Built around filtering by colour and size, with cart, wishlist, order management, payments and email notifications behind a full admin panel.",
   },
   {
     title: "PSD-to-Production Storefront",
     category: "E-commerce storefront · Design to code",
-    body: "A custom PSD taken to a responsive frontend in hand-written HTML and CSS at full design fidelity, then wired to a Django backend for products, cart and authentication.",
-    tech: "Django · HTML · CSS · PSD to HTML",
-    image: madleen as StaticImageData,
-    href: "https://youtu.be/sHmwNgrbGqs",
-    status: "shipped",
-  },
-  /* UKTOP Ltd — uktop.eu. Public facts only again: the site is live, so
-     the stack and the structure are visible from outside. The mail
-     credentials, the recipient address and the repo paths are not. */
-  {
-    title: "UKTOP Façade & Glazing",
-    category: "Corporate site · UK",
-    body: "A marketing and portfolio site for a London façade engineering firm — Next.js 16 with Tailwind 4, six architectural case studies and four product ranges, all driven from typed content files rather than a CMS.",
-    tech: "Next.js 16 · React 19 · Tailwind 4",
-    image: uktop as StaticImageData,
-    href: "https://www.uktop.eu",
-    linkLabel: "Visit site",
-    status: "shipped",
+    body: "A custom PSD taken to a responsive frontend in hand-written HTML and CSS, then wired to a Django backend for products, cart and authentication.",
   },
 ];
 
@@ -603,9 +550,9 @@ export const experience = [
     title: "AI Voice Systems Engineer",
     org: "Capital X Car Care · Abu Dhabi, United Arab Emirates",
     points: [
-      "Built <em>Sara</em>, a bilingual English and Gulf Arabic phone agent handling live inbound sales calls on FastAPI",
-      "Designed the conversation pipeline end to end — intent, routing, Pinecone retrieval, generation and persona control",
-      "Reached <em>95% quality across 255 automated assertions</em>, with 100% on real-conversation scenarios",
+      "Built <em>Sara</em>, a bilingual English and Gulf Arabic phone agent for inbound sales calls on FastAPI",
+      "Designed the conversation pipeline end to end — intent, routing, price lookup, generation and persona control",
+      "Backed by <em>2,428 automated engine tests</em> passing as of August 2026",
       "Deployed on Google Cloud Run with Twilio media streaming, Redis session state and streaming STT and TTS",
     ],
   },
@@ -702,14 +649,14 @@ export const about = {
     /* The hero already says "database schema to the screen"; this one
        carries the history instead — three roles, each in the experience
        list: Fenzacci (UAE), Sara (Abu Dhabi), VIN Wear (Shopify). */
-    "Full-stack engineer based in Peshawar, <em>in production since 2017</em>. I led e-commerce development for a UAE trading company, built an AI voice agent that answers live sales calls in Abu Dhabi, and automate a US Shopify store from paid order to print-ready draft. Available for freelance projects.",
+    "Full-stack engineer based in Peshawar, <em>in production since 2017</em>. I led e-commerce development for a UAE trading company, built an AI voice agent for inbound sales calls, and automate a US Shopify store from paid order to print-ready draft. Available for freelance projects.",
     "I started in 2017 through the CodeCamp bootcamp and academic work at Qurtuba University, where I took <em>first position</em> at the project exhibition. From 2019 to 2022 I freelanced remotely — <em>fifteen-plus Django and React builds</em>, Stripe and PayPal integrations, and automation that cut client operating costs by about a third.",
     "From 2022 to 2025 I led e-commerce development at <em>Fenzacci Trading L.L.C in the UAE</em> — a scalable backend with payment and inventory integrations, <em>90% faster page loads</em>, and deployments 80% quicker on CI/CD.",
     /* The story used to stop at 2025 and gesture vaguely at "more
        recently AI and voice systems" — while the Work section above it
        led with Sara and two named UK builds. A visitor reading both
        found three projects the biography never mentioned. */
-    "Since 2025 the frontier is AI and voice. <em>Sara</em>, a bilingual English and Gulf Arabic phone agent, takes live inbound calls for a client in Abu Dhabi. In the UK, a skylight manufacturer sells through my <em>FastAPI and MySQL platform behind a Next.js 15 TypeScript storefront</em>, and a London façade engineering firm runs its site on Next.js and Tailwind.",
+    "Since 2025 the frontier is AI and voice. <em>Sara</em>, a bilingual English and Gulf Arabic phone agent, quotes from a price list, remembers the call and takes bookings. In the UK, a skylight manufacturer sells through my <em>FastAPI and MySQL platform behind a Next.js 15 TypeScript storefront</em>, and a London façade engineering firm runs its site on Next.js and Tailwind.",
     "The core of my work: e-commerce, custom APIs, AI voice agents and design-to-code delivery — with a React Native (Expo) workshop-booking app in development. Remote clients in the UAE, the UK and beyond.",
   ],
   facts: [

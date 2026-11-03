@@ -33,7 +33,7 @@ export default function Blog() {
         {all.length === 0 ? (
           <p className="p2-lede">
             The first posts are on their way. Meanwhile, the{" "}
-            <Link href="/work/sara">Sara case study</Link> is the best
+            <Link href="/work/sara">Sara project page</Link> is the best
             write-up of how I work.
           </p>
         ) : (

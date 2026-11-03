@@ -20,7 +20,7 @@ export default function P2Resume() {
       <PageIntro
         eyebrow="Resume"
         title={`Since 2017: ${WORDS[experience.length] ?? experience.length} roles, one straight line`}
-        lede="From a Peshawar bootcamp to AI voice systems in production — available for freelance projects."
+        lede="From a Peshawar bootcamp to AI voice systems — available for freelance projects."
         cta={{
           label: "Download resume (PDF)",
           href: "/Muhammad-Sajjad-Resume.pdf",

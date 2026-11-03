@@ -22,7 +22,10 @@ const outFile = path.join(root, "public/Muhammad-Sajjad-Resume.pdf");
    the imports are replaced with empty stand-ins and the file is loaded
    from a temp copy (Node strips the TypeScript types itself). */
 let code = fs.readFileSync(srcFile, "utf8").replace(/\r\n/g, "\n");
-code = code.replace(/^import type .*$/gm, "").replace(/^import (\w+) from .*$/gm, "const $1 = null;");
+code = code
+  .replace(/^import type .*$/gm, "")
+  .replace(/^import \{ projectPages \} from .*$/m, "const projectPages = [];")
+  .replace(/^import (\w+) from .*$/gm, "const $1 = null;");
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "resume-"));
 const tmpData = path.join(tmp, "site-content.mts");
 fs.writeFileSync(tmpData, code);

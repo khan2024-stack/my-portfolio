@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { projects, services, skills } from "@/app/portfolio-content/site-content";
+import { earlierWork, projects, services, skills } from "@/app/portfolio-content/site-content";
 import Faq from "../_parts/Faq";
 import PageIntro from "../_parts/PageIntro";
 import SectionHead from "../_parts/SectionHead";
@@ -10,7 +10,7 @@ import WorkShowcase from "../_parts/WorkShowcase";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected projects: a Shopify order automation, an AI voice agent answering live calls, and commerce platforms built for clients in the UAE, UK and USA.",
+    "Selected projects: online stores, an AI voice agent and a business website, each with its own page.",
   alternates: { canonical: "/work" },
 };
 
@@ -25,15 +25,33 @@ export default function P2Work() {
     <>
       <PageIntro
         eyebrow="Work"
-        title="Shipped, live and still running"
-        lede={`${projects.length} projects: a Shopify automation, an AI voice agent answering live calls, and commerce platforms built for clients in the UAE, UK and USA.`}
+        title="Real builds, ready to look through"
+        lede={`${projects.length} projects: online stores, an AI voice agent and a business website. Open any one to see it on every screen.`}
         cta={{ label: "Start a project", href: "/contact" }}
       />
       <Ticker items={ticker} />
 
       <section className="p2-sec" id="work">
-        <SectionHead eyebrow="All projects" title="Newest first" />
+        <div className="p2-work-head"><SectionHead eyebrow="All projects" title="Open a project" /></div>
         <WorkShowcase items={projects} />
+      </section>
+
+      <section className="p2-sec p2-sec--tint" id="earlier">
+        <SectionHead eyebrow="Earlier work" title="Also built" />
+        <ul className="p2-earlier">
+          {earlierWork.map((w) => (
+            <li key={w.title}>
+              <h3>{w.title}</h3>
+              <p className="p2-earlier__cat">{w.category}</p>
+              <p>{w.body}</p>
+              {w.href ? (
+                <a className="p2-link" href={w.href} target="_blank" rel="noopener noreferrer">
+                  Visit site <span aria-hidden="true">&#8599;</span>
+                </a>
+              ) : null}
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="p2-sec p2-sec--tint">

@@ -1,0 +1,99 @@
+/* Project pages. Colours come from each project's selling images through
+   the --pj-* variables set on .pj, so one stylesheet serves all of them. */
+.pj {
+  --pj-gut: max(24px, calc((100vw - 1300px) / 2));
+  background: var(--pj-page);
+  color: var(--pj-ink);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+.p2 .pj h1,
+.p2 .pj h2 { font-family: var(--pj-display), 'Segoe UI', sans-serif; font-weight: 700; color: inherit; letter-spacing: -.035em; }
+.pj em { font-family: var(--pj-serif), Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+
+/* Hero */
+.pj-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px;
+  align-items: center;
+  padding: 44px var(--pj-gut) 64px;
+  background: var(--pj-hero);
+  color: var(--pj-on-hero);
+}
+.pj-back { display: inline-flex; gap: 8px; margin-bottom: 40px; color: inherit; font-weight: 600; font-size: 1rem; }
+.pj-back:hover { color: var(--pj-hero-accent); }
+.pj-label { margin: 0 0 8px; color: var(--pj-hero-accent); font-family: var(--pj-display), sans-serif; font-weight: 500; font-size: 1.25rem; }
+.p2 .pj h1 { font-size: clamp(3.5rem, 7vw, 6rem); line-height: .95; }
+.pj-line { margin: 14px 0 22px; font-family: var(--pj-serif), Georgia, serif; font-style: italic; font-size: clamp(1.875rem, 3vw, 2.625rem); line-height: 1.08; }
+.pj-sum { margin: 0 0 30px; max-width: 34em; }
+.pj-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.pj-btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 12px 26px;
+  border: 2px solid var(--pj-on-hero); background: var(--pj-on-hero); color: var(--pj-hero);
+  font-family: var(--pj-display), sans-serif; font-weight: 700; font-size: 1.0625rem;
+  transition: transform .2s;
+}
+.pj-btn:hover { transform: translate(-2px, -2px); }
+.pj-btn--ghost { background: transparent; color: var(--pj-on-hero); }
+.pj-btn--band { border-color: var(--pj-on-band); background: var(--pj-on-band); color: var(--pj-band); }
+.pj-hero__art img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.pj-notice { margin: 12px 0 0; font-size: 1rem; font-weight: 600; }
+
+/* Sections */
+.pj-sec { padding: 72px var(--pj-gut) 0; }
+.p2 .pj .pj-head { margin-bottom: 28px; font-size: clamp(2.25rem, 4vw, 3.25rem); line-height: 1; }
+.pj-head em { color: var(--pj-key); font-size: 1.1em; }
+.pj-shot { display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .45); }
+.pj-pair { display: grid; grid-template-columns: minmax(0, 900fr) minmax(0, 576fr); gap: 28px; align-items: start; margin-top: 28px; }
+
+/* Features and details */
+.pj-info { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; padding-bottom: 72px; }
+.pj-feats { list-style: none; margin: 0; padding: 0; counter-reset: pj; }
+.pj-feats li { counter-increment: pj; display: flex; gap: 20px; padding: 14px 0; border-top: 2px solid var(--pj-ink); font-family: var(--pj-display), sans-serif; font-weight: 500; font-size: 1.3125rem; line-height: 1.25; }
+.pj-feats li::before { content: counter(pj, decimal-leading-zero); flex: none; width: 2em; color: var(--pj-key); font-weight: 700; font-size: 1.0625rem; line-height: 1.55; }
+.pj-details dl { margin: 0; }
+.pj-details dl > div { padding: 16px 0; border-top: 2px solid var(--pj-ink); }
+.pj-details dt { margin-bottom: 4px; color: var(--pj-key); font-family: var(--pj-display), sans-serif; font-weight: 700; }
+.pj-details dd { margin: 0; }
+
+/* Price band */
+.pj-band {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px;
+  padding: 56px var(--pj-gut);
+  background: var(--pj-band);
+  color: var(--pj-on-band);
+}
+.pj-price { margin: 0 0 6px; font-family: var(--pj-display), sans-serif; font-weight: 700; font-size: clamp(2.25rem, 5vw, 4rem); line-height: 1; letter-spacing: -.035em; }
+.pj-price__sub { margin: 0 0 8px; font-weight: 600; font-size: 1.25rem; }
+.pj-price__small { margin: 0; max-width: 40em; font-size: 1rem; opacity: .85; }
+.pj-band__go { display: grid; gap: 14px; justify-items: start; }
+.pj-band__go p { margin: 0; font-family: var(--pj-display), sans-serif; font-weight: 500; font-size: 1.25rem; }
+
+/* Next project */
+.pj-next { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; padding: 36px var(--pj-gut); color: var(--pj-ink); font-family: var(--pj-display), sans-serif; }
+.pj-next span:first-child { font-weight: 500; font-size: 1.125rem; }
+.pj-next b { font-weight: 700; font-size: clamp(1.875rem, 4vw, 3rem); letter-spacing: -.03em; }
+.pj-next:hover b { color: var(--pj-key); }
+
+@media (max-width: 900px) {
+  .pj-hero { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-bottom: 48px; }
+  .pj-back { margin-bottom: 26px; }
+  .pj-info { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-bottom: 56px; }
+  .pj-sec { padding-top: 56px; }
+}
+@media (max-width: 680px) {
+  .pj-pair { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .pj-pair .pj-shot:last-child { max-width: 72%; margin-inline: auto; }
+  .pj-band { padding-block: 44px; }
+  .pj-next { margin-bottom: 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pj-btn { transition: none; }
+}
+
+/* The site's own paragraph colour is grey; here text follows its band. */
+.p2 .pj p,
+.p2 .pj dd,
+.p2 .pj li { color: inherit; }
+.p2 .pj .pj-label { color: var(--pj-hero-accent); }

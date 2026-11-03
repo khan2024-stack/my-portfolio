@@ -71,7 +71,7 @@ function Card({ p }: { p: Item }) {
         <div className="p2-pc__stage p2-pc__stage--shot">
           <Image
             src={p.image}
-            alt={p.imageAlt ?? `${p.title} — the live site on desktop and phone`}
+            alt={p.imageAlt ?? `${p.title} on a laptop, tablet and phone`}
             placeholder="blur"
             sizes="(max-width: 680px) 92vw, (max-width: 1000px) 46vw, 32vw"
           />

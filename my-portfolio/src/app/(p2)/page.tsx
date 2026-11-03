@@ -56,8 +56,8 @@ export default function Portfolio2() {
         <div className="p2-split p2-split--head">
           <SectionHead eyebrow="My works" title={sections.work.title} />
           <p className="p2-lede">
-            A Shopify automation, an AI voice agent taking live calls, and
-            commerce sites for clients in the UAE, UK and USA.
+            Online stores, an AI voice agent and a business website. Open any
+            project to see it on every screen.
           </p>
         </div>
         <WorkShowcase />
