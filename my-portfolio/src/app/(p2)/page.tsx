@@ -90,10 +90,7 @@ export default function Portfolio2() {
           <section>. */}
       <WhyChooseBlock />
 
-      {/* ── Pricing ──
-          No real rates exist yet, so every card reads "Custom · quoted
-          per scope" — set figures in `pricing` in site-content and they
-          take the slot. */}
+      {/* ── Pricing ── starting prices, each card leading to a conversation. */}
       <section className="p2-sec" id="pricing">
         <PricingBlock />
       </section>

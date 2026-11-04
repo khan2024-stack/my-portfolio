@@ -4,76 +4,62 @@ import SectionHead from "../SectionHead";
 import {
   contact,
   pricing,
-  services,
+  pricingSmallPrint,
 } from "@/app/portfolio-content/site-content";
 
 /* ── Pricing ──────────────────────────────────────────────────────
-   Their three 420px cards under a centred head, middle card black.
-   Differences are deliberate: no dollar figures (none exist — a null
-   price renders "Custom · quoted per scope", see `pricing` in
-   site-content) and no "BEST SELLER" tag (an unverifiable sales
-   claim); the middle card keeps the visual emphasis only. Each card
-   is one of the three real services, capabilities and all. */
+   Starting prices, not a checkout: the figure shows whether a budget
+   fits, and every card leads to a conversation. */
 export function PricingBlock() {
   return (
     <>
-      {/* Same head as Works: title left, one-line intro on the right. It
-          was the only centred head on the page. */}
       <div className="p2-split p2-split--head">
-        <SectionHead eyebrow="Pricing" title="Priced to the project, not the hour" />
+        <SectionHead eyebrow="Pricing" title="Start ready-built, or go custom" />
         <p className="p2-lede">
-          Every job is quoted against a written scope before it starts — send
-          the brief, get a number and a timeline back.
+          Tell us what you sell and we&rsquo;ll suggest the best fit, with a clear
+          scope before any work starts.
         </p>
       </div>
       <div className="p2-price-grid">
         {pricing.map((t, i) => {
-          const s = services[t.service];
+          const message = `Hi Sajjad, I found your portfolio and would like to talk about: ${t.title}.`;
           return (
             <Reveal
               as="article"
               dir="up"
               delay={i * 100}
               className={`p2-price${t.featured ? " p2-price--dark" : ""}`}
-              key={s.title}
+              key={t.title}
             >
               <div className="p2-price__in">
-                <h5>{s.title}</h5>
-                <p className="p2-price__sub">{s.sub}</p>
+                <h5>{t.title}</h5>
+                <p className="p2-price__sub">{t.sub}</p>
+                <p className="p2-price__from">{t.price ? "Starting from" : "Price"}</p>
                 <div className="p2-price__fig">
-                  {t.price ? (
-                    <>
-                      <b>{t.price}</b>
-                      <span>{t.per}</span>
-                    </>
-                  ) : (
-                    <>
-                      <b>{t.per === "/month" ? "Monthly plan" : "Fixed quote"}</b>
-                      <span>per written scope</span>
-                    </>
-                  )}
+                  <b>{t.price ?? "Let\u2019s talk"}</b>
+                  <span>{t.note}</span>
                 </div>
                 <span className="p2-price__lbl">Includes:</span>
                 <ul>
-                  {s.capabilities.slice(0, 4).map((c) => (
+                  {t.includes.map((c) => (
                     <li key={c}>{c}</li>
                   ))}
                 </ul>
               </div>
-              {/* Full-width flush bar, not an inline button inside the
-                  card's own padding — checked live: their CHOOSE strip
-                  runs edge to edge along the card's bottom border. */}
               <a
                 className="p2-price__cta"
-                href={`mailto:${contact.inbox}?subject=${encodeURIComponent(`${s.title} — project enquiry`)}`}
+                href={`https://wa.me/${contact.whatsapp.digits}?text=${encodeURIComponent(message)}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Get a quote <span aria-hidden="true">&#8599;</span>
+                Talk to us <span aria-hidden="true">&#8599;</span>
               </a>
             </Reveal>
           );
         })}
       </div>
       <SliderDots />
+      <p className="p2-price-note">{pricingSmallPrint}</p>
     </>
   );
 }

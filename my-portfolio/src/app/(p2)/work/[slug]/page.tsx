@@ -78,9 +78,11 @@ export default async function ProjectPage({ params }: Props) {
           <p className="pj-line">{p.line}</p>
           <p className="pj-sum">{p.summary}</p>
           <div className="pj-actions">
-            <a className="pj-btn" href={whatsapp} target="_blank" rel="noopener noreferrer">
-              Talk to us <span aria-hidden="true">&#8599;</span>
-            </a>
+            {p.price ? (
+              <a className="pj-btn" href={whatsapp} target="_blank" rel="noopener noreferrer">
+                Talk to us <span aria-hidden="true">&#8599;</span>
+              </a>
+            ) : null}
             {p.site ? (
               <a className="pj-btn pj-btn--ghost" href={p.site.href} target="_blank" rel="noopener noreferrer">
                 {p.site.label} <span aria-hidden="true">&#8599;</span>
@@ -155,19 +157,28 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="pj-band">
-        <div>
-          <p className="pj-price">{p.price.headline}</p>
-          {p.price.sub ? <p className="pj-price__sub">{p.price.sub}</p> : null}
-          {p.price.small ? <p className="pj-price__small">{p.price.small}</p> : null}
-        </div>
-        <div className="pj-band__go">
-          <p>{p.cta}</p>
-          <Link className="pj-btn pj-btn--band" href="/contact">
-            Start a project <span aria-hidden="true">&#8599;</span>
-          </Link>
-        </div>
-      </section>
+      {p.price ? (
+        <section className="pj-band">
+          <div>
+            <p className="pj-price">{p.price.headline}</p>
+            {p.price.sub ? <p className="pj-price__sub">{p.price.sub}</p> : null}
+            {p.price.small ? <p className="pj-price__small">{p.price.small}</p> : null}
+          </div>
+          <div className="pj-band__go">
+            <p>{p.cta}</p>
+            <a className="pj-btn pj-btn--band" href={whatsapp} target="_blank" rel="noopener noreferrer">
+              Chat on WhatsApp <span aria-hidden="true">&#8599;</span>
+            </a>
+          </div>
+        </section>
+      ) : p.status ? (
+        <section className="pj-band">
+          <div>
+            <p className="pj-price">{p.status.headline}</p>
+            <p className="pj-price__sub">{p.status.sub}</p>
+          </div>
+        </section>
+      ) : null}
 
       <Link className="pj-next" href={`/work/${next.slug}`}>
         <span>Next project</span>

@@ -398,29 +398,61 @@ export const services = [
 ];
 
 /* ── Pricing ──────────────────────────────────────────────────────
-   One tier per service above — `service` indexes into `services`, so
-   the card's name and capability list always match the real offering.
-
-   ⚠ `price` IS NULL ON PURPOSE. No real rates have been set, and the
-   pricing section never shows an invented number: a null renders as
-   "Custom · quoted per scope". Put a real figure in as a string
-   ("$1,200") and it takes the slot; `per` only shows alongside a real
-   price. `featured` is visual emphasis only — the reference's "BEST
-   SELLER" tag is a sales claim we cannot verify, so it is not
-   reproduced. */
+   Starting prices, so a visitor can tell if the budget fits, then a
+   conversation. `price: null` means no figure is published. */
 export type PriceTier = {
-  service: number;
+  title: string;
+  sub: string;
   price: string | null;
-  per: string;
+  note: string;
+  includes: string[];
   featured?: boolean;
 };
 
 export const pricing: PriceTier[] = [
-  { service: 0, price: null, per: "/project" },
-  { service: 1, price: null, per: "/project", featured: true },
-  { service: 2, price: null, per: "/project" },
-  { service: 3, price: null, per: "/month" },
+  {
+    title: "E-commerce Store",
+    sub: "Ready-built, launched with your brand",
+    price: "$12,000",
+    note: "One-time payment",
+    includes: [
+      "Live search and filters",
+      "Cart and checkout",
+      "Full admin panel",
+      "Your branding and products added",
+      "3 months of free support",
+    ],
+  },
+  {
+    title: "AI Voice Agent",
+    sub: "Answers your phone calls",
+    price: "$20,000",
+    note: "One-time payment",
+    includes: [
+      "English and Gulf Arabic",
+      "Quotes prices from your own list",
+      "Remembers the call",
+      "Takes bookings",
+      "3 months of free support",
+    ],
+    featured: true,
+  },
+  {
+    title: "Custom Work",
+    sub: "When ready-built is not the right fit",
+    price: null,
+    note: "Quoted per written scope",
+    includes: [
+      "Web platforms and business websites",
+      "AI and automation projects",
+      "Remote work with your team",
+      "Ongoing management and support",
+    ],
+  },
 ];
+
+export const pricingSmallPrint =
+  "Hosting, gateway and usage fees go to those providers. With the voice agent, you pay your own running costs directly: phone line and minutes, speech, AI model and hosting.";
 
 /* ── Projects ─────────────────────────────────────────────────────
    `status: "pending"` renders the card dimmed with a hatched image
@@ -451,7 +483,7 @@ type Project = {
    so a card and its page cannot disagree. */
 const cardMeta: Record<string, { category: string; tech: string }> = {
   zushap: { category: "Online store · Our own build", tech: "Medusa · Next.js" },
-  vinwear: { category: "Online store · USA", tech: "Medusa · Next.js" },
+  vinwear: { category: "Site in progress · US client", tech: "Medusa · Next.js" },
   sara: { category: "AI voice agent · English and Gulf Arabic", tech: "FastAPI · Gemini · Deepgram" },
   madleen: { category: "Online fashion store", tech: "Medusa · Next.js" },
   uktop: { category: "Business website · UK", tech: "Next.js 16" },

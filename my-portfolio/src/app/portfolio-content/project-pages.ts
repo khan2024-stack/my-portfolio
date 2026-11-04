@@ -36,11 +36,13 @@ export type ProjectPage = {
   summary: string;
   features: string[];
   details: { label: string; value: string }[];
-  price: { headline: string; sub?: string; small?: string };
+  /* Left out for client work in progress: no price and no sales call to action. */
+  price?: { headline: string; sub?: string; small?: string };
+  status?: { headline: string; sub: string };
   /* Shown beside the images when they could be misread. */
   notice?: string;
   site?: { label: string; href: string };
-  cta: string;
+  cta?: string;
   images: {
     hero: StaticImageData;
     wide: StaticImageData;
@@ -63,7 +65,7 @@ export type ProjectPage = {
 const STORE_INCLUDED =
   "We add your branding and products, connect your payment gateway, and launch.";
 const STORE_PRICE = {
-  headline: "Ready-built store from $12,000",
+  headline: "Talk to us",
   sub: "One-time payment. 3 months of free support from our team.",
   small: "Hosting, gateway and usage fees go to those providers.",
 };
@@ -107,8 +109,8 @@ export const projectPages: ProjectPage[] = [
   {
     slug: "vinwear",
     name: "VIN Wear",
-    label: "Store we worked on",
-    line: "Your product has a story. This store tells it.",
+    label: "In progress for a US client",
+    line: "A car-culture store, still being built.",
     summary:
       "A car-culture clothing store that shows how far a store can carry one idea, with a registration card and a write-your-own VIN box on the product page.",
     features: [
@@ -121,11 +123,10 @@ export const projectPages: ProjectPage[] = [
       "Checkout with validation and delivery choice",
     ],
     details: [
-      { label: "What's included", value: STORE_INCLUDED },
+      { label: "In this build", value: "Product pages, live search, filters, cart and checkout." },
       { label: "Tech", value: "Medusa backend. Next.js storefront. Postgres." },
     ],
-    price: STORE_PRICE,
-    cta: STORE_CTA,
+    status: { headline: "Site in progress", sub: "Being built for a client in the US." },
     images: { hero: vinwear, wide: vinwearWide, feed: vinwearFeed, story: vinwearStory },
     colors: {
       hero: "#12161f",
@@ -159,8 +160,8 @@ export const projectPages: ProjectPage[] = [
       { label: "Tech", value: "Next.js console. Twilio, Deepgram, Cartesia, Hamsa, Gemini, Google Cloud Run." },
     ],
     price: {
-      headline: "$20,000 one-time",
-      sub: "3 months of free support from our team.",
+      headline: "Talk to us",
+      sub: "One-time payment. 3 months of free support from our team.",
       small: "You pay your own running costs directly: phone line and minutes, speech, AI model and hosting.",
     },
     notice: "Real interface, not a real call.",

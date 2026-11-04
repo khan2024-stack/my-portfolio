@@ -2906,3 +2906,13 @@ main:focus { outline: none; }
 .p2-earlier .p2-link { display: inline-block; margin-top: 10px; }
 .p2-work-head { margin-bottom: 28px; }
 @media (max-width: 900px) { .p2-earlier { grid-template-columns: minmax(0, 1fr); } }
+
+/* Pricing: a starting figure above the number, small print below the grid. */
+.p2 .p2-price__from { margin: 28px 0 -18px; font-size: .9375rem; font-weight: 600; color: var(--p2-ink); }
+.p2 .p2-price--dark .p2-price__from { color: var(--p2-white); }
+.p2-price-note { margin: 24px 0 0; max-width: 62em; font-size: .9375rem; color: var(--p2-muted); }
+@media (min-width: 1001px) {
+  .p2 .p2-price-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .p2 .p2-price__sub { min-height: 3.4em; }
+}
+.p2 .p2-price:not(.p2-price--dark) .p2-price__fig b { color: var(--p2-ink); }
