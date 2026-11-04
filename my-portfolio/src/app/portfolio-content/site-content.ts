@@ -486,6 +486,7 @@ const cardMeta: Record<string, { category: string; tech: string }> = {
   vinwear: { category: "Site in progress · US client", tech: "Medusa · Next.js" },
   sara: { category: "AI voice agent · English and Gulf Arabic", tech: "FastAPI · Gemini · Deepgram" },
   madleen: { category: "Online fashion store", tech: "Medusa · Next.js" },
+  fenzacci: { category: "Custom fashion store · UAE", tech: "Django · React" },
   uktop: { category: "Business website · UK", tech: "Next.js 16" },
 };
 
@@ -495,7 +496,7 @@ export const projects: Project[] = projectPages.map((p) => ({
   body: p.summary,
   tech: cardMeta[p.slug].tech,
   image: p.images.hero,
-  imageAlt: `${p.name} shown on a laptop, tablet and phone`,
+  imageAlt: p.heroAlt ?? `${p.name} shown on a laptop, tablet and phone`,
   href: `/work/${p.slug}`,
   linkLabel: "View project",
   status: "shipped",
@@ -513,11 +514,6 @@ export const earlierWork: { title: string; category: string; body: string; href?
     category: "E-commerce platform · UK",
     body: "A full custom build for a UK skylight and roof lantern company, with a size and colour variant matrix and its own admin dashboard.",
     href: "https://duomada.co.uk",
-  },
-  {
-    title: "Headless Commerce Platform",
-    category: "E-commerce platform · Django and React",
-    body: "A Django REST API behind a React and Redux storefront, with product management, an admin dashboard, transactional email and a payment gateway.",
   },
   {
     title: "Multi-Filter Retail Store",

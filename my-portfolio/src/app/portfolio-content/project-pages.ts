@@ -16,6 +16,8 @@ import vinwearWide from "@/assets/builds/vinwear-wide.jpg";
 import vinwearFeed from "@/assets/builds/vinwear-feed.jpg";
 import vinwearStory from "@/assets/builds/vinwear-story.jpg";
 import sara from "@/assets/builds/sara.jpg";
+import saraAdminLaptop from "@/assets/builds/sara-admin-laptop.jpg";
+import saraAdminWide from "@/assets/builds/sara-admin-wide.jpg";
 import saraWide from "@/assets/builds/sara-wide.jpg";
 import saraFeed from "@/assets/builds/sara-feed.jpg";
 import saraStory from "@/assets/builds/sara-story.jpg";
@@ -23,10 +25,36 @@ import madleen from "@/assets/builds/madleen.jpg";
 import madleenWide from "@/assets/builds/madleen-wide.jpg";
 import madleenFeed from "@/assets/builds/madleen-feed.jpg";
 import madleenStory from "@/assets/builds/madleen-story.jpg";
+import fenzacci from "@/assets/builds/fenzacci.jpg";
+import fenzacciTablet from "@/assets/builds/fenzacci-tablet.jpg";
+import fenzacciFeed from "@/assets/builds/fenzacci-feed.jpg";
+import fenzacciPhones from "@/assets/builds/fenzacci-phones.jpg";
 import uktop from "@/assets/builds/uktop.jpg";
 import uktopWide from "@/assets/builds/uktop-wide.jpg";
 import uktopFeed from "@/assets/builds/uktop-feed.jpg";
 import uktopStory from "@/assets/builds/uktop-story.jpg";
+
+import zushapFlowOverview from "@/assets/builds/flow/zushap-overview.jpg";
+import zushapFlow1 from "@/assets/builds/flow/zushap-step1.jpg";
+import zushapFlow2 from "@/assets/builds/flow/zushap-step2.jpg";
+import zushapFlow3 from "@/assets/builds/flow/zushap-step3.jpg";
+import zushapFlow4 from "@/assets/builds/flow/zushap-step4.jpg";
+import zushapFlow5 from "@/assets/builds/flow/zushap-step5.jpg";
+import zushapFlow6 from "@/assets/builds/flow/zushap-step6.jpg";
+import vinwearFlowOverview from "@/assets/builds/flow/vinwear-overview.jpg";
+import vinwearFlow1 from "@/assets/builds/flow/vinwear-step1.jpg";
+import vinwearFlow2 from "@/assets/builds/flow/vinwear-step2.jpg";
+import vinwearFlow3 from "@/assets/builds/flow/vinwear-step3.jpg";
+import vinwearFlow4 from "@/assets/builds/flow/vinwear-step4.jpg";
+import vinwearFlow5 from "@/assets/builds/flow/vinwear-step5.jpg";
+import vinwearFlow6 from "@/assets/builds/flow/vinwear-step6.jpg";
+import madleenFlowOverview from "@/assets/builds/flow/madleen-overview.jpg";
+import madleenFlow1 from "@/assets/builds/flow/madleen-step1.jpg";
+import madleenFlow2 from "@/assets/builds/flow/madleen-step2.jpg";
+import madleenFlow3 from "@/assets/builds/flow/madleen-step3.jpg";
+import madleenFlow4 from "@/assets/builds/flow/madleen-step4.jpg";
+import madleenFlow5 from "@/assets/builds/flow/madleen-step5.jpg";
+import madleenFlow6 from "@/assets/builds/flow/madleen-step6.jpg";
 
 export type ProjectPage = {
   slug: string;
@@ -43,12 +71,21 @@ export type ProjectPage = {
   notice?: string;
   site?: { label: string; href: string };
   cta?: string;
+  /* Set when the hero does not show a laptop, tablet and phone. */
+  heroAlt?: string;
+  /* Set when the wide image is not a selling image. */
+  wideAlt?: string;
   images: {
     hero: StaticImageData;
-    wide: StaticImageData;
+    /* Left out when a project has no wide selling image. */
+    wide?: StaticImageData;
     feed: StaticImageData;
     story: StaticImageData;
   };
+  /* Admin section. These images carry their own sample data label. */
+  admin?: { lead: string; laptop: StaticImageData; wide: StaticImageData };
+  /* Purchase flow on angled phones. Flat screens are never published. */
+  flow?: { overview: StaticImageData; steps: StaticImageData[]; reel: string; poster: string };
   /* Each project keeps the colours of its own selling images. */
   colors: {
     hero: string;
@@ -95,6 +132,7 @@ export const projectPages: ProjectPage[] = [
     price: STORE_PRICE,
     cta: STORE_CTA,
     images: { hero: zushap, wide: zushapWide, feed: zushapFeed, story: zushapStory },
+    flow: { overview: zushapFlowOverview, steps: [zushapFlow1, zushapFlow2, zushapFlow3, zushapFlow4, zushapFlow5, zushapFlow6], reel: "/flow/zushap-flow.mp4", poster: "/flow/zushap-flow.jpg" },
     colors: {
       hero: "#5b1320",
       onHero: "#f6ecdf",
@@ -112,22 +150,26 @@ export const projectPages: ProjectPage[] = [
     label: "In progress for a US client",
     line: "A car-culture store, still being built.",
     summary:
-      "A car-culture clothing store that shows how far a store can carry one idea, with a registration card and a write-your-own VIN box on the product page.",
+      "A car-culture clothing store that shows how far a store can carry one idea, with a registration card and a write-your-own VIN box on the product page, and layouts for desktop, tablet and phone.",
     features: [
       "Live search suggestions as you type",
       "Category pages with a filter panel",
-      "Colour, garment and size pickers",
+      "Colour, garment and size pickers, with size advice",
       "Certificate of Registration card on the product page",
       "Write-your-own VIN box",
+      "Pinned Add to cart bar with the full price",
       "Add to cart with mini-cart",
       "Checkout with validation and delivery choice",
+      "Order success page after checkout",
+      "Layouts for desktop, tablet and phone",
     ],
     details: [
-      { label: "In this build", value: "Product pages, live search, filters, cart and checkout." },
+      { label: "In this build", value: "Product pages, live search, filters, cart, checkout and order success page." },
       { label: "Tech", value: "Medusa backend. Next.js storefront. Postgres." },
     ],
     status: { headline: "Site in progress", sub: "Being built for a client in the US." },
     images: { hero: vinwear, wide: vinwearWide, feed: vinwearFeed, story: vinwearStory },
+    flow: { overview: vinwearFlowOverview, steps: [vinwearFlow1, vinwearFlow2, vinwearFlow3, vinwearFlow4, vinwearFlow5, vinwearFlow6], reel: "/flow/vinwear-flow.mp4", poster: "/flow/vinwear-flow.jpg" },
     colors: {
       hero: "#12161f",
       onHero: "#eef0f5",
@@ -154,6 +196,7 @@ export const projectPages: ProjectPage[] = [
       "Takes bookings",
       "Takes a message for a manager callback",
       "Daily summary for the owner",
+      "Admin console with analytics, call logs and bookings",
     ],
     details: [
       { label: "What's included", value: "Built system, your brand, launch, 3 months of free support." },
@@ -164,9 +207,15 @@ export const projectPages: ProjectPage[] = [
       sub: "One-time payment. 3 months of free support from our team.",
       small: "You pay your own running costs directly: phone line and minutes, speech, AI model and hosting.",
     },
-    notice: "Real interface, not a real call.",
+    notice: "Admin: real interface, sample data. Call screens: real interface, not a real call.",
+    heroAlt: "Sara admin console shown on a laptop, tablet and phone, with sample data",
     cta: STORE_CTA,
     images: { hero: sara, wide: saraWide, feed: saraFeed, story: saraStory },
+    admin: {
+      lead: "Analytics, call logs, bookings and contacts, all in one console. Real admin interface, sample data.",
+      laptop: saraAdminLaptop,
+      wide: saraAdminWide,
+    },
     colors: {
       hero: "#0b0d12",
       onHero: "#e9eef5",
@@ -184,7 +233,7 @@ export const projectPages: ProjectPage[] = [
     label: "Online fashion store",
     line: "We spent years. You launch in days.",
     summary:
-      "An online fashion store for dresses, abayas, bags and shoes, set up for shoppers who pay cash on delivery.",
+      "An online fashion store for dresses, abayas, bags and shoes, set up for shoppers who pay cash on delivery, from the first search to the order placed.",
     features: [
       "Live search suggestions while typing",
       "Filters by size and offers",
@@ -192,7 +241,9 @@ export const projectPages: ProjectPage[] = [
       "Product gallery, size choice and stock status",
       "Add to cart with sliding mini-cart",
       "Cart page with savings shown",
-      "Checkout with cash on delivery",
+      "Checkout with delivery choice and cash on delivery",
+      "Order success page after checkout",
+      "Phone layout from product page to order placed",
     ],
     details: [
       { label: "What's included", value: STORE_INCLUDED },
@@ -201,6 +252,7 @@ export const projectPages: ProjectPage[] = [
     price: STORE_PRICE,
     cta: STORE_CTA,
     images: { hero: madleen, wide: madleenWide, feed: madleenFeed, story: madleenStory },
+    flow: { overview: madleenFlowOverview, steps: [madleenFlow1, madleenFlow2, madleenFlow3, madleenFlow4, madleenFlow5, madleenFlow6], reel: "/flow/madleen-flow.mp4", poster: "/flow/madleen-flow.jpg" },
     colors: {
       hero: "#ffe600",
       onHero: "#14140f",
@@ -210,6 +262,43 @@ export const projectPages: ProjectPage[] = [
       key: "#1d2b9e",
       band: "#14140f",
       onBand: "#ffe600",
+    },
+  },
+  {
+    slug: "fenzacci",
+    name: "Fenzacci",
+    label: "Custom fashion store, UAE",
+    line: "Built around the product.",
+    summary:
+      "A custom online fashion store for the UAE, with a React and Redux storefront on a Django REST API, built so the product photos do the work.",
+    features: [
+      "Live search suggestions while typing",
+      "Category and sub-category listings",
+      "Product gallery, sizes and colour swatches",
+      "Add to cart with cart count",
+      "Cart with quantity and totals",
+      "Layout made for phones",
+      "Django admin for products",
+    ],
+    details: [
+      { label: "My role", value: "E-Commerce Development Lead, 2022 to 2025." },
+      { label: "In this build", value: "Storefront, live search, cart and product admin." },
+      { label: "Tech", value: "Django REST API. React and Redux storefront. MySQL." },
+    ],
+    price: { headline: "Custom online stores.", sub: "Tell us what you need." },
+    cta: "Tell us what you need.",
+    heroAlt: "Fenzacci shown on a laptop, tablet and phone",
+    wideAlt: "Fenzacci home page on a tablet",
+    images: { hero: fenzacci, wide: fenzacciTablet, feed: fenzacciFeed, story: fenzacciPhones },
+    colors: {
+      hero: "#0f3f35",
+      onHero: "#f3eee3",
+      heroAccent: "#d9b45b",
+      page: "#f3eee3",
+      ink: "#12241f",
+      key: "#0f5a48",
+      band: "#0f3f35",
+      onBand: "#f3eee3",
     },
   },
   {

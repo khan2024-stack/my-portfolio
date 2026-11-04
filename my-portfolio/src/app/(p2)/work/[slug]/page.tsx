@@ -93,7 +93,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="pj-hero__art">
           <Image
             src={p.images.hero}
-            alt={`${p.name} shown on a laptop, tablet and phone`}
+            alt={p.heroAlt ?? `${p.name} shown on a laptop, tablet and phone`}
             placeholder="blur"
             priority
             sizes="(max-width: 900px) 100vw, 60vw"
@@ -106,14 +106,16 @@ export default async function ProjectPage({ params }: Props) {
         <h2 className="pj-head">
           At a <em>glance</em>
         </h2>
-        <Image
-          className="pj-shot"
-          src={p.images.wide}
-          alt={`${p.name} selling image: features, what's included and price`}
-          placeholder="blur"
-          sizes="(max-width: 1300px) 100vw, 1240px"
-        />
-        <div className="pj-pair">
+        {p.images.wide ? (
+          <Image
+            className="pj-shot"
+            src={p.images.wide}
+            alt={p.wideAlt ?? `${p.name} selling image: features and what's included`}
+            placeholder="blur"
+            sizes="(max-width: 1300px) 100vw, 1240px"
+          />
+        ) : null}
+        <div className={p.images.feed.height === p.images.story.height ? "pj-pair pj-pair--even" : "pj-pair"}>
           <Image
             className="pj-shot"
             src={p.images.feed}
@@ -130,6 +132,69 @@ export default async function ProjectPage({ params }: Props) {
           />
         </div>
       </section>
+
+      {p.admin ? (
+        <section className="pj-sec">
+          <h2 className="pj-head">
+            The <em>admin</em>
+          </h2>
+          <p className="pj-flow__lead">{p.admin.lead}</p>
+          <Image
+            className="pj-shot"
+            src={p.admin.laptop}
+            alt={`${p.name} admin analytics on a laptop, with sample data`}
+            placeholder="blur"
+            sizes="(max-width: 1300px) 100vw, 1240px"
+          />
+          <Image
+            className="pj-shot pj-admin__wide"
+            src={p.admin.wide}
+            alt={`${p.name} admin features, with sample data`}
+            placeholder="blur"
+            sizes="(max-width: 1300px) 100vw, 1240px"
+          />
+        </section>
+      ) : null}
+
+      {p.flow ? (
+        <section className="pj-sec">
+          <h2 className="pj-head">
+            The purchase <em>flow</em>
+          </h2>
+          <p className="pj-flow__lead">From product to order placed, every step on a phone.</p>
+          <Image
+            className="pj-shot pj-flow__overview"
+            src={p.flow.overview}
+            alt={`${p.name} purchase flow: add to cart, mini-cart, cart, checkout, delivery and payment, order success`}
+            placeholder="blur"
+            sizes="(max-width: 1300px) 100vw, 1240px"
+          />
+          <div className="pj-flow">
+            <video
+              className="pj-flow__reel"
+              src={p.flow.reel}
+              controls
+              muted
+              playsInline
+              preload="none"
+              poster={p.flow.poster}
+              aria-label={`${p.name} purchase flow video on a phone`}
+            />
+            <div className="pj-flow__steps">
+              {p.flow.steps.map((s, i) => (
+                <Image
+                  className="pj-shot"
+                  key={s.src}
+                  src={s}
+                  alt={`${p.name} purchase flow, step ${i + 1} of ${p.flow!.steps.length}`}
+                  placeholder="blur"
+                  sizes="(max-width: 680px) 80vw, (max-width: 1000px) 33vw, 22vw"
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="pj-sec pj-info">
         <div>

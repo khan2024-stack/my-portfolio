@@ -46,6 +46,9 @@
 .pj-head em { color: var(--pj-key); font-size: 1.1em; }
 .pj-shot { display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .45); }
 .pj-pair { display: grid; grid-template-columns: minmax(0, 900fr) minmax(0, 576fr); gap: 28px; align-items: start; margin-top: 28px; }
+/* Two images of the same shape, side by side. */
+.pj-pair--even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pj-admin__wide { margin-top: 28px; }
 
 /* Features and details */
 .pj-info { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; padding-bottom: 72px; }
@@ -85,6 +88,8 @@
 @media (max-width: 680px) {
   .pj-pair { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .pj-pair .pj-shot:last-child { max-width: 72%; margin-inline: auto; }
+  .pj-pair--even { grid-template-columns: minmax(0, 1fr); }
+  .pj-pair--even .pj-shot:last-child { max-width: none; }
   .pj-band { padding-block: 44px; }
   .pj-next { margin-bottom: 64px; }
 }
@@ -97,3 +102,24 @@
 .p2 .pj dd,
 .p2 .pj li { color: inherit; }
 .p2 .pj .pj-label { color: var(--pj-hero-accent); }
+
+/* Purchase flow */
+.p2 .pj .pj-flow__lead { margin: -14px 0 24px; font-size: 1.25rem; }
+.pj-flow { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 28px; align-items: start; margin-top: 28px; }
+.pj-flow__reel { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 6px; background: var(--pj-hero); object-fit: cover; }
+.pj-flow__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) {
+  .pj-flow { grid-template-columns: minmax(0, 1fr); }
+  .pj-flow__reel { max-width: 340px; margin-inline: auto; }
+}
+@media (max-width: 680px) {
+  /* Too small to read on a phone: the steps below say the same thing. */
+  .pj-flow__overview { display: none; }
+  .pj-flow { margin-top: 0; }
+  /* Swipe through the steps at a readable size. */
+  .pj-flow__steps {
+    display: flex; gap: 12px; margin-inline: calc(var(--pj-gut) * -1); padding: 0 var(--pj-gut) 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pj-gut);
+  }
+  .pj-flow__steps .pj-shot { flex: 0 0 80%; width: 80%; scroll-snap-align: start; }
+}
