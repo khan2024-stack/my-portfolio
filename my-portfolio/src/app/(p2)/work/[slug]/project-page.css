@@ -49,6 +49,10 @@
 /* Two images of the same shape, side by side. */
 .pj-pair--even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .pj-admin__wide { margin-top: 28px; }
+/* Laptop full width, then tablet and phones at matching heights. Two images sit side by side. */
+.pj-screens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start; }
+.pj-screens--three { grid-template-columns: minmax(0, 1778fr) minmax(0, 800fr); }
+.pj-screens--three .pj-shot:first-child { grid-column: 1 / -1; }
 
 /* Features and details */
 .pj-info { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; padding-bottom: 72px; }
@@ -89,6 +93,7 @@
   .pj-pair { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .pj-pair .pj-shot:last-child { max-width: 72%; margin-inline: auto; }
   .pj-pair--even { grid-template-columns: minmax(0, 1fr); }
+  .pj-screens, .pj-screens--three { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .pj-pair--even .pj-shot:last-child { max-width: none; }
   .pj-band { padding-block: 44px; }
   .pj-next { margin-bottom: 64px; }

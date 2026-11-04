@@ -102,6 +102,26 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </header>
 
+      {p.screens ? (
+        <section className="pj-sec">
+          <h2 className="pj-head">
+            On every <em>screen</em>
+          </h2>
+          <div className={p.screens.length === 3 ? "pj-screens pj-screens--three" : "pj-screens"}>
+            {p.screens.map((s, i) => (
+              <Image
+                className="pj-shot"
+                key={s.src}
+                src={s}
+                alt={`${p.name} on ${["a laptop", "a tablet", "two phones"][i]}`}
+                placeholder="blur"
+                sizes="(max-width: 760px) 100vw, (max-width: 1300px) 80vw, 1240px"
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       <section className="pj-sec">
         <h2 className="pj-head">
           At a <em>glance</em>

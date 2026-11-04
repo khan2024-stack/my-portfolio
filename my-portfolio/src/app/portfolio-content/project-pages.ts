@@ -26,13 +26,24 @@ import madleenWide from "@/assets/builds/madleen-wide.jpg";
 import madleenFeed from "@/assets/builds/madleen-feed.jpg";
 import madleenStory from "@/assets/builds/madleen-story.jpg";
 import fenzacci from "@/assets/builds/fenzacci.jpg";
-import fenzacciTablet from "@/assets/builds/fenzacci-tablet.jpg";
 import fenzacciFeed from "@/assets/builds/fenzacci-feed.jpg";
 import fenzacciPhones from "@/assets/builds/fenzacci-phones.jpg";
 import uktop from "@/assets/builds/uktop.jpg";
 import uktopWide from "@/assets/builds/uktop-wide.jpg";
 import uktopFeed from "@/assets/builds/uktop-feed.jpg";
 import uktopStory from "@/assets/builds/uktop-story.jpg";
+
+import zushapMLaptop from "@/assets/builds/zushap-m-laptop.jpg";
+import zushapMTablet from "@/assets/builds/zushap-m-tablet.jpg";
+import zushapMPhone from "@/assets/builds/zushap-m-phone.jpg";
+import vinwearMLaptop from "@/assets/builds/vinwear-m-laptop.jpg";
+import vinwearMTablet from "@/assets/builds/vinwear-m-tablet.jpg";
+import vinwearMPhone from "@/assets/builds/vinwear-m-phone.jpg";
+import madleenMLaptop from "@/assets/builds/madleen-m-laptop.jpg";
+import madleenMTablet from "@/assets/builds/madleen-m-tablet.jpg";
+import madleenMPhone from "@/assets/builds/madleen-m-phone.jpg";
+import fenzacciMLaptop from "@/assets/builds/fenzacci-m-laptop.jpg";
+import fenzacciMTablet from "@/assets/builds/fenzacci-m-tablet.jpg";
 
 import zushapFlowOverview from "@/assets/builds/flow/zushap-overview.jpg";
 import zushapFlow1 from "@/assets/builds/flow/zushap-step1.jpg";
@@ -82,6 +93,8 @@ export type ProjectPage = {
     feed: StaticImageData;
     story: StaticImageData;
   };
+  /* Mockups for the "On every screen" section: laptop first. */
+  screens?: StaticImageData[];
   /* Admin section. These images carry their own sample data label. */
   admin?: { lead: string; laptop: StaticImageData; wide: StaticImageData };
   /* Purchase flow on angled phones. Flat screens are never published. */
@@ -132,6 +145,7 @@ export const projectPages: ProjectPage[] = [
     price: STORE_PRICE,
     cta: STORE_CTA,
     images: { hero: zushap, wide: zushapWide, feed: zushapFeed, story: zushapStory },
+    screens: [zushapMLaptop, zushapMTablet, zushapMPhone],
     flow: { overview: zushapFlowOverview, steps: [zushapFlow1, zushapFlow2, zushapFlow3, zushapFlow4, zushapFlow5, zushapFlow6], reel: "/flow/zushap-flow.mp4", poster: "/flow/zushap-flow.jpg" },
     colors: {
       hero: "#5b1320",
@@ -169,6 +183,7 @@ export const projectPages: ProjectPage[] = [
     ],
     status: { headline: "Site in progress", sub: "Being built for a client in the US." },
     images: { hero: vinwear, wide: vinwearWide, feed: vinwearFeed, story: vinwearStory },
+    screens: [vinwearMLaptop, vinwearMTablet, vinwearMPhone],
     flow: { overview: vinwearFlowOverview, steps: [vinwearFlow1, vinwearFlow2, vinwearFlow3, vinwearFlow4, vinwearFlow5, vinwearFlow6], reel: "/flow/vinwear-flow.mp4", poster: "/flow/vinwear-flow.jpg" },
     colors: {
       hero: "#12161f",
@@ -252,6 +267,7 @@ export const projectPages: ProjectPage[] = [
     price: STORE_PRICE,
     cta: STORE_CTA,
     images: { hero: madleen, wide: madleenWide, feed: madleenFeed, story: madleenStory },
+    screens: [madleenMLaptop, madleenMTablet, madleenMPhone],
     flow: { overview: madleenFlowOverview, steps: [madleenFlow1, madleenFlow2, madleenFlow3, madleenFlow4, madleenFlow5, madleenFlow6], reel: "/flow/madleen-flow.mp4", poster: "/flow/madleen-flow.jpg" },
     colors: {
       hero: "#ffe600",
@@ -288,8 +304,8 @@ export const projectPages: ProjectPage[] = [
     price: { headline: "Custom online stores.", sub: "Tell us what you need." },
     cta: "Tell us what you need.",
     heroAlt: "Fenzacci shown on a laptop, tablet and phone",
-    wideAlt: "Fenzacci home page on a tablet",
-    images: { hero: fenzacci, wide: fenzacciTablet, feed: fenzacciFeed, story: fenzacciPhones },
+    images: { hero: fenzacci, feed: fenzacciFeed, story: fenzacciPhones },
+    screens: [fenzacciMLaptop, fenzacciMTablet],
     colors: {
       hero: "#0f3f35",
       onHero: "#f3eee3",
