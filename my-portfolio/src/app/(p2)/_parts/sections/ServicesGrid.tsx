@@ -32,11 +32,23 @@ export function ServicesGrid({ detail = false }: { detail?: boolean } = {}) {
           className="p2-svc"
           key={s.title}
         >
-          <span className="p2-svc__art" aria-hidden="true">
-            <ServiceIcon title={s.title} />
-          </span>
+          {detail ? (
+            <span className="p2-svc__art" aria-hidden="true">
+              <ServiceIcon title={s.title} />
+            </span>
+          ) : null}
           <div className="p2-svc__body">
-            <h3>{s.title}</h3>
+            {detail ? (
+              <h3>{s.title}</h3>
+            ) : (
+              /* Home preview: the icon sits in the title row. */
+              <div className="p2-svc__head">
+                <span className="p2-svc__art" aria-hidden="true">
+                  <ServiceIcon title={s.title} />
+                </span>
+                <h3>{s.title}</h3>
+              </div>
+            )}
             <p>{s.body}</p>
             {detail ? (
               <ul>
