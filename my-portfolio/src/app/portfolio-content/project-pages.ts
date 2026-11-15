@@ -126,9 +126,9 @@ export const projectPages: ProjectPage[] = [
     slug: "zushap",
     name: "ZuShap",
     label: "ZuShap, our own store build",
-    line: "Already built. Your brand.",
+    line: "Your own online store, ready in days.",
     summary:
-      "A complete online fashion shop, working from the first search to checkout, with its own admin behind it to run products, categories, banners and menus.",
+      "A complete online fashion shop, working from the first search to checkout, with its own admin behind it to run products, categories, banners and menus. We build it, set it up and launch it. You pay once, it is fully yours, and it is ready in days with 3 months of free support.",
     features: [
       "Live search with product pictures",
       "Filters by size and price",
@@ -162,9 +162,9 @@ export const projectPages: ProjectPage[] = [
     slug: "vinwear",
     name: "VIN Wear",
     label: "In progress for a US client",
-    line: "A car-culture store, still being built.",
+    line: "One idea. Every page.",
     summary:
-      "A car-culture clothing store that shows how far a store can carry one idea, with a registration card and a write-your-own VIN box on the product page, and layouts for desktop, tablet and phone.",
+      "A car-culture clothing store that carries one idea through every page: every garment has its own registration number, with a Certificate of Registration card and a write-your-own VIN box on the product page, and layouts for desktop, tablet and phone.",
     features: [
       "Live search suggestions as you type",
       "Category pages with a filter panel",
@@ -215,7 +215,7 @@ export const projectPages: ProjectPage[] = [
     ],
     details: [
       { label: "What's included", value: "Built system, your brand, launch, 3 months of free support." },
-      { label: "Tech", value: "Next.js console. Twilio, Deepgram, Cartesia, Hamsa, Gemini, Google Cloud Run." },
+      { label: "Tech", value: "Built on the latest voice AI and cloud tech, with a web console for the owner." },
     ],
     price: {
       headline: "Talk to us",
@@ -246,9 +246,9 @@ export const projectPages: ProjectPage[] = [
     slug: "madleen",
     name: "Madleen",
     label: "Online fashion store",
-    line: "We spent years. You launch in days.",
+    line: "A complete fashion store.",
     summary:
-      "An online fashion store for dresses, abayas, bags and shoes, set up for shoppers who pay cash on delivery, from the first search to the order placed.",
+      "A marketplace-style online fashion store for dresses, abayas, bags and shoes, built for a fashion client and set up for shoppers who pay cash on delivery, from the first search to the order placed.",
     features: [
       "Live search suggestions while typing",
       "Filters by size and offers",
@@ -323,7 +323,7 @@ export const projectPages: ProjectPage[] = [
     label: "Custom business website",
     line: "Your best work, shown properly.",
     summary:
-      "A business website for a London facade and glazing company, built to let the work speak, with a portfolio that opens into case studies and a full set of system pages.",
+      "A business website for a London facade and glazing company, built to show finished work first, with filter tabs, a case study for every project, a full set of system pages and an enquiry form.",
     features: [
       "Home hero carousel",
       "Project filter tabs",
