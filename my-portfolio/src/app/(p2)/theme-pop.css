@@ -804,3 +804,28 @@ html .p2 .p2-cx .p2-reach li:nth-child(4) { order: 1; }
   html .p2 .p2-hero__proof { margin-top: 22px; }
 }
 @media (max-width: 680px) { html .p2 .p2-price__fig b { font-size: 2rem !important; letter-spacing: -.03em; } }
+
+/* Header on iPad Pro portrait and similar (1001 to 1100px): the same
+   tablet header as smaller tablets, with the menu button instead of the
+   squeezed desktop menu. */
+@media (min-width: 1001px) and (max-width: 1100px) {
+  html .p2 .p2-nav, html .p2 .p2-hdr__cta { display: none !important; }
+  html .p2 .p2-burger { display: flex !important; }
+  html .p2 .p2-hdr .p2-logo__txt span { display: block; }
+}
+
+/* Home hero on iPad Pro portrait (1001 to 1100px): the pitch across the
+   full width first, then the portrait and the info cards side by side,
+   instead of two squeezed desktop columns. */
+@media (min-width: 1001px) and (max-width: 1100px) {
+  html .p2 .p2-hero { display: flex !important; flex-direction: column; }
+  html .p2 .p2-hero__l { order: 1 !important; width: auto !important; max-width: none !important; border-right: 0 !important; padding: 56px var(--p2-gut) 12px !important; }
+  html .p2 .p2-hero__r { order: 2 !important; width: auto !important; max-width: none !important; padding: 28px var(--p2-gut) 56px !important; }
+  html .p2 .p2-hero h1 { max-width: 18ch; }
+  html .p2 .p2-hero__l > p { max-width: 62ch; }
+  html .p2 .p2-hero__mid { display: grid !important; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 0; align-items: stretch; }
+  html .p2 .p2-hero__shot { aspect-ratio: auto !important; height: 100% !important; min-height: 360px; max-height: none !important; margin: 0 !important; width: auto !important; }
+  html .p2 .p2-hero__shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+  html .p2 .p2-hero__cards { height: 100%; }
+  html .p2 .p2-hero__spec { margin-top: 16px; }
+}
