@@ -587,3 +587,220 @@ html .p2 .p2-intro__fig figcaption span { font-size: .8125rem; line-height: 1.45
   html .p2 .p2-intro__fig::before { right: -8px; top: -8px; width: 64px; height: 64px; }
   html .p2 .p2-intro__fig figcaption { flex-direction: column; gap: 2px; padding: 12px 14px; }
 }
+
+/* ══ Tablet and phone pass (2026-11-17) ══ */
+
+/* Tablet (681 to 1000px): use the width instead of one tall stack. */
+@media (min-width: 681px) and (max-width: 1000px) {
+  /* Hero: the pitch first, then portrait and info cards side by side. */
+  html .p2 .p2-hero { display: flex !important; flex-direction: column; }
+  html .p2 .p2-hero__l { order: 1 !important; padding-top: 48px !important; padding-bottom: 8px !important; }
+  html .p2 .p2-hero__r { order: 2 !important; padding-top: 28px !important; padding-bottom: 48px !important; }
+  html .p2 .p2-hero h1 { max-width: 16ch; }
+  html .p2 .p2-hero__mid { display: grid !important; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 0; align-items: stretch; }
+  html .p2 .p2-hero__shot { aspect-ratio: auto !important; height: 100% !important; min-height: 320px; max-height: none !important; margin: 0 !important; width: auto !important; }
+  html .p2 .p2-hero__shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+  html .p2 .p2-hero__cards { height: 100%; }
+
+  /* About: card and portrait side by side, tools in two columns below. */
+  html .p2 .p2-about { display: grid !important; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr) !important; gap: 24px !important; align-items: stretch; }
+  html .p2 .p2-about__in { order: 1; }
+  html .p2 .p2-about__shot { order: 2; margin: 0 !important; width: auto !important; max-width: none !important; }
+  html .p2 .p2-about__shot img { width: 100%; height: 100%; min-height: 340px; object-fit: cover; object-position: 50% 20%; }
+  html .p2 .p2-about__tools { order: 3; grid-column: 1 / -1; }
+  html .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 14px !important; }
+
+  /* Pricing: a row that slides sideways, two cards in view and the third
+     peeking in, with dots underneath (the same slider the phone uses). */
+  html .p2 .p2-price-grid {
+    display: flex !important; flex-wrap: nowrap; align-items: stretch; gap: 20px !important;
+    grid-template-columns: none !important; max-width: none !important;
+    margin-inline: calc(var(--p2-gut) * -1); padding: 12px var(--p2-gut) 18px; scroll-padding-inline: var(--p2-gut);
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  html .p2 .p2-price-grid::-webkit-scrollbar { display: none; }
+  html .p2 .p2-price-grid > * {
+    flex: 0 0 44% !important; min-width: 0; max-width: none !important; width: auto !important; margin: 0 !important;
+    scroll-snap-align: start; scroll-snap-stop: always; opacity: 1 !important; transform: none !important;
+  }
+  html .p2 .p2-price-grid + .p2-dots { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 6px 0 0; }
+  html .p2 .p2-price-grid + .p2-dots button { width: 10px; height: 10px; padding: 0; border-radius: 999px; border: 1px solid var(--t-ink-3); background: transparent; cursor: pointer; transition: width .25s, background .25s; }
+  html .p2 .p2-price-grid + .p2-dots button.is-on { width: 28px; background: var(--t-brand); border-color: var(--t-brand); }
+  html .p2 .p2-price-note { margin-top: 22px; }
+}
+
+/* Phone (680px and below) */
+@media (max-width: 680px) {
+  html .p2 .p2-head__side .p2-link, html .p2 .p2-split--head .p2-link { margin-top: 14px; }
+  html .p2 .p2-head h2 + .p2-link, html .p2 .p2-head + .p2-link { margin-top: 14px; }
+  html .p2 .p2-hero__proof b, html .p2 .p2-hero__proof strong { font-size: 1.625rem !important; }
+  html .p2 .p2-hero__proof span { font-size: .75rem; line-height: 1.35; }
+  html .p2 .p2-hero__proof li { padding: 12px 10px; }
+  html .p2 .t-svc-rows--home .t-svc-row__media { aspect-ratio: 16 / 10; }
+  html .p2 .t-svc-rows--home .t-svc-row__media::before { padding-top: 0; }
+  html .p2 .p2-intro__facts { grid-template-columns: auto auto; row-gap: 16px; }
+  html .p2 .p2-intro__facts li:last-child { grid-column: 1 / -1; }
+  html .p2 .p2-cta h2 { max-width: 14ch; }
+  html .p2 .p2-rev__hero p { font-size: 1.0625rem !important; line-height: 1.5 !important; }
+}
+
+/* About banner on tablets (iPad mini 768px, Surface Pro 912px): the title
+   and the line under it each run on one row across the full width. */
+@media (min-width: 681px) and (max-width: 1000px) {
+  html .p2 .p2-intro--split h1 { max-width: none; text-wrap: nowrap; white-space: nowrap; }
+  html .p2 .p2-intro--split p { max-width: none; font-size: 1.0625rem !important; }
+  html .p2 .p2-intro__facts { max-width: none; grid-template-columns: auto auto auto; justify-content: start; gap: 0 48px; }
+}
+
+/* iPad Pro portrait and similar (1001 to 1100px): the About page follows
+   the same tablet layout as iPad mini and Surface Pro instead of the
+   squeezed three-column desktop one. */
+@media (min-width: 1001px) and (max-width: 1100px) {
+  /* banner: text across the top in single rows, photo below */
+  html .p2 .p2-intro--split { grid-template-columns: 1fr; gap: 44px; padding-block: 64px; }
+  html .p2 .p2-intro--split h1 { max-width: none; text-wrap: nowrap; white-space: nowrap; }
+  html .p2 .p2-intro--split p { max-width: none; }
+  html .p2 .p2-intro__facts { max-width: none; grid-template-columns: auto auto auto; justify-content: start; gap: 0 48px; }
+  html .p2 .p2-intro__fig { justify-self: start; }
+
+  /* about block: card and portrait side by side, tools in two columns below */
+  html .p2 .p2-about { display: grid !important; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr) !important; gap: 28px !important; align-items: stretch; }
+  html .p2 .p2-about__in { order: 1; }
+  html .p2 .p2-about__shot { order: 2; margin: 0 !important; width: auto !important; max-width: none !important; }
+  html .p2 .p2-about__shot img { width: 100%; height: 100%; min-height: 360px; object-fit: cover; object-position: 50% 20%; }
+  html .p2 .p2-about__tools { order: 3; grid-column: 1 / -1; }
+  html .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 16px !important; }
+
+  /* strengths: two by two, not four narrow columns */
+  html .p2 .p2-strength-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+/* About banner on every tablet (681 to 1100px): text on the left, photo on
+   the right, in one row. This replaces the stacked tablet banner above. */
+@media (min-width: 681px) and (max-width: 1100px) {
+  html .p2 .p2-intro--split { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) !important; gap: 36px !important; align-items: center; padding-block: 56px !important; }
+  html .p2 .p2-intro--split h1 { max-width: 12ch !important; white-space: normal !important; text-wrap: balance !important; }
+  html .p2 .p2-intro--split p { max-width: 36ch !important; }
+  html .p2 .p2-intro__facts { max-width: none; margin-top: 30px; padding-top: 22px; grid-template-columns: auto auto !important; gap: 16px 32px !important; justify-content: start; }
+  html .p2 .p2-intro__facts li:last-child { grid-column: 1 / -1; }
+  html .p2 .p2-intro__fig { order: 0 !important; justify-self: end !important; max-width: 460px; }
+  html .p2 .p2-intro__fig figcaption { flex-direction: column; gap: 2px; padding: 12px 14px; }
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+  html .p2 .p2-intro__facts { grid-template-columns: auto auto auto !important; gap: 0 32px !important; }
+  html .p2 .p2-intro__facts li:last-child { grid-column: auto; }
+}
+
+/* ══ Contact page layout (2026-11-17, v2) ══
+   Even spacing on every side: one gap under headings, one gap between the
+   two info blocks, one padding inside every card. The contact details are
+   a tidy grid of small cards; the form is the main card, with fields that
+   fill it. Two columns from 760px up, so tablets get the side-by-side
+   layout too; on phones the form comes right after the intro. */
+html .p2 .p2-cx { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: start; }
+html .p2 .p2-cx__info { gap: 64px; }
+html .p2 .p2-cx__info .p2-head { margin-bottom: 0 !important; }
+html .p2 .p2-cx__info .p2-head h2 { margin-bottom: 0; }
+html .p2 .p2-cx__info .p2-lede { margin: 16px 0 0; max-width: 52ch; }
+html .p2 .p2-cx__info .p2-brief { margin: 28px 0 0 !important; padding: 4px 28px !important; }
+html .p2 .p2-cx__info .p2-brief li { padding: 22px 0 !important; }
+html .p2 .p2-cx__info .p2-brief li:first-child { padding-top: 22px !important; }
+html .p2 .p2-cx__info .p2-brief__k { font-size: 1.0625rem; }
+html .p2 .p2-cx__info .p2-brief li p { margin-top: 6px; }
+
+/* contact details: a grid of small cards */
+html .p2 .p2-cx .p2-reach { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 28px 0 0; }
+html .p2 .p2-cx .p2-reach li { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--t-surface); border: 1px solid var(--t-border); min-width: 0; }
+html .p2 .p2-cx .p2-reach li:nth-child(4) { grid-column: 1 / -1; }
+html .p2 .p2-cx .p2-reach__icon { width: 42px; height: 42px; font-size: 1.125rem; flex-shrink: 0; }
+html .p2 .p2-cx .p2-reach__txt { gap: 2px; min-width: 0; }
+html .p2 .p2-cx .p2-reach__txt b, html .p2 .p2-cx .p2-reach__txt a { font-size: 1rem !important; line-height: 1.4; overflow-wrap: anywhere; padding: 0; }
+
+/* the form card */
+html .p2 .p2-cx__form { padding: 36px 36px 34px !important; gap: 22px !important; margin: 0 !important; border-top: 3px solid var(--t-brand) !important; box-shadow: 0 24px 50px -34px rgba(16, 20, 19, .35) !important; }
+html .p2 .p2-cx__form h3 { font-size: 1.5rem !important; letter-spacing: -.02em !important; }
+html .p2 .p2-cx__form .p2-form { max-width: none !important; width: 100%; }
+html .p2 .p2-cx__form .p2-reach__steps { max-width: none !important; width: 100%; margin: 0; padding-top: 20px; font-size: .875rem; line-height: 1.6; }
+html .p2 .p2-cx__form .p2-btn, html .p2 .p2-cx__form .p2-form__go { width: 100%; justify-content: center; }
+html .p2 .p2-cx__form .p2-form input, html .p2 .p2-cx__form .p2-form textarea { width: 100%; font-size: 1rem; }
+
+@media (max-width: 1100px) { html .p2 .p2-cx { gap: 36px; } html .p2 .p2-cx__form { padding: 28px 26px !important; } }
+@media (min-width: 760px) and (max-width: 1000px) {
+  html .p2 .p2-cx { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+  html .p2 .p2-cx__form { position: sticky; top: 84px; max-height: none; overflow: visible; }
+  html .p2 .p2-cx .p2-reach { grid-template-columns: 1fr; }
+  html .p2 .p2-cx .p2-reach li:nth-child(4) { grid-column: auto; }
+  html .p2 .p2-cx__form .p2-form { grid-template-columns: 1fr !important; }
+  html .p2 .p2-cx__info { gap: 48px; }
+  html .p2 .p2-cx__info .p2-brief { padding: 2px 20px !important; }
+}
+@media (max-width: 759px) {
+  html .p2 .p2-cx { grid-template-columns: 1fr; gap: 40px; }
+  html .p2 .p2-cx__info { display: contents; }
+  html .p2 .p2-cx__info > div:first-child { order: 1; }
+  html .p2 .p2-cx__form { order: 2; position: static; max-height: none; overflow: visible; padding: 26px 20px 24px !important; }
+  html .p2 .p2-cx__info > div:last-child { order: 3; }
+  html .p2 .p2-cx .p2-reach { grid-template-columns: 1fr; gap: 10px; margin-top: 22px; }
+  html .p2 .p2-cx .p2-reach li:nth-child(4) { grid-column: auto; }
+  html .p2 .p2-cx__info .p2-brief { margin-top: 22px !important; padding: 2px 18px !important; }
+  html .p2 .p2-cx__info .p2-brief li { padding: 18px 0 !important; }
+}
+/* contact details grid: Email + WhatsApp, Location + Availability, then the wide "Works" card */
+html .p2 .p2-cx .p2-reach li:nth-child(4) { order: 1; }
+@media (max-width: 1180px) {
+  html .p2 .p2-cx .p2-reach { grid-template-columns: 1fr; }
+  html .p2 .p2-cx .p2-reach li:nth-child(4) { grid-column: auto; order: 0; }
+}
+
+/* ══ Phone spacing and type pass (2026-11-17) ══
+   Measured at 390px on every page. Side margins were already an even
+   18px; this evens out the vertical spacing and the things that were
+   cramped or too small to tap. */
+@media (max-width: 680px) {
+  /* one vertical rhythm: 64 for sections, 48 for the dark bands */
+  html .p2 .p2-intro, html .p2 .p2-intro--split { padding-top: 48px !important; padding-bottom: 48px !important; }
+  html .p2 .p2-rc { padding-top: 40px !important; padding-bottom: 40px !important; }
+  html .p2 .p2-cta { padding-top: 56px !important; padding-bottom: 56px !important; }
+  html .p2 .p2-cta h2 { max-width: none; }
+  html .p2 .p2-cta .p2-btn { margin-top: 24px; }
+
+  /* headings: one gap from badge to heading to text to content */
+  html .p2 .p2-head .p2-badge, html .p2 .p2-intro .p2-badge { margin-bottom: 14px; }
+  html .p2 .p2-intro h1 { margin-top: 0; }
+  html .p2 .p2-intro p { margin-top: 14px !important; }
+  html .p2 .p2-intro .p2-btn { margin-top: 24px !important; }
+  html .p2 .p2-split--head { margin-bottom: 28px !important; }
+  html .p2 .p2-split--head .p2-lede, html .p2 .p2-head h2 + p { margin-top: 12px !important; }
+
+  /* pricing: the "Starting from" label no longer sits on the price */
+  html .p2 .p2-price__from { margin: 18px 0 6px !important; line-height: 1.3; }
+  html .p2 .p2-price__fig { margin-top: 0 !important; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; line-height: 1.1 !important; }
+  html .p2 .p2-price__fig b { line-height: 1.1; }
+  html .p2 .p2-price__lbl { margin-top: 18px; display: block; }
+  html .p2 .p2-price { padding: 24px 22px !important; }
+
+  /* resume: use the width; the marker column was pushing the text in */
+  html .p2 .p2-tools--cv > ul > li { grid-template-columns: 8px minmax(0, 1fr); gap: 0 14px !important; padding: 20px 18px !important; }
+  html .p2 .p2-tools--cv li ul { margin-top: 14px !important; padding-top: 14px !important; }
+  html .p2 .p2-tools--cv li li { padding-left: 14px !important; }
+  html .p2 .p2-sub { margin: 32px 0 14px !important; font-size: 1.375rem !important; }
+
+  /* links and small buttons: tall enough to tap (at least 40px) */
+  html .p2 .p2-link, html .p2 .t-svc-row__more, html .p2 .p2-earlier a, html .p2 .p2-pc__link {
+    display: inline-flex; align-items: center; min-height: 40px;
+  }
+  html .p2 .p2-foot a, html .p2 .p2-reach__txt a { display: inline-flex; align-items: center; min-height: 40px; }
+  html .p2 .p2-foot__nav, html .p2 .p2-foot nav { row-gap: 0; }
+
+  /* cards: the same inner padding */
+  html .p2 .p2-rev__card, html .p2 .p2-strength, html .p2 .p2-award, html .p2 .p2-earlier > * { padding: 22px 20px !important; }
+  html .p2 .p2-about__in { padding: 26px 22px !important; }
+  html .p2 .p2-about__tools .p2-tools:not(.p2-tools--cv) > li { padding: 16px 18px !important; }
+  html .p2 .p2-about__tools h3 { margin: 8px 0 12px; }
+
+  /* hero */
+  html .p2 .p2-hero__l > p { margin-top: 16px; }
+  html .p2 .p2-hero .p2-acts { margin-top: 22px; }
+  html .p2 .p2-hero__proof { margin-top: 22px; }
+}
+@media (max-width: 680px) { html .p2 .p2-price__fig b { font-size: 2rem !important; letter-spacing: -.03em; } }

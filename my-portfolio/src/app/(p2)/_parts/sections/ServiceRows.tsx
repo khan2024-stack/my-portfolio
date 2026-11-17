@@ -66,7 +66,9 @@ export function ServiceRows({ home = false }: { home?: boolean }) {
         return (
           <Reveal as="article" dir="up" className={`t-svc-row t-svc-row--${s.title.split(" ")[0].toLowerCase()}`} key={s.title}>
             <div className="t-svc-row__media">
-              <Image src={home ? c.dark : c.src} alt={c.alt} placeholder="blur" sizes="(max-width: 640px) 100vw, 420px" />
+              {/* No blur placeholder on the dark set: it is screened onto the card,
+                  where a blurred preview shows as a white smear while loading. */}
+              <Image src={home ? c.dark : c.src} alt={c.alt} placeholder={home ? "empty" : "blur"} sizes="(max-width: 640px) 100vw, 420px" />
             </div>
             <div className="t-svc-row__body">
               {home ? <span className="t-svc-row__sub">{s.sub}</span> : null}
