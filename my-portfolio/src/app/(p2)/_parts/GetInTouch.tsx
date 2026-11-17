@@ -21,9 +21,9 @@ const detail = (label: string) => contact.details.find((d) => d.label === label)
 const fact = (label: string) => about.facts.find((f) => f.label === label);
 
 const wa = contact.whatsapp;
-const waHref = `https://wa.me/${wa.digits}?text=${encodeURIComponent(wa.message)}`;
+export const waHref = `https://wa.me/${wa.digits}?text=${encodeURIComponent(wa.message)}`;
 
-const ROWS: Row[] = [
+export const ROWS: Row[] = [
   { icon: FiMail, label: "Email", value: contact.inbox, href: `mailto:${contact.inbox}` },
   { icon: FaWhatsapp, label: "WhatsApp", value: wa.display, href: waHref },
   { icon: FiMapPin, label: "Location", value: identity.location },

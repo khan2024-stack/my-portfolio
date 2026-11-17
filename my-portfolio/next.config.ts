@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* Lets a check build go to its own folder (NEXT_DIST_DIR=.next-verify)
+     so it never overwrites the .next folder a running dev server uses. */
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   /**
    * The site used to be four separate pages under /page/*. They are now
    * five sections on one page, so those URLs redirect to the matching

@@ -6,6 +6,7 @@
 export { Hero } from "./sections/Hero";
 export { AboutBlock } from "./sections/AboutBlock";
 export { ServicesGrid } from "./sections/ServicesGrid";
+export { ServiceRows } from "./sections/ServiceRows";
 export { WorkGrid } from "./sections/WorkGrid";
 export { ResumeBlock } from "./sections/ResumeBlock";
 export { AchievementsBlock } from "./sections/AchievementsBlock";

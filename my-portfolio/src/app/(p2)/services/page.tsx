@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { services } from "@/app/portfolio-content/site-content";
 import PageIntro from "../_parts/PageIntro";
 import Ticker from "../_parts/Ticker";
-import { CtaBand, ServicesGrid } from "../_parts/Sections";
+import { CtaBand, ServiceRows } from "../_parts/Sections";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -23,11 +23,10 @@ export default function P2Services() {
         cta={{ label: "Start a project", href: "/contact" }}
       />
       <Ticker items={ticker} />
-      {/* `detail` prints each service's full capability list — the page
-          carries it, the home preview does not. No intro panel here:
-          the page banner above already does that job. */}
+      {/* One row per service: a real-screen thumbnail left, the full text
+          and capability list right (2026-11-15). */}
       <section className="p2-sec" id="services">
-        <ServicesGrid detail />
+        <ServiceRows />
       </section>
 
       <CtaBand />

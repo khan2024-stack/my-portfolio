@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { emailjsConfig } from "@/app/portfolio-content/emailjs";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -30,6 +30,18 @@ export default function ContactForm({
   const [status, setStatus] = useState<Status>("idle");
   const [note, setNote] = useState("");
   const [detail, setDetail] = useState("");
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  /* Arriving from a service card (/contact?service=…#message): start the
+     message with that service, so nobody begins from a blank box.
+     Read from location, not useSearchParams, so the page stays static. */
+  useEffect(() => {
+    const service = new URLSearchParams(window.location.search).get("service");
+    const box = messageRef.current;
+    if (service && box && !box.value) {
+      box.value = `I'd like to discuss ${/^[aeiou]/i.test(service) ? "an" : "a"} ${service} project. `;
+    }
+  }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -162,6 +174,7 @@ export default function ContactForm({
       <label className="p2-form__f">
         <span>What are you building?</span>
         <textarea
+          ref={messageRef}
           name="message"
           rows={3}
           placeholder="A short description is plenty."

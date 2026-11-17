@@ -1,0 +1,589 @@
+/* ══════════════════════════════════════════════════════════════════════
+   THEME POP (2026-11-17)
+   A lift laid over theme-pro.css: same layout, same square corners and
+   Geist type, but the accent now does real work, the type scale has more
+   contrast, and sections and cards get more air.
+   Remove the import line in layout.tsx to return to plain theme-pro.
+
+   Colour   crimson (light surfaces) and coral (dark bands) replace the
+            pale rose; warmer cream page; dark bands get a crimson glow.
+   Type     larger h1 / h2, coloured serif accent words, bigger numbers.
+   Space    sections 136 / 96 / 72, wider grid gaps, roomier cards.
+   ══════════════════════════════════════════════════════════════════════ */
+
+html, html .p2 {
+  /*PALETTE-START*/
+  /* Graphite + Emerald */
+  --t-bg: #f7f7f4; --t-subtle: #eeeeea; --t-border: #e2e2dc; --t-border-2: #cfcfc7;
+  --t-ink: #101413; --t-ink-2: #3a403e; --t-ink-3: #6c7370;
+  --t-dark: #0d1211; --t-dark-2: #161d1b;
+  --t-brand: #0b7a57; --t-brand-2: #086346; --t-rose: #5fd4a6;
+  --acc: 11, 122, 87; --acc-d: 95, 212, 166;
+  --t-sh-hover: 0 2px 4px rgba(10, 16, 28, .04), 0 24px 48px -22px rgba(var(--acc), .30);
+  /*PALETTE-END*/
+  --p2-sec-y: 136px;
+  --p2-head-gap: 64px;
+  /* tiny line-icon pattern (code, cloud, phone, cart, mic, database...) */
+  --pat-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'%3E%3Cpath d='M22 30l-10 10 10 10M44 30l10 10-10 10M36 27l-6 26M118 46a9 9 0 0 1 17-4 8 8 0 0 1 3 15h-22a7 7 0 0 1 2-11zM190 20h16a3 3 0 0 1 3 3v30a3 3 0 0 1-3 3h-16a3 3 0 0 1-3-3v-30a3 3 0 0 1 3-3zM196 50h4M18 108h6l5 18h18l4-12h-25M33 133h.1M46 133h.1M110 103a6 6 0 0 1 12 0v12a6 6 0 0 1-12 0zM104 115a12 12 0 0 0 24 0M116 127v8M180 106a12 4 0 1 0 24 0a12 4 0 1 0-24 0M180 106v20a12 4 0 0 0 24 0v-20M180 116a12 4 0 0 0 24 0M52 186a8 8 0 1 0 16 0a8 8 0 1 0-16 0M60 172v-5M60 200v5M46 186h-5M74 186h5M100 170h36v26h-36zM100 178h36M175 200v-10M185 200v-20M195 200v-14M205 200v-26M80 66l3 7 7 3-7 3-3 7-3-7-7-3 7-3zM150 82h8M154 78v8M150 150h.1M20 76h.1M214 150h.1M96 222h.1' fill='none' stroke='%230b1020' stroke-opacity='.042' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --pat-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230' viewBox='0 0 230 230'%3E%3Cpath d='M22 30l-10 10 10 10M44 30l10 10-10 10M36 27l-6 26M118 46a9 9 0 0 1 17-4 8 8 0 0 1 3 15h-22a7 7 0 0 1 2-11zM190 20h16a3 3 0 0 1 3 3v30a3 3 0 0 1-3 3h-16a3 3 0 0 1-3-3v-30a3 3 0 0 1 3-3zM196 50h4M18 108h6l5 18h18l4-12h-25M33 133h.1M46 133h.1M110 103a6 6 0 0 1 12 0v12a6 6 0 0 1-12 0zM104 115a12 12 0 0 0 24 0M116 127v8M180 106a12 4 0 1 0 24 0a12 4 0 1 0-24 0M180 106v20a12 4 0 0 0 24 0v-20M180 116a12 4 0 0 0 24 0M52 186a8 8 0 1 0 16 0a8 8 0 1 0-16 0M60 172v-5M60 200v5M46 186h-5M74 186h5M100 170h36v26h-36zM100 178h36M175 200v-10M185 200v-20M195 200v-14M205 200v-26M80 66l3 7 7 3-7 3-3 7-3-7-7-3 7-3zM150 82h8M154 78v8M150 150h.1M20 76h.1M214 150h.1M96 222h.1' fill='none' stroke='%23ffffff' stroke-opacity='.04' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (max-width: 1000px) { html .p2 { --p2-sec-y: 96px; --p2-head-gap: 44px; } }
+@media (max-width: 680px)  { html .p2 { --p2-sec-y: 72px; --p2-head-gap: 32px; } }
+
+html .p2 ::selection { background: var(--t-brand); color: #fff; }
+
+/* ── Type: more contrast between levels ── */
+html .p2 h1 { font-size: clamp(2.75rem, 5.6vw, 4.75rem) !important; line-height: 1.02 !important; letter-spacing: -.05em !important; }
+html .p2 h2 { font-size: clamp(2.125rem, 3.7vw, 3.375rem) !important; line-height: 1.06 !important; letter-spacing: -.045em !important; }
+html .p2 h3 { font-size: 1.25rem !important; }
+html .p2 .p2-lede, html .p2 .p2-head p, html .p2 .p2-intro p { font-size: 1.1875rem !important; line-height: 1.7 !important; }
+@media (max-width: 680px) { html .p2 .p2-lede, html .p2 .p2-head p, html .p2 .p2-intro p { font-size: 1.0625rem !important; } }
+/* the serif accent word carries the colour */
+html .p2 h1 em, html .p2 h2 em { color: var(--t-brand) !important; }
+html .p2 .p2-hero h1 em, html .p2 .p2-hero h2 em, html .p2 .p2-why h2 em, html .p2 .p2-cta h2 em, html .p2 .p2-intro h1 em, html .p2 .p2-intro h2 em,
+html .p2 .p2-rc h2 em, html .p2 .p2-about__in h2 em, html .p2 .p2-foot h2 em { color: var(--t-rose) !important; }
+
+/* ── Rhythm ── */
+html .p2 .p2-split--head { margin-bottom: var(--p2-head-gap) !important; }
+html .p2 .p2-pcs__grid { gap: 32px !important; }
+html .p2 .p2-svc-grid, html .p2 .t-svc-rows, html .p2 .p2-price-grid { gap: 28px !important; }
+html .p2 .t-svc-row__body { padding: 36px; }
+@media (max-width: 680px) {
+  html .p2 .p2-pcs__grid, html .p2 .p2-svc-grid, html .p2 .t-svc-rows, html .p2 .p2-price-grid { gap: 18px !important; }
+  html .p2 .t-svc-row__body { padding: 24px 22px 26px; }
+}
+
+/* ── Eyebrow badge ── */
+html .p2 .p2-badge, html .p2 .p2-badge--lime { color: var(--t-brand) !important; border-color: rgba(var(--acc), .22) !important; background: rgba(var(--acc), .05) !important; }
+html .p2 .p2-hero .p2-badge, html .p2 .p2-why .p2-badge, html .p2 .p2-intro .p2-badge, html .p2 .p2-about__in .p2-badge, html .p2 .p2-cta .p2-badge {
+  color: var(--t-rose) !important; background: rgba(var(--acc-d), .08) !important; border-color: rgba(var(--acc-d), .24) !important;
+}
+
+/* ── Buttons: ink at rest, crimson on hover; coral on dark ── */
+html .p2 .p2-btn:hover, html .p2 .p2-btn--lime:hover, html .p2 .p2-price__cta:hover, html .p2 .p2-form__go:hover {
+  background: var(--t-brand) !important; border-color: var(--t-brand) !important; color: #fff !important; transform: translateY(-2px);
+  box-shadow: 0 14px 28px -14px rgba(var(--acc), .6) !important;
+}
+html .p2 .p2-btn--line:hover { background: transparent !important; color: var(--t-brand) !important; border-color: var(--t-brand) !important; box-shadow: none !important; }
+html .p2 .p2-hdr__cta > a:not(.p2-hdr__arrow) { background: var(--t-brand) !important; border-color: var(--t-brand) !important; }
+html .p2 .p2-hdr__cta > a:not(.p2-hdr__arrow):hover { background: var(--t-brand-2) !important; border-color: var(--t-brand-2) !important; }
+html .p2 .p2-hero .p2-btn:not(.p2-btn--line), html .p2 .p2-cta .p2-btn, html .p2 .p2-intro .p2-btn:not(.p2-btn--line), html .p2 .p2-about__in .p2-btn,
+html .p2 .p2-why .p2-btn:not(.p2-btn--line), html .p2 .p2-price--dark .p2-price__cta {
+  color: var(--t-ink) !important; background: var(--t-rose) !important; border-color: var(--t-rose) !important;
+}
+html .p2 .p2-hero .p2-btn:not(.p2-btn--line):hover, html .p2 .p2-cta .p2-btn:hover, html .p2 .p2-intro .p2-btn:not(.p2-btn--line):hover,
+html .p2 .p2-about__in .p2-btn:hover, html .p2 .p2-why .p2-btn:not(.p2-btn--line):hover, html .p2 .p2-price--dark .p2-price__cta:hover {
+  color: var(--t-ink) !important; background: #fff !important; border-color: #fff !important; box-shadow: 0 14px 30px -14px rgba(var(--acc-d), .7) !important;
+}
+html .p2 .p2-hero .p2-btn--line:hover, html .p2 .p2-cta .p2-btn--line:hover, html .p2 .p2-intro .p2-btn--line:hover, html .p2 .p2-why .p2-btn--line:hover {
+  color: var(--t-rose) !important; border-color: var(--t-rose) !important;
+}
+html .p2 .p2-link:hover, html .p2 .p2-head__side .p2-link:hover { color: var(--t-brand) !important; border-color: var(--t-brand) !important; }
+
+/* ── Header ── */
+html .p2 .p2-hdr { background: color-mix(in srgb, var(--t-bg) 94%, transparent) !important; }
+html .p2 .p2-nav a[aria-current="page"], html .p2 .p2-nav a.is-on, html .p2 .p2-nav a.active { color: var(--t-brand) !important; background: rgba(var(--acc), .07) !important; }
+html .p2 .p2-nav a:hover { color: var(--t-brand) !important; }
+
+/* ── Dark bands: warmer black, a real crimson glow ── */
+html .p2 .p2-hero, html .p2 .p2-rc, html .p2 .p2-why, html .p2 .p2-cta, html .p2 .p2-intro, html .p2 .p2-foot, html .p2 .p2-about__in, html .p2 .p2-price--dark, html .p2 .p2-card--dark {
+  background-image:
+    radial-gradient(55% 75% at 92% 0%, rgba(var(--acc), .42), transparent 62%),
+    radial-gradient(40% 60% at 0% 100%, rgba(var(--acc-d), .05), transparent 65%),
+    var(--pat-dark) !important;
+  background-size: auto, auto, 150px 150px !important;
+}
+
+/* Hero: numbers in coral, bigger */
+html .p2 .p2-hero__proof b, html .p2 .p2-hero__proof strong { font-size: 2.5rem !important; color: var(--t-rose) !important; letter-spacing: -.04em; }
+@media (max-width: 680px) { html .p2 .p2-hero__proof b, html .p2 .p2-hero__proof strong { font-size: 1.75rem !important; } }
+html .p2 .p2-hero__cards .p2-card--accent { background: rgba(var(--acc), .30) !important; }
+
+/* Ticker */
+html .p2 .p2-ticker { padding: 22px 0 !important; }
+
+/* ── Cards: crimson edge on hover ── */
+html .p2 .p2-pc, html .p2 .p2-svc, html .p2 .p2-price:not(.p2-price--dark), html .p2 .p2-award, html .p2 .p2-strength, html .p2 .t-svc-row, html .p2 .p2-rev__card { position: relative; }
+html .p2 .p2-pc:hover, html .p2 .p2-svc:hover, html .p2 .p2-price:not(.p2-price--dark):hover, html .p2 .p2-award:hover, html .p2 .p2-strength:hover, html .p2 .t-svc-row:hover {
+  transform: translateY(-5px) !important; border-color: var(--t-brand) !important; box-shadow: var(--t-sh-hover) !important;
+}
+html .p2 .p2-pc:hover .p2-pc__go { background: var(--t-brand) !important; border-color: var(--t-brand) !important; }
+html .p2 .p2-pc:hover .p2-pc__txt h3 { color: var(--t-brand) !important; }
+html .p2 .t-svc-row__more { border-bottom-color: var(--t-brand); }
+html .p2 .t-svc-row:hover .t-svc-row__more { color: var(--t-brand) !important; }
+html .p2 .t-svc-row__tags li { background: var(--t-bg); }
+
+/* Tools, icons, marks */
+html .p2 .p2-tools__icon, html .p2 .p2-strength__icon, html .p2 .p2-reach__icon, html .p2 .p2-svc__icon {
+  background: rgba(var(--acc), .06) !important; border-color: rgba(var(--acc), .18) !important; color: var(--t-brand) !important;
+}
+html .p2 .p2-tools__icon svg, html .p2 .p2-strength__icon svg, html .p2 .p2-reach__icon svg { color: var(--t-brand) !important; }
+html .p2 .p2-reach__txt a:hover { color: var(--t-brand) !important; }
+
+/* Why band: big coral numbers */
+html .p2 .p2-why__stat strong, html .p2 .p2-why__stat b, html .p2 .p2-why__stat span:first-child { color: var(--t-rose) !important; }
+html .p2 .p2-why__tile { background: rgba(var(--acc-d), .10) !important; border-color: rgba(var(--acc-d), .26) !important; }
+html .p2 .p2-why__cell { transition: border-color .3s, transform .35s var(--t-ease); }
+html .p2 .p2-why__cell:hover { border-color: rgba(var(--acc-d), .45) !important; transform: translateY(-3px); }
+
+/* Pricing: the featured card stands out */
+html .p2 .p2-price--dark { box-shadow: 0 30px 60px -30px rgba(var(--acc), .55) !important; }
+html .p2 .p2-price__fig { font-size: clamp(2.25rem, 3.2vw, 2.875rem) !important; }
+
+/* Reviews: stars and the quote mark in the accent */
+html .p2 .p2-rev__stars, html .p2 .p2-rev__card [class*="star"], html .p2 .p2-rev__hero [class*="star"] { color: var(--t-brand); }
+html .p2 .p2-rev__hero [class*="star"] { color: var(--t-rose); }
+
+/* Forms + focus */
+html .p2 .p2-form input:focus, html .p2 .p2-form textarea:focus { border-color: var(--t-brand) !important; outline: 3px solid rgba(var(--acc), .16) !important; }
+html .p2 :focus-visible { outline-color: rgba(var(--acc), .55) !important; }
+
+/* Footer */
+html .p2 .p2-foot a:hover { color: var(--t-rose) !important; }
+
+/* Resume + brief list */
+html .p2 .p2-tools--cv > ul > li { transition: border-color .3s; }
+html .p2 .p2-tools--cv > ul > li:hover { border-color: var(--t-brand) !important; }
+html .p2 .p2-brief__k { color: var(--t-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  html .p2 .p2-pc:hover, html .p2 .p2-svc:hover, html .p2 .p2-price:hover, html .p2 .p2-award:hover, html .p2 .p2-strength:hover,
+  html .p2 .t-svc-row:hover, html .p2 .p2-why__cell:hover, html .p2 .p2-btn:hover { transform: none !important; }
+}
+
+/* ── Service cards (2026-11-17, v2): picture left, text right, 2 x 2 ──
+   The picture column keeps the thumbnail's own 4:3 shape, so the devices
+   are shown whole. If the text makes a card taller, only the right edge
+   (where the laptop already runs off the frame) is trimmed. */
+html .p2 .t-svc-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px !important; }
+html .p2 .t-svc-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 0; align-items: stretch; }
+html .p2 .t-svc-row__media { aspect-ratio: auto; min-width: 0; background: #e8edf5; border-right: 1px solid var(--t-border); border-bottom: 0; }
+html .p2 .t-svc-row__media::before { content: ''; display: block; padding-top: 75%; }
+html .p2 .t-svc-row__media img { object-fit: cover; object-position: 0% 50%; }
+html .p2 .t-svc-row__body { justify-content: center; padding: 30px 32px; }
+html .p2 .t-svc-row h2 { font-size: 1.4375rem !important; line-height: 1.2 !important; margin: 0 0 10px; }
+html .p2 .t-svc-row__text { padding-bottom: 18px; }
+html .p2 .t-svc-row__tags { margin: 18px 0 22px; }
+@media (max-width: 1100px) { html .p2 .t-svc-rows { grid-template-columns: 1fr; max-width: 820px; margin-inline: auto; } }
+@media (max-width: 640px) {
+  html .p2 .t-svc-rows { gap: 18px !important; }
+  html .p2 .t-svc-row { grid-template-columns: 1fr; }
+  html .p2 .t-svc-row__media { border-right: 0; border-bottom: 1px solid var(--t-border); }
+  html .p2 .t-svc-row__body { padding: 24px 22px 26px; }
+}
+
+/* ── Home page services (2026-11-17): the cleaner preview ──
+   No tags and no divider: a small crimson label, a larger title, one
+   line and the link. The picture gets the wider half. */
+html .p2 .t-svc-rows--home { gap: 32px !important; }
+html .p2 .t-svc-rows--home .t-svc-row { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); border-color: transparent; box-shadow: 0 1px 2px rgba(11, 16, 32, .05), 0 18px 40px -28px rgba(11, 16, 32, .28); }
+html .p2 .t-svc-rows--home .t-svc-row:hover { border-color: var(--t-brand) !important; }
+html .p2 .t-svc-rows--home .t-svc-row__media { border-right: 0; }
+html .p2 .t-svc-rows--home .t-svc-row__body { padding: 36px 36px 36px 34px; }
+html .p2 .t-svc-row__sub { display: block; margin-bottom: 14px; font-family: var(--t-mono); font-size: .6875rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--t-brand); }
+html .p2 .t-svc-rows--home .t-svc-row h2 { font-size: 1.625rem !important; line-height: 1.15 !important; letter-spacing: -.035em !important; margin: 0 0 12px; }
+html .p2 .t-svc-rows--home .t-svc-row__text { border-bottom: 0; padding-bottom: 0; margin-bottom: 26px; font-size: 1rem; line-height: 1.65; }
+@media (max-width: 1100px) { html .p2 .t-svc-rows--home .t-svc-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@media (max-width: 640px) {
+  html .p2 .t-svc-rows--home { gap: 18px !important; }
+  html .p2 .t-svc-rows--home .t-svc-row { grid-template-columns: 1fr; }
+  html .p2 .t-svc-rows--home .t-svc-row__body { padding: 24px 22px 26px; }
+  html .p2 .t-svc-rows--home .t-svc-row h2 { font-size: 1.375rem !important; }
+}
+
+/* Home services: the thumbnail is shown whole (2026-11-17).
+   The picture column is the wider one and the text is kept compact, so
+   the card is exactly as tall as the 4:3 picture and nothing is trimmed.
+   Two per row from 1280px, one per row below that, stacked on phones. */
+html .p2 .t-svc-rows--home .t-svc-row { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+html .p2 .t-svc-rows--home .t-svc-row__media img { object-position: 50% 50%; }
+html .p2 .t-svc-rows--home .t-svc-row__body { padding: 26px 28px; }
+html .p2 .t-svc-rows--home .t-svc-row__sub { margin-bottom: 12px; }
+html .p2 .t-svc-rows--home .t-svc-row h2 { font-size: 1.5rem !important; margin: 0 0 10px; }
+html .p2 .t-svc-rows--home .t-svc-row__text { font-size: .9375rem; line-height: 1.6; margin-bottom: 20px; }
+@media (max-width: 1279px) {
+  html .p2 .t-svc-rows--home { grid-template-columns: 1fr; max-width: 820px; margin-inline: auto; }
+  html .p2 .t-svc-rows--home .t-svc-row__body { padding: 32px 36px; }
+}
+@media (max-width: 640px) {
+  html .p2 .t-svc-rows--home .t-svc-row { grid-template-columns: 1fr; }
+  html .p2 .t-svc-rows--home .t-svc-row__body { padding: 24px 22px 26px; }
+}
+
+/* Services page cards: wider picture column and a centred crop, so the
+   re-centred thumbnails (devices inside a margin) are never cut. */
+html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row__media img { object-position: 50% 50%; }
+html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row__body { padding: 28px 28px; }
+@media (max-width: 640px) { html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row { grid-template-columns: 1fr; } }
+/* Services page: fit the whole thumbnail in the picture column. The column
+   carries the thumbnail's own backdrop, so the fit leaves no visible band. */
+html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row__media { background: linear-gradient(135deg, #f3f6fb 0%, #e4eaf4 100%); }
+html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row__media img { object-fit: contain; object-position: 50% 50%; }
+/* soften the top and bottom edge of the fitted thumbnail into the column */
+html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row__media img {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+}
+@media (max-width: 640px) { html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row__media img { -webkit-mask-image: none; mask-image: none; } }
+
+/* ══ Home services: dark showcase cards (2026-11-17, trial) ══
+   Text on the left over the dark card, the real screens on the right on
+   a matching dark backdrop, each service with its own glow colour. Three
+   ticked points replace the tags. Delete this block to return to the
+   light home cards. */
+html .p2 .t-svc-rows--home .t-svc-row {
+  --svc: var(--acc-d);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  background: var(--t-dark); border: 1px solid rgba(255, 255, 255, .10) !important; color: rgba(255, 255, 255, .72);
+  box-shadow: 0 30px 60px -36px rgba(9, 13, 26, .7);
+}
+html .p2 .t-svc-rows--home .t-svc-row--ai { --svc: 150, 140, 255; }
+html .p2 .t-svc-rows--home .t-svc-row--automation { --svc: 110, 190, 255; }
+html .p2 .t-svc-rows--home .t-svc-row--management { --svc: 110, 225, 185; }
+html .p2 .t-svc-rows--home .t-svc-row:hover { border-color: rgba(var(--svc), .6) !important; box-shadow: 0 34px 70px -34px rgba(var(--svc), .45) !important; }
+html .p2 .t-svc-rows--home .t-svc-row__media { order: 2; background: var(--t-dark); border: 0; }
+html .p2 .t-svc-rows--home .t-svc-row__media img { object-fit: cover; object-position: 50% 50%; }
+html .p2 .t-svc-rows--home .t-svc-row__body { order: 1; padding: 30px 8px 30px 32px; position: relative; z-index: 2; }
+html .p2 .t-svc-rows--home .t-svc-row__sub { color: rgb(var(--svc)); }
+html .p2 .t-svc-rows--home .t-svc-row h2 { color: #fff !important; }
+html .p2 .t-svc-rows--home .t-svc-row__text { color: rgba(255, 255, 255, .72) !important; margin-bottom: 16px; }
+html .p2 .t-svc-row__ticks { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 7px; }
+html .p2 .t-svc-row__ticks li { position: relative; padding-left: 24px; font-size: .875rem; line-height: 1.45; color: rgba(255, 255, 255, .86); }
+html .p2 .t-svc-row__ticks li::before {
+  content: ''; position: absolute; left: 2px; top: .28em; width: 11px; height: 6px;
+  border-left: 2px solid rgb(var(--svc)); border-bottom: 2px solid rgb(var(--svc)); transform: rotate(-45deg);
+}
+html .p2 .t-svc-rows--home .t-svc-row__more { color: #fff !important; border-bottom-color: rgb(var(--svc)); }
+html .p2 .t-svc-rows--home .t-svc-row:hover .t-svc-row__more { color: rgb(var(--svc)) !important; }
+@media (max-width: 1279px) { html .p2 .t-svc-rows--home .t-svc-row__body { padding: 32px 12px 32px 36px; } }
+@media (max-width: 640px) {
+  html .p2 .t-svc-rows--home .t-svc-row { grid-template-columns: 1fr; }
+  html .p2 .t-svc-rows--home .t-svc-row__media { order: 1; }
+  html .p2 .t-svc-rows--home .t-svc-row__body { order: 2; padding: 22px 22px 26px; }
+}
+/* dark home cards: fit the whole picture; its edges fade into the card */
+html .p2 .t-svc-rows--home .t-svc-row__media img {
+  object-fit: contain; object-position: 50% 50%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%), linear-gradient(to right, transparent 0, #000 10%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%), linear-gradient(to right, transparent 0, #000 10%);
+  mask-composite: intersect;
+}
+html .p2 .t-svc-rows--home .t-svc-row { background: radial-gradient(70% 90% at 100% 40%, rgba(var(--svc), .16), transparent 70%), var(--t-dark); }
+html .p2 .t-svc-rows--home .t-svc-row__media { background: transparent; }
+@media (max-width: 640px) { html .p2 .t-svc-rows--home .t-svc-row__media img { object-fit: cover; -webkit-mask-image: none; mask-image: none; } }
+
+/* ══ Background rhythm (2026-11-17) ══
+   One rule on every page: neighbouring sections never share a background.
+   Cream and tint alternate; dark bands sit between them. */
+html, body.p2-root { background: var(--t-bg) !important; }          /* was white behind the page and below the footer */
+/* Work page: projects (tint) · also built (cream) · FAQ (tint) */
+html .p2 #earlier.p2-sec { background: var(--t-bg) !important; }
+/* About page: about (tint) · results (cream) · strengths (tint) */
+html .p2 #about.p2-sec + .p2-sec.p2-sec--tint { background: var(--t-bg) !important; }
+html .p2 #about.p2-sec + .p2-sec.p2-sec--tint + .p2-sec { background: var(--t-subtle) var(--pat-light) 0 0 / 150px 150px !important; }
+/* Contact page: contact (cream) · FAQ (tint) */
+html .p2 #contact.p2-sec:not(.p2-sec--tint) + .p2-sec { background: var(--t-subtle) var(--pat-light) 0 0 / 150px 150px !important; }
+
+/* ══ One recipe per surface (2026-11-17) ══
+   Light: cream page, tint for alternate sections, white cards. No dots.
+   Dark: every dark band and dark card uses the same near-black with the
+   same crimson glow and the same 64px grid. The older layers each drew
+   their own extra glow or grid on top, which is why some dark areas
+   looked lighter than others. */
+html .p2 #reviews.p2-sec { background: var(--t-subtle) var(--pat-light) 0 0 / 150px 150px !important; }                     /* was cream with a dot pattern */
+html .p2 #reviews.p2-sec ~ #contact.p2-sec { background: var(--t-bg) !important; }       /* keeps the alternation on the home page */
+html .p2 .p2-why::before, html .p2 .p2-cta::before, html .p2 .p2-rc::before, html .p2 .p2-rev__hero::before,
+html .p2 .p2-hero::before, html .p2 .p2-intro::before, html .p2 .p2-about__in::before, html .p2 .p2-foot::before,
+html .p2 .p2-price--dark::after, html .p2 .p2-price--dark::before { display: none !important; }
+html .p2 .p2-rev__hero {
+  background-color: var(--t-dark) !important;
+  background-image:
+    radial-gradient(55% 75% at 92% 0%, rgba(var(--acc), .42), transparent 62%),
+    radial-gradient(40% 60% at 0% 100%, rgba(var(--acc-d), .05), transparent 65%),
+    var(--pat-dark) !important;
+  background-size: auto, auto, 150px 150px !important;
+}
+/* panels that sit inside a dark band: one tone */
+html .p2 .p2-hero__cards, html .p2 .p2-why__stats, html .p2 .p2-why__cell { background: var(--t-dark-2) !important; }
+html .p2 .p2-hero__spec { background: var(--t-dark-2) !important; }
+
+/* Tint sections everywhere carry the tiny icon pattern; cream sections stay plain. */
+html .p2 .p2-sec--tint, html .p2 #work.p2-sec, html .p2 #about.p2-sec { background: var(--t-subtle) var(--pat-light) 0 0 / 150px 150px !important; }
+/* leftovers of the old oxblood / rose in theme-pro */
+html .p2 .p2-price li::before { background: rgba(var(--acc), .10) !important; color: var(--t-brand) !important; }
+html .p2 .p2-price--dark li::before { background: rgba(var(--acc-d), .16) !important; color: var(--t-rose) !important; }
+html .p2 .p2-price--dark .p2-price__fig span { background: rgba(var(--acc-d), .14) !important; color: var(--t-rose) !important; border-color: rgba(var(--acc-d), .28) !important; }
+html .p2 .p2-badge__dot { background: var(--t-brand) !important; }
+html .p2 .p2-hero .p2-badge__dot, html .p2 .p2-why .p2-badge__dot, html .p2 .p2-intro .p2-badge__dot, html .p2 .p2-about__in .p2-badge__dot { background: var(--t-rose) !important; }
+html .p2 .p2-hero__cards .p2-card--accent { background: rgba(var(--acc), .30) !important; }
+html .p2 .t-svc-row__ticks li::before, html .p2 .t-svc-rows--home .t-svc-row__sub { }
+html .p2 .t-svc-rows--home .t-svc-row { --svc: 129, 140, 248; }
+html .p2 .t-svc-rows--home .t-svc-row--ai { --svc: 192, 132, 252; }
+html .p2 .t-svc-rows--home .t-svc-row--automation { --svc: 56, 189, 248; }
+html .p2 .t-svc-rows--home .t-svc-row--management { --svc: 45, 212, 191; }
+
+/* ══ First-impression pass (2026-11-17) ══
+   Hero: a slow moving aurora, a gradient key phrase, a live "available"
+   pill, a glowing portrait frame and gradient buttons. Section headings:
+   the last word in the serif accent. All motion stops for visitors who
+   ask for reduced motion. */
+@keyframes t-aurora { 0% { transform: translate3d(-4%, -3%, 0) scale(1); } 50% { transform: translate3d(5%, 4%, 0) scale(1.12); } 100% { transform: translate3d(-2%, 6%, 0) scale(1.04); } }
+@keyframes t-shine { to { background-position: 200% 50%; } }
+@keyframes t-pulse { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, .6); } 100% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); } }
+
+html .p2 .p2-hero::after, html .p2 .p2-cta::after, html .p2 .p2-intro::after {
+  content: ''; display: block !important; position: absolute; inset: -25%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(26% 34% at 18% 30%, rgba(var(--acc), .42), transparent 70%),
+    radial-gradient(24% 32% at 78% 68%, rgba(var(--acc-d), .10), transparent 70%),
+    radial-gradient(22% 30% at 62% 12%, rgba(var(--acc), .22), transparent 70%);
+  filter: blur(28px); animation: t-aurora 16s ease-in-out infinite alternate;
+}
+html .p2 .p2-cta, html .p2 .p2-intro { position: relative; isolation: isolate; overflow: hidden; }
+
+/* gradient ink */
+html .p2 .t-grad, html .p2 .p2-hero__proof b, html .p2 .p2-hero__proof strong,
+html .p2 .p2-why__stat strong, html .p2 .p2-why__stat b, html .p2 .p2-why__stat span:first-child {
+  background: linear-gradient(100deg, #a5b4fc 0%, #7dd3fc 35%, #5eead4 60%, #a5b4fc 100%) 0 50% / 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent !important; -webkit-text-fill-color: transparent;
+  animation: t-shine 7s linear infinite;
+}
+html .p2 .p2-hero h1 { font-size: clamp(2.9rem, 6vw, 5.1rem) !important; }
+/* serif accent word on light headings: indigo to violet */
+html .p2 .p2-head h2 em, html .p2 .p2-split--head h2 em {
+  background: linear-gradient(100deg, #4f46e5, #7c3aed 60%, #0ea5e9); -webkit-background-clip: text; background-clip: text;
+  color: transparent !important; -webkit-text-fill-color: transparent; padding-right: .06em;
+}
+html .p2 .p2-why h2 em, html .p2 .p2-cta h2 em, html .p2 .p2-intro h1 em, html .p2 .p2-rc h2 em {
+  background: linear-gradient(100deg, #a5b4fc, #7dd3fc 55%, #5eead4); -webkit-background-clip: text; background-clip: text;
+  color: transparent !important; -webkit-text-fill-color: transparent;
+}
+
+/* "available" pill */
+html .p2 .t-avail {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; padding: 7px 14px 7px 12px;
+  font-family: var(--t-mono); font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .86); background: rgba(255, 255, 255, .06); border: 1px solid rgba(var(--acc-d), .28);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+html .p2 .t-avail i { width: 8px; height: 8px; border-radius: 50%; background: #34d399; animation: t-pulse 1.8s ease-out infinite; }
+
+/* portrait: light edge and an indigo halo */
+html .p2 .p2-hero__shot { border-color: rgba(var(--acc-d), .45) !important; box-shadow: 0 0 0 1px rgba(var(--acc-d), .18), 0 40px 90px -30px rgba(var(--acc), .75) !important; }
+html .p2 .p2-hero__cards { box-shadow: 0 40px 90px -40px rgba(var(--acc), .6); }
+
+/* gradient buttons: the main action in every dark band, and the header button */
+html .p2 .p2-hero .p2-btn:not(.p2-btn--line), html .p2 .p2-cta .p2-btn, html .p2 .p2-intro .p2-btn:not(.p2-btn--line), html .p2 .p2-about__in .p2-btn,
+html .p2 .p2-why .p2-btn:not(.p2-btn--line), html .p2 .p2-price--dark .p2-price__cta, html .p2 .p2-hdr__cta > a:not(.p2-hdr__arrow) {
+  color: #fff !important; border-color: transparent !important;
+  background: linear-gradient(100deg, #4f46e5 0%, #7c3aed 50%, #4f46e5 100%) 0 50% / 200% 100% !important;
+  box-shadow: 0 12px 30px -10px rgba(var(--acc), .75), inset 0 1px 0 rgba(255, 255, 255, .25) !important;
+  transition: background-position .6s var(--t-ease), transform .25s var(--t-ease), box-shadow .3s !important;
+}
+html .p2 .p2-hero .p2-btn:not(.p2-btn--line):hover, html .p2 .p2-cta .p2-btn:hover, html .p2 .p2-intro .p2-btn:not(.p2-btn--line):hover, html .p2 .p2-about__in .p2-btn:hover,
+html .p2 .p2-why .p2-btn:not(.p2-btn--line):hover, html .p2 .p2-price--dark .p2-price__cta:hover, html .p2 .p2-hdr__cta > a:not(.p2-hdr__arrow):hover {
+  color: #fff !important; background-position: 100% 50% !important; transform: translateY(-2px);
+  box-shadow: 0 18px 40px -10px rgba(var(--acc), .85), inset 0 1px 0 rgba(255, 255, 255, .3) !important;
+}
+html .p2 .p2-btn:hover, html .p2 .p2-price__cta:hover, html .p2 .p2-form__go:hover {
+  background: linear-gradient(100deg, #4f46e5, #7c3aed) !important; border-color: transparent !important;
+}
+html .p2 .p2-btn--line:hover { background: transparent !important; }
+
+@media (max-width: 680px) { html .p2 .p2-hero h1 { font-size: clamp(2.25rem, 10vw, 2.9rem) !important; } html .p2 .t-avail { margin-bottom: 16px; font-size: .6875rem; } }
+@media (prefers-reduced-motion: reduce) {
+  html .p2 .p2-hero::after, html .p2 .p2-cta::after, html .p2 .p2-intro::after, html .p2 .t-grad, html .p2 .p2-hero__proof b,
+  html .p2 .p2-why__stat b, html .p2 .p2-why__stat strong, html .p2 .t-avail i { animation: none !important; }
+}
+html .p2 .t-avail { width: -moz-fit-content; width: fit-content; max-width: 100%; align-self: flex-start; justify-self: start; }
+
+/* ══ Professional pass (2026-11-17, v3) ══
+   One accent colour, used flat. No rainbow gradients, no shimmer, no
+   moving glow: solid buttons, solid accent words, one soft static glow
+   in the dark bands. The palette lives in the PALETTE block at the top. */
+html .p2 .t-svc-rows--home .t-svc-row, html .p2 .t-svc-rows--home .t-svc-row--ai,
+html .p2 .t-svc-rows--home .t-svc-row--automation, html .p2 .t-svc-rows--home .t-svc-row--management { --svc: var(--acc-d); }
+html .p2 .p2-hero::after, html .p2 .p2-cta::after, html .p2 .p2-intro::after { display: none !important; animation: none !important; }
+html .p2 .t-grad, html .p2 .p2-hero__proof b, html .p2 .p2-hero__proof strong,
+html .p2 .p2-why__stat strong, html .p2 .p2-why__stat b, html .p2 .p2-why__stat span:first-child {
+  background: none !important; -webkit-background-clip: border-box; background-clip: border-box; animation: none !important;
+  color: var(--t-rose) !important; -webkit-text-fill-color: currentColor;
+}
+html .p2 .p2-hero__proof b, html .p2 .p2-hero__proof strong, html .p2 .p2-why__stat strong, html .p2 .p2-why__stat b, html .p2 .p2-why__stat span:first-child { color: #fff !important; }
+html .p2 .p2-head h2 em, html .p2 .p2-split--head h2 em { background: none !important; color: var(--t-brand) !important; -webkit-text-fill-color: currentColor; }
+html .p2 .p2-why h2 em, html .p2 .p2-cta h2 em, html .p2 .p2-intro h1 em, html .p2 .p2-rc h2 em { background: none !important; color: var(--t-rose) !important; -webkit-text-fill-color: currentColor; }
+html .p2 .p2-hero .p2-btn:not(.p2-btn--line), html .p2 .p2-cta .p2-btn, html .p2 .p2-intro .p2-btn:not(.p2-btn--line), html .p2 .p2-about__in .p2-btn,
+html .p2 .p2-why .p2-btn:not(.p2-btn--line), html .p2 .p2-price--dark .p2-price__cta {
+  color: var(--t-ink) !important; background: #fff !important; border-color: #fff !important; box-shadow: none !important;
+}
+html .p2 .p2-hero .p2-btn:not(.p2-btn--line):hover, html .p2 .p2-cta .p2-btn:hover, html .p2 .p2-intro .p2-btn:not(.p2-btn--line):hover, html .p2 .p2-about__in .p2-btn:hover,
+html .p2 .p2-why .p2-btn:not(.p2-btn--line):hover, html .p2 .p2-price--dark .p2-price__cta:hover {
+  color: var(--t-ink) !important; background: var(--t-rose) !important; border-color: var(--t-rose) !important; box-shadow: none !important;
+}
+html .p2 .p2-hdr__cta > a:not(.p2-hdr__arrow) { color: #fff !important; background: var(--t-brand) !important; border-color: var(--t-brand) !important; box-shadow: none !important; }
+html .p2 .p2-hdr__cta > a:not(.p2-hdr__arrow):hover { background: var(--t-brand-2) !important; border-color: var(--t-brand-2) !important; box-shadow: none !important; }
+html .p2 .p2-btn:hover, html .p2 .p2-price__cta:hover, html .p2 .p2-form__go:hover { background: var(--t-brand) !important; border-color: var(--t-brand) !important; box-shadow: none !important; }
+html .p2 .p2-btn--line:hover { background: transparent !important; }
+html .p2 .p2-hero__shot { box-shadow: none !important; border-color: rgba(255, 255, 255, .16) !important; }
+html .p2 .p2-hero__cards { box-shadow: none; }
+html .p2 .p2-price--dark { box-shadow: 0 24px 48px -30px rgba(var(--acc), .5) !important; }
+
+/* ══ Type system (2026-11-17, v4): one scale, every page ══
+   Sizes   12 labels · 13/14 captions · 15 buttons and nav · 16 body ·
+           18 intro text and small titles · 20 card titles · 24 feature
+           titles · 44 section headings · 56 page titles · 64 home headline.
+   Headings are a step smaller than before with looser tracking, wrap in
+   balanced lines and stay inside their column. Body lines stop at about
+   70 characters. Spacing follows the smaller headings. */
+html, html .p2 { --p2-sec-y: 120px; --p2-head-gap: 56px; }
+@media (max-width: 1000px) { html, html .p2 { --p2-sec-y: 88px; --p2-head-gap: 40px; } }
+@media (max-width: 680px)  { html, html .p2 { --p2-sec-y: 64px; --p2-head-gap: 28px; } }
+
+html .p2 { font-size: 16px; line-height: 1.65; letter-spacing: 0; }
+html .p2 h1, html .p2 h2, html .p2 h3, html .p2 h4 { text-wrap: balance; overflow-wrap: break-word; }
+html .p2 h1, html .p2 .p2-intro h1 { font-size: clamp(2.25rem, 4vw, 3.5rem) !important; line-height: 1.08 !important; letter-spacing: -.032em !important; font-weight: 600 !important; }
+html .p2 .p2-hero h1 { font-size: clamp(2.5rem, 4.6vw, 4rem) !important; line-height: 1.06 !important; letter-spacing: -.035em !important; max-width: 13ch; }
+html .p2 h2 { font-size: clamp(1.875rem, 3.1vw, 2.75rem) !important; line-height: 1.12 !important; letter-spacing: -.028em !important; font-weight: 600 !important; }
+html .p2 h3 { font-size: 1.25rem !important; line-height: 1.3 !important; letter-spacing: -.015em !important; }
+html .p2 h4 { font-size: 1.125rem !important; line-height: 1.35 !important; letter-spacing: -.01em !important; }
+html .p2 h1 em, html .p2 h2 em { letter-spacing: -.01em; }
+html .p2 .p2-intro h1 { max-width: 20ch; margin-inline: auto; }
+
+/* feature titles inside cards */
+html .p2 .t-svc-row h2, html .p2 .t-svc-rows--home .t-svc-row h2 { font-size: 1.5rem !important; line-height: 1.2 !important; letter-spacing: -.022em !important; }
+html .p2 .p2-sub, html .p2 .p2-tools--cv > h3, html .p2 .p2-tools--cv h3 { font-size: 1.5rem !important; letter-spacing: -.022em !important; }
+html .p2 .p2-pc__txt h3, html .p2 .p2-earlier h3 { font-size: 1.25rem !important; }
+html .p2 .p2-tools--cv b { font-size: 1.125rem; letter-spacing: -.01em; }
+
+/* intro text: 18px, a comfortable measure */
+html .p2 .p2-lede, html .p2 .p2-head p, html .p2 .p2-intro p, html .p2 .p2-hero__l > p {
+  font-size: 1.125rem !important; line-height: 1.65 !important; max-width: 60ch;
+}
+html .p2 .p2-intro p { margin-inline: auto; }
+@media (max-width: 680px) {
+  html .p2 .p2-lede, html .p2 .p2-head p, html .p2 .p2-intro p, html .p2 .p2-hero__l > p { font-size: 1rem !important; }
+  html .p2 .p2-hero h1 { font-size: clamp(2.125rem, 9.2vw, 2.5rem) !important; max-width: none; }
+  html .p2 h1, html .p2 .p2-intro h1 { font-size: clamp(2rem, 8.4vw, 2.25rem) !important; }
+  html .p2 h2 { font-size: clamp(1.625rem, 7vw, 1.875rem) !important; }
+}
+
+/* body copy: 16px everywhere it was 15 */
+html .p2 .p2-pc__txt p, html .p2 .t-svc-row__text, html .p2 .t-svc-rows--home .t-svc-row__text, html .p2 .p2-cv__org,
+html .p2 .p2-tools li p, html .p2 .p2-earlier p:not(.p2-earlier__cat), html .p2 .p2-brief li p, html .p2 .p2-faq__a,
+html .p2 .p2-rev__card p, html .p2 .p2-why__cell p, html .p2 .p2-strength p, html .p2 .p2-price li, html .p2 .p2-svc li {
+  font-size: 1rem !important; line-height: 1.6 !important;
+}
+html .p2 .p2-tools--cv li li, html .p2 .p2-tools li li { font-size: 1rem; line-height: 1.6; max-width: 72ch; }
+html .p2 .p2-pc__txt p, html .p2 .p2-cv__org { font-size: .875rem !important; }      /* one-line captions under a title */
+html .p2 .t-svc-row__ticks li { font-size: .9375rem; }
+html .p2 .p2-price-note { max-width: 78ch; font-size: .875rem; line-height: 1.6; }
+html .p2 p { max-width: 72ch; }
+html .p2 .p2-rev__hero p, html .p2 .p2-rev__card p, html .p2 .t-svc-row__text, html .p2 .p2-price-note { max-width: none; }
+html .p2 .p2-price-note { max-width: 78ch; }
+
+/* small labels: never under 12px */
+html .p2 .p2-card__k, html .p2 .p2-hero__cards .p2-card__k, html .p2 .p2-reach__k, html .p2 .t-svc-row__sub, html .p2 .p2-earlier__cat,
+html .p2 .t-svc-row__tags li, html .p2 .t-avail, html .p2 .p2-cv__when, html .p2 .p2-price__lbl, html .p2 .p2-badge, html .p2 .p2-badge--lime {
+  font-size: .75rem !important; letter-spacing: .08em !important; line-height: 1.4;
+}
+html .p2 .p2-ticker, html .p2 .p2-ticker * { font-size: .8125rem !important; }
+html .p2 .p2-why__tags > *, html .p2 .p2-why__tags li, html .p2 .p2-why__tags span { font-size: .8125rem !important; }
+
+/* numbers */
+html .p2 .p2-hero__proof b, html .p2 .p2-hero__proof strong { font-size: 2rem !important; letter-spacing: -.03em; }
+html .p2 .p2-hero__proof span { font-size: .875rem; }
+html .p2 .p2-price__fig { font-size: clamp(2rem, 2.8vw, 2.5rem) !important; letter-spacing: -.03em !important; }
+html .p2 .p2-award__fig { font-size: 2.5rem !important; letter-spacing: -.03em !important; }
+
+/* spacing that follows the type */
+html .p2 .p2-head .p2-badge, html .p2 .p2-intro .p2-badge { margin-bottom: 18px; }
+html .p2 .p2-head h2 + p, html .p2 .p2-head h2 + .p2-lede { margin-top: 16px; }
+html .p2 .p2-hero__l > p { margin-top: 22px; }
+html .p2 .p2-hero__proof { margin-top: 30px; }
+html .p2 .p2-hero .p2-acts { margin-top: 30px; }
+html .p2 .p2-pc__txt { gap: 6px; }
+
+/* ══ Fonts (chosen 2026-11-17) ══
+   Space Grotesk for page titles, section headings, big numbers, card
+   titles, names and buttons; DM Sans for body text. Labels stay in
+   Geist Mono and the accent word stays in Instrument Serif. */
+html .p2 {
+  --f-display: var(--f-grotesk), 'Segoe UI', system-ui, sans-serif;
+  --f-title: var(--f-grotesk), 'Segoe UI', system-ui, sans-serif;
+  --t-sans: var(--f-dmsans), 'Segoe UI', system-ui, sans-serif;
+  --f-display-w: 600; --f-title-w: 500; --f-display-ls: -.03em;
+}
+html .p2 h1, html .p2 h2, html .p2 .p2-intro h1, html .p2 .p2-hero h1 {
+  font-family: var(--f-display) !important; font-weight: var(--f-display-w) !important; letter-spacing: var(--f-display-ls) !important;
+}
+html .p2 .p2-hero__proof b, html .p2 .p2-hero__proof strong, html .p2 .p2-why__stat strong, html .p2 .p2-why__stat b,
+html .p2 .p2-why__stat span:first-child, html .p2 .p2-price__fig, html .p2 .p2-award__fig, html .p2 .p2-hero__cards .p2-card--line b {
+  font-family: var(--f-display) !important;
+}
+html .p2 h3, html .p2 h4, html .p2 .t-svc-row h2, html .p2 .t-svc-rows--home .t-svc-row h2, html .p2 .p2-sub,
+html .p2 .p2-tools--cv b, html .p2 .p2-logo__txt b, html .p2 .p2-brief__k, html .p2 .p2-hero__cards .p2-card b, html .p2 .p2-reach__txt b, html .p2 .p2-reach__txt a {
+  font-family: var(--f-title) !important; font-weight: var(--f-title-w) !important;
+}
+html .p2 .p2-btn, html .p2 .p2-price__cta, html .p2 .p2-form__go, html .p2 .p2-hdr__cta > a, html .p2 .p2-nav a, html .p2 .t-svc-row__more { font-family: var(--f-title) !important; }
+html .p2 h1 em, html .p2 h2 em { font-family: var(--p2-serif) !important; font-weight: 400 !important; }
+
+/* Service thumbnails take the site's colours: the dark set is drawn on pure
+   black and screened onto the card, the light set on pure white and
+   multiplied onto the column. */
+html .p2 .t-svc-rows--home .t-svc-row__media img { mix-blend-mode: screen; }
+html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row__media { background: linear-gradient(135deg, var(--t-bg) 0%, var(--t-subtle) 100%); }
+html .p2 .t-svc-rows:not(.t-svc-rows--home) .t-svc-row__media img { mix-blend-mode: multiply; }
+
+/* ══ Split page banner (About), 2026-11-17 ══
+   Copy on the left with a row of three figures under the button; on the
+   right the photo at a size it stays sharp at, in a thin frame with an
+   emerald corner, and a caption bar that says what the photo shows. */
+html .p2 .p2-intro--split {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; gap: 72px;
+  text-align: left; padding-block: 96px;
+}
+html .p2 .p2-intro--split .p2-intro__copy { align-items: flex-start; text-align: left; }
+html .p2 .p2-intro--split h1 { max-width: 12ch; margin-inline: 0; }
+html .p2 .p2-intro--split p { max-width: 44ch; margin-inline: 0; }
+html .p2 .p2-intro--split .p2-btn { margin-top: 30px; }
+html .p2 .p2-intro__facts {
+  list-style: none; margin: 40px 0 0; padding: 26px 0 0; width: 100%; max-width: 520px;
+  display: grid; grid-template-columns: auto auto 1fr; gap: 0 36px; border-top: 1px solid rgba(255, 255, 255, .14);
+}
+html .p2 .p2-intro__facts li { display: grid; gap: 4px; }
+html .p2 .p2-intro__facts b { font-family: var(--f-display); font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; color: #fff; }
+html .p2 .p2-intro__facts li:last-child b { color: var(--t-rose); }
+html .p2 .p2-intro__facts span { font-size: .8125rem; line-height: 1.4; color: rgba(255, 255, 255, .66); }
+
+html .p2 .p2-intro__fig { position: relative; margin: 0; justify-self: end; width: 100%; max-width: 520px; }
+html .p2 .p2-intro__fig::before {
+  content: ''; position: absolute; right: -14px; top: -14px; width: 96px; height: 96px; z-index: -1;
+  border-top: 2px solid var(--t-rose); border-right: 2px solid var(--t-rose);
+}
+html .p2 .p2-intro__photo {
+  margin: 0 !important; aspect-ratio: 3 / 2; overflow: hidden; background: var(--t-dark-2);
+  border: 1px solid rgba(255, 255, 255, .16) !important; box-shadow: 0 40px 70px -40px rgba(0, 0, 0, .8) !important;
+}
+html .p2 .p2-intro__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+html .p2 .p2-intro__fig figcaption {
+  display: flex; align-items: baseline; gap: 14px; padding: 14px 18px; background: var(--t-dark-2);
+  border: 1px solid rgba(255, 255, 255, .16); border-top: 0;
+}
+html .p2 .p2-intro__fig figcaption b { font-family: var(--f-title); font-size: .9375rem; font-weight: 600; color: var(--t-rose); white-space: nowrap; }
+html .p2 .p2-intro__fig figcaption span { font-size: .8125rem; line-height: 1.45; color: rgba(255, 255, 255, .72); }
+
+@media (max-width: 1000px) {
+  html .p2 .p2-intro--split { grid-template-columns: 1fr; gap: 44px; padding-block: 64px; }
+  html .p2 .p2-intro--split h1 { max-width: 16ch; }
+  html .p2 .p2-intro__fig { justify-self: start; order: 2; }
+  html .p2 .p2-intro--split .p2-intro__photo { order: 0; width: 100%; }
+}
+@media (max-width: 680px) {
+  html .p2 .p2-intro--split { gap: 32px; padding-block: 44px 52px; }
+  html .p2 .p2-intro__facts { margin-top: 30px; padding-top: 20px; gap: 0 22px; }
+  html .p2 .p2-intro__facts b { font-size: 1.25rem; }
+  html .p2 .p2-intro__fig::before { right: -8px; top: -8px; width: 64px; height: 64px; }
+  html .p2 .p2-intro__fig figcaption { flex-direction: column; gap: 2px; padding: 12px 14px; }
+}

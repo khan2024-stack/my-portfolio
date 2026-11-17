@@ -11,10 +11,13 @@ import zushap from "@/assets/builds/zushap.jpg";
 import zushapWide from "@/assets/builds/zushap-wide.jpg";
 import zushapFeed from "@/assets/builds/zushap-feed.jpg";
 import zushapStory from "@/assets/builds/zushap-story.jpg";
-import vinwear from "@/assets/builds/vinwear.jpg";
-import vinwearWide from "@/assets/builds/vinwear-wide.jpg";
-import vinwearFeed from "@/assets/builds/vinwear-feed.jpg";
-import vinwearStory from "@/assets/builds/vinwear-story.jpg";
+import nexr from "@/assets/builds/nexr.jpg";
+import nexrWide from "@/assets/builds/nexr-wide.jpg";
+import nexrFeed from "@/assets/builds/nexr-feed.jpg";
+import nexrStory from "@/assets/builds/nexr-story.jpg";
+import nexrMLaptop from "@/assets/builds/nexr-m-laptop.jpg";
+import nexrMTablet from "@/assets/builds/nexr-m-tablet.jpg";
+import nexrMPhone from "@/assets/builds/nexr-m-phone.jpg";
 import sara from "@/assets/builds/sara.jpg";
 import saraAdminLaptop from "@/assets/builds/sara-admin-laptop.jpg";
 import saraAdminWide from "@/assets/builds/sara-admin-wide.jpg";
@@ -36,9 +39,6 @@ import uktopStory from "@/assets/builds/uktop-story.jpg";
 import zushapMLaptop from "@/assets/builds/zushap-m-laptop.jpg";
 import zushapMTablet from "@/assets/builds/zushap-m-tablet.jpg";
 import zushapMPhone from "@/assets/builds/zushap-m-phone.jpg";
-import vinwearMLaptop from "@/assets/builds/vinwear-m-laptop.jpg";
-import vinwearMTablet from "@/assets/builds/vinwear-m-tablet.jpg";
-import vinwearMPhone from "@/assets/builds/vinwear-m-phone.jpg";
 import madleenMLaptop from "@/assets/builds/madleen-m-laptop.jpg";
 import madleenMTablet from "@/assets/builds/madleen-m-tablet.jpg";
 import madleenMPhone from "@/assets/builds/madleen-m-phone.jpg";
@@ -52,13 +52,6 @@ import zushapFlow3 from "@/assets/builds/flow/zushap-step3.jpg";
 import zushapFlow4 from "@/assets/builds/flow/zushap-step4.jpg";
 import zushapFlow5 from "@/assets/builds/flow/zushap-step5.jpg";
 import zushapFlow6 from "@/assets/builds/flow/zushap-step6.jpg";
-import vinwearFlowOverview from "@/assets/builds/flow/vinwear-overview.jpg";
-import vinwearFlow1 from "@/assets/builds/flow/vinwear-step1.jpg";
-import vinwearFlow2 from "@/assets/builds/flow/vinwear-step2.jpg";
-import vinwearFlow3 from "@/assets/builds/flow/vinwear-step3.jpg";
-import vinwearFlow4 from "@/assets/builds/flow/vinwear-step4.jpg";
-import vinwearFlow5 from "@/assets/builds/flow/vinwear-step5.jpg";
-import vinwearFlow6 from "@/assets/builds/flow/vinwear-step6.jpg";
 import madleenFlowOverview from "@/assets/builds/flow/madleen-overview.jpg";
 import madleenFlow1 from "@/assets/builds/flow/madleen-step1.jpg";
 import madleenFlow2 from "@/assets/builds/flow/madleen-step2.jpg";
@@ -159,41 +152,39 @@ export const projectPages: ProjectPage[] = [
     },
   },
   {
-    slug: "vinwear",
-    name: "VIN Wear",
-    label: "In progress for a US client",
-    line: "One idea. Every page.",
+    /* Nexr replaces VIN Wear in this slot (owner, 2026-11-15). Text from copy_review/nexr.json. */
+    slug: "nexr",
+    name: "Nexr",
+    label: "Fashion store, Pakistan",
+    line: "Your fashion brand, online in days.",
     summary:
-      "A car-culture clothing store that carries one idea through every page: every garment has its own registration number, with a Certificate of Registration card and a write-your-own VIN box on the product page, and layouts for desktop, tablet and phone.",
+      "A complete fashion store that looks like the big brands: a size guide on every product, cash on delivery, standard or express delivery and coupons in the cart, with layouts for desktop, tablet and phone. We build it for you, you pay once, and it is ready in days.",
     features: [
-      "Live search suggestions as you type",
-      "Category pages with a filter panel",
-      "Colour, garment and size pickers, with size advice",
-      "Certificate of Registration card on the product page",
-      "Write-your-own VIN box",
-      "Pinned Add to cart bar with the full price",
-      "Add to cart with mini-cart",
-      "Checkout with validation and delivery choice",
-      "Order success page after checkout",
+      "Full-width banner carousel and category circles",
+      "Category pages with chips, sort and filter",
+      "Product page with size choice and size guide",
+      "Slide-in mini-cart",
+      "Cart with coupon code and delivery dates",
+      "Checkout with standard or express delivery and cash on delivery",
       "Layouts for desktop, tablet and phone",
     ],
     details: [
-      { label: "In this build", value: "Product pages, live search, filters, cart, checkout and order success page." },
-      { label: "Tech", value: "Medusa backend. Next.js storefront. Postgres." },
+      { label: "What's included", value: STORE_INCLUDED },
+      { label: "Tech", value: "Medusa backend and admin. Next.js storefront." },
     ],
-    status: { headline: "Site in progress", sub: "Being built for a client in the US." },
-    images: { hero: vinwear, wide: vinwearWide, feed: vinwearFeed, story: vinwearStory },
-    screens: [vinwearMLaptop, vinwearMTablet, vinwearMPhone],
-    flow: { overview: vinwearFlowOverview, steps: [vinwearFlow1, vinwearFlow2, vinwearFlow3, vinwearFlow4, vinwearFlow5, vinwearFlow6], reel: "/flow/vinwear-flow.mp4", poster: "/flow/vinwear-flow.jpg" },
+    price: STORE_PRICE,
+    cta: STORE_CTA,
+    images: { hero: nexr, wide: nexrWide, feed: nexrFeed, story: nexrStory },
+    screens: [nexrMLaptop, nexrMTablet, nexrMPhone],
     colors: {
-      hero: "#12161f",
-      onHero: "#eef0f5",
-      heroAccent: "#8fb2ff",
-      page: "#eef0f5",
-      ink: "#12161f",
-      key: "#1f5bd0",
-      band: "#1f5bd0",
-      onBand: "#ffffff",
+      hero: "#111111",
+      onHero: "#f4f4f2",
+      heroAccent: "#ff8a8f",
+      page: "#f4f4f2",
+      ink: "#111111",
+      key: "#d0141d",
+      band: "#111111",
+      onBand: "#f4f4f2",
     },
   },
   {
@@ -297,7 +288,7 @@ export const projectPages: ProjectPage[] = [
       "Django admin for products",
     ],
     details: [
-      { label: "My role", value: "E-Commerce Development Lead, 2022 to 2025." },
+      { label: "My role", value: "E-Commerce Development Lead, 2023 to 2025." },
       { label: "In this build", value: "Storefront, live search, cart and product admin." },
       { label: "Tech", value: "Django REST API. React and Redux storefront. MySQL." },
     ],
@@ -334,7 +325,7 @@ export const projectPages: ProjectPage[] = [
     ],
     details: [
       { label: "In this build", value: "Home, projects, case studies, systems, about and contact pages." },
-      { label: "Tech", value: "Next.js 16. Content kept in static files." },
+      { label: "Tech", value: "Next.js. Content kept in static files." },
     ],
     price: { headline: "Custom business websites.", sub: "Tell us what you need." },
     site: { label: "Visit site", href: "https://www.uktop.eu" },

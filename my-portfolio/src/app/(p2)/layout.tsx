@@ -1,15 +1,19 @@
 // app/(p2)/layout.tsx — root layout for the North-template design.
 //
 // Its own root layout, not nested: this design has its own header,
-// footer and card language (hairline black borders, lime accent,
-// Space Grotesk display face) and would inherit the wrong ground if it
+// footer and card language and would inherit the wrong ground if it
 // sat inside another route group's <body>.
+//
+// 2026-11-15 professional redesign: the same type as the project pages
+// and the selling images (Bricolage Grotesque headings, Instrument Serif
+// italic accents, Inter body) on warm paper with oxblood and soft rose.
+// The earlier lime look is saved as git tag `design-lime-green-classic`.
 //
 // Reference: templatekit.kitprostudio.com/north — read from computed
 // styles on the live page, not the screenshot. Every number in p2.css
 // says where it came from.
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Bricolage_Grotesque, DM_Sans, Geist, Geist_Mono, Instrument_Serif, Inter, Space_Grotesk } from "next/font/google";
 
 import { SITE_URL } from "@/app/portfolio-content/site-url";
 import { identity, socials } from "@/app/portfolio-content/site-content";
@@ -19,15 +23,29 @@ import WhatsAppFab from "./_parts/WhatsAppFab";
 import TabBar from "./_parts/TabBar";
 import "../globals.css";
 import "./p2.css";
+import "./theme-pro.css";   // the pro design system (2026-11-15); remove this line to go back
+import "./theme-pop.css";   // colour, type and spacing lift (2026-11-17); remove this line to go back
 
 /* Their pair, confirmed on the rendered page: Space Grotesk carries
    every heading at weight 500 (medium, not bold — the H1 computed
    font-weight: 500 at 64px), Inter carries body copy and the nav at
    16px weight 600. */
-const p2Display = Space_Grotesk({
+const p2Display = Bricolage_Grotesque({
   variable: "--p2-display",
   subsets: ["latin"],
   weight: ["500", "700"],
+  display: "swap",
+});
+const tGeist = Geist({ variable: "--t-geist", subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap" });
+/* The site fonts (chosen 2026-11-17): Space Grotesk for headings and titles, DM Sans for text. */
+const fGrotesk = Space_Grotesk({ variable: "--f-grotesk", subsets: ["latin"], weight: ["500", "600"], display: "swap" });
+const fDmSans = DM_Sans({ variable: "--f-dmsans", subsets: ["latin"], weight: ["400", "500", "600"], display: "swap" });
+const tGeistMono = Geist_Mono({ variable: "--t-geist-mono", subsets: ["latin"], weight: ["400", "500"], display: "swap" });
+const p2Serif = Instrument_Serif({
+  variable: "--p2-serif-face",
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
   display: "swap",
 });
 const p2Body = Inter({
@@ -39,7 +57,7 @@ const p2Body = Inter({
 
 /* Tints the phone browser's address bar to match the header. */
 export const viewport: Viewport = {
-  themeColor: "#f5f3ec",
+  themeColor: "#f7f7f4",
   width: "device-width",
   initialScale: 1,
 };
@@ -96,7 +114,7 @@ export default function P2RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`p2-root ${p2Display.variable} ${p2Body.variable}`}>
+      <body className={`p2-root ${p2Display.variable} ${p2Serif.variable} ${p2Body.variable} ${tGeist.variable} ${tGeistMono.variable} ${fGrotesk.variable} ${fDmSans.variable}`}>
         <a className="p2-skip" href="#main">
           Skip to content
         </a>

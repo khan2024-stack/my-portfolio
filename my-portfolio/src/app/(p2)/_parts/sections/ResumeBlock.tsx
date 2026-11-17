@@ -1,4 +1,5 @@
 import {
+  awards,
   education,
   experience,
 } from "@/app/portfolio-content/site-content";
@@ -35,6 +36,19 @@ export function ResumeBlock() {
               <span className="p2-cv__when">{e.period}</span>
               <b>{e.title}</b>
               <p className="p2-cv__org">{e.org}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <h3 className="p2-sub">Awards</h3>
+      <ul className="p2-tools p2-tools--cv">
+        {awards.map((a) => (
+          <li key={a.title}>
+            <span className="p2-tools__mark" aria-hidden="true" />
+            <div>
+              <b>{a.title}</b>
+              <p className="p2-cv__org">{a.detail}</p>
             </div>
           </li>
         ))}

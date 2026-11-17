@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { sortedPosts } from "@/app/portfolio-content/posts";
 import PageIntro from "../_parts/PageIntro";
+import SectionHead from "../_parts/SectionHead";
+import WorkShowcase from "../_parts/WorkShowcase";
 
 const all = sortedPosts();
 
@@ -31,11 +33,17 @@ export default function Blog() {
       />
       <section className="p2-sec">
         {all.length === 0 ? (
-          <p className="p2-lede">
-            The first posts are on their way. Meanwhile, the{" "}
-            <Link href="/work/sara">Sara project page</Link> is the best
-            write-up of how I work.
-          </p>
+          <>
+            {/* No posts yet: the build write-ups stand in, so the page is never empty (2026-11-15). */}
+            <div className="p2-split p2-split--head">
+              <SectionHead eyebrow="Build write-ups" title="Read how each one was built" />
+              <p className="p2-lede">
+                The first posts are on their way. Until then, every project page
+                walks through what was built, on every screen.
+              </p>
+            </div>
+            <WorkShowcase />
+          </>
         ) : (
           <ul className="p2-posts">
             {all.map((p) => (

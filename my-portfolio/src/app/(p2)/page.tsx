@@ -11,7 +11,7 @@ import {
   Hero,
   PricingBlock,
   ReviewsBlock,
-  ServicesGrid,
+  ServiceRows,
   WhyChooseBlock,
 } from "./_parts/Sections";
 import WorkShowcase from "./_parts/WorkShowcase";
@@ -82,7 +82,7 @@ export default function Portfolio2() {
             </Link>
           </div>
         </div>
-        <ServicesGrid />
+        <ServiceRows home />   {/* the same compact cards as the Services page (2026-11-15) */}
       </section>
 
       {/* ── Why choose ──

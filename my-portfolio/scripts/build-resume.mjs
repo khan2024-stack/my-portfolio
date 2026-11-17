@@ -29,7 +29,7 @@ code = code
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "resume-"));
 const tmpData = path.join(tmp, "site-content.mts");
 fs.writeFileSync(tmpData, code);
-const { identity, about, experience, education, skills, contact, socials } = await import(pathToFileURL(tmpData).href);
+const { identity, about, experience, education, awards, skills, contact, socials } = await import(pathToFileURL(tmpData).href);
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 /* The site marks emphasis with <em>; keep it as bold in print. */
@@ -85,6 +85,8 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 ${experience.map(job).join("")}
 <h2>Education</h2>
 ${education.map(job).join("")}
+<h2>Awards</h2>
+<ul>${awards.map((a) => `<li><b>${esc(a.title)}</b> — ${esc(a.detail)}</li>`).join("")}</ul>
 </body></html>`;
 
 const htmlFile = path.join(tmp, "resume.html");

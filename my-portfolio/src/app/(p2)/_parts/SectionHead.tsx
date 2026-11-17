@@ -12,6 +12,21 @@ import Reveal from "./Reveal";
  * here is what gives the reference's scroll-in-on-view heading the
  * same treatment everywhere at once, rather than one-off per page.
  */
+/* The last word of every section heading is set in the serif accent
+   (the same device as "Four disciplines, one person"). */
+function accentLast(title: string) {
+  const i = title.trimEnd().lastIndexOf(" ");
+  /* Not for one- or two-word titles: a name such as "Muhammad Sajjad"
+     must stay plain. */
+  if (i < 0 || title.trim().split(/\s+/).length < 3) return title;
+  return (
+    <>
+      {title.slice(0, i + 1)}
+      <em>{title.slice(i + 1)}</em>
+    </>
+  );
+}
+
 export default function SectionHead({
   eyebrow,
   title,
@@ -32,7 +47,7 @@ export default function SectionHead({
         <span className="p2-badge__dot" aria-hidden="true" />
         {eyebrow}
       </span>
-      <h2>{title}</h2>
+      <h2>{accentLast(title)}</h2>
       {lede ? <p>{lede}</p> : null}
     </Reveal>
   );

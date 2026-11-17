@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import exhibition from "@/assets/exhibition-2019.jpg";
+import { stats } from "@/app/portfolio-content/site-content";
 import PageIntro from "../_parts/PageIntro";
 import Ticker from "../_parts/Ticker";
 import {
@@ -39,7 +40,15 @@ export default function P2About() {
         image={{
           src: exhibition,
           alt: "Certificate presentation at a project exhibition, 12 November 2019",
+          label: "1st position",
+          caption: "University of Qurtuba project exhibition · 12 November 2019",
         }}
+        /* The same figures the home page shows, from `stats`. */
+        facts={[
+          { value: `${stats[0]!.value}${stats[0]!.unit}`, label: stats[0]!.label },
+          { value: `${stats[1]!.value}${stats[1]!.unit}`, label: stats[1]!.label },
+          { value: "Gold medalist", label: "Master’s in Computer Science" },
+        ]}
       />
       <Ticker items={ticker} />
 

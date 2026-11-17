@@ -6,7 +6,7 @@ export const WHY_ICONS = [FiServer, FiLayout, FiMic, FiTerminal];
    discipline delivers before the tool names. Same order as `skills`. */
 export const WHY_NOTES = [
   "Python and Node.js APIs, PostgreSQL and MySQL data, and auth that hold up under real traffic.",
-  "Typed, fast interfaces, built from the design file to deploy.",
+  "Fully custom interfaces in hand-written HTML and CSS or React, built from the design file to deploy.",
   "Voice and chat agents that handle phone calls in two languages.",
   "Containers, CI/CD and cloud hosting, with zero-downtime releases.",
 ];

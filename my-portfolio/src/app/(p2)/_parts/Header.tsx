@@ -120,13 +120,6 @@ export default function P2Header() {
 
         <div className="p2-hdr__cta">
           <Link href="/contact">Let&rsquo;s talk</Link>
-          <Link
-            className="p2-hdr__arrow"
-            href="/contact"
-            aria-label="Get in touch"
-          >
-            &#8599;
-          </Link>
         </div>
 
         <button

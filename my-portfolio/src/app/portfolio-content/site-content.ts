@@ -483,11 +483,11 @@ type Project = {
    so a card and its page cannot disagree. */
 const cardMeta: Record<string, { category: string; tech: string }> = {
   zushap: { category: "Online store · Our own build", tech: "Medusa · Next.js" },
-  vinwear: { category: "Site in progress · US client", tech: "Medusa · Next.js" },
+  nexr: { category: "Fashion store · Pakistan", tech: "Medusa · Next.js" },
   sara: { category: "AI voice agent · English and Gulf Arabic", tech: "FastAPI · Gemini · Deepgram" },
   madleen: { category: "Online fashion store", tech: "Medusa · Next.js" },
   fenzacci: { category: "Custom fashion store · UAE", tech: "Django · React" },
-  uktop: { category: "Business website · UK", tech: "Next.js 16" },
+  uktop: { category: "Business website · UK", tech: "Next.js" },
 };
 
 export const projects: Project[] = projectPages.map((p) => ({
@@ -585,8 +585,8 @@ export const experience = [
     ],
   },
   {
-    period: "2022 — 2025",
-    duration: "Three years",
+    period: "2023 — 2025",
+    duration: "Two years",
     title: "E-Commerce Development Lead",
     org: "Fenzacci Trading L.L.C · United Arab Emirates",
     points: [
@@ -594,6 +594,17 @@ export const experience = [
       "Architected a scalable backend with payment and inventory integrations",
       "Optimised performance — <em>90% faster load times</em>",
       "Implemented CI/CD pipelines, <em>reducing deployment time by 80%</em>",
+    ],
+  },
+  {
+    period: "2022 — 2023",
+    duration: "One year",
+    title: "Full Stack Developer",
+    org: "Madleen · Online fashion store · Remote freelance",
+    points: [
+      "Built <em>Madleen</em>, a marketplace-style online fashion store for dresses, abayas, bags and shoes",
+      "Live search with product pictures, filters by size and offers, and a sliding mini-cart",
+      "Checkout with delivery choice and <em>cash on delivery</em>, with a phone layout from product page to order placed",
     ],
   },
   {
@@ -620,6 +631,13 @@ export const experience = [
       "Full-stack bootcamp graduate",
     ],
   },
+];
+
+/* Shown on the resume page and in the PDF, so they are not buried in
+   the education and internship bullets. */
+export const awards = [
+  { title: "Gold medalist", detail: "First position in class, Master's in Computer Science, Qurtuba University of Science & IT (2020)" },
+  { title: "Award at the final project exhibition", detail: "1st position at the University of Qurtuba project exhibition (2019)" },
 ];
 
 export const education = [
@@ -661,13 +679,13 @@ export const education = [
 
 /* Every item is evidenced by a shipped project or the repos on this
    machine — Duomada alone covers Pydantic, JWT and
-   OAuth on the API side and TypeScript, React 19, Tailwind 4 and Framer
+   OAuth on the API side and TypeScript, React, Tailwind and Framer
    Motion on the storefront. Dropped: "GitHub", "HTML5", "CSS3" — table
    stakes that read junior next to the rest — and "JavaScript", which
    "TypeScript" supersedes. */
 export const skills = [
-  { group: "Backend",     items: ["Python", "Django", "FastAPI", "Node.js", "PostgreSQL", "MySQL", "Pydantic", "JWT · OAuth"] },
-  { group: "Frontend",    items: ["TypeScript", "React 19", "Next.js 15 App Router", "Redux.js", "Tailwind CSS 4", "Framer Motion"] },
+  { group: "Backend",     items: ["Python", "Django", "FastAPI", "Node.js", "PostgreSQL", "MySQL", "Pydantic", "JWT · OAuth", "RAG"] },
+  { group: "Frontend",    items: ["HTML", "CSS", "TypeScript", "React", "Next.js App Router", "Redux", "Tailwind CSS", "Framer Motion"] },
   { group: "AI & Voice",  items: ["Groq · Gemini", "Deepgram STT", "Cartesia · ElevenLabs TTS", "Pinecone", "Twilio", "Redis"] },
   { group: "DevOps",      items: ["Google Cloud Run", "Docker", "Nginx · Gunicorn", "CI/CD pipelines", "DigitalOcean"] },
 ];
@@ -679,7 +697,7 @@ export const about = {
        list: Fenzacci (UAE), Sara (Abu Dhabi), VIN Wear (Shopify). */
     "Full-stack engineer based in Peshawar, <em>in production since 2017</em>. I led e-commerce development for a UAE trading company, built an AI voice agent for inbound sales calls, and automate a US Shopify store from paid order to print-ready draft. Available for freelance projects.",
     "I started in 2017 through the CodeCamp bootcamp and academic work at Qurtuba University, where I took <em>first position</em> at the project exhibition. From 2019 to 2022 I freelanced remotely — <em>fifteen-plus Django and React builds</em>, Stripe and PayPal integrations, and automation that cut client operating costs by about a third.",
-    "From 2022 to 2025 I led e-commerce development at <em>Fenzacci Trading L.L.C in the UAE</em> — a scalable backend with payment and inventory integrations, <em>90% faster page loads</em>, and deployments 80% quicker on CI/CD.",
+    "From 2023 to 2025 I led e-commerce development at <em>Fenzacci Trading L.L.C in the UAE</em> — a scalable backend with payment and inventory integrations, <em>90% faster page loads</em>, and deployments 80% quicker on CI/CD.",
     /* The story used to stop at 2025 and gesture vaguely at "more
        recently AI and voice systems" — while the Work section above it
        led with Sara and two named UK builds. A visitor reading both

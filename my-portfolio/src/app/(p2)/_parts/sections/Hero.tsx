@@ -8,12 +8,31 @@ import {
   stats,
 } from "@/app/portfolio-content/site-content";
 
+/* The key phrase of the tagline gets the gradient ink. If the tagline is
+   ever reworded without it, the heading simply renders plain. */
+const KEY = "AI agents";
+function gradTagline(t: string) {
+  const i = t.indexOf(KEY);
+  if (i < 0) return t;
+  return (
+    <>
+      {t.slice(0, i)}
+      <span className="t-grad">{KEY}</span>
+      {t.slice(i + KEY.length)}
+    </>
+  );
+}
+
 /* ── Hero — home page only ───────────────────────────────────────── */
 export function Hero() {
   return (
     <section className="p2-hero">
       <Reveal as="div" dir="up" className="p2-hero__l">
-        <h1>{identity.tagline}</h1>
+        <span className="t-avail">
+          <i aria-hidden="true" />
+          Available for freelance projects
+        </span>
+        <h1>{gradTagline(identity.tagline)}</h1>
         <p>{identity.intro}</p>
         {/* Solid proof strip: the numbers get their own cells instead of
             hiding inside a sentence. All three come from `stats`, the one
