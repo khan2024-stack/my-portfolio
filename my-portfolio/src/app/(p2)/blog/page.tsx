@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/app/portfolio-content/seo";
 import Link from "next/link";
 import { sortedPosts } from "@/app/portfolio-content/posts";
 import PageIntro from "../_parts/PageIntro";
@@ -8,10 +9,12 @@ import WorkShowcase from "../_parts/WorkShowcase";
 const all = sortedPosts();
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Notes from production: building AI voice agents, Shopify and Printful automation, and Django/React commerce platforms.",
-  alternates: { canonical: "/blog" },
+  ...pageMeta({
+    title: "Blog",
+    description:
+      "Notes from production: building AI voice agents, Shopify and Printful automation, and Django/React commerce platforms.",
+    path: "/blog",
+  }),
   // No posts yet → keep the page out of search results until there are.
   robots: all.length === 0 ? { index: false, follow: true } : undefined,
 };

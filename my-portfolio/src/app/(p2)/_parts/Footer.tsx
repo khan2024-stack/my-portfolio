@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { contact, identity, socials } from "@/app/portfolio-content/site-content";
+import { BRAND } from "@/app/portfolio-content/seo";
 import { P2_NAV } from "./nav";
 
 /** Their footer is the header's palette inverted — black ground, the
@@ -38,7 +39,7 @@ export default function P2Footer() {
 
       <div className="p2-foot__bot">
         <span>
-          &copy; {identity.fullName} · {identity.role}
+          &copy; {identity.fullName} ({BRAND}) · {identity.role} · {identity.location}
         </span>
         <a href={`mailto:${contact.inbox}`}>{contact.inbox}</a>
       </div>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { PERSON_ID, pageMeta } from "@/app/portfolio-content/seo";
+import { SITE_URL } from "@/app/portfolio-content/site-url";
 
 import exhibition from "@/assets/exhibition-2019.jpg";
 import { stats } from "@/app/portfolio-content/site-content";
@@ -12,10 +14,12 @@ import {
 } from "../_parts/Sections";
 
 export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Muhammad Sajjad — full-stack and AI engineer in production since 2017. Gold medalist, A1 in Computer Science; led e-commerce for a UAE company, built a live AI voice agent in Abu Dhabi, automates a US Shopify store.",
-  alternates: { canonical: "/about" },
+  ...pageMeta({
+    title: "About",
+    description:
+      "Muhammad Sajjad — full-stack and AI engineer in production since 2017. Gold medalist, A1 in Computer Science; led e-commerce for a UAE company, built a live AI voice agent in Abu Dhabi, automates a US Shopify store.",
+    path: "/about",
+  }),
 };
 
 const ticker = ["Full-Stack", "Django", "FastAPI", "Node.js", "PostgreSQL", "React", "Next.js", "AI & Voice"];
@@ -30,6 +34,18 @@ const ticker = ["Full-Stack", "Django", "FastAPI", "Node.js", "PostgreSQL", "Rea
 export default function P2About() {
   return (
     <>
+      {/* Marks this page as the profile of the person the site is about. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfilePage",
+            url: `${SITE_URL}/about`,
+            mainEntity: { "@id": PERSON_ID },
+          }),
+        }}
+      />
       <PageIntro
         eyebrow="About"
         title="One engineer, end to end"

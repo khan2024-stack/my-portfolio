@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/app/portfolio-content/seo";
+import { FAQS } from "@/app/portfolio-content/faqs";
 import { contact, sections, services, skills } from "@/app/portfolio-content/site-content";
 import Faq from "../_parts/Faq";
 import ContactLayout from "../_parts/ContactLayout";
@@ -7,10 +9,12 @@ import Ticker from "../_parts/Ticker";
 import { CtaBand } from "../_parts/Sections";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Send a short brief and get back an approach, an honest estimate and a start date. Email, WhatsApp or the form — available for freelance projects.",
-  alternates: { canonical: "/contact" },
+  ...pageMeta({
+    title: "Contact",
+    description:
+      "Send a short brief and get back an approach, an honest estimate and a start date. Email, WhatsApp or the form — available for freelance projects.",
+    path: "/contact",
+  }),
 };
 
 const ticker = [...services.map((s) => s.title), ...skills.map((s) => s.group)];
@@ -29,6 +33,22 @@ const ticker = [...services.map((s) => s.title), ...skills.map((s) => s.group)];
 export default function P2Contact() {
   return (
     <>
+      {/* The questions and answers, in the form search engines and AI
+          assistants read. Same list as the FAQ block below. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQS.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }),
+        }}
+      />
       <PageIntro
         eyebrow="Contact"
         title={sections.contact.title}

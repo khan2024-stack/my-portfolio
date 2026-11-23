@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { sections, services, skills } from "@/app/portfolio-content/site-content";
+import { SITE_TITLE } from "@/app/portfolio-content/seo";
 import GetInTouch from "./_parts/GetInTouch";
 import Recognition from "./_parts/Recognition";
 import SectionHead from "./_parts/SectionHead";
@@ -17,7 +18,7 @@ import {
 import WorkShowcase from "./_parts/WorkShowcase";
 
 export const metadata: Metadata = {
-  title: "Muhammad Sajjad | Full Stack & AI Engineer",
+  title: { absolute: SITE_TITLE },
 };
 
 const ticker = [...services.map((s) => s.title), ...skills.map((s) => s.group)];

@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/app/portfolio-content/seo";
 import { services } from "@/app/portfolio-content/site-content";
 import PageIntro from "../_parts/PageIntro";
 import Ticker from "../_parts/Ticker";
 import { CtaBand, ServiceRows } from "../_parts/Sections";
 
 export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "E-commerce and web platforms, AI and voice systems, automation, and ongoing management and support — scoped and quoted in writing. Django, FastAPI, Node.js, PostgreSQL, React, Next.js, Twilio, Pinecone.",
-  alternates: { canonical: "/services" },
+  ...pageMeta({
+    title: "Services",
+    description:
+      "E-commerce and web platforms, AI and voice systems, automation, and ongoing management and support — scoped and quoted in writing. Django, FastAPI, Node.js, PostgreSQL, React, Next.js, Twilio, Pinecone.",
+    path: "/services",
+  }),
 };
 
 const ticker = services.map((s) => s.title);

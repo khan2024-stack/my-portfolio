@@ -16,7 +16,8 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, DM_Sans, Geist, Geist_Mono, Instrument_Serif, Inter, Space_Grotesk } from "next/font/google";
 
 import { SITE_URL } from "@/app/portfolio-content/site-url";
-import { identity, socials } from "@/app/portfolio-content/site-content";
+import { identity } from "@/app/portfolio-content/site-content";
+import { BRAND, KEYWORDS, SITE_DESCRIPTION, SITE_TITLE, siteJsonLd } from "@/app/portfolio-content/seo";
 import P2Header from "./_parts/Header";
 import P2Footer from "./_parts/Footer";
 import WhatsAppFab from "./_parts/WhatsAppFab";
@@ -63,50 +64,40 @@ export const viewport: Viewport = {
 };
 
 /* This is the site now — the old layout at (site)/ is gone, so the
-   noindex guard that kept the draft design out of search is gone too. */
+   noindex guard that kept the draft design out of search is gone too.
+   Names, spellings and search phrases live in portfolio-content/seo.ts. */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   /* Google Search Console (HTML-tag method; the DNS TXT is the other). */
   verification: { google: "lC0_wE-qi2oeskyu2iV2OMk9Nd68qg-DvlMKtIqOVGU" },
   alternates: { canonical: "/" },
   title: {
-    default: "Muhammad Sajjad | Full Stack & AI Engineer",
-    template: "%s | Muhammad Sajjad",
+    default: SITE_TITLE,
+    template: `%s | ${identity.fullName}`,
   },
-  description:
-    "Full stack and AI engineer in production since 2017 — e-commerce platforms, AI voice agents and automation for clients in the UAE, UK and USA. Django, FastAPI, Node.js, PostgreSQL, React and Next.js. Available for freelance projects.",
+  description: SITE_DESCRIPTION,
+  applicationName: BRAND,
+  keywords: KEYWORDS,
+  authors: [{ name: identity.fullName, url: SITE_URL }],
+  creator: identity.fullName,
+  publisher: identity.fullName,
+  category: "technology",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
   openGraph: {
-    title: "Muhammad Sajjad | Full Stack & AI Engineer",
-    description:
-      "E-commerce, AI voice agents and automation for clients in the UAE, UK and USA. Django, FastAPI, Node.js, PostgreSQL, React and Next.js.",
-    type: "website",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    siteName: `${identity.fullName} · ${BRAND}`,
+    type: "profile",
+    firstName: "Muhammad",
+    lastName: "Sajjad",
+    locale: "en_US",
   },
-};
-
-/* Structured data: tells search engines who this site is about. Built from
-   the same data the pages render, so it cannot drift from them. */
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
-      name: identity.fullName,
-      jobTitle: identity.role,
-      url: SITE_URL,
-      image: `${SITE_URL}/opengraph-image.jpg`,
-      address: { "@type": "PostalAddress", addressLocality: "Peshawar", addressCountry: "PK" },
-      knowsAbout: ["E-commerce", "AI voice agents", "Automation", "Django", "FastAPI", "Node.js", "PostgreSQL", "React", "Next.js", "Shopify"],
-      sameAs: socials.map((s) => s.href),
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: `${identity.fullName} — ${identity.role}`,
-      publisher: { "@id": `${SITE_URL}/#person` },
-    },
-  ],
+  twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION },
 };
 
 export default function P2RootLayout({
@@ -120,7 +111,7 @@ export default function P2RootLayout({
         </a>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
         />
         <div className="p2">
           <P2Header />

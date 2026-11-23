@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/app/portfolio-content/seo";
 import { earlierWork, projects, services, skills } from "@/app/portfolio-content/site-content";
 import Faq from "../_parts/Faq";
 import PageIntro from "../_parts/PageIntro";
@@ -8,10 +9,12 @@ import { CtaBand } from "../_parts/Sections";
 import WorkShowcase from "../_parts/WorkShowcase";
 
 export const metadata: Metadata = {
-  title: "Work",
-  description:
-    "Selected projects: online stores, an AI voice agent and a business website, each with its own page.",
-  alternates: { canonical: "/work" },
+  ...pageMeta({
+    title: "Work",
+    description:
+      "Selected projects: online stores, an AI voice agent and a business website, each with its own page.",
+    path: "/work",
+  }),
 };
 
 const ticker = [...services.map((s) => s.title), ...skills.map((s) => s.group)];

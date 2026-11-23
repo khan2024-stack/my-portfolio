@@ -6,6 +6,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { contact } from "@/app/portfolio-content/site-content";
 import { projectPages } from "@/app/portfolio-content/project-pages";
+import { PERSON_ID, breadcrumbJsonLd, pageMeta } from "@/app/portfolio-content/seo";
+import { SITE_URL } from "@/app/portfolio-content/site-url";
 import "./project-page.css";
 
 /* These pages carry the look of the selling images, not the site's own
@@ -36,11 +38,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = projectPages.find((x) => x.slug === slug);
   if (!p) return {};
-  return {
+  return pageMeta({
     title: `${p.name}: ${p.label}`,
     description: `${p.line} ${p.summary}`,
-    alternates: { canonical: `/work/${p.slug}` },
-  };
+    path: `/work/${p.slug}`,
+    image: p.images.hero, // the project's own picture when the page is shared
+  });
+}
+
+/* Tells search engines what this page is (a piece of work by this person)
+   and where it sits in the site (Home › Work › project). */
+function projectJsonLd(p: (typeof projectPages)[number]) {
+  return [
+    breadcrumbJsonLd([
+      { name: "Work", path: "/work" },
+      { name: p.name, path: `/work/${p.slug}` },
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: `${p.name}: ${p.label}`,
+      headline: p.line,
+      description: p.summary,
+      url: `${SITE_URL}/work/${p.slug}`,
+      image: `${SITE_URL}${p.images.hero.src}`,
+      creator: { "@id": PERSON_ID },
+      author: { "@id": PERSON_ID },
+    },
+  ];
 }
 
 export default async function ProjectPage({ params }: Props) {
@@ -68,6 +93,10 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <article className={`pj ${display.variable} ${serif.variable}`} style={style}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(p)) }}
+      />
       <header className="pj-hero">
         <div className="pj-hero__txt">
           <Link className="pj-back" href="/work">

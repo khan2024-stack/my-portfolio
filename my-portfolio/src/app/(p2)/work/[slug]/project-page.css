@@ -91,7 +91,8 @@
 }
 @media (max-width: 680px) {
   .pj-pair { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .pj-pair .pj-shot:last-child { max-width: 72%; margin-inline: auto; }
+  /* The tall story image used to sit at 72% width, which read as a
+     smaller, unfitted picture next to the others. Full width now. */
   .pj-pair--even { grid-template-columns: minmax(0, 1fr); }
   .pj-screens, .pj-screens--three { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .pj-pair--even .pj-shot:last-child { max-width: none; }

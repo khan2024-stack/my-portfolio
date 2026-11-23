@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/app/portfolio-content/seo";
 import { experience, skills } from "@/app/portfolio-content/site-content";
 import PageIntro from "../_parts/PageIntro";
 import Ticker from "../_parts/Ticker";
 import { CtaBand, ResumeBlock } from "../_parts/Sections";
 
 export const metadata: Metadata = {
-  title: "Resume",
-  description:
-    "Experience and education: AI Voice Systems Engineer, E-Commerce Development Lead, full-stack developer since 2017. Master's in Computer Science, gold medalist.",
-  alternates: { canonical: "/resume" },
+  ...pageMeta({
+    title: "Resume",
+    description:
+      "Experience and education: AI Voice Systems Engineer, E-Commerce Development Lead, full-stack developer since 2017. Master's in Computer Science, gold medalist.",
+    path: "/resume",
+  }),
 };
 
 const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"];

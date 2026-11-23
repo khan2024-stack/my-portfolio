@@ -2,13 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  about,
-  contact,
-  identity,
-  services,
-  skills,
-} from "@/app/portfolio-content/site-content";
+import { contact, identity } from "@/app/portfolio-content/site-content";
+import { FAQS } from "@/app/portfolio-content/faqs";
 import SectionHead from "./SectionHead";
 
 /**
@@ -23,37 +18,6 @@ import SectionHead from "./SectionHead";
  * updates with it. Nothing here asserts anything the site doesn't
  * already say elsewhere.
  */
-const FAQS: { q: string; a: string }[] = [
-  {
-    q: "Where are you based?",
-    a: `${identity.location}. ${
-      contact.details.find((d) => d.label === "Works")?.value ?? ""
-    }.`,
-  },
-  {
-    q: "Are you available for hire?",
-    a: "Yes — I work freelance, remotely, with clients in the UAE, UK and USA. Every project is scoped and quoted in writing before it starts: send a short brief and you’ll get an approach, an honest estimate and a start date.",
-  },
-  {
-    q: "How do we work together?",
-    a: "Remote-first. You send a short brief, I reply with an approach, an honest estimate and a start date, and scope and timeline are agreed before any code is written. Progress is shown in builds you can open, not status reports.",
-  },
-  {
-    q: "What do you build?",
-    a: `${services.map((s) => s.title).join(", ")} — taken end to end, from schema and API design through to the interface a customer actually uses.`,
-  },
-  {
-    q: "What do you work in?",
-    a: skills.map((s) => `${s.group}: ${s.items.join(" · ")}`).join(". ") + ".",
-  },
-  {
-    q: "What languages do you work in?",
-    a:
-      about.facts.find((f) => f.label === "Languages")?.value ??
-      "English, Urdu and Pashto.",
-  },
-];
-
 export default function Faq() {
   /* First row open, as theirs is. */
   const [open, setOpen] = useState(0);

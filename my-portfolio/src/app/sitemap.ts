@@ -19,8 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     pages.push(["/blog", 0.7]);
     posts.forEach((p) => pages.push([`/blog/${p.slug}`, 0.6]));
   }
+  // The date of this build: every deploy tells search engines to look again.
+  const lastModified = new Date();
   return pages.map(([path, priority]) => ({
     url: `${SITE_URL}${path}`,
+    lastModified,
     changeFrequency: "monthly",
     priority,
   }));
